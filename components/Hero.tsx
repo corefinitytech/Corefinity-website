@@ -1,6 +1,9 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { Globe, Cpu, Smartphone, Cloud, ChevronDown } from "lucide-react";
+import Button from "./Button";
 
 const floatingCards = [
   {
@@ -26,17 +29,43 @@ const floatingCards = [
 ];
 
 const companyLogos = [
-  "Company 1",
-  "Company 2",
-  "Company 3",
-  "Company 4",
-  "Company 5",
-  "Company 6",
+  { name: "Air University", image: "/images/air-university.png" },
+  { name: "Bahria University", image: "/images/bahria-university.png" },
+  { name: "Menspoke", image: "/images/menspoke.png" },
+  { name: "Sarhad University", image: "/images/sarhad-university.svg" },
+  { name: "Trillet.ai", image: "/images/trillet-ai.png" },
+  { name: "Microsoft", image: "/images/Microsoft.jpg" },
+  { name: "OpenAI", image: "/images/openAI.jpg" },
 ];
 
 export default function Hero() {
+  const [offset, setOffset] = useState(0);
+  const ITEM_WIDTH = 220; // px
+  const sliderItems = useMemo(() => [...companyLogos, ...companyLogos], []);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setOffset((prev) => (prev + 1) % companyLogos.length);
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <section className="relative min-h-screen pt-24 pb-16 overflow-hidden">
+      <style>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+        .animate-float-1 { animation: float 4s ease-in-out infinite; }
+        .animate-float-2 { animation: float 4.5s ease-in-out infinite 0.1s; }
+        .animate-float-3 { animation: float 5s ease-in-out infinite 0.2s; }
+        .animate-float-4 { animation: float 4.3s ease-in-out infinite 0.15s; }
+      `}</style>
       {/* Background gradient effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-900/10 via-transparent to-transparent" />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
@@ -60,12 +89,8 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-medium rounded-xl hover:from-blue-500 hover:to-blue-400 transition-all duration-300 shadow-lg shadow-blue-500/25">
-                Start Your Project
-              </button>
-              <button className="px-6 py-3 border border-[#1e3a5f] text-white font-medium rounded-xl hover:bg-[#1e3a5f]/50 transition-all duration-300">
-                View Services
-              </button>
+              <Button>Start Your Project</Button>
+              <Button>View Services</Button>
             </div>
           </div>
 
@@ -73,83 +98,21 @@ export default function Hero() {
           <div className="relative h-[500px] hidden lg:block">
             {/* Central Globe/Network Image */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-80 h-80">
-                {/* Globe placeholder with gradient */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/20 via-blue-600/10 to-transparent border border-blue-500/30" />
-                <div className="absolute inset-4 rounded-full bg-gradient-to-br from-blue-600/30 via-blue-700/20 to-transparent border border-blue-400/20" />
-                <div className="absolute inset-8 rounded-full bg-gradient-to-br from-blue-500/40 via-blue-600/30 to-transparent border border-blue-300/20" />
-
-                {/* Network lines */}
-                <svg
-                  className="absolute inset-0 w-full h-full"
-                  viewBox="0 0 320 320"
-                >
-                  <defs>
-                    <linearGradient
-                      id="lineGradient"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="100%"
-                    >
-                      <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6" />
-                      <stop
-                        offset="100%"
-                        stopColor="#1d4ed8"
-                        stopOpacity="0.2"
-                      />
-                    </linearGradient>
-                  </defs>
-                  <circle
-                    cx="160"
-                    cy="160"
-                    r="100"
-                    fill="none"
-                    stroke="url(#lineGradient)"
-                    strokeWidth="1"
-                    strokeDasharray="4 4"
-                  />
-                  <circle
-                    cx="160"
-                    cy="160"
-                    r="70"
-                    fill="none"
-                    stroke="url(#lineGradient)"
-                    strokeWidth="1"
-                    strokeDasharray="4 4"
-                  />
-                  <circle
-                    cx="160"
-                    cy="160"
-                    r="130"
-                    fill="none"
-                    stroke="url(#lineGradient)"
-                    strokeWidth="1"
-                    strokeDasharray="4 4"
-                  />
-                  {/* Network nodes */}
-                  <circle cx="160" cy="60" r="4" fill="#3b82f6" />
-                  <circle cx="260" cy="160" r="4" fill="#3b82f6" />
-                  <circle cx="160" cy="260" r="4" fill="#3b82f6" />
-                  <circle cx="60" cy="160" r="4" fill="#3b82f6" />
-                  <circle cx="220" cy="90" r="3" fill="#60a5fa" />
-                  <circle cx="220" cy="230" r="3" fill="#60a5fa" />
-                  <circle cx="100" cy="230" r="3" fill="#60a5fa" />
-                  <circle cx="100" cy="90" r="3" fill="#60a5fa" />
-                </svg>
-
-                {/* Center glow */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-blue-500/50 blur-xl" />
-                </div>
-              </div>
+              <Image
+                src="/images/globe.svg"
+                alt="Globe"
+                width={400}
+                height={400}
+                className="w-full h-full object-contain"
+                priority
+              />
             </div>
 
             {/* Floating Cards */}
             {floatingCards.map((card, index) => (
               <div
                 key={index}
-                className={`absolute ${card.position} bg-[#0a1628]/90 backdrop-blur-sm border border-[#1e3a5f] rounded-xl p-3 shadow-xl`}
+                className={`absolute ${card.position} bg-[#0a1628]/90 backdrop-blur-sm border border-[#1e3a5f] rounded-xl p-3 shadow-xl animate-float-${index + 1}`}
               >
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
@@ -165,20 +128,36 @@ export default function Hero() {
         </div>
 
         {/* Trusted Companies Section */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-500 text-sm mb-8">
-            Trusted by the best brands around the worlds
+        <div className="mt-14 text-center">
+          <p className="text-gray-400 text-xs tracking-[0.28em] uppercase mb-8">
+            Trusted by teams at the world's leading companies
           </p>
 
-          {/* Company Logos Slider */}
-          <div className="relative overflow-hidden">
-            <div className="flex items-center justify-center gap-12 opacity-50">
-              {companyLogos.map((logo, index) => (
+          <div className="relative max-w-6xl mx-auto overflow-hidden">
+            <div
+              className="relative z-0 flex items-center gap-6 transition-transform duration-300 ease-out"
+              style={{ transform: `translateX(-${offset * ITEM_WIDTH}px)` }}
+            >
+              {sliderItems.map((logo, index) => (
                 <div
-                  key={index}
-                  className="flex items-center justify-center w-24 h-8 bg-gray-700/30 rounded-md"
+                  key={`${logo.name}-${index}`}
+                  style={{ minWidth: ITEM_WIDTH }}
+                  className="inline-flex items-center justify-center px-4 py-2 transition-transform duration-300 ease-out"
                 >
-                  <span className="text-gray-500 text-xs">{logo}</span>
+                  {logo.image ? (
+                    <Image
+                      src={logo.image}
+                      alt={logo.name}
+                      width={160}
+                      height={40}
+                      className="h-10 w-auto object-contain"
+                      priority={false}
+                    />
+                  ) : (
+                    <span className="text-white/80 text-sm font-medium tracking-wide">
+                      {logo.name}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>

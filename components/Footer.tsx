@@ -1,6 +1,7 @@
 import { MapPin, Mail, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "./Button";
 
 const quickLinks = [
   { label: "About Us", href: "#" },
@@ -104,9 +105,7 @@ export default function Footer() {
               {"Let's build something great together."}
             </p>
           </div>
-          <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-medium rounded-xl hover:from-blue-500 hover:to-blue-400 transition-all duration-300 shadow-lg shadow-blue-500/25">
-            Get Started
-          </button>
+          <Button>Get Started</Button>
         </div>
 
         {/* Copyright */}
