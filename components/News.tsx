@@ -1,4 +1,6 @@
 import { Calendar, ArrowRight } from "lucide-react";
+import Button from "./Button";
+import Tag from "./Tag";
 
 const articles = [
   {
@@ -26,9 +28,7 @@ export default function News() {
       <div className="relative max-w-[1400px] mx-auto px-6">
         {/* Section Label */}
         <div className="text-center mb-8">
-          <span className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium">
-            Resources
-          </span>
+          <Tag>Resources</Tag>
         </div>
 
         {/* Section Header */}
@@ -70,10 +70,10 @@ export default function News() {
 
         {/* Browse All Button */}
         <div className="text-center mt-12">
-          <button className="inline-flex items-center gap-2 px-6 py-3 border border-[#1e3a5f] text-white font-medium rounded-xl hover:bg-[#1e3a5f]/50 transition-all duration-300">
+          <Button className="inline-flex items-center gap-2">
             Browse all articles
             <ArrowRight className="w-4 h-4" />
-          </button>
+          </Button>
         </div>
       </div>
     </section>

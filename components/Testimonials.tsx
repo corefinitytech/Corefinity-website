@@ -1,4 +1,5 @@
 import { User } from "lucide-react";
+import Tag from "./Tag";
 
 const testimonials = [
   {
@@ -61,9 +62,7 @@ export default function Testimonials() {
       <div className="relative max-w-[1400px] mx-auto px-6">
         {/* Section Label */}
         <div className="text-center mb-8">
-          <span className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium">
-            Testimonials
-          </span>
+          <Tag>Testimonials</Tag>
         </div>
 
         {/* Section Header */}

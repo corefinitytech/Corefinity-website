@@ -1,30 +1,43 @@
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Layers, Brain, Smartphone, Cloud } from "lucide-react";
+import Image from "next/image";
+import Button from "./Button";
+import Tag from "./Tag";
 
 const projects = [
   {
-    title: "Heading",
-    description: "Description",
-    image: "Fade in Image/Mockup of Project",
-    category: "Web Platform",
-  },
-  {
-    title: "Heading",
-    description: "Description",
-    image: "Fade in Image/Mockup of Project",
+    title: "AI Content Studio",
+    description: "Generate, review, and publish AI-assisted content at scale.",
+    image: "/images/AI-service-image.svg",
     category: "AI Solution",
+    icon: Brain,
   },
   {
-    title: "Heading",
-    description: "Description",
-    image: "Fade in Image/Mockup of Project",
+    title: "Omni-channel Platform",
+    description: "Unified web and mobile experiences with shared design system.",
+    image: "/images/AI-service-image.svg",
+    category: "Web Platform",
+    icon: Layers,
+  },
+  {
+    title: "Field Ops Mobile",
+    description: "Offline-first mobile app for on-site teams and logistics.",
+    image: "/images/AI-service-image.svg",
     category: "Mobile App",
+    icon: Smartphone,
   },
   {
-    title: "Heading",
-    description: "Description",
-    image: "Fade in Image/Mockup of Project",
+    title: "Cloud Control Hub",
+    description: "Observability, alerts, and rollouts in a secure cloud cockpit.",
+    image: "/images/AI-service-image.svg",
     category: "Cloud Solution",
+    icon: Cloud,
   },
+];
+
+// Alternating column widths per row: row 1 (left narrow/right wide), row 2 (left wide/right narrow)
+const widthPatterns = [
+  "lg:grid-cols-[0.9fr_1.1fr]",
+  "lg:grid-cols-[1.1fr_0.9fr]",
 ];
 
 export default function Projects() {
@@ -33,40 +46,70 @@ export default function Projects() {
       <div className="absolute inset-0 bg-[#030712]" />
 
       <div className="relative max-w-[1400px] mx-auto px-6">
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="group relative bg-[#0a1628]/60 border border-[#1e3a5f]/50 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 card-hover"
-            >
-              {/* Project Image Placeholder */}
-              <div className="aspect-video bg-gradient-to-br from-[#1e3a5f]/30 to-[#0a1628] flex items-center justify-center">
-                <span className="text-gray-500 text-sm">{project.image}</span>
-              </div>
-
-              {/* Project Info */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-blue-400 text-xs font-medium">
-                    {project.category}
-                  </span>
-                  <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-blue-400 transition-colors" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-gray-400 text-sm">{project.description}</p>
-              </div>
-            </div>
-          ))}
+        {/* Section Label */}
+        <div className="text-center mb-12">
+          <div className="inline-block">
+            <Tag>OUR WORK</Tag>
+          </div>
         </div>
+
+        {/* Projects Grid with alternating widths per row */}
+        {(() => {
+          const rows: typeof projects[] = [];
+          for (let i = 0; i < projects.length; i += 2) {
+            rows.push(projects.slice(i, i + 2));
+          }
+
+          return rows.map((row, rowIdx) => {
+            const colPattern = widthPatterns[rowIdx % widthPatterns.length];
+            return (
+              <div
+                key={rowIdx}
+                className={`grid grid-cols-1 md:grid-cols-2 ${colPattern} gap-6 mb-6 last:mb-0`}
+              >
+                {row.map((project, index) => (
+                  <div
+                    key={`${rowIdx}-${index}`}
+                    className="group relative bg-[#0a1628]/60 border border-[#1e3a5f]/50 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 card-hover min-h-[420px]"
+                  >
+                    {/* Project Image */}
+                    <div className="relative aspect-[16/10] overflow-hidden bg-[#0a1628]">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 600px, 100vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a1628]" />
+                    </div>
+
+                    {/* Project Info */}
+                    <div className="p-6 space-y-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-full bg-blue-500/10 border border-blue-500/30 flex items-center justify-center">
+                          <project.icon className="w-4 h-4 text-blue-300" />
+                        </div>
+                        <div className="text-blue-400 text-xs font-medium">{project.category}</div>
+                        <div className="ml-auto">
+                          <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-blue-400 transition-colors" />
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-semibold text-white">
+                        {project.title}
+                      </h3>
+                      <p className="text-gray-400 text-sm leading-relaxed">{project.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          });
+        })()}
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <button className="px-6 py-3 border border-[#1e3a5f] text-white font-medium rounded-xl hover:bg-[#1e3a5f]/50 transition-all duration-300">
-            View All Projects
-          </button>
+          <Button>View All Projects</Button>
         </div>
       </div>
     </section>

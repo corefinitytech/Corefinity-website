@@ -1,4 +1,5 @@
 import { Search, PenTool, TestTube, Headphones } from "lucide-react";
+import Tag from "./Tag";
 
 const steps = [
   {
@@ -30,7 +31,10 @@ export default function Process() {
 
       <div className="relative max-w-[1400px] mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 space-y-4">
+          <div className="inline-block">
+            <Tag>HOW WE WORK</Tag>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             How we turn ideas
             <br />
@@ -42,24 +46,28 @@ export default function Process() {
 
         {/* Process Steps */}
         <div className="relative">
-          {/* Connection Line - Desktop */}
-          <div className="hidden lg:block absolute top-12 left-[12%] right-[12%] h-[2px]">
-            <div className="w-full h-full border-t-2 border-dashed border-[#1e3a5f]" />
-          </div>
+          {/* Curved dashed path */}
+          <svg
+            className="hidden lg:block absolute inset-x-0 top-0 h-24 w-full pointer-events-none"
+            viewBox="0 0 1200 180"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M150 95 C 240 75, 360 80, 450 100 C 540 120, 660 120, 750 100 C 840 80, 960 75, 1050 95"
+              stroke="#1e3a5f"
+              strokeWidth="3"
+              strokeDasharray="12 12"
+              strokeLinecap="round"
+            />
+          </svg>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, index) => (
               <div key={index} className="relative text-center">
                 {/* Icon */}
-                <div className="relative z-10 w-24 h-24 mx-auto mb-6 rounded-2xl bg-[#0a1628] border border-[#1e3a5f] flex items-center justify-center">
-                  <step.icon className="w-10 h-10 text-blue-400" />
-                </div>
-
-                {/* Step Number */}
-                <div className="absolute top-0 right-1/2 translate-x-[60px] -translate-y-2 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">
-                    {index + 1}
-                  </span>
+                <div className="relative z-10 w-20 h-20 mx-auto mb-4 rounded-full bg-[#0a1628] border-2 border-[#1e3a5f] flex items-center justify-center shadow-[0_0_18px_rgba(37,99,235,0.12)]">
+                  <step.icon className="w-9 h-9 text-blue-300" />
                 </div>
 
                 {/* Content */}
@@ -72,12 +80,6 @@ export default function Process() {
           </div>
         </div>
 
-        {/* CTA Button */}
-        <div className="text-center mt-16">
-          <button className="px-6 py-3 border border-[#1e3a5f] text-white font-medium rounded-xl hover:bg-[#1e3a5f]/50 transition-all duration-300">
-            Our Work
-          </button>
-        </div>
       </div>
     </section>
   );

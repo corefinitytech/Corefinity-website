@@ -4,12 +4,13 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import Button from "./Button";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#030712] w-full">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm w-full">
       <div className="max-w-[1400px] mx-auto px-6 w-full">
         <div className="flex items-center justify-between h-24 relative">
 
@@ -48,9 +49,7 @@ export default function Navbar() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <button className="px-6 py-2.5 border border-gray-600 text-white text-sm font-normal rounded-lg hover:bg-white/5 transition-all duration-300">
-              Get a Quote
-            </button>
+            <Button>Get a Quote</Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -64,7 +63,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-[#1e3a5f]/50">
+          <div className="md:hidden py-4 border-t border-[#1e3a5f]/50 bg-[#030712]/90 backdrop-blur-sm">
             <div className="flex flex-col gap-4">
               <Link
                 href="#services"
@@ -84,9 +83,7 @@ export default function Navbar() {
               >
                 About
               </Link>
-              <button className="px-5 py-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white text-sm font-medium rounded-lg hover:from-blue-500 hover:to-blue-400 transition-all duration-300 w-fit">
-                Get a Quote
-              </button>
+              <Button className="w-fit">Get a Quote</Button>
             </div>
           </div>
         )}
