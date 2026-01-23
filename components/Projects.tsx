@@ -1,36 +1,36 @@
-import { ExternalLink, Layers, Brain, Smartphone, Cloud } from "lucide-react";
+import { ExternalLink, Layers, Brain, Smartphone, Cloud, Zap, Shield, Code } from "lucide-react";
 import Image from "next/image";
 import Button from "./Button";
 import Tag from "./Tag";
 
 const projects = [
   {
-    title: "AI Content Studio",
-    description: "Generate, review, and publish AI-assisted content at scale.",
-    image: "/images/AI-service-image.svg",
-    category: "AI Solution",
-    icon: Brain,
+    title: "FlexForce",
+    description: "Flexible workforce management platform for dynamic team scheduling and optimization.",
+    image: "/images/FlexForce.PNG",
+    category: "HR Solution",
+    icon: Zap,
   },
   {
-    title: "Omni-channel Platform",
-    description: "Unified web and mobile experiences with shared design system.",
-    image: "/images/AI-service-image.svg",
-    category: "Web Platform",
+    title: "Mirhapret",
+    description: "Advanced analytics and insights platform for data-driven business decisions.",
+    image: "/images/Mirhapret.PNG",
+    category: "Analytics",
+    icon: Shield,
+  },
+  {
+    title: "Code Smell Detection",
+    description: "Automated code quality analysis and improvement recommendations system.",
+    image: "/images/code-smell-detection.png",
+    category: "DevTools",
+    icon: Code,
+  },
+  {
+    title: "Crystal Beryl Media",
+    description: "Comprehensive media management and content delivery platform.",
+    image: "/images/Crystalberylmedia.PNG",
+    category: "Media Platform",
     icon: Layers,
-  },
-  {
-    title: "Field Ops Mobile",
-    description: "Offline-first mobile app for on-site teams and logistics.",
-    image: "/images/AI-service-image.svg",
-    category: "Mobile App",
-    icon: Smartphone,
-  },
-  {
-    title: "Cloud Control Hub",
-    description: "Observability, alerts, and rollouts in a secure cloud cockpit.",
-    image: "/images/AI-service-image.svg",
-    category: "Cloud Solution",
-    icon: Cloud,
   },
 ];
 
@@ -73,7 +73,7 @@ export default function Projects() {
                     className="group relative bg-[#0a1628]/60 border border-[#1e3a5f]/50 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 card-hover min-h-[420px]"
                   >
                     {/* Project Image */}
-                    <div className="relative aspect-[16/10] overflow-hidden bg-[#0a1628]">
+                    <div className="relative h-[240px] overflow-hidden bg-[#0a1628]">
                       <Image
                         src={project.image}
                         alt={project.title}
