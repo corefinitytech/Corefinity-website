@@ -28,7 +28,7 @@ export default function News() {
       <div className="relative max-w-[1400px] mx-auto px-6">
         {/* Section Label */}
         <div className="text-center mb-8">
-          <Tag>Resources</Tag>
+          <Tag>OUR BLOG</Tag>
         </div>
 
         {/* Section Header */}
