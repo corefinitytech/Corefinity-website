@@ -15,12 +15,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-24 relative">
 
           <Link href="/" className="flex items-center">
-            <Image 
-              src="/images/corefinity-logo.png" 
+            <Image
+              src="/images/coreFinity-logo.svg"
               alt="CoreFinity Logo"
               width={200}
               height={60}
-              className="object-contain brightness-[1.3] contrast-[1.15]"
+              className="object-contain brightness-[1.2] contrast-[1.1]"
               priority
             />
           </Link>

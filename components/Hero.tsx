@@ -29,13 +29,14 @@ const floatingCards = [
 ];
 
 const companyLogos = [
-  { name: "Air University", image: "/images/air-university.png" },
-  { name: "Bahria University", image: "/images/bahria-university.png" },
-  { name: "Menspoke", image: "/images/menspoke.png" },
-  { name: "Sarhad University", image: "/images/sarhad-university.svg" },
-  { name: "Trillet.ai", image: "/images/trillet-ai.png" },
-  { name: "Microsoft", image: "/images/Microsoft.jpg" },
-  { name: "OpenAI", image: "/images/openAI.jpg" },
+  { name: "Figma", image: "/images/figma.svg" },
+  { name: "React", image: "/images/react.svg" },
+  { name: "Next.js", image: "/images/nextjs.svg" },
+  { name: "Tailwind", image: "/images/tailwindcss.svg" },
+  { name: "Google Cloud", image: "/images/GoogleCloud.svg" },
+  { name: "AWS", image: "/images/aws.svg" },
+  { name: "Docker", image: "/images/docker-icon.svg" },
+  { name: "Kubernetes", image: "/images/kubernetes.svg" },
 ];
 
 export default function Hero() {
@@ -142,22 +143,23 @@ export default function Hero() {
                 <div
                   key={`${logo.name}-${index}`}
                   style={{ minWidth: ITEM_WIDTH }}
-                  className="inline-flex items-center justify-center px-4 py-2 transition-transform duration-300 ease-out"
+                  className="inline-flex items-center justify-center px-2 py-2 transition-transform duration-300 ease-out"
                 >
-                  {logo.image ? (
-                    <Image
-                      src={logo.image}
-                      alt={logo.name}
-                      width={160}
-                      height={40}
-                      className="h-10 w-auto object-contain"
-                      priority={false}
-                    />
-                  ) : (
-                    <span className="text-white/80 text-sm font-medium tracking-wide">
+                  <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-blue-500/30 bg-white/5 backdrop-blur-sm shadow-[0_0_20px_rgba(59,130,246,0.12)] hover:border-blue-400/60 transition-all duration-300">
+                    {logo.image && (
+                      <Image
+                        src={logo.image}
+                        alt={logo.name}
+                        width={32}
+                        height={32}
+                        className="h-8 w-8 object-contain"
+                        priority={false}
+                      />
+                    )}
+                    <span className="text-white text-sm font-semibold tracking-wide">
                       {logo.name}
                     </span>
-                  )}
+                  </div>
                 </div>
               ))}
             </div>

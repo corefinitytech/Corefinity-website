@@ -1,5 +1,8 @@
-import { User } from "lucide-react";
+"use client";
+
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Tag from "./Tag";
+import { useState } from "react";
 
 const testimonials = [
   {
@@ -12,48 +15,115 @@ const testimonials = [
   {
     name: "John Carter",
     role: "@johncarler",
-    content: '"Lorem ipsum"',
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
     avatar: null,
   },
   {
     name: "John Carter",
     role: "@johncarler",
-    content: '"Lorem ipsum"',
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
     avatar: null,
   },
   {
     name: "John Carter",
     role: "@johncarler",
-    content: '"Lorem ipsum"',
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
     avatar: null,
   },
   {
     name: "John Carter",
     role: "@johncarler",
-    content: '"Lorem ipsum"',
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
     avatar: null,
   },
   {
     name: "John Carter",
     role: "@johncarler",
-    content: '"Lorem ipsum"',
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
     avatar: null,
   },
   {
     name: "John Carter",
     role: "@johncarler",
-    content: '"Lorem ipsum"',
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
     avatar: null,
   },
   {
     name: "John Carter",
     role: "@johncarler",
-    content: '"Lorem ipsum"',
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
+    avatar: null,
+  },
+  {
+    name: "John Carter",
+    role: "@johncarler",
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
+    avatar: null,
+  },
+  {
+    name: "John Carter",
+    role: "@johncarler",
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
+    avatar: null,
+  },
+  {
+    name: "John Carter",
+    role: "@johncarler",
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
+    avatar: null,
+  },
+  {
+    name: "John Carter",
+    role: "@johncarler",
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
+    avatar: null,
+  },
+  {
+    name: "John Carter",
+    role: "@johncarler",
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
+    avatar: null,
+  },
+  {
+    name: "John Carter",
+    role: "@johncarler",
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
+    avatar: null,
+  },
+  {
+    name: "John Carter",
+    role: "@johncarler",
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
+    avatar: null,
+  },
+  {
+    name: "John Carter",
+    role: "@johncarler",
+    content: "Excellent service, team is really nice to work with. Lorem ipsum dolor sit amet consectetur.",
     avatar: null,
   },
 ];
 
 export default function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const cardsPerSet = 8; // 2 rows × 4 cards per row
+  const totalSets = Math.ceil(testimonials.length / cardsPerSet);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => Math.min(totalSets - 1, prev + 1));
+  };
+
+  const visibleTestimonials = testimonials.slice(
+    currentIndex * cardsPerSet,
+    currentIndex * cardsPerSet + cardsPerSet
+  );
+  const row1 = visibleTestimonials.slice(0, 4);
+  const row2 = visibleTestimonials.slice(4, 8);
+
   return (
     <section className="py-24 relative">
       {/* Background */}
@@ -62,7 +132,7 @@ export default function Testimonials() {
       <div className="relative max-w-[1400px] mx-auto px-6">
         {/* Section Label */}
         <div className="text-center mb-8">
-          <Tag>Testimonials</Tag>
+          <Tag>TESTIMONIAL</Tag>
         </div>
 
         {/* Section Header */}
@@ -76,27 +146,88 @@ export default function Testimonials() {
           </h2>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {testimonials.map((testimonial, index) => (
+        {/* Testimonials 2-Row Layout */}
+        <div className="relative">
+          <div className="overflow-hidden">
             <div
-              key={index}
-              className="bg-[#0a1628]/60 border border-[#1e3a5f]/50 rounded-xl p-4 hover:border-blue-500/30 transition-all duration-300"
+              className="flex transition-transform duration-500"
+              style={{
+                transform: `translateX(-${currentIndex * 100}%)`,
+              }}
             >
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-[#1e3a5f] flex items-center justify-center">
-                  <User className="w-5 h-5 text-gray-400" />
-                </div>
-                <div>
-                  <h4 className="text-white font-medium text-sm">
-                    {testimonial.name}
-                  </h4>
-                  <p className="text-gray-500 text-xs">{testimonial.role}</p>
-                </div>
-              </div>
-              <p className="text-gray-400 text-sm">{testimonial.content}</p>
+              {Array.from({ length: totalSets }).map((_, setIdx) => {
+                const setRow1 = testimonials.slice(setIdx * 8, setIdx * 8 + 4);
+                const setRow2 = testimonials.slice(setIdx * 8 + 4, setIdx * 8 + 8);
+
+                return (
+                  <div key={setIdx} className="min-w-full flex flex-col gap-4">
+                    {/* Row 1: Left aligned */}
+                    <div className="flex gap-4 w-fit">
+                      {setRow1.map((testimonial, idx) => (
+                        <div key={idx} className="w-72 flex-shrink-0">
+                          <div className="bg-[#0a1628]/60 border border-[#1e3a5f]/50 rounded-xl p-6 hover:border-blue-500/30 transition-all duration-300 h-full flex flex-col">
+                            <div className="flex items-start gap-3 mb-4">
+                              <div className="flex-1">
+                                <h4 className="text-white font-medium text-sm">
+                                  {testimonial.name}
+                                </h4>
+                                <p className="text-gray-500 text-xs">{testimonial.role}</p>
+                              </div>
+                            </div>
+                            <p className="text-gray-300 text-sm flex-grow">
+                              {testimonial.content}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Row 2: Right offset with same card size */}
+                    <div className="flex gap-4 w-fit ml-[12%]">
+                      {setRow2.map((testimonial, idx) => (
+                        <div key={idx} className="w-72 flex-shrink-0">
+                          <div className="bg-[#0a1628]/60 border border-[#1e3a5f]/50 rounded-xl p-6 hover:border-blue-500/30 transition-all duration-300 h-full flex flex-col">
+                            <div className="flex items-start gap-3 mb-4">
+                              <div className="flex-1">
+                                <h4 className="text-white font-medium text-sm">
+                                  {testimonial.name}
+                                </h4>
+                                <p className="text-gray-500 text-xs">{testimonial.role}</p>
+                              </div>
+                            </div>
+                            <p className="text-gray-300 text-sm flex-grow">
+                              {testimonial.content}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          ))}
+          </div>
+
+          {/* Navigation Buttons */}
+          {totalSets > 1 && (
+            <>
+              <button
+                onClick={handlePrev}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 w-10 h-10 rounded-full border border-blue-500/50 bg-[#0a1628]/80 hover:bg-blue-500/20 flex items-center justify-center transition-all duration-300 cursor-pointer"
+                aria-label="Previous testimonials"
+              >
+                <ChevronLeft className="w-5 h-5 text-blue-400" />
+              </button>
+
+              <button
+                onClick={handleNext}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 w-10 h-10 rounded-full border border-blue-500/50 bg-[#0a1628]/80 hover:bg-blue-500/20 flex items-center justify-center transition-all duration-300 cursor-pointer"
+                aria-label="Next testimonials"
+              >
+                <ChevronRight className="w-5 h-5 text-blue-400" />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </section>
