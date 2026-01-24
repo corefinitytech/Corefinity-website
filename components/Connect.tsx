@@ -1,54 +1,107 @@
-import {
-  Facebook,
-  Linkedin,
-  Twitter,
-  Github,
-  Dribbble,
-  Instagram,
-} from "lucide-react";
+import React from "react";
+import Image from "next/image";
 
-const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Dribbble, href: "#", label: "Dribbble" },
-  { icon: Instagram, href: "#", label: "Instagram" },
+type Bubble = {
+  src: string;
+  label: string;
+  size: number;
+  top: string;
+  left?: string;
+  right?: string;
+  delay: number;
+};
+
+const leftBubbles: Bubble[] = [
+  { src: "/images/Facebook.svg", label: "Facebook", size: 74, top: "8%", left: "5%", delay: 0 },
+  { src: "/images/Twitter.svg", label: "X", size: 56, top: "24%", left: "18%", delay: 1.6 },
+  { src: "/images/Linkedin.svg", label: "LinkedIn", size: 66, top: "46%", left: "10%", delay: 0.9 },
+  { src: "/images/Discord.svg", label: "Discord", size: 62, top: "66%", left: "5%", delay: 2.2 },
+  { src: "/images/Youtube.svg", label: "YouTube", size: 54, top: "80%", left: "18%", delay: 1.2 },
+];
+
+const rightBubbles: Bubble[] = [
+  { src: "/images/Gmail.svg", label: "Gmail", size: 62, top: "16%", right: "18%", delay: 1.1 },
+  { src: "/images/Instagram.svg", label: "Instagram", size: 76, top: "4%", right: "5%", delay: 0.4 },
+  { src: "/images/Behance.svg", label: "Behance", size: 62, top: "38%", right: "13%", delay: 2 },
+  { src: "/images/google.svg", label: "Google", size: 52, top: "74%", right: "18%", delay: 1.5 },
+  { src: "/images/whatsapp.svg", label: "WhatsApp", size: 66, top: "58%", right: "7%", delay: 0.7 },
 ];
 
 export default function Connect() {
   return (
-    <section className="py-16 relative">
-      <div className="absolute inset-0 bg-[#030712]" />
+    <section className="relative py-24 overflow-hidden">
+      <div className="absolute inset-0 bg-[#050815]" />
 
-      <div className="relative max-w-[1400px] mx-auto px-6">
-        <div className="text-center">
-          {/* Social Icons */}
-          <div className="flex items-center justify-center gap-4 mb-8">
-            {socialLinks.map((social, index) => (
-              <a
-                key={index}
-                href={social.href}
-                aria-label={social.label}
-                className="w-10 h-10 rounded-full bg-[#0a1628] border border-[#1e3a5f] flex items-center justify-center hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300"
+      <style>{`
+        @keyframes float-bubble {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+      `}</style>
+
+      <div className="relative max-w-[1200px] mx-auto px-6">
+        {/* Social Tag */}
+        <div className="flex justify-center mb-6">
+          <span className="px-4 py-1 rounded-full border border-blue-500/40 bg-white/5 text-xs text-blue-100 backdrop-blur">
+            SOCIAL
+          </span>
+        </div>
+
+        {/* Floating bubbles desktop */}
+        <div className="hidden lg:block absolute inset-0 pointer-events-none">
+          {[...leftBubbles, ...rightBubbles].map((bubble, idx) => (
+            <div
+              key={idx}
+              className="bubble absolute rounded-full border border-blue-400/50 bg-gradient-to-b from-[#1a2b4a] to-[#0b1324] shadow-[inset_0_1px_4px_rgba(255,255,255,0.08),0_12px_30px_rgba(15,23,42,0.45),0_0_36px_rgba(59,130,246,0.35)] flex items-center justify-center"
+              style={{
+                width: `${bubble.size}px`,
+                height: `${bubble.size}px`,
+                top: bubble.top,
+                left: bubble.left,
+                right: bubble.right,
+                animation: `float-bubble 6s ease-in-out infinite`,
+                animationDelay: `${bubble.delay}s`,
+              }}
+            >
+              <Image
+                src={bubble.src}
+                alt={bubble.label}
+                width={bubble.size * 0.55}
+                height={bubble.size * 0.55}
+                className="object-contain"
+                style={{ filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.25))" }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Center content */}
+        <div className="relative text-center space-y-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white">
+            Connect with Corefinity
+          </h2>
+          <p className="text-gray-300 max-w-2xl mx-auto text-sm sm:text-base">
+            Follow us for insights on technology, product development, AI solutions, and our latest projects.
+          </p>
+
+          {/* Mobile/Tablet grid for icons */}
+          <div className="grid grid-cols-4 sm:grid-cols-6 gap-4 justify-items-center pt-6 lg:hidden">
+            {[...leftBubbles, ...rightBubbles].map((bubble, idx) => (
+              <div
+                key={idx}
+                className="w-14 h-14 rounded-full border border-blue-400/40 bg-gradient-to-b from-[#1a2b4a] to-[#0b1324] shadow-[inset_0_1px_4px_rgba(255,255,255,0.08),0_10px_24px_rgba(15,23,42,0.45),0_0_28px_rgba(59,130,246,0.28)] flex items-center justify-center animate-[float-bubble_6s_ease-in-out_infinite]"
+                style={{ animationDelay: `${bubble.delay}s` }}
               >
-                <social.icon className="w-5 h-5 text-gray-400 hover:text-blue-400" />
-              </a>
+                <Image
+                  src={bubble.src}
+                  alt={bubble.label}
+                  width={26}
+                  height={26}
+                  className="object-contain"
+                />
+              </div>
             ))}
           </div>
-
-          {/* Heading */}
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-            Connect with{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-              Corefinity
-            </span>
-          </h2>
-
-          <p className="text-gray-400 max-w-xl mx-auto">
-            Follow us for insights on technology, product development, AI
-            solutions, and our latest projects.
-          </p>
         </div>
       </div>
     </section>

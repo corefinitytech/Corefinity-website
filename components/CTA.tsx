@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Button from "./Button";
 
 export default function CTA() {
@@ -6,7 +7,23 @@ export default function CTA() {
       <div className="absolute inset-0 bg-[#030712]" />
 
       <div className="relative max-w-[1400px] mx-auto px-6">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600/20 via-blue-500/10 to-blue-600/20 border border-blue-500/30">
+        <div className="relative overflow-hidden rounded-3xl bg-[#030712] border border-blue-500/30">
+          {/* Background Illustration */}
+          <div className="absolute inset-0 opacity-90">
+            <Image
+              src="/images/digital-solution-bg.svg"
+              alt="Digital solutions background"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+          </div>
+
+          {/* Color overlays to match reference: top/bottom #347BD7, center #0E112A */}
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,_#347BD7_0%,_#0E112A_50%,_#347BD7_100%)] opacity-60 mix-blend-screen pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(14,17,42,0.45)_0%,_rgba(14,17,42,0.78)_52%,_rgba(3,7,18,0.9)_100%)] pointer-events-none" />
+
           {/* Background Pattern */}
           <div className="absolute inset-0 grid-pattern opacity-30" />
 

@@ -9,6 +9,7 @@ import Connect from "@/components/Connect";
 import Testimonials from "@/components/Testimonials";
 import News from "@/components/News";
 import Footer from "@/components/Footer";
+import TechStack from "@/components/TechStack";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <Features />
       <Process />
       <Projects />
+      <TechStack />
       <CTA />
       <Connect />
       <Testimonials />

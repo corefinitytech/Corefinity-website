@@ -29,6 +29,26 @@ export default function Process() {
     <section className="py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#030712] via-[#0a1628]/50 to-[#030712]" />
 
+      <style>{`
+        @keyframes glow-expand {
+          0% {
+            box-shadow: 0 0 18px rgba(37, 99, 235, 0.12);
+          }
+          100% {
+            box-shadow: 0 0 35px rgba(59, 130, 246, 0.35), 0 0 50px rgba(37, 99, 235, 0.15);
+          }
+        }
+        
+        .process-icon {
+          transition: all 0.3s ease;
+        }
+        
+        .process-icon:hover {
+          animation: glow-expand 0.6s ease forwards;
+          border-color: #60a5fa;
+        }
+      `}</style>
+
       <div className="relative max-w-[1400px] mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
@@ -55,7 +75,7 @@ export default function Process() {
           >
             <path
               d="M150 95 C 240 75, 360 80, 450 100 C 540 120, 660 120, 750 100 C 840 80, 960 75, 1050 95"
-              stroke="#1e3a5f"
+              stroke="#ffffff"
               strokeWidth="3"
               strokeDasharray="12 12"
               strokeLinecap="round"
@@ -66,7 +86,7 @@ export default function Process() {
             {steps.map((step, index) => (
               <div key={index} className="relative text-center">
                 {/* Icon */}
-                <div className="relative z-10 w-20 h-20 mx-auto mb-4 rounded-full bg-[#0a1628] border-2 border-[#1e3a5f] flex items-center justify-center shadow-[0_0_18px_rgba(37,99,235,0.12)]">
+                <div className="process-icon relative z-10 w-20 h-20 mx-auto mb-4 rounded-full bg-[#0a1628] border-2 border-[#1e3a5f] flex items-center justify-center">
                   <step.icon className="w-9 h-9 text-blue-300" />
                 </div>
 
