@@ -9,22 +9,22 @@ const floatingCards = [
   {
     icon: Globe,
     title: "Web Platforms",
-    position: "top-8 left-0",
+    position: "top-12 left-8",
   },
   {
     icon: Cpu,
     title: "AI Solutions",
-    position: "top-8 right-0",
+    position: "top-12 right-8",
   },
   {
     icon: Smartphone,
     title: "Mobile Applications",
-    position: "bottom-24 left-0",
+    position: "bottom-20 left-8",
   },
   {
     icon: Cloud,
     title: "Cloud & Deployment",
-    position: "bottom-24 right-0",
+    position: "bottom-20 right-8",
   },
 ];
 
@@ -113,13 +113,16 @@ export default function Hero() {
             {floatingCards.map((card, index) => (
               <div
                 key={index}
-                className={`absolute ${card.position} bg-[#0a1628]/90 backdrop-blur-sm border border-[#1e3a5f] rounded-xl p-3 shadow-xl animate-float-${index + 1}`}
+                className={`absolute ${card.position} bg-[#0a1628]/80 backdrop-blur-md border border-cyan-400/40 rounded-2xl p-4 shadow-2xl animate-float-${index + 1}`}
+                style={{
+                  boxShadow: "0 0 30px rgba(34, 211, 238, 0.3), inset 0 0 20px rgba(34, 211, 238, 0.1)",
+                }}
               >
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                    <card.icon className="w-4 h-4 text-blue-400" />
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/40 to-blue-500/30 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                    <card.icon className="w-5 h-5 text-cyan-300" />
                   </div>
-                  <span className="text-white text-sm font-medium">
+                  <span className="text-white text-sm font-semibold">
                     {card.title}
                   </span>
                 </div>
@@ -130,36 +133,32 @@ export default function Hero() {
 
         {/* Trusted Companies Section */}
         <div className="mt-14 text-center">
-          <p className="text-gray-400 text-xs tracking-[0.28em] uppercase mb-8">
+          <p className="text-gray-400 text-xs tracking-[0.28em] uppercase mb-12">
             Trusted by teams at the world's leading companies
           </p>
 
-          <div className="relative max-w-6xl mx-auto overflow-hidden">
-            <div
-              className="relative z-0 flex items-center gap-6 transition-transform duration-300 ease-out"
-              style={{ transform: `translateX(-${offset * ITEM_WIDTH}px)` }}
-            >
-              {sliderItems.map((logo, index) => (
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-8 gap-6 justify-center">
+              {companyLogos.map((logo, index) => (
                 <div
                   key={`${logo.name}-${index}`}
-                  style={{ minWidth: ITEM_WIDTH }}
-                  className="inline-flex items-center justify-center px-2 py-2 transition-transform duration-300 ease-out"
+                  className="flex flex-col items-center gap-2"
                 >
-                  <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-blue-500/30 bg-white/5 backdrop-blur-sm shadow-[0_0_20px_rgba(59,130,246,0.12)] hover:border-blue-400/60 transition-all duration-300">
+                  <div className="w-16 h-16 rounded-full border border-blue-500/40 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 flex items-center justify-center shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all duration-300 group cursor-pointer">
                     {logo.image && (
                       <Image
                         src={logo.image}
                         alt={logo.name}
                         width={32}
                         height={32}
-                        className="h-8 w-8 object-contain"
+                        className="h-8 w-8 object-contain group-hover:scale-110 transition-transform duration-300"
                         priority={false}
                       />
                     )}
-                    <span className="text-white text-sm font-semibold tracking-wide">
-                      {logo.name}
-                    </span>
                   </div>
+                  <span className="text-gray-300 text-xs font-medium text-center">
+                    {logo.name}
+                  </span>
                 </div>
               ))}
             </div>

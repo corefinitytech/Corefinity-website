@@ -12,19 +12,19 @@ type Bubble = {
 };
 
 const leftBubbles: Bubble[] = [
-  { src: "/images/Facebook.svg", label: "Facebook", size: 74, top: "8%", left: "5%", delay: 0 },
-  { src: "/images/Twitter.svg", label: "X", size: 56, top: "24%", left: "18%", delay: 1.6 },
-  { src: "/images/Linkedin.svg", label: "LinkedIn", size: 66, top: "46%", left: "10%", delay: 0.9 },
-  { src: "/images/Discord.svg", label: "Discord", size: 62, top: "66%", left: "5%", delay: 2.2 },
-  { src: "/images/Youtube.svg", label: "YouTube", size: 54, top: "80%", left: "18%", delay: 1.2 },
+  { src: "/images/Facebook.svg", label: "Facebook", size: 74, top: "5%", left: "3%", delay: 0 },
+  { src: "/images/Twitter.svg", label: "X", size: 56, top: "28%", left: "12%", delay: 1.6 },
+  { src: "/images/Linkedin.svg", label: "LinkedIn", size: 66, top: "52%", left: "5%", delay: 0.9 },
+  { src: "/images/Discord.svg", label: "Discord", size: 62, top: "72%", left: "14%", delay: 2.2 },
+  { src: "/images/Youtube.svg", label: "YouTube", size: 54, top: "88%", left: "2%", delay: 1.2 },
 ];
 
 const rightBubbles: Bubble[] = [
-  { src: "/images/Gmail.svg", label: "Gmail", size: 62, top: "16%", right: "18%", delay: 1.1 },
-  { src: "/images/Instagram.svg", label: "Instagram", size: 76, top: "4%", right: "5%", delay: 0.4 },
-  { src: "/images/Behance.svg", label: "Behance", size: 62, top: "38%", right: "13%", delay: 2 },
-  { src: "/images/google.svg", label: "Google", size: 52, top: "74%", right: "18%", delay: 1.5 },
-  { src: "/images/whatsapp.svg", label: "WhatsApp", size: 66, top: "58%", right: "7%", delay: 0.7 },
+  { src: "/images/Gmail.svg", label: "Gmail", size: 62, top: "20%", right: "14%", delay: 1.1 },
+  { src: "/images/Instagram.svg", label: "Instagram", size: 76, top: "2%", right: "3%", delay: 0.4 },
+  { src: "/images/Behance.svg", label: "Behance", size: 62, top: "42%", right: "8%", delay: 2 },
+  { src: "/images/google.svg", label: "Google", size: 52, top: "78%", right: "15%", delay: 1.5 },
+  { src: "/images/whatsapp.svg", label: "WhatsApp", size: 66, top: "62%", right: "3%", delay: 0.7 },
 ];
 
 export default function Connect() {
