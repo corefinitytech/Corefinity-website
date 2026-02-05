@@ -1,5 +1,33 @@
+"use client";
+
 import { Layers, Shield, Handshake, Eye } from "lucide-react";
 import Tag from "./Tag";
+import { useEffect, useState, useRef } from "react";
+
+const CountUp = ({ end, duration = 2000, isVisible }: { end: number; duration?: number; isVisible: boolean }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let start = 0;
+    const increment = end / (duration / 16);
+    
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [end, duration, isVisible]);
+
+  return <>{count}</>;
+};
 
 const features = [
   {
@@ -29,6 +57,27 @@ const features = [
 ];
 
 export default function Features() {
+  const [isVisible, setIsVisible] = useState(false);
+  const statsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="py-24 relative">
       <div className="absolute inset-0 bg-[#030712]" />
@@ -63,19 +112,19 @@ export default function Features() {
         </div>
 
         {/* Stats Strip */}
-        <div className="mt-10 rounded-2xl border border-gray-800/60 bg-[#0a0f1e]/60 backdrop-blur-sm">
+        <div ref={statsRef} className="mt-10 rounded-2xl border border-gray-800/60 bg-[#0a0f1e]/60 backdrop-blur-sm">
           <div className="px-6 sm:px-8 py-8 sm:py-10">
             <div className="grid grid-cols-1 sm:grid-cols-3 sm:divide-x divide-gray-800/60 text-center">
               <div className="px-6 py-2">
-                <div className="text-4xl sm:text-5xl font-bold text-white tracking-tight">04+</div>
+                <div className="text-4xl sm:text-5xl font-bold text-white tracking-tight"><CountUp end={4} duration={2000} isVisible={isVisible} />+</div>
                 <div className="mt-2 text-xs sm:text-sm text-gray-400">Companies Supported<br />&amp; Counting</div>
               </div>
               <div className="px-6 py-2">
-                <div className="text-4xl sm:text-5xl font-bold text-white tracking-tight">24/7</div>
+                <div className="text-4xl sm:text-5xl font-bold text-white tracking-tight"><CountUp end={24} duration={2000} isVisible={isVisible} />/7</div>
                 <div className="mt-2 text-xs sm:text-sm text-gray-400">Dedicated<br />Support</div>
               </div>
               <div className="px-6 py-2">
-                <div className="text-4xl sm:text-5xl font-bold text-white tracking-tight">98%</div>
+                <div className="text-4xl sm:text-5xl font-bold text-white tracking-tight"><CountUp end={98} duration={2000} isVisible={isVisible} />%</div>
                 <div className="mt-2 text-xs sm:text-sm text-gray-400">Client<br />Satisfaction</div>
               </div>
             </div>
