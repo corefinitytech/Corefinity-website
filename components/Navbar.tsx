@@ -49,7 +49,9 @@ export default function Navbar() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button>Get a Quote</Button>
+            <Link href="/contact">
+              <Button>Contact Us</Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -83,7 +85,9 @@ export default function Navbar() {
               >
                 About
               </Link>
-              <Button className="w-fit">Get a Quote</Button>
+              <Link href="/contact">
+                <Button className="w-fit">Contact Us</Button>
+              </Link>
             </div>
           </div>
         )}

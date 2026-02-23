@@ -1,5 +1,6 @@
 import { ExternalLink, Layers, Brain, Smartphone, Cloud, Zap, Shield, Code } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import Button from "./Button";
 import Tag from "./Tag";
 
@@ -109,7 +110,9 @@ export default function Projects() {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Button>View All Projects</Button>
+          <Link href="/work">
+            <Button>View All Projects</Button>
+          </Link>
         </div>
       </div>
     </section>
