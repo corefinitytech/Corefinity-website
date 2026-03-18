@@ -104,7 +104,7 @@ export default function Footer() {
 
           {/* Right column: map panel with CTA */}
           <div className="relative w-full h-full">
-            <div className="relative h-full min-h-[360px] rounded-2xl overflow-hidden border border-[#1e3a5f]/60 bg-[#0b1124] shadow-[0_20px_60px_-24px_rgba(0,0,0,0.55)]">
+            <div className="relative h-full min-h-[220px] sm:min-h-[360px] rounded-2xl overflow-hidden border border-[#1e3a5f]/60 bg-[#0b1124] shadow-[0_20px_60px_-24px_rgba(0,0,0,0.55)]">
               {/* Live Google Map */}
               <iframe
                 title="CoreFinity Location"

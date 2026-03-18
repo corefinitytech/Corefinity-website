@@ -114,7 +114,7 @@ export default function FlexForceCaseStudy() {
                 <span className="text-sm text-blue-400 font-medium">HR Solution</span>
               </div>
 
-              <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
                 FlexForce
               </h1>
 
@@ -139,7 +139,7 @@ export default function FlexForceCaseStudy() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative h-[400px] rounded-2xl overflow-hidden border border-gray-700/50"
+              className="relative h-[260px] sm:h-[400px] rounded-2xl overflow-hidden border border-gray-700/50"
             >
               <Image
                 src="/images/FlexForce.PNG"
@@ -172,7 +172,7 @@ export default function FlexForceCaseStudy() {
           >
             <div>
               <span className="text-blue-400 text-sm font-medium uppercase tracking-wider">01 · The Problem</span>
-              <h2 className="text-4xl font-bold text-white mt-4">
+              <h2 className="text-2xl sm:text-4xl font-bold text-white mt-4">
                 Manual scheduling was consuming valuable resources
               </h2>
             </div>
@@ -239,7 +239,7 @@ export default function FlexForceCaseStudy() {
           >
             <div>
               <span className="text-blue-400 text-sm font-medium uppercase tracking-wider">02 · Target Users</span>
-              <h2 className="text-4xl font-bold text-white mt-4">
+              <h2 className="text-2xl sm:text-4xl font-bold text-white mt-4">
                 Designed for three key user groups
               </h2>
             </div>
@@ -301,7 +301,7 @@ export default function FlexForceCaseStudy() {
           >
             <div>
               <span className="text-blue-400 text-sm font-medium uppercase tracking-wider">03 · Our Approach</span>
-              <h2 className="text-4xl font-bold text-white mt-4">
+              <h2 className="text-2xl sm:text-4xl font-bold text-white mt-4">
                 Six core features that power FlexForce
               </h2>
             </div>
@@ -346,7 +346,7 @@ export default function FlexForceCaseStudy() {
           >
             <div>
               <span className="text-blue-400 text-sm font-medium uppercase tracking-wider">04 · Results & Impact</span>
-              <h2 className="text-4xl font-bold text-white mt-4">
+              <h2 className="text-2xl sm:text-4xl font-bold text-white mt-4">
                 Measurable outcomes that transformed operations
               </h2>
             </div>
@@ -392,7 +392,7 @@ export default function FlexForceCaseStudy() {
           >
             <div>
               <span className="text-blue-400 text-sm font-medium uppercase tracking-wider">05 · What Happened</span>
-              <h2 className="text-4xl font-bold text-white mt-4">
+              <h2 className="text-2xl sm:text-4xl font-bold text-white mt-4">
                 From kickoff to launch in 90 days
               </h2>
             </div>
@@ -440,9 +440,9 @@ export default function FlexForceCaseStudy() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-2xl p-12 text-center space-y-6"
+            className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-2xl p-6 sm:p-12 text-center space-y-6"
           >
-            <h2 className="text-4xl font-bold text-white">
+            <h2 className="text-2xl sm:text-4xl font-bold text-white">
               Ready to transform your operations?
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">

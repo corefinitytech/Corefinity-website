@@ -31,7 +31,7 @@ export default function CaseStudyHero({
               <span className="text-blue-400 text-sm font-medium">{category}</span>
             </div>
 
-            <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
               {title}
             </h1>
 
@@ -41,7 +41,7 @@ export default function CaseStudyHero({
           </div>
 
           {/* Right Image */}
-          <div className="relative h-[400px] rounded-2xl overflow-hidden border border-gray-700/50">
+          <div className="relative h-[260px] sm:h-[400px] rounded-2xl overflow-hidden border border-gray-700/50">
             <Image
               src={image}
               alt={title}

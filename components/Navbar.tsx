@@ -20,7 +20,7 @@ export default function Navbar() {
               alt="CoreFinity Logo"
               width={200}
               height={60}
-              className="object-contain brightness-[1.2] contrast-[1.1]"
+              className="object-contain brightness-[1.2] contrast-[1.1] w-[150px] sm:w-[200px]"
               priority
             />
           </Link>

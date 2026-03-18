@@ -35,7 +35,7 @@ export default function ContactFAQ() {
             <div className="inline-block mb-6 w-fit">
               <Tag>FAQS</Tag>
             </div>
-            <h2 className="text-5xl font-bold text-white mb-6">
+            <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6">
               Frequently<br />
               asked questions
             </h2>

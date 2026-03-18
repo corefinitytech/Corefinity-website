@@ -31,7 +31,7 @@ export default function CTA() {
           <div className="absolute top-0 left-1/4 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl" />
 
-          <div className="relative py-16 px-8 text-center">
+          <div className="relative py-10 px-5 sm:py-16 sm:px-8 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Build Scalable Digital
               <br />

@@ -56,7 +56,7 @@ export default function Services() {
 
         {/* Featured Service Card */}
         {featuredService && (
-          <div className="group mb-8 border border-gray-700/50 rounded-2xl p-8 overflow-hidden relative" style={{ backgroundImage: 'url(/images/service-card-bg.svg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          <div className="group mb-8 border border-gray-700/50 rounded-2xl p-5 sm:p-8 overflow-hidden relative" style={{ backgroundImage: 'url(/images/service-card-bg.svg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 via-gray-800/70 to-gray-900/80 z-[1]" />
             <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-transparent pointer-events-none z-[3]" />
             <div className="relative z-[20] grid lg:grid-cols-2 gap-8 items-center">
@@ -66,7 +66,7 @@ export default function Services() {
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:border-blue-400 group-hover:bg-blue-500/25 group-hover:shadow-[0_0_16px_rgba(59,130,246,0.45)]">
                     <featuredService.icon className="w-6 h-6 text-blue-400 transition-colors duration-300 group-hover:text-blue-300" />
                   </div>
-                  <h3 className="text-3xl font-bold text-white">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white">
                     {featuredService.title}
                   </h3>
                 </div>

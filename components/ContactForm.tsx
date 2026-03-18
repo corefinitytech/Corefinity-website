@@ -16,7 +16,7 @@ export default function ContactForm() {
           <div className="relative grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="space-y-8 flex flex-col justify-center">
-              <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
                 Get in touch<br />
                 with us today
               </h1>
@@ -50,7 +50,7 @@ export default function ContactForm() {
 
             {/* Right - Form */}
             <div className="space-y-6">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="relative">
                   <label className="absolute -top-2.5 left-4 text-gray-300 text-xs font-medium pointer-events-none">Full name</label>
                   <input
@@ -69,7 +69,7 @@ export default function ContactForm() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="relative">
                   <label className="absolute -top-2.5 left-4 text-gray-300 text-xs font-medium pointer-events-none">Phone number</label>
                   <input
@@ -97,7 +97,7 @@ export default function ContactForm() {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
                 <Button>Send message</Button>
                 <div className="flex gap-3">
                   <a href="#" className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/30 flex items-center justify-center hover:bg-blue-500/20 transition-colors">

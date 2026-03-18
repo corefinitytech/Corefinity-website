@@ -230,7 +230,7 @@ export default function Testimonials() {
           </div>
 
           {/* Row 2: Right to Left with offset */}
-          <div className="ml-[12%] relative">
+          <div className="ml-0 sm:ml-[12%] relative">
             <div className="marquee-viewport">
               <div className="marquee-track rtl">
                 {/* First set */}
