@@ -2,7 +2,9 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+
+import Check from "./Check";
 
 /**
  * Listbox styled to match the form fields. Native <select> drop-downs render
@@ -134,12 +136,7 @@ export default function Select({
                 }`}
               >
                 {o}
-                {selected && (
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="ml-auto size-3 text-accent"
-                  />
-                )}
+                {selected && <Check className="ml-auto size-3.5 text-accent" />}
               </button>
             </li>
           );

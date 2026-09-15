@@ -1,12 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
+import Check from "./Check";
+
 const tiers = [
   {
     name: "Prototype Sprint",
     target:
       "Best for conversion-focused showcase sites and interactive MVP validations.",
-    turnaround: "10–14 Business Days",
+    turnaround: "10 to 14 Business Days",
     deliverables: [
       "Custom Figma UI/UX Design System",
       "High-Performance Next.js & Tailwind Responsive Web Build",
@@ -20,7 +22,7 @@ const tiers = [
     name: "Platform OS",
     target:
       "Best for custom operational dashboards, booking systems, and client portals.",
-    turnaround: "3–4 Weeks",
+    turnaround: "3 to 4 Weeks",
     deliverables: [
       "Everything included in Prototype Sprint",
       "Multi-Role Authentication & Protected Admin Dashboards",
@@ -32,25 +34,6 @@ const tiers = [
     featured: true,
   },
 ];
-
-function Check({ featured }: { featured: boolean }) {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      className={`mt-0.5 size-4 shrink-0 ${featured ? "text-sky" : "text-accent"}`}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      aria-hidden
-    >
-      <path
-        d="m3 8.5 3.5 3.5L13 5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 export default function Pricing() {
   return (
@@ -112,7 +95,11 @@ export default function Pricing() {
                     key={d}
                     className="flex gap-3 text-[13px] leading-relaxed"
                   >
-                    <Check featured={t.featured} />
+                    <Check
+                      className={`mt-0.5 size-4 shrink-0 ${
+                        t.featured ? "text-sky" : "text-accent"
+                      }`}
+                    />
                     <span
                       className={t.featured ? "text-white/75" : "text-ink/65"}
                     >

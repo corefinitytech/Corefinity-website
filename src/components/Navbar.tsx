@@ -7,18 +7,25 @@ import {
   useRef,
   useState,
 } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import Brand from "./Brand";
 
+// Section ids live on the home page, so every link is absolute: clicking
+// "Pricing" from /contact routes home and then scrolls.
 const links = [
-  { label: "Expertise", href: "#expertise" },
-  { label: "Solutions", href: "#solutions" },
-  { label: "Case Studies", href: "#case-studies" },
-  { label: "Process", href: "#process" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Expertise", id: "expertise" },
+  { label: "Solutions", id: "solutions" },
+  { label: "Case Studies", id: "case-studies" },
+  { label: "Process", id: "process" },
+  { label: "Pricing", id: "pricing" },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<number | null>(null);
@@ -29,7 +36,8 @@ export default function Navbar() {
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const listRef = useRef<HTMLUListElement | null>(null);
 
-  const target = hovered ?? active ?? 0;
+  // Off the home page there is nothing to spy on, so only hover moves the pill.
+  const target = hovered ?? (isHome ? active : null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -40,12 +48,14 @@ export default function Navbar() {
 
   // Scroll-spy: the pill rests on whichever section is currently in view.
   useEffect(() => {
+    if (!isHome) return;
+
     const sections = links
       .map((l, i) => {
-        const el = document.querySelector(l.href);
+        const el = document.getElementById(l.id);
         return el ? { el, i } : null;
       })
-      .filter((s): s is { el: Element; i: number } => s !== null);
+      .filter((s): s is { el: HTMLElement; i: number } => s !== null);
 
     if (!sections.length) return;
 
@@ -71,10 +81,10 @@ export default function Navbar() {
 
     sections.forEach((s) => observer.observe(s.el));
     return () => observer.disconnect();
-  }, []);
+  }, [isHome]);
 
   const measure = useCallback(() => {
-    const el = itemRefs.current[target];
+    const el = target === null ? null : itemRefs.current[target];
     const list = listRef.current;
     if (!el || !list) return;
     const listBox = list.getBoundingClientRect();
@@ -109,13 +119,13 @@ export default function Navbar() {
           scrolled ? "shadow-lg shadow-black/5" : ""
         }`}
       >
-        <a
-          href="#home"
+        <Link
+          href="/"
           className="flex shrink-0 items-center"
-          aria-label="CoreFinity — home"
+          aria-label="CoreFinity home"
         >
           <Brand className="h-7 w-auto" priority />
-        </a>
+        </Link>
 
         <div
           onMouseLeave={() => setHovered(null)}
@@ -128,7 +138,7 @@ export default function Navbar() {
             style={{
               width: pill.width,
               transform: `translate3d(${pill.left}px, 0, 0)`,
-              opacity: pill.width === 0 ? 0 : 1,
+              opacity: target === null || pill.width === 0 ? 0 : 1,
               // Inline so the easing survives regardless of Tailwind's
               // arbitrary-value handling; skipped on the very first paint.
               transition: ready
@@ -140,11 +150,11 @@ export default function Navbar() {
           <ul ref={listRef} className="relative z-10 flex items-center gap-1">
             {links.map((l, i) => (
               <li key={l.label}>
-                <a
+                <Link
                   ref={(el) => {
                     itemRefs.current[i] = el;
                   }}
-                  href={l.href}
+                  href={`/#${l.id}`}
                   onMouseEnter={() => setHovered(i)}
                   onFocus={() => setHovered(i)}
                   onBlur={() => setHovered(null)}
@@ -153,19 +163,19 @@ export default function Navbar() {
                   }`}
                 >
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </div>
 
         <div className="ml-auto flex items-center gap-2 lg:ml-0">
-          <a
-            href="#contact"
+          <Link
+            href="/contact"
             className="rounded-full bg-ink px-5 py-2.5 text-[13px] font-medium text-white transition hover:bg-ink/85"
           >
-            Start a Project
-          </a>
+            Get a Quote
+          </Link>
           <button
             aria-label="Toggle menu"
             aria-expanded={open}
@@ -185,15 +195,24 @@ export default function Navbar() {
           <ul className="grid gap-1">
             {links.map((l) => (
               <li key={l.label}>
-                <a
-                  href={l.href}
+                <Link
+                  href={`/#${l.id}`}
                   onClick={() => setOpen(false)}
                   className="block rounded-2xl px-4 py-3 text-sm font-medium text-ink/80 transition hover:bg-black/5"
                 >
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className="mt-1 block rounded-2xl bg-ink px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-ink/85"
+              >
+                Get a Quote
+              </Link>
+            </li>
           </ul>
         </div>
       )}

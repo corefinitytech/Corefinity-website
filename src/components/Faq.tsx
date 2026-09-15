@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "Do you handle both the public-facing website and internal dashboards?",
-    a: "Yes. We specialize in full-stack architecture—connecting high-converting public landing pages directly to secure administrative control rooms, customer portals, and database pipelines.",
+    a: "Yes. We specialize in full-stack architecture, connecting high-converting public landing pages directly to secure administrative control rooms, customer portals, and database pipelines.",
   },
   {
     q: "How do we kick off a project?",

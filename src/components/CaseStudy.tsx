@@ -3,7 +3,7 @@ import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 const results = [
   "Engineered an end-to-end direct booking engine and front-desk property management dashboard.",
-  "Eliminated 15%–25% third-party OTA commission fees for boutique hotel operators.",
+  "Eliminated 15% to 25% third-party OTA commission fees for boutique hotel operators.",
   "Built automated bidirectional iCal calendar synchronization and mobile-first guest check-in passes.",
 ];
 

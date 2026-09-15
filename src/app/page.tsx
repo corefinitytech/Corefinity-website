@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Statement from "@/components/Statement";
 import Capabilities from "@/components/Capabilities";
@@ -9,25 +8,20 @@ import Pricing from "@/components/Pricing";
 import CaseStudy from "@/components/CaseStudy";
 import Faq from "@/components/Faq";
 import ProjectBrief from "@/components/ProjectBrief";
-import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <Hero />
-        <Statement />
-        <Capabilities />
-        <Marquee />
-        <Philosophy />
-        <Advantage />
-        <Pricing />
-        <CaseStudy />
-        <Faq />
-        <ProjectBrief />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <Hero />
+      <Statement />
+      <Capabilities />
+      <Marquee />
+      <Philosophy />
+      <Advantage />
+      <Pricing />
+      <CaseStudy />
+      <Faq />
+      <ProjectBrief />
+    </main>
   );
 }

@@ -4,7 +4,6 @@ type Brief = {
   name?: string;
   email?: string;
   projectType?: string;
-  budget?: string;
   overview?: string;
 };
 
@@ -16,11 +15,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
+  // Budget is deliberately not collected; it gets scoped after requirements.
   const required: (keyof Brief)[] = [
     "name",
     "email",
     "projectType",
-    "budget",
     "overview",
   ];
   const missing = required.filter((k) => !body[k]?.toString().trim());
