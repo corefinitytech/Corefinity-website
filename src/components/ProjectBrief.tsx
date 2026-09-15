@@ -1,54 +1,30 @@
-"use client";
-
-import { useState } from "react";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
-import Select from "./Select";
+import Check from "./Check";
 
-const projectTypes = [
-  "Custom B2B Dashboard",
-  "Direct Booking Engine",
-  "Web Application",
-  "UI/UX Design System",
+/**
+ * Closing CTA band. The brief form itself lives on /contact, so this section
+ * carries the decision instead: what you get, what it costs you to ask, and
+ * the two ways to start.
+ */
+const assurances = [
+  "Fixed-scope roadmap back within 48 hours",
+  "100% source code and IP ownership",
+  "No retainers, no discovery fees",
 ];
 
-const budgetTiers = ["$3k – $5k", "$5k – $10k", "$10k+"];
-
-const fieldClass =
-  "w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm text-ink outline-none transition placeholder:text-ink/35 focus:border-accent focus:ring-2 focus:ring-accent/15";
-
-const labelClass =
-  "mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-ink/45";
-
-type Status = "idle" | "sending" | "sent" | "error";
-
 export default function ProjectBrief() {
-  const [status, setStatus] = useState<Status>("idle");
-
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setStatus("sending");
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-    try {
-      const res = await fetch("/api/brief", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error("Request failed");
-      setStatus("sent");
-    } catch {
-      setStatus("error");
-    }
-  }
-
   return (
     <section id="contact" className="px-4 py-12 sm:px-6">
       <div className="mx-auto max-w-7xl rounded-[32px] bg-mist px-6 py-16 sm:px-12 sm:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
           <div>
-            <h2 className="max-w-md text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-ink/40">
+              ( Start Here )
+            </p>
+            <h2 className="mt-5 max-w-xl text-[clamp(1.9rem,4.4vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.03em] text-ink">
               Ready to build software that{" "}
               <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
                 scales your business?
@@ -60,96 +36,50 @@ export default function ProjectBrief() {
             </p>
           </div>
 
-          {status === "sent" ? (
-            <div className="grid place-items-center rounded-3xl border border-black/[0.08] bg-white p-10 text-center">
-              <div>
-                <p className="text-lg font-medium text-ink">Brief received.</p>
-                <p className="mt-2 max-w-sm text-sm text-ink/60">
-                  We&apos;ll review your requirements and come back with a
-                  fixed-scope technical roadmap within 48 hours.
-                </p>
-              </div>
+          <div className="rounded-3xl border border-black/[0.08] bg-white p-6 sm:p-7">
+            <div className="flex items-center gap-2.5">
+              <span className="relative grid size-2 place-items-center">
+                <span className="absolute inline-flex size-2 animate-ping rounded-full bg-accent opacity-60" />
+                <span className="relative inline-flex size-2 rounded-full bg-accent" />
+              </span>
+              <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-ink/50">
+                Accepting new projects
+              </span>
             </div>
-          ) : (
-            <form
-              onSubmit={onSubmit}
-              className="grid gap-5 rounded-3xl border border-black/[0.08] bg-white p-6 sm:p-8"
-            >
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label className={labelClass} htmlFor="name">
-                    Name
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    required
-                    placeholder="What is your name?"
-                    className={fieldClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass} htmlFor="email">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="name@company.com"
-                    className={fieldClass}
-                  />
-                </div>
-              </div>
 
-              <div className="grid gap-5 sm:grid-cols-2">
-                <Select
-                  name="projectType"
-                  label="Project Type"
-                  placeholder="Select a project type"
-                  options={projectTypes}
-                  required
-                />
-                <Select
-                  name="budget"
-                  label="Budget Tier"
-                  placeholder="Select a budget tier"
-                  options={budgetTiers}
-                  required
-                />
-              </div>
+            <ul className="mt-6 grid gap-3">
+              {assurances.map((a) => (
+                <li key={a} className="flex items-start gap-3 text-[13px] leading-relaxed">
+                  <span className="mt-px grid size-5 shrink-0 place-items-center rounded-full bg-accent text-white">
+                    <Check className="size-3" />
+                  </span>
+                  <span className="text-ink/65">{a}</span>
+                </li>
+              ))}
+            </ul>
 
-              <div>
-                <label className={labelClass} htmlFor="overview">
-                  Project Overview
-                </label>
-                <textarea
-                  id="overview"
-                  name="overview"
-                  rows={5}
-                  required
-                  placeholder="Tell us briefly about what you are building..."
-                  className={fieldClass + " resize-none"}
-                />
-              </div>
-
-              {status === "error" && (
-                <p className="text-sm text-coral">
-                  Something went wrong. Please try again or email us directly.
-                </p>
-              )}
-
-              <button
-                type="submit"
-                disabled={status === "sending"}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[13px] font-medium text-white transition hover:bg-ink/85 disabled:opacity-60"
+            <div className="mt-7 border-t border-black/[0.07] pt-6">
+              <Link
+                href="/contact"
+                className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85"
               >
-                {status === "sending" ? "Sending…" : "Send Project Brief"}
-                <FontAwesomeIcon icon={faArrowRightLong} className="size-3.5" />
-              </button>
-            </form>
-          )}
+                Get a Quote
+                <FontAwesomeIcon
+                  icon={faArrowRightLong}
+                  className="size-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </Link>
+              <p className="mt-4 text-center text-[12px] text-ink/45">
+                Prefer email?{" "}
+                <a
+                  href="mailto:corefinity.tech@gmail.com"
+                  className="font-medium text-ink/70 underline underline-offset-4 transition hover:text-accent"
+                >
+                  corefinity.tech@gmail.com
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
