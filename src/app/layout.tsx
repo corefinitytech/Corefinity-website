@@ -6,6 +6,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import CookieConsent from "@/components/CookieConsent";
 import {
   graph,
   organizationSchema,
@@ -103,6 +104,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <CookieConsent />
         <JsonLd
           schema={graph(organizationSchema(), websiteSchema(), serviceSchema())}
         />

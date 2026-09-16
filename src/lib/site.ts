@@ -34,31 +34,66 @@ export type Service = {
   description: string;
 };
 
-/** Mirrors the Capabilities section. Feeds the service list in structured data. */
+/**
+ * The full service line. Feeds structured data, llms.txt and the legal pages,
+ * so it is deliberately broader than the Capabilities cards on the home page,
+ * which only feature a subset.
+ */
 export const services: Service[] = [
   {
-    name: "Custom B2B platforms and dashboards",
+    name: "Web development",
     description:
-      "Operations systems, customer portals and internal workflows built to replace disconnected subscriptions and manual spreadsheets.",
+      "Frontend, backend and full stack builds. Marketing sites, customer portals, SaaS dashboards and internal operations tools.",
   },
   {
-    name: "Direct booking and commerce engines",
+    name: "Mobile app development",
     description:
-      "Commission free transaction flows, automated calendar synchronisation and checkout engines built for hospitality and direct sales.",
+      "Cross platform and native applications, with the APIs and admin tooling that sit behind them.",
   },
   {
-    name: "UI and UX architecture",
+    name: "AI development",
     description:
-      "Design systems built and validated in Figma before a line of production code is written.",
+      "Chatbots, assistants, document processing and language model integration wired into the systems a business already runs.",
   },
   {
-    name: "API and workflow automation",
+    name: "Python scripting and automation",
     description:
-      "Two way integrations with payment gateways, CRMs, WhatsApp notifications and relational databases.",
+      "Data pipelines, scraping, reporting and scheduled jobs that remove repetitive manual work.",
   },
   {
-    name: "Cloud infrastructure and deployment",
+    name: "Search engine optimisation",
     description:
-      "Production CI and CD pipelines, edge hosting on Vercel and enterprise grade data security on every release.",
+      "Technical SEO, structured data, page speed, content structure and ongoing search performance work.",
+  },
+  {
+    name: "Systems integration",
+    description:
+      "Two way integrations across payment gateways, CRMs, messaging platforms, calendars and relational databases.",
+  },
+  {
+    name: "UI and UX design",
+    description:
+      "Design systems built and agreed in Figma before production code is written.",
+  },
+  {
+    name: "Cloud deployment and infrastructure",
+    description:
+      "Production CI and CD pipelines, edge hosting, monitoring and security practices applied on every release.",
   },
 ];
+
+/**
+ * Details the legal pages quote. Anything here appears verbatim in a binding
+ * document, so placeholders are marked rather than guessed at.
+ */
+export const legal = {
+  /** Replace once the business is formally registered. */
+  entity: "Corefinity",
+  country: "Pakistan",
+  governingLaw: "the laws of the Islamic Republic of Pakistan",
+  courts: "the courts of Pakistan",
+  /** Update when a page is materially changed. */
+  effectiveDate: "16 September 2026",
+  /** Days a client has to raise an invoice dispute. */
+  paymentTermDays: 14,
+} as const;

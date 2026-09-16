@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import Brand from "./Brand";
+import ConsentReset from "./ConsentReset";
 import { site } from "@/lib/site";
 
 /**
@@ -14,6 +15,12 @@ const sections = [
   { label: "Case study", href: "/#case-studies" },
   { label: "Engagements", href: "/#pricing" },
   { label: "Questions", href: "/#faq" },
+];
+
+const legalLinks = [
+  { label: "Privacy policy", href: "/privacy" },
+  { label: "Terms of service", href: "/terms" },
+  { label: "Cookie policy", href: "/cookies" },
 ];
 
 export default function Footer() {
@@ -73,6 +80,30 @@ export default function Footer() {
                   >
                     Email us
                   </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.18em] text-ink/35">
+                Legal
+              </p>
+              <ul className="mt-4 grid gap-2.5">
+                {legalLinks.map((l) => (
+                  <li key={l.label}>
+                    <Link
+                      href={l.href}
+                      className="text-sm text-ink/60 transition hover:text-ink"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <ConsentReset
+                    label="Cookie settings"
+                    className="text-sm [&>button]:font-normal [&>button]:text-ink/60 [&>button]:no-underline [&>button:hover]:text-ink [&>span]:hidden"
+                  />
                 </li>
               </ul>
             </div>
