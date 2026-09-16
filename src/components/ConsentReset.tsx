@@ -38,12 +38,12 @@ export default function ConsentReset({
     <span className={className}>
       <button
         onClick={clearConsent}
-        className="text-left font-medium text-ink underline underline-offset-4 transition hover:text-accent"
+        className="text-left font-medium text-ink underline underline-offset-4 transition hover:text-accent-ink"
       >
         {label}
       </button>
       {decidedAt && (
-        <span className="ml-2 text-[12px] text-ink/40">
+        <span className="ml-2 text-[12px] text-ink/60">
           Last set{" "}
           {new Date(decidedAt).toLocaleDateString("en-GB", {
             day: "numeric",

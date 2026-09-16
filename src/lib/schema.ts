@@ -25,7 +25,7 @@ export function organizationSchema() {
     slogan: site.tagline,
     logo: {
       "@type": "ImageObject",
-      url: `${siteUrl}/logo/logo-3.png`,
+      url: `${siteUrl}/logo/wordmark-dark.png`,
       caption: site.name,
     },
     contactPoint: [
@@ -39,11 +39,15 @@ export function organizationSchema() {
     ],
     knowsAbout: [
       "Web application development",
+      "Mobile app development",
       "SaaS dashboard development",
+      "AI and chatbot development",
+      "Python automation",
+      "Search engine optimisation",
       "Direct booking systems",
+      "API integration",
       "Next.js",
       "TypeScript",
-      "API integration",
       "Cloud deployment",
     ],
   };

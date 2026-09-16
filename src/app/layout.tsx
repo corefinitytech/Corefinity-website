@@ -1,24 +1,20 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { config } from "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import CookieConsent from "@/components/CookieConsent";
+import Analytics from "@/components/Analytics";
 import {
   graph,
   organizationSchema,
   serviceSchema,
   websiteSchema,
 } from "@/lib/schema";
-import { site, siteUrl } from "@/lib/site";
+import { site, siteUrl, verification } from "@/lib/site";
 
 import "./globals.css";
-
-// Next injects the Font Awesome stylesheet above; stop the runtime doing it again.
-config.autoAddCss = false;
 
 const inter = Inter({
   subsets: ["latin"],
@@ -75,6 +71,10 @@ export const metadata: Metadata = {
     },
   },
   formatDetection: { telephone: false, address: false, email: false },
+  verification: {
+    google: verification.google,
+    other: verification.bing ? { "msvalidate.01": verification.bing } : {},
+  },
 };
 
 export const viewport: Viewport = {
@@ -105,6 +105,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <CookieConsent />
+        <Analytics />
         <JsonLd
           schema={graph(organizationSchema(), websiteSchema(), serviceSchema())}
         />

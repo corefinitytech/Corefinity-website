@@ -15,7 +15,7 @@ export default function NotFound() {
       className="grid min-h-[70vh] place-items-center px-4 pt-28 sm:px-6"
     >
       <div className="mx-auto max-w-lg text-center">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-ink/40">
+        <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
           ( 404 )
         </p>
         <h1 className="mt-5 text-[clamp(2rem,5vw,3.25rem)] font-medium leading-[1.05] tracking-[-0.03em] text-ink">

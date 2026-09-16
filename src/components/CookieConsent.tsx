@@ -121,7 +121,7 @@ export default function CookieConsent() {
               <span className="absolute inline-flex size-2 animate-ping rounded-full bg-accent opacity-60" />
               <span className="relative inline-flex size-2 rounded-full bg-accent" />
             </span>
-            <p className="text-[11px] uppercase tracking-[0.2em] text-ink/40">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
               ( Cookies )
             </p>
           </div>
@@ -135,7 +135,7 @@ export default function CookieConsent() {
             exactly the same. The{" "}
             <Link
               href="/cookies"
-              className="font-medium text-ink underline underline-offset-4 transition hover:text-accent"
+              className="font-medium text-ink underline underline-offset-4 transition hover:text-accent-ink"
             >
               cookie policy
             </Link>{" "}
@@ -166,12 +166,12 @@ export default function CookieConsent() {
                       <p className="text-[13px] font-medium tracking-[-0.01em] text-ink">
                         {c.label}
                         {c.locked && (
-                          <span className="ml-2 text-[10px] uppercase tracking-[0.14em] text-ink/35">
+                          <span className="ml-2 text-[10px] uppercase tracking-[0.14em] text-ink/60">
                             Always on
                           </span>
                         )}
                       </p>
-                      <p className="mt-1.5 text-[12px] leading-relaxed text-ink/55">
+                      <p className="mt-1.5 text-[12px] leading-relaxed text-ink/65">
                         {c.description}
                       </p>
                     </div>
@@ -205,7 +205,7 @@ export default function CookieConsent() {
             <button
               onClick={() => setCustomising((v) => !v)}
               aria-expanded={customising}
-              className="inline-flex h-11 items-center justify-center rounded-full px-4 text-[13px] font-medium text-ink/50 transition hover:text-ink sm:ml-auto"
+              className="inline-flex h-11 items-center justify-center rounded-full px-4 text-[13px] font-medium text-ink/65 transition hover:text-ink sm:ml-auto"
             >
               {customising ? "Hide options" : "Customise"}
             </button>

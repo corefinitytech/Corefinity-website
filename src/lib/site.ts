@@ -29,6 +29,21 @@ export const site = {
   twitter: "@corefinity",
 } as const;
 
+/**
+ * Search engine ownership tokens. Set these in the environment once each
+ * property is verified; unset values are simply omitted from the head.
+ *
+ * Bing matters beyond its own search share: its index is what ChatGPT browsing
+ * and Microsoft Copilot retrieve from, so being crawled by Bing is how this
+ * site becomes quotable by assistants at all.
+ */
+export const verification = {
+  google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  bing: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION,
+  /** Any random 32 char hex string; it is served at /<key>.txt for IndexNow. */
+  indexNowKey: process.env.INDEXNOW_KEY,
+} as const;
+
 export type Service = {
   name: string;
   description: string;

@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { ArrowRight } from "./icons";
 
 export default function Philosophy() {
   return (
@@ -14,7 +13,7 @@ export default function Philosophy() {
 
         <div className="relative grid gap-12 lg:grid-cols-[1fr_1fr]">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.2em] text-white/35">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-white/50">
               ( About Corefinity )
             </p>
             <h2 className="mt-5 max-w-md text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em]">
@@ -41,7 +40,7 @@ export default function Philosophy() {
               className="mt-2 inline-flex w-fit items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-[13px] font-medium text-white transition hover:border-white hover:bg-white hover:text-ink"
             >
               See what we build
-              <FontAwesomeIcon icon={faArrowRightLong} className="size-3.5" />
+              <ArrowRight className="size-3.5" />
             </a>
           </div>
         </div>

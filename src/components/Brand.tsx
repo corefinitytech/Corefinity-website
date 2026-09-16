@@ -1,12 +1,17 @@
 import Image from "next/image";
 
-import logoDark from "../../public/logo/logo-3.png";
-import logoLight from "../../public/logo/logo-2.png";
+import logoDark from "../../public/logo/wordmark-dark.png";
+import logoLight from "../../public/logo/wordmark-light.png";
 
 /**
  * Full CoreFinity lockup.
- * "dark" = navy mark + wordmark, for light backgrounds.
+ * "dark" = navy mark and wordmark, for light backgrounds.
  * "light" = white wordmark, for dark backgrounds.
+ *
+ * The files are 600px wide, which covers the largest use on the site (the hero
+ * banner lockup, about 195px) at 3x pixel density. `sizes` is pinned to the
+ * real rendered width so the browser stops pulling a variant several times
+ * larger than it can display. Masters live in /brand, outside the deployed app.
  */
 export default function Brand({
   variant = "dark",
@@ -24,7 +29,7 @@ export default function Brand({
       alt="CoreFinity"
       className={className}
       priority={priority}
-      sizes="(max-width: 640px) 240px, 480px"
+      sizes="200px"
     />
   );
 }

@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 import Brand from "./Brand";
 import Fillet from "./Fillet";
+import { ChevronLeft, ChevronRight } from "./icons";
 
 /** Silhouette constants, shared by the tabs and their concave fillets. */
 const TAB_W = 44;
@@ -79,16 +78,16 @@ export default function HeroBanner() {
         <button
           onClick={() => go(-1)}
           aria-label="Previous slide"
-          className="grid size-8 place-items-center rounded-full text-ink/55 transition hover:bg-black/5 hover:text-ink"
+          className="grid size-8 place-items-center rounded-full text-ink/65 transition hover:bg-black/5 hover:text-ink"
         >
-          <FontAwesomeIcon icon={faAngleLeft} className="size-3.5" />
+          <ChevronLeft className="size-3.5" />
         </button>
         <button
           onClick={() => go(1)}
           aria-label="Next slide"
-          className="grid size-8 place-items-center rounded-full text-ink/55 transition hover:bg-black/5 hover:text-ink"
+          className="grid size-8 place-items-center rounded-full text-ink/65 transition hover:bg-black/5 hover:text-ink"
         >
-          <FontAwesomeIcon icon={faAngleRight} className="size-3.5" />
+          <ChevronRight className="size-3.5" />
         </button>
       </div>
       <Fillet
@@ -112,7 +111,7 @@ export default function HeroBanner() {
         <div className="flex items-center gap-3">
           <span className="text-[12px] font-medium tabular-nums text-ink/70">
             {String(index + 1).padStart(2, "0")}
-            <span className="text-ink/30"> / </span>
+            <span className="text-ink/60"> / </span>
             {String(slides.length).padStart(2, "0")}
           </span>
           <span className="flex items-center gap-1.5">

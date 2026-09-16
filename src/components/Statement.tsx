@@ -1,11 +1,12 @@
 const stack = [
   "Next.js",
-  "Tailwind CSS",
+  "React Native",
   "TypeScript",
+  "Python",
   "Node.js",
-  "Vercel",
   "PostgreSQL",
-  "Stripe Connect",
+  "Stripe",
+  "Vercel",
 ];
 
 export default function Statement() {
@@ -29,8 +30,12 @@ export default function Statement() {
         <ul className="mt-14 flex flex-wrap items-center gap-x-2 gap-y-3 border-t border-black/[0.07] pt-8">
           {stack.map((t, i) => (
             <li key={t} className="flex items-center gap-2">
-              {i > 0 && <span className="text-ink/20">·</span>}
-              <span className="text-sm font-medium tracking-tight text-ink/45">
+              {i > 0 && (
+                <span aria-hidden className="text-ink/30">
+                  ·
+                </span>
+              )}
+              <span className="text-sm font-medium tracking-tight text-ink/60">
                 {t}
               </span>
             </li>

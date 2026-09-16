@@ -1,5 +1,4 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { ArrowRight } from "./icons";
 
 const results = [
   "Built the booking engine and the front desk management dashboard behind it.",
@@ -19,10 +18,10 @@ export default function CaseStudy() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.2em] text-accent">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-accent-ink">
               Featured Hospitality Tech Case Study
             </p>
-            <p className="mt-6 text-sm font-medium tracking-[0.1em] text-ink/45">
+            <p className="mt-6 text-sm font-medium tracking-[0.1em] text-ink/60">
               LODGEX SYSTEMS
             </p>
             <h2 className="mt-3 max-w-lg text-[clamp(1.6rem,3.2vw,2.5rem)] font-medium leading-[1.12] tracking-[-0.03em] text-ink">
@@ -46,7 +45,7 @@ export default function CaseStudy() {
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-[13px] font-medium text-white transition hover:bg-ink/85"
             >
               Talk to us about a build like this
-              <FontAwesomeIcon icon={faArrowRightLong} className="size-3.5" />
+              <ArrowRight className="size-3.5" />
             </a>
           </div>
 

@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 import { legal, site } from "@/lib/site";
+import { ArrowLeft } from "./icons";
 
 export type LegalSection = {
   id: string;
@@ -36,16 +35,13 @@ export default function LegalLayout({
         <div className="mx-auto max-w-7xl">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2 text-[12px] font-medium text-ink/45 transition hover:text-ink"
+            className="group inline-flex items-center gap-2 text-[12px] font-medium text-ink/60 transition hover:text-ink"
           >
-            <FontAwesomeIcon
-              icon={faArrowLeftLong}
-              className="size-3 transition-transform duration-300 group-hover:-translate-x-1"
-            />
+            <ArrowLeft className="size-3 transition-transform duration-300 group-hover:-translate-x-1" />
             Back to home
           </Link>
 
-          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/40">
+          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/60">
             ( {eyebrow} )
           </p>
 
@@ -72,13 +68,13 @@ export default function LegalLayout({
               aria-label="On this page"
               className="lg:sticky lg:top-28 lg:self-start"
             >
-              <p className="text-[11px] uppercase tracking-[0.18em] text-ink/35">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-ink/60">
                 On this page
               </p>
               <ol className="mt-4 grid gap-2.5">
                 {sections.map((s, i) => (
                   <li key={s.id} className="flex gap-3">
-                    <span className="mt-px text-[11px] font-medium tabular-nums text-accent">
+                    <span className="mt-px text-[11px] font-medium tabular-nums text-accent-ink">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <a
@@ -92,7 +88,7 @@ export default function LegalLayout({
               </ol>
 
               <div className="mt-8 border-t border-black/[0.07] pt-6">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-ink/40">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-ink/60">
                   In effect from
                 </p>
                 <p className="mt-1.5 text-[13px] font-medium text-ink">
@@ -110,14 +106,14 @@ export default function LegalLayout({
                   className="scroll-mt-28 border-t border-black/[0.07] py-8 first:border-t-0 first:pt-0"
                 >
                   <div className="flex items-baseline gap-3">
-                    <span className="text-[11px] font-medium tabular-nums text-accent">
+                    <span className="text-[11px] font-medium tabular-nums text-accent-ink">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h2 className="text-xl font-medium leading-snug tracking-[-0.02em] text-ink">
                       {s.heading}
                     </h2>
                   </div>
-                  <div className="mt-4 grid gap-4 text-sm leading-relaxed text-ink/65 [&_a]:font-medium [&_a]:text-ink [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:text-accent [&_li]:pl-1 [&_strong]:font-medium [&_strong]:text-ink [&_ul]:grid [&_ul]:list-disc [&_ul]:gap-2 [&_ul]:pl-5">
+                  <div className="mt-4 grid gap-4 text-sm leading-relaxed text-ink/65 [&_a]:font-medium [&_a]:text-ink [&_a]:underline [&_a]:underline-offset-4 [&_a:hover]:text-accent-ink [&_li]:pl-1 [&_strong]:font-medium [&_strong]:text-ink [&_ul]:grid [&_ul]:list-disc [&_ul]:gap-2 [&_ul]:pl-5">
                     {s.body}
                   </div>
                 </section>
@@ -128,7 +124,7 @@ export default function LegalLayout({
                   Questions about this page? Write to{" "}
                   <a
                     href={`mailto:${site.email}`}
-                    className="font-medium text-ink underline underline-offset-4 transition hover:text-accent"
+                    className="font-medium text-ink underline underline-offset-4 transition hover:text-accent-ink"
                   >
                     {site.email}
                   </a>{" "}

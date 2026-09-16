@@ -39,6 +39,7 @@ export default function Navbar() {
 
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const listRef = useRef<HTMLUListElement | null>(null);
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
 
   // Off the home page there is nothing to spy on, so only hover moves the pill.
   const target = hovered ?? (isHome ? active : null);
@@ -103,6 +104,36 @@ export default function Navbar() {
   useLayoutEffect(() => {
     measure();
   }, [measure]);
+
+  // The mobile panel is a menu, so Escape closes it and the page behind it
+  // stops scrolling while it is open.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  // Close when the viewport grows past the breakpoint that hides the button,
+  // otherwise scroll stays locked with no visible way to unlock it.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (mq.matches) setOpen(false);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", measure);
@@ -181,8 +212,10 @@ export default function Navbar() {
             Get a Quote
           </Link>
           <button
-            aria-label="Toggle menu"
+            ref={menuButtonRef}
+            aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
             className="grid size-9 shrink-0 place-items-center rounded-full text-ink transition hover:bg-black/5 lg:hidden"
           >
@@ -195,7 +228,10 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="mx-auto mt-2 max-w-7xl rounded-3xl border border-black/5 bg-white p-3 shadow-xl lg:hidden">
+        <div
+          id="mobile-menu"
+          className="mx-auto mt-2 max-w-7xl rounded-3xl border border-black/5 bg-white p-3 shadow-xl lg:hidden"
+        >
           <ul className="grid gap-1">
             {links.map((l) => (
               <li key={l.label}>

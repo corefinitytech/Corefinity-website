@@ -30,12 +30,12 @@ export default function Footer() {
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-sm">
             <Brand className="h-6 w-auto" />
-            <p className="mt-4 text-sm leading-relaxed text-ink/55">
+            <p className="mt-4 text-sm leading-relaxed text-ink/65">
               {site.shortDescription}
             </p>
             <a
               href={`mailto:${site.email}`}
-              className="mt-4 inline-block break-words text-sm font-medium text-ink transition hover:text-accent"
+              className="mt-4 inline-block break-words text-sm font-medium text-ink transition hover:text-accent-ink"
             >
               {site.email}
             </a>
@@ -43,7 +43,7 @@ export default function Footer() {
 
           <nav aria-label="Footer" className="flex flex-wrap gap-x-12 gap-y-8">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.18em] text-ink/35">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-ink/60">
                 Explore
               </p>
               <ul className="mt-4 grid gap-2.5">
@@ -61,7 +61,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <p className="text-[11px] uppercase tracking-[0.18em] text-ink/35">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-ink/60">
                 Start
               </p>
               <ul className="mt-4 grid gap-2.5">
@@ -85,7 +85,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <p className="text-[11px] uppercase tracking-[0.18em] text-ink/35">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-ink/60">
                 Legal
               </p>
               <ul className="mt-4 grid gap-2.5">
@@ -111,10 +111,10 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-black/5 pt-6">
-          <p className="text-xs text-ink/40">
+          <p className="text-xs text-ink/60">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
-          <p className="text-xs text-ink/40">
+          <p className="text-xs text-ink/60">
             You own every line of code we write for you.
           </p>
         </div>

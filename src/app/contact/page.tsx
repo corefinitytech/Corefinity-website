@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeftLong,
-  faEnvelope,
-  faBolt,
-  faFileLines,
-  faComments,
-  faMapLocationDot,
-} from "@fortawesome/free-solid-svg-icons";
 
 import QuoteForm from "@/components/QuoteForm";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, graph } from "@/lib/schema";
+import {
+  ArrowLeft,
+  Bolt,
+  Comments,
+  Envelope,
+  FileLines,
+  MapPin,
+} from "@/components/icons";
 
 const title = "Get a Quote";
 const description =
@@ -33,14 +32,14 @@ export const metadata: Metadata = {
  *  the row reads light to dark without the flat primary blue. */
 const steps = [
   {
-    icon: faFileLines,
+    icon: FileLines,
     title: "Submit your brief",
     detail: "Share the shape of the project and the outcome you need.",
     surface: "bg-mist",
     light: true,
   },
   {
-    icon: faComments,
+    icon: Comments,
     title: "Short discovery call",
     detail: "We pressure test the requirements and agree what ships first.",
     surface:
@@ -48,7 +47,7 @@ const steps = [
     light: false,
   },
   {
-    icon: faMapLocationDot,
+    icon: MapPin,
     title: "Roadmap in 48 hours",
     detail:
       "A written architecture plan, a milestone timeline and a fixed price.",
@@ -65,16 +64,13 @@ export default function ContactPage() {
         <div className="mx-auto max-w-7xl">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2 text-[12px] font-medium text-ink/45 transition hover:text-ink"
+            className="group inline-flex items-center gap-2 text-[12px] font-medium text-ink/60 transition hover:text-ink"
           >
-            <FontAwesomeIcon
-              icon={faArrowLeftLong}
-              className="size-3 transition-transform duration-300 group-hover:-translate-x-1"
-            />
+            <ArrowLeft className="size-3 transition-transform duration-300 group-hover:-translate-x-1" />
             Back to home
           </Link>
 
-          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/40">
+          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/60">
             ( Get a Quote )
           </p>
 
@@ -113,14 +109,14 @@ export default function ContactPage() {
                         : "bg-white/15 text-white backdrop-blur-sm"
                     }`}
                   >
-                    <FontAwesomeIcon icon={s.icon} className="size-3.5" />
+                    <s.icon className="size-3.5" />
                   </span>
                   <h2 className="text-[15px] font-medium leading-snug tracking-[-0.02em]">
                     {s.title}
                   </h2>
                   <span
                     className={`ml-auto text-[10px] font-medium tracking-[0.18em] ${
-                      s.light ? "text-accent" : "text-white/40"
+                      s.light ? "text-accent-ink" : "text-white/50"
                     }`}
                   >
                     0{i + 1}
@@ -129,7 +125,7 @@ export default function ContactPage() {
 
                 <p
                   className={`mt-3 text-[12px] leading-relaxed ${
-                    s.light ? "text-ink/55" : "text-white/65"
+                    s.light ? "text-ink/65" : "text-white/65"
                   }`}
                 >
                   {s.detail}
@@ -162,7 +158,7 @@ export default function ContactPage() {
                   className="group flex items-center gap-4 rounded-2xl bg-ink px-5 py-4 text-white transition hover:bg-ink/90"
                 >
                   <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent text-white">
-                    <FontAwesomeIcon icon={faEnvelope} className="size-3.5" />
+                    <Envelope className="size-3.5" />
                   </span>
                   <span className="min-w-0">
                     <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">
@@ -175,11 +171,11 @@ export default function ContactPage() {
                 </a>
 
                 <div className="flex items-center gap-4 rounded-2xl border border-black/[0.08] bg-white px-5 py-4">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent/10 text-accent">
-                    <FontAwesomeIcon icon={faBolt} className="size-3.5" />
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent/10 text-accent-ink">
+                    <Bolt className="size-3.5" />
                   </span>
                   <span>
-                    <span className="block text-[10px] uppercase tracking-[0.14em] text-ink/40">
+                    <span className="block text-[10px] uppercase tracking-[0.14em] text-ink/60">
                       Typical response
                     </span>
                     <span className="block text-[13px] font-medium text-ink">

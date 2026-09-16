@@ -1,7 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
-
 import HeroBanner from "./HeroBanner";
+import { ArrowRight } from "./icons";
 
 export default function Hero() {
   return (
@@ -27,10 +25,7 @@ export default function Hero() {
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-white transition hover:bg-ink/85"
               >
                 Explore Capabilities
-                <FontAwesomeIcon
-                  icon={faArrowRightLong}
-                  className="size-3.5 transition-transform"
-                />
+                <ArrowRight className="size-3.5 transition-transform" />
               </a>
               <a
                 href="#case-studies"

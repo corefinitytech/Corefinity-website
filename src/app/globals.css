@@ -7,9 +7,12 @@
   --color-mist: #f1f2f5;
   /* Sampled from the CoreFinity mark: deep blue -> bright blue ramp. */
   --color-accent: #1880d8;
+  /* Text safe companion to accent. The brand blue is only 3.67:1 on the mist
+     panels at 11px, so small text and any surface carrying white text uses
+     this one instead. Same hue, darkened until it clears WCAG AA. */
+  --color-accent-ink: #1570bc;
   --color-deep: #0f5bb5;
   --color-sky: #18a8e8;
-  --color-steel: #46536b;
   --color-coral: #f0503c;
 
   --animate-marquee: marquee 26s linear infinite;

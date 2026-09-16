@@ -1,7 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
-
 import Check from "./Check";
+import { ArrowRight } from "./icons";
 
 const tiers = [
   {
@@ -62,7 +60,7 @@ export default function Pricing() {
               }`}
             >
               {t.featured && (
-                <span className="absolute right-6 top-6 rounded-full bg-accent px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-white">
+                <span className="absolute right-6 top-6 rounded-full bg-accent-ink px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-white">
                   Recommended
                 </span>
               )}
@@ -72,7 +70,7 @@ export default function Pricing() {
               </h3>
               <p
                 className={`mt-3 max-w-[42ch] text-[13px] leading-relaxed ${
-                  t.featured ? "text-white/60" : "text-ink/55"
+                  t.featured ? "text-white/60" : "text-ink/65"
                 }`}
               >
                 {t.target}
@@ -83,7 +81,7 @@ export default function Pricing() {
                   t.featured ? "border-white/10" : "border-black/[0.07]"
                 }`}
               >
-                <span className={t.featured ? "text-white/40" : "text-ink/40"}>
+                <span className={t.featured ? "text-white/50" : "text-ink/60"}>
                   Turnaround
                 </span>
                 <span className="ml-auto font-medium">{t.turnaround}</span>
@@ -97,7 +95,7 @@ export default function Pricing() {
                   >
                     <Check
                       className={`mt-0.5 size-4 shrink-0 ${
-                        t.featured ? "text-sky" : "text-accent"
+                        t.featured ? "text-sky" : "text-accent-ink"
                       }`}
                     />
                     <span
@@ -118,7 +116,7 @@ export default function Pricing() {
                 }`}
               >
                 {t.cta}
-                <FontAwesomeIcon icon={faArrowRightLong} className="size-3.5" />
+                <ArrowRight className="size-3.5" />
               </a>
             </div>
           ))}

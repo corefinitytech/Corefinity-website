@@ -1,7 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
-
 import Fillet, { FILLET_SIZE } from "./Fillet";
+import { ChevronRight } from "./icons";
 
 const NOTCH = 56;
 
@@ -18,7 +16,7 @@ export default function CardNotch() {
         style={{ width: NOTCH, height: NOTCH }}
       >
         <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition duration-300 group-hover:scale-110">
-          <FontAwesomeIcon icon={faChevronRight} className="size-3" />
+          <ChevronRight className="size-3" />
         </span>
       </span>
       <Fillet origin="0% 0%" style={{ right: NOTCH, bottom: 0 }} />
