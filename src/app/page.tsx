@@ -11,7 +11,7 @@ import ProjectBrief from "@/components/ProjectBrief";
 
 export default function Home() {
   return (
-    <main>
+     <main>
       <Hero />
       <Statement />
       <Capabilities />
