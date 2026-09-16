@@ -84,7 +84,7 @@ export default function Capabilities() {
 
         <div className="mt-4 flex flex-wrap items-end justify-between gap-6">
           <h2 className="max-w-2xl text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-            Engineered for Speed, Scalability, and Absolute Control
+            Built to run fast and stay under your control
           </h2>
           <a
             href="#expertise"
@@ -99,15 +99,15 @@ export default function Capabilities() {
           <Card
             className="min-h-[300px] lg:row-span-2"
             title="Custom B2B Platforms & Dashboards"
-            body="Bespoke operations systems, customer portals, and internal workflows engineered to replace disconnected third-party subscriptions and manual spreadsheets."
-            tag="Multi-Tenant Architecture"
+            body="Operations systems, customer portals and internal workflows that replace the pile of subscriptions and spreadsheets you are running now."
+            tag="Multitenant architecture"
             surface="bg-[radial-gradient(120%_120%_at_20%_15%,#1880d8_0%,#0f4c93_38%,#0d1a33_74%,#080b18_100%)]"
           />
 
           <Card
             className="min-h-[300px] lg:row-span-2"
             title="Direct Booking & Commerce Engines"
-            body="Zero-commission transaction flows, automated calendar synchronization, and high-conversion checkout engines tailored to hospitality and direct sales."
+            body="Commission free booking flows, automatic calendar sync and checkout built for hospitality and direct sales."
             tag="Stripe & iCal Integrated"
             surface="bg-[linear-gradient(160deg,#061426_0%,#0f3a66_52%,#050b14_100%)]"
           >
@@ -117,13 +117,13 @@ export default function Capabilities() {
           <Card
             light
             className="min-h-[200px]"
-            title="UI/UX Architecture & Rapid Prototyping"
+            title="UI and UX design, prototyped first"
             surface="bg-mist"
           >
             <div className="mt-auto flex items-end justify-between gap-4 pt-6">
               <p className="max-w-[28ch] text-[12px] leading-relaxed text-ink/50">
-                Pixel-perfect design systems built and validated before
-                production code is written.
+                Design systems built and agreed in Figma before any production
+                code is written.
               </p>
               <p className="shrink-0 text-4xl font-medium tracking-tight text-accent">
                 100%
@@ -133,17 +133,17 @@ export default function Capabilities() {
 
           <Card
             className="min-h-[200px]"
-            title="API & Workflow Automation"
-            body="Bidirectional integrations with payment gateways, CRMs, WhatsApp notifications, and relational databases."
-            tag="Zero Latency"
+            title="API and workflow automation"
+            body="Two way integrations across payment gateways, CRMs, WhatsApp notifications and databases."
+            tag="Runs unattended"
             surface="bg-[linear-gradient(140deg,#101317_0%,#1b2026_100%)]"
           />
 
           <Card
             className="min-h-[200px] lg:col-span-3"
             titleClassName="whitespace-nowrap"
-            title="Full-Stack Cloud Infrastructure"
-            body="Production CI/CD pipelines, lightning-fast edge hosting via Vercel, and enterprise-grade data security standard on every release."
+            title="Cloud infrastructure and deployment"
+            body="Production CI and CD pipelines, edge hosting on Vercel, and security practices applied on every release."
             surface="bg-[linear-gradient(90deg,#14161a_0%,#1a1d23_50%,#123a6b_78%,#1880d8_100%)]"
           />
         </div>

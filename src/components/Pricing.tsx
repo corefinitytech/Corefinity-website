@@ -7,13 +7,13 @@ const tiers = [
   {
     name: "Prototype Sprint",
     target:
-      "Best for conversion-focused showcase sites and interactive MVP validations.",
+      "Best for showcase sites and MVPs you need in front of people quickly.",
     turnaround: "10 to 14 Business Days",
     deliverables: [
-      "Custom Figma UI/UX Design System",
-      "High-Performance Next.js & Tailwind Responsive Web Build",
-      "Interactive Showcase Modules & Micro-Interactions",
-      "Vercel Edge Hosting, Custom Domain & SEO Setup",
+      "Custom Figma design system",
+      "Responsive Next.js and Tailwind build",
+      "Interactive modules and motion detail",
+      "Vercel edge hosting, custom domain and SEO setup",
     ],
     cta: "Choose Prototype Sprint",
     featured: false,
@@ -25,10 +25,10 @@ const tiers = [
     turnaround: "3 to 4 Weeks",
     deliverables: [
       "Everything included in Prototype Sprint",
-      "Multi-Role Authentication & Protected Admin Dashboards",
-      "Stripe / Global Payment Gateway Integration",
-      "Bidirectional API, Database & Calendar Synchronization",
-      "30 Days Post-Deployment Technical Support & Optimization",
+      "Role based access and protected admin dashboards",
+      "Stripe or your preferred payment gateway",
+      "Two way API, database and calendar sync",
+      "30 days of technical support after launch",
     ],
     cta: "Build Your Platform OS",
     featured: true,
@@ -41,13 +41,13 @@ export default function Pricing() {
       <div className="mx-auto max-w-7xl rounded-[32px] bg-mist px-6 py-16 sm:px-12 sm:py-20">
         <div className="max-w-2xl">
           <h2 className="text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-            Predictable Investment.{" "}
+            Clear scope, fixed price,{" "}
             <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-              Zero Agency Bureaucracy.
+              no retainers.
             </span>
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-ink/60">
-            Transparent scopes designed for rapid execution and clear ROI.
+            You know what is being built and what it costs before we start.
           </p>
         </div>
 

@@ -16,13 +16,13 @@ export default function Statement() {
           <h2 className="text-[clamp(1.9rem,4.4vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.03em] text-ink">
             Engineering{" "}
             <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-              Scalable Software Solutions
+              software that fits how you work
             </span>{" "}
-            for the Next Generation of Business.
+            instead of the other way round.
           </h2>
           <p className="max-w-md text-sm leading-relaxed text-ink/60 lg:pb-2">
-            From bespoke operational control rooms to high-converting
-            direct-booking systems, we eliminate off-the-shelf limitations.
+            From internal control rooms to booking systems that take payment
+            directly, we build what the ready made tools cannot.
           </p>
         </div>
 

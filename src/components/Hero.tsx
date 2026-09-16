@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightLong, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 
 import HeroBanner from "./HeroBanner";
 
@@ -11,15 +11,15 @@ export default function Hero() {
           <h1 className="max-w-3xl text-[clamp(2.5rem,6.6vw,5.25rem)] font-medium leading-[0.98] tracking-[-0.035em] text-ink">
             Architecting{" "}
             <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
-              High-Performance Digital Platforms
+              High Performance Digital Platforms
             </span>
           </h1>
 
           <div className="max-w-sm shrink-0 lg:pb-3">
             <p className="text-sm leading-relaxed text-ink/60">
-              We engineer custom web platforms, scalable SaaS dashboards, and
-              automated business workflows that turn operational friction into
-              scalable digital revenue.
+              We build custom web platforms, operations dashboards and automated
+              workflows for companies that have outgrown their spreadsheets and
+              subscriptions.
             </p>
             <div className="mt-6 grid gap-3">
               <a
@@ -36,8 +36,7 @@ export default function Hero() {
                 href="#case-studies"
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-black/10 px-5 text-[13px] font-medium text-ink/75 transition hover:border-ink hover:text-ink"
               >
-                <FontAwesomeIcon icon={faPlay} className="size-2.5" />
-                Watch System Reel (45s)
+                See a build we shipped
               </a>
             </div>
           </div>

@@ -10,8 +10,8 @@ import Check from "./Check";
  * the two ways to start.
  */
 const assurances = [
-  "Fixed-scope roadmap back within 48 hours",
-  "100% source code and IP ownership",
+  "A written roadmap back within 48 hours",
+  "You own 100% of the code and the IP",
   "No retainers, no discovery fees",
 ];
 
@@ -25,14 +25,14 @@ export default function ProjectBrief() {
               ( Start Here )
             </p>
             <h2 className="mt-5 max-w-xl text-[clamp(1.9rem,4.4vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.03em] text-ink">
-              Ready to build software that{" "}
+              Have a project{" "}
               <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                scales your business?
+                in mind?
               </span>
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-ink/60">
-              Tell us about your project, your timeline, and your goals.
-              We&apos;ll map out a clear technical blueprint and timeline.
+              Tell us what you are building and when you need it live. We will
+              come back with a technical plan and a price.
             </p>
           </div>
 
@@ -49,7 +49,10 @@ export default function ProjectBrief() {
 
             <ul className="mt-6 grid gap-3">
               {assurances.map((a) => (
-                <li key={a} className="flex items-start gap-3 text-[13px] leading-relaxed">
+                <li
+                  key={a}
+                  className="flex items-start gap-3 text-[13px] leading-relaxed"
+                >
                   <span className="mt-px grid size-5 shrink-0 place-items-center rounded-full bg-accent text-white">
                     <Check className="size-3" />
                   </span>

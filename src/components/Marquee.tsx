@@ -4,7 +4,7 @@ const items = [
   "UI/UX DESIGN SYSTEMS",
   "DIRECT BOOKING ARCHITECTURE",
   "RAPID MVP PROTOTYPING",
-  "FULL-STACK DEPLOYMENT",
+  "FULL STACK DEPLOYMENT",
 ];
 
 function Track({ reverse }: { reverse?: boolean }) {

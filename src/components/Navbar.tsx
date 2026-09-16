@@ -14,12 +14,16 @@ import Brand from "./Brand";
 
 // Section ids live on the home page, so every link is absolute: clicking
 // "Pricing" from /contact routes home and then scrolls.
+//
+// Order matters twice over: it is the reading order of the nav, and the
+// scroll-spy pill walks this array. Keep it in the same order the sections
+// appear in the document or the pill jumps backwards as the page scrolls.
 const links = [
-  { label: "Expertise", id: "expertise" },
-  { label: "Solutions", id: "solutions" },
-  { label: "Case Studies", id: "case-studies" },
-  { label: "Process", id: "process" },
+  { label: "Capabilities", id: "solutions" },
+  { label: "About", id: "process" },
+  { label: "Why us", id: "expertise" },
   { label: "Pricing", id: "pricing" },
+  { label: "Case study", id: "case-studies" },
 ];
 
 export default function Navbar() {

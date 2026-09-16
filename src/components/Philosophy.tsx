@@ -18,29 +18,29 @@ export default function Philosophy() {
               ( About Corefinity )
             </p>
             <h2 className="mt-5 max-w-md text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em]">
-              We Don&apos;t Build Generic Templates. We Build{" "}
+              We do not ship templates. We build{" "}
               <span className="bg-gradient-to-r from-accent to-sky bg-clip-text text-transparent">
-                Competitive Advantage.
+                the thing you actually need.
               </span>
             </h2>
           </div>
 
           <div className="flex flex-col justify-center gap-5">
             <p className="max-w-lg text-sm leading-relaxed text-white/60">
-              Most digital agencies hand you an off-the-shelf template loaded
-              with bloated plugins and call it a finished product. At
-              Corefinity, we engineer software as a revenue-generating asset.
+              Plenty of agencies hand over a template stuffed with plugins and
+              call it finished. We would rather build something lean that earns
+              its keep.
             </p>
             <p className="max-w-lg text-sm leading-relaxed text-white/60">
-              Every dashboard, customer portal, and transaction system we ship
-              is built from scratch for instantaneous load speeds, custom
-              operational logic, and flawless user interaction.
+              Every dashboard, portal and payment flow we ship is written from
+              scratch, so it loads fast and follows your rules rather than the
+              defaults someone else picked.
             </p>
             <a
               href="#solutions"
               className="mt-2 inline-flex w-fit items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-[13px] font-medium text-white transition hover:border-white hover:bg-white hover:text-ink"
             >
-              Read Our Technical Architecture
+              See what we build
               <FontAwesomeIcon icon={faArrowRightLong} className="size-3.5" />
             </a>
           </div>

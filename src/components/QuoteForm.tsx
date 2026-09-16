@@ -53,8 +53,8 @@ export default function QuoteForm() {
           </span>
           <p className="mt-5 text-lg font-medium text-ink">Brief received.</p>
           <p className="mt-2 max-w-sm text-sm leading-relaxed text-ink/60">
-            We&apos;ll review your requirements and come back with a
-            fixed-scope technical roadmap within 48 hours.
+            We will read your brief and come back with a fixed scope technical
+            roadmap within 48 hours.
           </p>
         </div>
       </div>
@@ -117,8 +117,8 @@ export default function QuoteForm() {
           className={fieldClass + " resize-none"}
         />
         <p className="mt-2 text-[12px] leading-relaxed text-ink/40">
-          Picked &ldquo;Other&rdquo;? Describe it here. Budget is something we
-          scope together once the requirements are clear.
+          Picked &ldquo;Other&rdquo;? Describe it here. We scope budget together
+          once the requirements are clear.
         </p>
       </div>
 

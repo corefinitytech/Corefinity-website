@@ -11,11 +11,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import QuoteForm from "@/components/QuoteForm";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema, graph } from "@/lib/schema";
+
+const title = "Get a Quote";
+const description =
+  "Send Corefinity your project brief and get a written technical roadmap, a timeline and a fixed price back within 48 hours.";
 
 export const metadata: Metadata = {
-  title: "Get a Quote | Corefinity",
-  description:
-    "Send Corefinity your project brief and receive a fixed-scope technical roadmap, timeline, and investment range within 48 hours.",
+  title,
+  description,
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: `${title} | Corefinity`,
+    description,
+    url: "/contact",
+  },
 };
 
 /** Surfaces borrow the deep-space gradients the Capabilities cards use, so
@@ -30,8 +41,8 @@ const steps = [
   },
   {
     icon: faComments,
-    title: "15-minute discovery call",
-    detail: "We pressure-test the requirements and agree what ships first.",
+    title: "Short discovery call",
+    detail: "We pressure test the requirements and agree what ships first.",
     surface:
       "bg-[radial-gradient(130%_130%_at_18%_12%,#18a8e8_0%,#1880d8_34%,#0f4c93_68%,#0d2c56_100%)]",
     light: false,
@@ -39,16 +50,16 @@ const steps = [
   {
     icon: faMapLocationDot,
     title: "Roadmap in 48 hours",
-    detail: "A written architecture plan, milestone timeline, and fixed price.",
-    surface:
-      "bg-[linear-gradient(140deg,#14161a_0%,#1b2026_55%,#123a6b_100%)]",
+    detail:
+      "A written architecture plan, a milestone timeline and a fixed price.",
+    surface: "bg-[linear-gradient(140deg,#14161a_0%,#1b2026_55%,#123a6b_100%)]",
     light: false,
   },
 ];
 
 export default function ContactPage() {
   return (
-    <main>
+    <main id="main">
       {/* Page header */}
       <section className="px-4 pt-28 sm:px-6 sm:pt-36">
         <div className="mx-auto max-w-7xl">
@@ -76,9 +87,8 @@ export default function ContactPage() {
             </h1>
 
             <p className="max-w-sm shrink-0 text-sm leading-relaxed text-ink/60 lg:pb-3">
-              Every brief is read by the engineer who would architect the
-              build, not a sales desk. You&apos;ll get a straight answer on
-              scope and timeline.
+              Every brief is read by the engineer who would build it, not by a
+              sales desk. You get a straight answer on scope and timeline.
             </p>
           </div>
         </div>
@@ -142,8 +152,8 @@ export default function ContactPage() {
                 </span>
               </h2>
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink/60">
-                The more context you give us, the sharper the roadmap comes
-                back. There are no wrong answers here.
+                The more context you give us, the sharper the roadmap that comes
+                back.
               </p>
 
               <div className="mt-8 grid gap-3">
@@ -184,6 +194,15 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <JsonLd
+        schema={graph(
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: title, path: "/contact" },
+          ]),
+        )}
+      />
     </main>
   );
 }

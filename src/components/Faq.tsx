@@ -2,24 +2,7 @@
 
 import { useState } from "react";
 
-const faqs = [
-  {
-    q: "How fast can Corefinity ship our platform?",
-    a: "Showcase platforms and MVP web builds are typically ready for staging review within 10 to 14 business days. Full-stack dashboards and custom operating systems take between 3 to 4 weeks depending on database complexity.",
-  },
-  {
-    q: "Who owns the code and intellectual property?",
-    a: "You own 100% of the intellectual property. Upon project sign-off, all GitHub repositories, Figma source files, environment keys, and database assets are transferred directly to your team.",
-  },
-  {
-    q: "Do you handle both the public-facing website and internal dashboards?",
-    a: "Yes. We specialize in full-stack architecture, connecting high-converting public landing pages directly to secure administrative control rooms, customer portals, and database pipelines.",
-  },
-  {
-    q: "How do we kick off a project?",
-    a: "Submit a project brief through the form below. We will review your requirements, schedule a focused 15-minute discovery session, and deliver a fixed-scope technical roadmap within 48 hours.",
-  },
-];
+import { faqs } from "@/lib/faqs";
 
 export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
@@ -28,9 +11,9 @@ export default function Faq() {
     <section id="faq" className="px-4 py-20 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-4xl">
         <h2 className="text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-          Everything You{" "}
+          Questions we get{" "}
           <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-            Need to Know
+            asked most
           </span>
         </h2>
 
