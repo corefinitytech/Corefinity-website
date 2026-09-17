@@ -1,15 +1,19 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 import Check from "./Check";
+import { ChevronDown } from "./icons";
 
 /**
  * Listbox styled to match the form fields. Native <select> drop-downs render
  * with OS chrome that can't be themed, so the value is mirrored into a hidden
  * input and the existing FormData submit path is unchanged.
+ *
+ * That hidden input carries the value but cannot carry the validation: hidden
+ * inputs are barred from constraint validation, so `required` on one is
+ * silently ignored by every browser. The form checks this field explicitly
+ * instead and passes `invalid` back down to colour the control.
  */
 export default function Select({
   name,
@@ -17,12 +21,17 @@ export default function Select({
   placeholder,
   options,
   required = false,
+  invalid = false,
+  buttonRef,
 }: {
   name: string;
   label: string;
   placeholder: string;
   options: string[];
   required?: boolean;
+  /** Set by the form when it has been submitted with this field empty. */
+  invalid?: boolean;
+  buttonRef?: React.Ref<HTMLButtonElement>;
 }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
@@ -75,37 +84,48 @@ export default function Select({
   return (
     <div ref={rootRef} className="relative">
       <label
-        className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-ink/45"
+        className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-ink/60"
         id={`${id}-label`}
       >
         {label}
       </label>
 
-      <input type="hidden" name={name} value={value} required={required} />
+      {/* Value carrier for FormData. Validation lives in the parent form. */}
+      <input type="hidden" name={name} value={value} />
 
       <button
+        ref={buttonRef}
         type="button"
+        // role=combobox, not the implicit button role: it is what the ARIA
+        // spec allows aria-required, aria-invalid and aria-controls on.
+        role="combobox"
         aria-haspopup="listbox"
+        aria-controls={`${id}-listbox`}
         aria-expanded={open}
         aria-labelledby={`${id}-label`}
+        aria-required={required || undefined}
+        aria-invalid={invalid || undefined}
+        aria-describedby={invalid ? `${id}-error` : undefined}
         onClick={() => setOpen((v) => !v)}
         onKeyDown={onKeyDown}
         className={`flex w-full items-center gap-3 rounded-2xl border bg-white px-4 py-3 text-left text-sm outline-none transition ${
-          open
-            ? "border-accent ring-2 ring-accent/15"
-            : "border-black/10 hover:border-black/20"
-        } ${value ? "text-ink" : "text-ink/35"}`}
+          invalid
+            ? "border-coral ring-2 ring-coral/15"
+            : open
+              ? "border-accent ring-2 ring-accent/15"
+              : "border-black/10 hover:border-black/20"
+        } ${value ? "text-ink" : "text-ink/60"}`}
       >
         <span className="truncate">{value || placeholder}</span>
-        <FontAwesomeIcon
-          icon={faChevronDown}
-          className={`ml-auto size-3 shrink-0 text-ink/40 transition-transform duration-300 ${
+        <ChevronDown
+          className={`ml-auto size-3 shrink-0 text-ink/60 transition-transform duration-300 ${
             open ? "rotate-180" : ""
           }`}
         />
       </button>
 
       <ul
+        id={`${id}-listbox`}
         ref={listRef}
         role="listbox"
         aria-labelledby={`${id}-label`}
@@ -136,12 +156,20 @@ export default function Select({
                 }`}
               >
                 {o}
-                {selected && <Check className="ml-auto size-3.5 text-accent" />}
+                {selected && (
+                  <Check className="ml-auto size-3.5 text-accent-ink" />
+                )}
               </button>
             </li>
           );
         })}
       </ul>
+
+      {invalid && (
+        <p id={`${id}-error`} className="mt-2 text-[12px] text-coral">
+          Please choose a project type.
+        </p>
+      )}
     </div>
   );
 }

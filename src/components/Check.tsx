@@ -3,7 +3,11 @@
  * small sizes these lists use, where a solid glyph turns to mush. Colour it
  * with a `text-*` class on the parent or via className.
  */
-export default function Check({ className = "size-4" }: { className?: string }) {
+export default function Check({
+  className = "size-4",
+}: {
+  className?: string;
+}) {
   return (
     <svg
       viewBox="0 0 16 16"

@@ -1,15 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleLeft,
-  faAngleRight,
-  faPlay,
-} from "@fortawesome/free-solid-svg-icons";
 
 import Brand from "./Brand";
 import Fillet from "./Fillet";
+import { ChevronLeft, ChevronRight } from "./icons";
 
 /** Silhouette constants, shared by the tabs and their concave fillets. */
 const TAB_W = 44;
@@ -26,7 +21,7 @@ const slides = [
     glow: "bg-[radial-gradient(70%_90%_at_88%_35%,rgba(24,168,232,0.45)_0%,rgba(10,14,30,0)_62%)]",
   },
   {
-    label: "Operations Dashboards · Multi-Tenant",
+    label: "Operations Dashboards · Multitenant",
     surface:
       "bg-[radial-gradient(120%_140%_at_80%_30%,#1880d8_0%,#0f4c93_42%,#0a1a33_74%,#05070f_100%)]",
     glow: "bg-[radial-gradient(60%_80%_at_12%_70%,rgba(24,168,232,0.4)_0%,rgba(10,14,30,0)_60%)]",
@@ -83,16 +78,16 @@ export default function HeroBanner() {
         <button
           onClick={() => go(-1)}
           aria-label="Previous slide"
-          className="grid size-8 place-items-center rounded-full text-ink/55 transition hover:bg-black/5 hover:text-ink"
+          className="grid size-8 place-items-center rounded-full text-ink/65 transition hover:bg-black/5 hover:text-ink"
         >
-          <FontAwesomeIcon icon={faAngleLeft} className="size-3.5" />
+          <ChevronLeft className="size-3.5" />
         </button>
         <button
           onClick={() => go(1)}
           aria-label="Next slide"
-          className="grid size-8 place-items-center rounded-full text-ink/55 transition hover:bg-black/5 hover:text-ink"
+          className="grid size-8 place-items-center rounded-full text-ink/65 transition hover:bg-black/5 hover:text-ink"
         >
-          <FontAwesomeIcon icon={faAngleRight} className="size-3.5" />
+          <ChevronRight className="size-3.5" />
         </button>
       </div>
       <Fillet
@@ -111,10 +106,28 @@ export default function HeroBanner() {
         className="absolute bottom-0 right-0 flex items-center justify-center rounded-tl-[24px] bg-white pl-4"
         style={{ width: BAR_W, height: BAR_H }}
       >
-        <button className="flex items-center gap-2 text-[12px] font-medium text-ink/70 transition hover:text-ink">
-          <FontAwesomeIcon icon={faPlay} className="size-2.5" />
-          Watch slides
-        </button>
+        {/* Position plus jump targets. Replaces a play button that had
+            nothing to play. */}
+        <div className="flex items-center gap-3">
+          <span className="text-[12px] font-medium tabular-nums text-ink/70">
+            {String(index + 1).padStart(2, "0")}
+            <span className="text-ink/60"> / </span>
+            {String(slides.length).padStart(2, "0")}
+          </span>
+          <span className="flex items-center gap-1.5">
+            {slides.map((s, i) => (
+              <button
+                key={s.label}
+                onClick={() => setIndex(i)}
+                aria-label={`Show ${s.label}`}
+                aria-current={i === index}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === index ? "w-5 bg-ink" : "w-1.5 bg-ink/20 hover:bg-ink/40"
+                }`}
+              />
+            ))}
+          </span>
+        </div>
       </div>
       <Fillet
         size={FILLET}

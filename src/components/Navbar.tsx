@@ -14,12 +14,18 @@ import Brand from "./Brand";
 
 // Section ids live on the home page, so every link is absolute: clicking
 // "Pricing" from /contact routes home and then scrolls.
-const links = [
-  { label: "Expertise", id: "expertise" },
-  { label: "Solutions", id: "solutions" },
-  { label: "Case Studies", id: "case-studies" },
-  { label: "Process", id: "process" },
+//
+// Order matters twice over: it is the reading order of the nav, and the
+// scroll-spy pill walks this array. Keep it in the same order the sections
+// appear in the document or the pill jumps backwards as the page scrolls.
+type NavLink = { label: string; id: string; href?: string };
+
+const links: NavLink[] = [
+  { label: "Services", id: "solutions", href: "/services" },
+  { label: "About", id: "process" },
+  { label: "Why us", id: "expertise" },
   { label: "Pricing", id: "pricing" },
+  { label: "Case study", id: "case-studies" },
 ];
 
 export default function Navbar() {
@@ -35,6 +41,7 @@ export default function Navbar() {
 
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const listRef = useRef<HTMLUListElement | null>(null);
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
 
   // Off the home page there is nothing to spy on, so only hover moves the pill.
   const target = hovered ?? (isHome ? active : null);
@@ -100,6 +107,36 @@ export default function Navbar() {
     measure();
   }, [measure]);
 
+  // The mobile panel is a menu, so Escape closes it and the page behind it
+  // stops scrolling while it is open.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  // Close when the viewport grows past the breakpoint that hides the button,
+  // otherwise scroll stays locked with no visible way to unlock it.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => {
+      if (mq.matches) setOpen(false);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   useEffect(() => {
     window.addEventListener("resize", measure);
     const list = listRef.current;
@@ -154,7 +191,7 @@ export default function Navbar() {
                   ref={(el) => {
                     itemRefs.current[i] = el;
                   }}
-                  href={`/#${l.id}`}
+                  href={l.href ?? `/#${l.id}`}
                   onMouseEnter={() => setHovered(i)}
                   onFocus={() => setHovered(i)}
                   onBlur={() => setHovered(null)}
@@ -177,8 +214,10 @@ export default function Navbar() {
             Get a Quote
           </Link>
           <button
-            aria-label="Toggle menu"
+            ref={menuButtonRef}
+            aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
             className="grid size-9 shrink-0 place-items-center rounded-full text-ink transition hover:bg-black/5 lg:hidden"
           >
@@ -191,12 +230,15 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="mx-auto mt-2 max-w-7xl rounded-3xl border border-black/5 bg-white p-3 shadow-xl lg:hidden">
+        <div
+          id="mobile-menu"
+          className="mx-auto mt-2 max-w-7xl rounded-3xl border border-black/5 bg-white p-3 shadow-xl lg:hidden"
+        >
           <ul className="grid gap-1">
             {links.map((l) => (
               <li key={l.label}>
                 <Link
-                  href={`/#${l.id}`}
+                  href={l.href ?? `/#${l.id}`}
                   onClick={() => setOpen(false)}
                   className="block rounded-2xl px-4 py-3 text-sm font-medium text-ink/80 transition hover:bg-black/5"
                 >

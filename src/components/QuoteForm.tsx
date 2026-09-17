@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { useRef, useState } from "react";
 
 import Check from "./Check";
 
 import Select from "./Select";
+import { ArrowRight } from "./icons";
 
 const projectTypes = [
   "Custom B2B Dashboard",
@@ -17,20 +16,31 @@ const projectTypes = [
 ];
 
 const fieldClass =
-  "w-full rounded-2xl border border-black/10 bg-white px-4 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink/35 focus:border-accent focus:ring-2 focus:ring-accent/15";
+  "w-full rounded-2xl border border-black/10 bg-white px-4 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink/60 focus:border-accent focus:ring-2 focus:ring-accent/15";
 
 const labelClass =
-  "mb-1.5 block text-[11px] font-medium uppercase tracking-[0.14em] text-ink/45";
+  "mb-1.5 block text-[11px] font-medium uppercase tracking-[0.14em] text-ink/60";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
 export default function QuoteForm() {
   const [status, setStatus] = useState<Status>("idle");
+  const [typeMissing, setTypeMissing] = useState(false);
+  const typeRef = useRef<HTMLButtonElement | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("sending");
     const data = Object.fromEntries(new FormData(e.currentTarget));
+
+    // The project type control is a listbox, not a native select, so the
+    // browser cannot validate it for us.
+    if (!String(data.projectType ?? "").trim()) {
+      setTypeMissing(true);
+      typeRef.current?.focus();
+      return;
+    }
+    setTypeMissing(false);
+    setStatus("sending");
     try {
       const res = await fetch("/api/brief", {
         method: "POST",
@@ -53,8 +63,8 @@ export default function QuoteForm() {
           </span>
           <p className="mt-5 text-lg font-medium text-ink">Brief received.</p>
           <p className="mt-2 max-w-sm text-sm leading-relaxed text-ink/60">
-            We&apos;ll review your requirements and come back with a
-            fixed-scope technical roadmap within 48 hours.
+            We will read your brief and come back with a fixed scope technical
+            roadmap within 48 hours.
           </p>
         </div>
       </div>
@@ -66,7 +76,8 @@ export default function QuoteForm() {
       onSubmit={onSubmit}
       /* content-start stops the grid stretching its rows when the column
          beside it runs taller, which is what opened the gaps between fields. */
-      className="grid content-start gap-4 rounded-3xl border border-black/[0.08] bg-white p-6 sm:p-7"
+      noValidate={false}
+      className="relative grid content-start gap-4 rounded-3xl border border-black/[0.08] bg-white p-6 sm:p-7"
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -102,7 +113,24 @@ export default function QuoteForm() {
         placeholder="Select a project type"
         options={projectTypes}
         required
+        invalid={typeMissing}
+        buttonRef={typeRef}
       />
+
+      {/* Honeypot. Real people never see it, bots fill everything they find. */}
+      <div
+        aria-hidden
+        className="absolute left-[-9999px] h-0 w-0 overflow-hidden"
+      >
+        <label htmlFor="company-website">Company website</label>
+        <input
+          id="company-website"
+          name="company_website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
 
       <div>
         <label className={labelClass} htmlFor="overview">
@@ -116,15 +144,22 @@ export default function QuoteForm() {
           placeholder="What are you building, who is it for, and when do you need it live?"
           className={fieldClass + " resize-none"}
         />
-        <p className="mt-2 text-[12px] leading-relaxed text-ink/40">
-          Picked &ldquo;Other&rdquo;? Describe it here. Budget is something we
-          scope together once the requirements are clear.
+        <p className="mt-2 text-[12px] leading-relaxed text-ink/60">
+          Picked &ldquo;Other&rdquo;? Describe it here. We scope budget together
+          once the requirements are clear.
         </p>
       </div>
 
       {status === "error" && (
-        <p className="text-sm text-coral">
-          Something went wrong. Please try again or email us directly.
+        <p role="alert" className="text-sm text-coral">
+          Something went wrong. Please try again, or email us directly at{" "}
+          <a
+            href="mailto:corefinity.tech@gmail.com"
+            className="font-medium underline underline-offset-4"
+          >
+            corefinity.tech@gmail.com
+          </a>
+          .
         </p>
       )}
 
@@ -134,10 +169,7 @@ export default function QuoteForm() {
         className="group mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-ink px-7 text-[13px] font-medium text-white transition hover:bg-ink/85 disabled:opacity-60 sm:w-auto sm:justify-self-start"
       >
         {status === "sending" ? "Sending…" : "Send Project Brief"}
-        <FontAwesomeIcon
-          icon={faArrowRightLong}
-          className="size-3.5 transition-transform duration-300 group-hover:translate-x-1"
-        />
+        <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
       </button>
     </form>
   );

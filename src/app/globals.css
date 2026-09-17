@@ -7,9 +7,12 @@
   --color-mist: #f1f2f5;
   /* Sampled from the CoreFinity mark: deep blue -> bright blue ramp. */
   --color-accent: #1880d8;
+  /* Text safe companion to accent. The brand blue is only 3.67:1 on the mist
+     panels at 11px, so small text and any surface carrying white text uses
+     this one instead. Same hue, darkened until it clears WCAG AA. */
+  --color-accent-ink: #1570bc;
   --color-deep: #0f5bb5;
   --color-sky: #18a8e8;
-  --color-steel: #46536b;
   --color-coral: #f0503c;
 
   --animate-marquee: marquee 26s linear infinite;
@@ -47,4 +50,15 @@ section[id] {
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: none; }
+}
+
+/* Consent banner entrance. A keyframe rather than a state flag, so the
+   component never has to set state from an effect just to animate. */
+@keyframes consent-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes consent-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(16px); }
 }

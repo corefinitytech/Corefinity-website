@@ -1,69 +1,76 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeftLong,
-  faEnvelope,
-  faBolt,
-  faFileLines,
-  faComments,
-  faMapLocationDot,
-} from "@fortawesome/free-solid-svg-icons";
 
 import QuoteForm from "@/components/QuoteForm";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema, graph } from "@/lib/schema";
+import {
+  ArrowLeft,
+  Bolt,
+  Comments,
+  Envelope,
+  FileLines,
+  MapPin,
+} from "@/components/icons";
+
+const title = "Get a Quote";
+const description =
+  "Send Corefinity your project brief and get a written technical roadmap, a timeline and a fixed price back within 48 hours.";
 
 export const metadata: Metadata = {
-  title: "Get a Quote | Corefinity",
-  description:
-    "Send Corefinity your project brief and receive a fixed-scope technical roadmap, timeline, and investment range within 48 hours.",
+  title,
+  description,
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: `${title} | Corefinity`,
+    description,
+    url: "/contact",
+  },
 };
 
 /** Surfaces borrow the deep-space gradients the Capabilities cards use, so
  *  the row reads light to dark without the flat primary blue. */
 const steps = [
   {
-    icon: faFileLines,
+    icon: FileLines,
     title: "Submit your brief",
     detail: "Share the shape of the project and the outcome you need.",
     surface: "bg-mist",
     light: true,
   },
   {
-    icon: faComments,
-    title: "15-minute discovery call",
-    detail: "We pressure-test the requirements and agree what ships first.",
+    icon: Comments,
+    title: "Short discovery call",
+    detail: "We pressure test the requirements and agree what ships first.",
     surface:
       "bg-[radial-gradient(130%_130%_at_18%_12%,#18a8e8_0%,#1880d8_34%,#0f4c93_68%,#0d2c56_100%)]",
     light: false,
   },
   {
-    icon: faMapLocationDot,
+    icon: MapPin,
     title: "Roadmap in 48 hours",
-    detail: "A written architecture plan, milestone timeline, and fixed price.",
-    surface:
-      "bg-[linear-gradient(140deg,#14161a_0%,#1b2026_55%,#123a6b_100%)]",
+    detail:
+      "A written architecture plan, a milestone timeline and a fixed price.",
+    surface: "bg-[linear-gradient(140deg,#14161a_0%,#1b2026_55%,#123a6b_100%)]",
     light: false,
   },
 ];
 
 export default function ContactPage() {
   return (
-    <main>
+    <main id="main">
       {/* Page header */}
       <section className="px-4 pt-28 sm:px-6 sm:pt-36">
         <div className="mx-auto max-w-7xl">
           <Link
             href="/"
-            className="group inline-flex items-center gap-2 text-[12px] font-medium text-ink/45 transition hover:text-ink"
+            className="group inline-flex items-center gap-2 text-[12px] font-medium text-ink/60 transition hover:text-ink"
           >
-            <FontAwesomeIcon
-              icon={faArrowLeftLong}
-              className="size-3 transition-transform duration-300 group-hover:-translate-x-1"
-            />
+            <ArrowLeft className="size-3 transition-transform duration-300 group-hover:-translate-x-1" />
             Back to home
           </Link>
 
-          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/40">
+          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/60">
             ( Get a Quote )
           </p>
 
@@ -76,9 +83,8 @@ export default function ContactPage() {
             </h1>
 
             <p className="max-w-sm shrink-0 text-sm leading-relaxed text-ink/60 lg:pb-3">
-              Every brief is read by the engineer who would architect the
-              build, not a sales desk. You&apos;ll get a straight answer on
-              scope and timeline.
+              Every brief is read by the engineer who would build it, not by a
+              sales desk. You get a straight answer on scope and timeline.
             </p>
           </div>
         </div>
@@ -103,14 +109,14 @@ export default function ContactPage() {
                         : "bg-white/15 text-white backdrop-blur-sm"
                     }`}
                   >
-                    <FontAwesomeIcon icon={s.icon} className="size-3.5" />
+                    <s.icon className="size-3.5" />
                   </span>
                   <h2 className="text-[15px] font-medium leading-snug tracking-[-0.02em]">
                     {s.title}
                   </h2>
                   <span
                     className={`ml-auto text-[10px] font-medium tracking-[0.18em] ${
-                      s.light ? "text-accent" : "text-white/40"
+                      s.light ? "text-accent-ink" : "text-white/50"
                     }`}
                   >
                     0{i + 1}
@@ -119,7 +125,7 @@ export default function ContactPage() {
 
                 <p
                   className={`mt-3 text-[12px] leading-relaxed ${
-                    s.light ? "text-ink/55" : "text-white/65"
+                    s.light ? "text-ink/65" : "text-white/65"
                   }`}
                 >
                   {s.detail}
@@ -142,8 +148,8 @@ export default function ContactPage() {
                 </span>
               </h2>
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink/60">
-                The more context you give us, the sharper the roadmap comes
-                back. There are no wrong answers here.
+                The more context you give us, the sharper the roadmap that comes
+                back.
               </p>
 
               <div className="mt-8 grid gap-3">
@@ -152,7 +158,7 @@ export default function ContactPage() {
                   className="group flex items-center gap-4 rounded-2xl bg-ink px-5 py-4 text-white transition hover:bg-ink/90"
                 >
                   <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent text-white">
-                    <FontAwesomeIcon icon={faEnvelope} className="size-3.5" />
+                    <Envelope className="size-3.5" />
                   </span>
                   <span className="min-w-0">
                     <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">
@@ -165,11 +171,11 @@ export default function ContactPage() {
                 </a>
 
                 <div className="flex items-center gap-4 rounded-2xl border border-black/[0.08] bg-white px-5 py-4">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent/10 text-accent">
-                    <FontAwesomeIcon icon={faBolt} className="size-3.5" />
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent/10 text-accent-ink">
+                    <Bolt className="size-3.5" />
                   </span>
                   <span>
-                    <span className="block text-[10px] uppercase tracking-[0.14em] text-ink/40">
+                    <span className="block text-[10px] uppercase tracking-[0.14em] text-ink/60">
                       Typical response
                     </span>
                     <span className="block text-[13px] font-medium text-ink">
@@ -184,6 +190,15 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <JsonLd
+        schema={graph(
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: title, path: "/contact" },
+          ]),
+        )}
+      />
     </main>
   );
 }

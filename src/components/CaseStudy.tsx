@@ -1,10 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { ArrowRight } from "./icons";
 
 const results = [
-  "Engineered an end-to-end direct booking engine and front-desk property management dashboard.",
-  "Eliminated 15% to 25% third-party OTA commission fees for boutique hotel operators.",
-  "Built automated bidirectional iCal calendar synchronization and mobile-first guest check-in passes.",
+  "Built the booking engine and the front desk management dashboard behind it.",
+  "Removed the 15 to 25 percent commission the booking portals were taking.",
+  "Added automatic two way iCal sync and guest passes that work on a phone.",
 ];
 
 const stats: [string, string][] = [
@@ -19,14 +18,14 @@ export default function CaseStudy() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.2em] text-accent">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-accent-ink">
               Featured Hospitality Tech Case Study
             </p>
-            <p className="mt-6 text-sm font-medium tracking-[0.1em] text-ink/45">
+            <p className="mt-6 text-sm font-medium tracking-[0.1em] text-ink/60">
               LODGEX SYSTEMS
             </p>
             <h2 className="mt-3 max-w-lg text-[clamp(1.6rem,3.2vw,2.5rem)] font-medium leading-[1.12] tracking-[-0.03em] text-ink">
-              From Zero to a Live Direct-Booking OS in Under 3 Weeks
+              From nothing to a live booking system in under three weeks
             </h2>
 
             <ul className="mt-8 grid gap-4 border-t border-black/[0.07] pt-8">
@@ -45,8 +44,8 @@ export default function CaseStudy() {
               href="#contact"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-[13px] font-medium text-white transition hover:bg-ink/85"
             >
-              View Case Study &amp; Live Demo
-              <FontAwesomeIcon icon={faArrowRightLong} className="size-3.5" />
+              Talk to us about a build like this
+              <ArrowRight className="size-3.5" />
             </a>
           </div>
 

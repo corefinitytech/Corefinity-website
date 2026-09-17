@@ -1,19 +1,17 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
-
 import Check from "./Check";
+import { ArrowRight } from "./icons";
 
 const tiers = [
   {
     name: "Prototype Sprint",
     target:
-      "Best for conversion-focused showcase sites and interactive MVP validations.",
+      "Best for showcase sites and MVPs you need in front of people quickly.",
     turnaround: "10 to 14 Business Days",
     deliverables: [
-      "Custom Figma UI/UX Design System",
-      "High-Performance Next.js & Tailwind Responsive Web Build",
-      "Interactive Showcase Modules & Micro-Interactions",
-      "Vercel Edge Hosting, Custom Domain & SEO Setup",
+      "Custom Figma design system",
+      "Responsive Next.js and Tailwind build",
+      "Interactive modules and motion detail",
+      "Vercel edge hosting, custom domain and SEO setup",
     ],
     cta: "Choose Prototype Sprint",
     featured: false,
@@ -25,10 +23,10 @@ const tiers = [
     turnaround: "3 to 4 Weeks",
     deliverables: [
       "Everything included in Prototype Sprint",
-      "Multi-Role Authentication & Protected Admin Dashboards",
-      "Stripe / Global Payment Gateway Integration",
-      "Bidirectional API, Database & Calendar Synchronization",
-      "30 Days Post-Deployment Technical Support & Optimization",
+      "Role based access and protected admin dashboards",
+      "Stripe or your preferred payment gateway",
+      "Two way API, database and calendar sync",
+      "30 days of technical support after launch",
     ],
     cta: "Build Your Platform OS",
     featured: true,
@@ -41,13 +39,13 @@ export default function Pricing() {
       <div className="mx-auto max-w-7xl rounded-[32px] bg-mist px-6 py-16 sm:px-12 sm:py-20">
         <div className="max-w-2xl">
           <h2 className="text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-            Predictable Investment.{" "}
+            Clear scope, fixed price,{" "}
             <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-              Zero Agency Bureaucracy.
+              no retainers.
             </span>
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-ink/60">
-            Transparent scopes designed for rapid execution and clear ROI.
+            You know what is being built and what it costs before we start.
           </p>
         </div>
 
@@ -62,7 +60,7 @@ export default function Pricing() {
               }`}
             >
               {t.featured && (
-                <span className="absolute right-6 top-6 rounded-full bg-accent px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-white">
+                <span className="absolute right-6 top-6 rounded-full bg-accent-ink px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-white">
                   Recommended
                 </span>
               )}
@@ -72,7 +70,7 @@ export default function Pricing() {
               </h3>
               <p
                 className={`mt-3 max-w-[42ch] text-[13px] leading-relaxed ${
-                  t.featured ? "text-white/60" : "text-ink/55"
+                  t.featured ? "text-white/60" : "text-ink/65"
                 }`}
               >
                 {t.target}
@@ -83,7 +81,7 @@ export default function Pricing() {
                   t.featured ? "border-white/10" : "border-black/[0.07]"
                 }`}
               >
-                <span className={t.featured ? "text-white/40" : "text-ink/40"}>
+                <span className={t.featured ? "text-white/50" : "text-ink/60"}>
                   Turnaround
                 </span>
                 <span className="ml-auto font-medium">{t.turnaround}</span>
@@ -97,7 +95,7 @@ export default function Pricing() {
                   >
                     <Check
                       className={`mt-0.5 size-4 shrink-0 ${
-                        t.featured ? "text-sky" : "text-accent"
+                        t.featured ? "text-sky" : "text-accent-ink"
                       }`}
                     />
                     <span
@@ -118,7 +116,7 @@ export default function Pricing() {
                 }`}
               >
                 {t.cta}
-                <FontAwesomeIcon icon={faArrowRightLong} className="size-3.5" />
+                <ArrowRight className="size-3.5" />
               </a>
             </div>
           ))}
