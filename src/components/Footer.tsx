@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import Brand from "./Brand";
 import ConsentReset from "./ConsentReset";
+import { services } from "@/lib/services";
 import { site } from "@/lib/site";
 
 /**
@@ -10,7 +11,7 @@ import { site } from "@/lib/site";
  * gives crawlers nothing to follow.
  */
 const sections = [
-  { label: "What we build", href: "/#solutions" },
+  { label: "All services", href: "/services" },
   { label: "How we work", href: "/#process" },
   { label: "Case study", href: "/#case-studies" },
   { label: "Engagements", href: "/#pricing" },
@@ -54,6 +55,24 @@ export default function Footer() {
                       className="text-sm text-ink/60 transition hover:text-ink"
                     >
                       {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.18em] text-ink/60">
+                Services
+              </p>
+              <ul className="mt-4 grid gap-2.5">
+                {services.map((s) => (
+                  <li key={s.slug}>
+                    <Link
+                      href={`/services/${s.slug}`}
+                      className="text-sm text-ink/60 transition hover:text-ink"
+                    >
+                      {s.navLabel}
                     </Link>
                   </li>
                 ))}

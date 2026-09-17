@@ -100,6 +100,16 @@ built.
 
 * [Home](https://corefinity.tech): services, engagement options, pricing
   structure, case study and frequently asked questions.
+* [Services](https://corefinity.tech/services): index of everything Corefinity
+  builds and runs.
+* [Web development](https://corefinity.tech/services/web-development): frontend, backend and full stack builds, web applications, dashboards and portals.
+* [Mobile app development](https://corefinity.tech/services/mobile-app-development): cross platform iOS and Android apps with their backends.
+* [AI and chatbot development](https://corefinity.tech/services/ai-development): assistants grounded in your own documents, document processing, model integration.
+* [Python scripting and automation](https://corefinity.tech/services/python-automation): data pipelines, scraping, scheduled reporting.
+* [Search engine optimisation](https://corefinity.tech/services/seo): technical SEO, structured data, Core Web Vitals, assistant visibility.
+* [Systems integration](https://corefinity.tech/services/systems-integration): payments, CRMs, WhatsApp, calendars and databases.
+* [UI and UX design](https://corefinity.tech/services/ui-ux-design): design systems and prototypes agreed before production code.
+* [Cloud deployment and infrastructure](https://corefinity.tech/services/cloud-deployment): CI and CD, hosting, monitoring, backups.
 * [Get a quote](https://corefinity.tech/contact): project brief form, what the
   process looks like and how to reach the team.
 * [Privacy policy](https://corefinity.tech/privacy): what personal information

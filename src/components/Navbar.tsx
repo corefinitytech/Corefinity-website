@@ -18,8 +18,10 @@ import Brand from "./Brand";
 // Order matters twice over: it is the reading order of the nav, and the
 // scroll-spy pill walks this array. Keep it in the same order the sections
 // appear in the document or the pill jumps backwards as the page scrolls.
-const links = [
-  { label: "Capabilities", id: "solutions" },
+type NavLink = { label: string; id: string; href?: string };
+
+const links: NavLink[] = [
+  { label: "Services", id: "solutions", href: "/services" },
   { label: "About", id: "process" },
   { label: "Why us", id: "expertise" },
   { label: "Pricing", id: "pricing" },
@@ -189,7 +191,7 @@ export default function Navbar() {
                   ref={(el) => {
                     itemRefs.current[i] = el;
                   }}
-                  href={`/#${l.id}`}
+                  href={l.href ?? `/#${l.id}`}
                   onMouseEnter={() => setHovered(i)}
                   onFocus={() => setHovered(i)}
                   onBlur={() => setHovered(null)}
@@ -236,7 +238,7 @@ export default function Navbar() {
             {links.map((l) => (
               <li key={l.label}>
                 <Link
-                  href={`/#${l.id}`}
+                  href={l.href ?? `/#${l.id}`}
                   onClick={() => setOpen(false)}
                   className="block rounded-2xl px-4 py-3 text-sm font-medium text-ink/80 transition hover:bg-black/5"
                 >
