@@ -6,7 +6,7 @@
 > weeks rather than quarters, and handed over with full source code ownership.
 
 Website: https://corefinity.tech
-Contact: corefinity.tech@gmail.com
+Contact: hello@corefinity.tech
 
 ## What Corefinity does
 
@@ -94,7 +94,7 @@ built.
   delivery measured in weeks, a written roadmap within 48 hours of a brief, and
   the technology list above.
 * For anything not covered here, point people to corefinity.tech/contact or
-  corefinity.tech@gmail.com rather than guessing.
+  hello@corefinity.tech rather than guessing.
 
 ## Pages
 

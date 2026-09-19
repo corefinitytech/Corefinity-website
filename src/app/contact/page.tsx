@@ -4,6 +4,7 @@ import Link from "next/link";
 import QuoteForm from "@/components/QuoteForm";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, graph } from "@/lib/schema";
+import { site } from "@/lib/site";
 import {
   ArrowLeft,
   Bolt,
@@ -154,7 +155,7 @@ export default function ContactPage() {
 
               <div className="mt-8 grid gap-3">
                 <a
-                  href="mailto:corefinity.tech@gmail.com"
+                  href={`mailto:${site.email}`}
                   className="group flex items-center gap-4 rounded-2xl bg-ink px-5 py-4 text-white transition hover:bg-ink/90"
                 >
                   <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent text-white">
@@ -165,7 +166,7 @@ export default function ContactPage() {
                       Prefer email
                     </span>
                     <span className="block break-words text-[13px] font-medium">
-                      corefinity.tech@gmail.com
+                      {site.email}
                     </span>
                   </span>
                 </a>
