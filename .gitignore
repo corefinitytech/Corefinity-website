@@ -42,3 +42,6 @@ yarn-error.log*
 next-env.d.ts
 .lighthouseci
 analyze/
+
+# ad-hoc local visual QA scripts and their screenshots
+.qa-scripts/
