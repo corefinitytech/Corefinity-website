@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 import CardNotch from "./CardNotch";
 import { ArrowRight } from "./icons";
@@ -85,13 +86,13 @@ export default function Capabilities() {
           <h2 className="max-w-2xl text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
             Built to run fast and stay under your control
           </h2>
-          <a
-            href="#expertise"
+          <Link
+            href="/services"
             className="inline-flex items-center gap-2 rounded-full border border-black/10 px-5 py-2.5 text-[13px] font-medium text-ink/80 transition hover:border-ink hover:text-ink"
           >
             Explore All Services
             <ArrowRight className="size-3.5" />
-          </a>
+          </Link>
         </div>
 
         <div className="mt-10 grid gap-3 lg:grid-cols-3">
