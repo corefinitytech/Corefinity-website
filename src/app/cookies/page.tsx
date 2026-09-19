@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import LegalLayout, { type LegalSection } from "@/components/LegalLayout";
 import ConsentReset from "@/components/ConsentReset";
-import { site } from "@/lib/site";
+import { legal, site } from "@/lib/site";
 
 const title = "Cookie Policy";
 const description =
@@ -23,15 +23,19 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          This site sets{" "}
-          <strong>no advertising cookies and no tracking cookies</strong>. There
-          is no Facebook pixel, no advertising tag and no third party following
-          you from here to anywhere else.
+          This site sets <strong>no advertising cookies</strong>. There is no
+          Facebook pixel, no advertising tag and no third party following you
+          from here to anywhere else.
         </p>
         <p>
           The only thing we store by default is your answer to the cookie
           banner, so that we stop asking. Everything else is off until you
           switch it on.
+        </p>
+        <p>
+          If you do switch analytics on, Google Analytics sets two cookies so it
+          can tell a returning visit from a new one. Say no and it is never
+          loaded at all. You can change your mind at any time.
         </p>
       </>
     ),
@@ -71,9 +75,24 @@ const sections: LegalSection[] = [
           read it from our servers, and it identifies nobody.
         </p>
         <p>
-          <strong>Nothing else, today.</strong> At the time this page took
-          effect, that single entry is the only thing this site writes to your
-          browser.
+          <strong>Google Analytics, only if you allow it.</strong> Turning on
+          the analytics category loads Google Analytics 4, which sets{" "}
+          <code className="rounded bg-black/[0.06] px-1.5 py-0.5 text-[12px]">
+            _ga
+          </code>{" "}
+          and{" "}
+          <code className="rounded bg-black/[0.06] px-1.5 py-0.5 text-[12px]">
+            _ga_&lt;id&gt;
+          </code>{" "}
+          cookies. They hold a randomly generated identifier for your browser,
+          which lets Google count a returning visit as one person rather than
+          two. They expire after two years, and they are not set at all unless
+          you opt in.
+        </p>
+        <p>
+          <strong>Nothing else.</strong> Beyond your consent choice and, if you
+          allow it, the two Google Analytics cookies, this site writes nothing
+          to your browser.
         </p>
       </>
     ),
@@ -90,9 +109,10 @@ const sections: LegalSection[] = [
         </p>
         <p>
           <strong>Analytics.</strong> Counting page views so we can see which
-          pages people actually read and which ones need work. Off unless you
-          turn it on. If we add an analytics tool, it will be one that respects
-          this choice, and it will not run for anyone who said no.
+          pages people actually read and which ones need work. We use Google
+          Analytics 4 for this. Off unless you turn it on: the script is not
+          loaded, and no analytics cookie is set, for anyone who said no or who
+          has not answered yet.
         </p>
         <p>
           <strong>Marketing.</strong> Measuring whether an advert brought
@@ -118,6 +138,12 @@ const sections: LegalSection[] = [
           <strong>Fonts.</strong> The Inter typeface is served from our own
           domain, not fetched from Google at page load. Your browser makes no
           request to Google when you visit this site.
+        </p>
+        <p>
+          <strong>Analytics.</strong> Google Analytics, run by Google, but only
+          once you have opted in. Google processes this data on its own
+          infrastructure, which is outside {legal.country}, under its own data
+          protection terms.
         </p>
         <p>
           <strong>Embeds.</strong> There are no embedded videos, maps, chat
