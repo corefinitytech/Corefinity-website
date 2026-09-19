@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import Check from "./Check";
 import { ArrowRight } from "./icons";
+import { site } from "@/lib/site";
 
 /**
  * Closing CTA band. The brief form itself lives on /contact, so this section
@@ -71,10 +72,10 @@ export default function ProjectBrief() {
               <p className="mt-4 text-center text-[12px] text-ink/60">
                 Prefer email?{" "}
                 <a
-                  href="mailto:corefinity.tech@gmail.com"
+                  href={`mailto:${site.email}`}
                   className="font-medium text-ink/70 underline underline-offset-4 transition hover:text-accent-ink"
                 >
-                  corefinity.tech@gmail.com
+                  {site.email}
                 </a>
               </p>
             </div>

@@ -1,7 +1,18 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 import CardNotch from "./CardNotch";
 import { ArrowRight } from "./icons";
+import {
+  ContourDomeBackground,
+  CountUpOutline,
+  GhostFibersBackground,
+  GradientBlindsBackground,
+  GradientWavesBackground,
+  MoltenMetalBackground,
+  OrbParticlesBackground,
+} from "./backgrounds/LazyBackgrounds";
+import { palette } from "./backgrounds/palette";
 
 function Tag({
   children,
@@ -29,6 +40,7 @@ function Card({
   titleClassName = "max-w-[20ch]",
   surface,
   light = false,
+  background,
   children,
 }: {
   title: string;
@@ -38,6 +50,10 @@ function Card({
   titleClassName?: string;
   surface: string;
   light?: boolean;
+  /** Animated procedural layer, rendered between the surface gradient and
+   *  the content. The surface gradient stays underneath as the fallback if
+   *  WebGL fails or the effect hasn't loaded yet, so the card is never blank. */
+  background?: ReactNode;
   children?: ReactNode;
 }) {
   return (
@@ -48,6 +64,16 @@ function Card({
       } ${className}`}
     >
       <div className={`absolute inset-0 -z-10 ${surface}`} />
+      {background && <div className="absolute inset-0 -z-10">{background}</div>}
+      {background && (
+        <div
+          className={`pointer-events-none absolute inset-0 -z-10 ${
+            light
+              ? "bg-gradient-to-b from-mist/90 via-mist/40 to-transparent"
+              : "bg-gradient-to-b from-black/60 via-black/15 to-transparent"
+          }`}
+        />
+      )}
       <h3
         className={`text-xl font-medium leading-snug tracking-[-0.02em] ${titleClassName}`}
       >
@@ -85,13 +111,13 @@ export default function Capabilities() {
           <h2 className="max-w-2xl text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
             Built to run fast and stay under your control
           </h2>
-          <a
-            href="#expertise"
+          <Link
+            href="/services"
             className="inline-flex items-center gap-2 rounded-full border border-black/10 px-5 py-2.5 text-[13px] font-medium text-ink/80 transition hover:border-ink hover:text-ink"
           >
             Explore All Services
             <ArrowRight className="size-3.5" />
-          </a>
+          </Link>
         </div>
 
         <div className="mt-10 grid gap-3 lg:grid-cols-3">
@@ -101,6 +127,27 @@ export default function Capabilities() {
             body="Frontend, backend and everything between. Operations systems, customer portals, SaaS dashboards and internal tools that replace the pile of subscriptions and spreadsheets you are running now."
             tag="Multitenant architecture"
             surface="bg-[radial-gradient(120%_120%_at_20%_15%,#1880d8_0%,#0f4c93_38%,#0d1a33_74%,#080b18_100%)]"
+            background={
+              <MoltenMetalBackground
+                color1={palette.deepNavy}
+                color2={palette.electricBlue}
+                color3={palette.cyan}
+                colorMode="molten"
+                speed={0.3}
+                scale={5}
+                detail={4}
+                glow={2.2}
+                coreSize={0.15}
+                swirl={1.3}
+                fold={-0.3}
+                blackPoint={0.02}
+                brightness={2.2}
+                grain
+                grainIntensity={0.04}
+                mouseInteraction
+                mouseStrength={0.25}
+              />
+            }
           />
 
           <Card
@@ -109,9 +156,21 @@ export default function Capabilities() {
             body="Assistants that answer from your own documents, agents that handle the repetitive queries, and language models wired into the systems you already run rather than bolted on beside them."
             tag="Built with guardrails"
             surface="bg-[linear-gradient(160deg,#061426_0%,#0f3a66_52%,#050b14_100%)]"
-          >
-            <div className="pointer-events-none absolute inset-0 -z-10 opacity-40 [background-image:repeating-linear-gradient(115deg,rgba(24,168,232,0.35)_0px,rgba(24,168,232,0.35)_1px,transparent_1px,transparent_10px)]" />
-          </Card>
+            background={
+              <GhostFibersBackground
+                lineColor={palette.deepNavy}
+                glowColor={palette.cyan}
+                layers={6}
+                scale={1.6}
+                speed={0.16}
+                twist={0.14}
+                lineSharpness={14}
+                glowIntensity={1.3}
+                brightness={1.7}
+                vignette={0.7}
+              />
+            }
+          />
 
           <Card
             className="min-h-[200px]"
@@ -119,6 +178,22 @@ export default function Capabilities() {
             body="Cross platform apps for iOS and Android, plus the APIs and admin tooling that sit behind them."
             tag="One codebase"
             surface="bg-[linear-gradient(140deg,#101317_0%,#1b2026_100%)]"
+            background={
+              <GradientBlindsBackground
+                gradientColors={[palette.deepNavy, palette.electricBlue, palette.cyan]}
+                angle={18}
+                noise={0.25}
+                blindCount={14}
+                blindMinWidth={40}
+                mirrorGradient
+                spotlightRadius={0.6}
+                spotlightSoftness={1.2}
+                spotlightOpacity={0.9}
+                mouseDampening={0.15}
+                shineDirection="left"
+                mixBlendMode="lighten"
+              />
+            }
           />
 
           <Card
@@ -127,6 +202,23 @@ export default function Capabilities() {
             body="Data pipelines, scraping, scheduled jobs and reporting that take the repetitive work off someone's desk."
             tag="Runs unattended"
             surface="bg-[linear-gradient(140deg,#0d1a33_0%,#123a6b_100%)]"
+            background={
+              <OrbParticlesBackground
+                particleColors={[palette.cyan, palette.electricBlue, palette.offWhite]}
+                particleCount={750}
+                particleSpread={3.2}
+                cameraDistance={20}
+                speed={0.1}
+                particleBaseSize={46}
+                shellThickness={0.16}
+                jitter={0.3}
+                moveParticlesOnHover
+                particleHoverFactor={0.6}
+                alphaParticles
+                disableRotation={false}
+                pixelRatio={2}
+              />
+            }
           />
 
           <Card
@@ -134,15 +226,17 @@ export default function Capabilities() {
             className="min-h-[200px]"
             title="Search Engine Optimisation"
             surface="bg-mist"
+            background={<ContourDomeBackground variant="light" />}
           >
             <div className="mt-auto flex items-end justify-between gap-4 pt-6">
               <p className="max-w-[28ch] text-[12px] leading-relaxed text-ink/65">
                 Technical SEO, structured data, page speed and the content
                 structure search engines actually reward.
               </p>
-              <p className="shrink-0 text-4xl font-medium tracking-tight text-accent-ink">
-                100
-              </p>
+              <CountUpOutline
+                to={100}
+                className="shrink-0 text-4xl font-medium tracking-tight"
+              />
             </div>
           </Card>
 
@@ -160,6 +254,7 @@ export default function Capabilities() {
             title="UI & UX Design"
             body="Design systems built and agreed in Figma before any production code is written, so nobody pays to rebuild a screen twice."
             surface="bg-mist"
+            background={<ContourDomeBackground variant="light" mirror />}
           />
 
           <Card
@@ -175,6 +270,18 @@ export default function Capabilities() {
             title="Cloud & Deployment"
             body="CI and CD pipelines, edge hosting, monitoring and security on every release."
             surface="bg-[linear-gradient(140deg,#101317_0%,#1b2026_100%)]"
+            background={
+              <GradientWavesBackground
+                horizonColor={palette.baseNearBlack}
+                waveColor={palette.deepNavy}
+                crestColor={palette.cyan}
+                speed={0.22}
+                grain
+                grainIntensity={0.05}
+                mouseInteraction
+                parallaxStrength={0.35}
+              />
+            }
           />
         </div>
       </div>

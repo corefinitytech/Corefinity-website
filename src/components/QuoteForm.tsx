@@ -6,6 +6,7 @@ import Check from "./Check";
 
 import Select from "./Select";
 import { ArrowRight } from "./icons";
+import { site } from "@/lib/site";
 
 const projectTypes = [
   "Custom B2B Dashboard",
@@ -154,10 +155,10 @@ export default function QuoteForm() {
         <p role="alert" className="text-sm text-coral">
           Something went wrong. Please try again, or email us directly at{" "}
           <a
-            href="mailto:corefinity.tech@gmail.com"
+            href={`mailto:${site.email}`}
             className="font-medium underline underline-offset-4"
           >
-            corefinity.tech@gmail.com
+            {site.email}
           </a>
           .
         </p>

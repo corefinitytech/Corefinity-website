@@ -15,7 +15,7 @@ export const site = {
   name: "Corefinity",
   legalName: "Corefinity",
   url: siteUrl,
-  email: "corefinity.tech@gmail.com",
+  email: "hello@corefinity.tech",
   founded: "2024",
   /** Used as the default <title> and in structured data. */
   title: "Corefinity | Custom Web Platforms, Dashboards and Booking Systems",
