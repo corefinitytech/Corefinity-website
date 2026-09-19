@@ -44,6 +44,15 @@ export const verification = {
   indexNowKey: process.env.INDEXNOW_KEY,
 } as const;
 
+/**
+ * Analytics. Google Analytics 4 sets cookies and processes personal data, so
+ * it is gated behind the analytics consent category and named explicitly on
+ * the cookie policy. Changing this tool means changing that page too.
+ */
+export const analytics = {
+  gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+} as const;
+
 export type Service = {
   name: string;
   description: string;
@@ -108,7 +117,7 @@ export const legal = {
   governingLaw: "the laws of the Islamic Republic of Pakistan",
   courts: "the courts of Pakistan",
   /** Update when a page is materially changed. */
-  effectiveDate: "16 September 2026",
+  effectiveDate: "19 September 2026",
   /** Days a client has to raise an invoice dispute. */
   paymentTermDays: 14,
 } as const;

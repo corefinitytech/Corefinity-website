@@ -138,6 +138,13 @@ const sections: LegalSection[] = [
             email provider.
           </li>
           <li>
+            <strong>Analytics.</strong> Google Analytics, but only for visitors
+            who switch analytics on in the cookie banner. It receives page
+            views, approximate location derived from IP address, and general
+            device and browser information. It is never given your name or
+            email, and it is not loaded at all for anyone who declines.
+          </li>
+          <li>
             <strong>Professional advisers.</strong> Accountants or legal
             advisers where we are obliged to involve them.
           </li>
