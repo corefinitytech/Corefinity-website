@@ -7,13 +7,14 @@ import {
   caseSurface,
 } from "@/components/CaseStudyVisual";
 import JsonLd from "@/components/JsonLd";
+import { H1Eyebrow } from "@/components/PageHeading";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
 import { caseStudies } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
 import { site, siteUrl } from "@/lib/site";
 
-const title = "Case Studies: AI, Web Platforms and Automation Projects";
+const title = "Case Studies: AI, Web and Automation Projects";
 const description =
   "Corefinity case studies: an AI WhatsApp support assistant, a logistics operations dashboard with Python automation, and a commission free hotel booking engine.";
 
@@ -49,12 +50,9 @@ export default function CaseStudiesIndex() {
             Back to home
           </Link>
 
-          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/60">
-            ( Case studies )
-          </p>
-
-          <div className="mt-4 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
+              <H1Eyebrow>Software development case studies</H1Eyebrow>
               Software that earns{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 its keep.

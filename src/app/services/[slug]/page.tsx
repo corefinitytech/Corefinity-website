@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import CardNotch from "@/components/CardNotch";
 import Check from "@/components/Check";
 import JsonLd from "@/components/JsonLd";
-import { ArrowLeft, ArrowRight } from "@/components/icons";
+import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
+import { ArrowRight } from "@/components/icons";
 import { caseStudiesFor } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService, relatedTo, services } from "@/lib/services";
@@ -69,20 +70,17 @@ export default async function ServicePage({
       {/* Header */}
       <section className="px-4 pt-28 sm:px-6 sm:pt-36">
         <div className="mx-auto max-w-7xl">
-          <Link
-            href="/services"
-            className="group inline-flex items-center gap-2 text-[12px] font-medium text-ink/60 transition hover:text-ink"
-          >
-            <ArrowLeft className="size-3 transition-transform duration-300 group-hover:-translate-x-1" />
-            All services
-          </Link>
+          <Breadcrumbs
+            trail={[
+              { name: "Home", href: "/" },
+              { name: "Services", href: "/services" },
+              { name: service.name, href: `/services/${service.slug}` },
+            ]}
+          />
 
-          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/60">
-            ( {service.navLabel} )
-          </p>
-
-          <div className="mt-4 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
+              <H1Eyebrow>{service.name}</H1Eyebrow>
               {service.headline.lead}{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 {service.headline.accent}
@@ -274,7 +272,7 @@ export default async function ServicePage({
           <h2 className="text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
             Questions about{" "}
             <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-              {service.navLabel.toLowerCase()}
+              {service.name}
             </span>
           </h2>
 

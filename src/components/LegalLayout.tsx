@@ -1,8 +1,11 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 
+import { breadcrumbSchema, graph } from "@/lib/schema";
 import { legal, site } from "@/lib/site";
+import JsonLd from "./JsonLd";
 import { ArrowLeft } from "./icons";
+import { H1Eyebrow } from "./PageHeading";
 
 export type LegalSection = {
   id: string;
@@ -16,12 +19,15 @@ export type LegalSection = {
  * site rather than a bolted on document.
  */
 export default function LegalLayout({
+  path,
   eyebrow,
   title,
   accent,
   summary,
   sections,
 }: {
+  /** Route of the page, for its breadcrumb structured data. */
+  path: string;
   eyebrow: string;
   title: string;
   /** Tail of the heading, rendered in the brand gradient. */
@@ -41,12 +47,9 @@ export default function LegalLayout({
             Back to home
           </Link>
 
-          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/60">
-            ( {eyebrow} )
-          </p>
-
-          <div className="mt-4 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
+              <H1Eyebrow>{eyebrow}</H1Eyebrow>
               {title}{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 {accent}
@@ -135,6 +138,14 @@ export default function LegalLayout({
           </div>
         </div>
       </section>
+      <JsonLd
+        schema={graph(
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: eyebrow, path },
+          ]),
+        )}
+      />
     </main>
   );
 }

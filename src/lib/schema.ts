@@ -1,5 +1,5 @@
 import { faqs } from "./faqs";
-import { services, site, siteUrl } from "./site";
+import { sameAs, services, site, siteUrl } from "./site";
 
 /**
  * Schema.org graph for the site.
@@ -18,16 +18,22 @@ export function organizationSchema() {
     "@type": "Organization",
     "@id": organizationId,
     name: site.name,
+    alternateName: site.alternateNames,
     legalName: site.legalName,
     url: siteUrl,
     email: site.email,
     description: site.description,
     slogan: site.tagline,
+    // Square mark: Google shows the logo in a square frame, where the wide
+    // wordmark on its navy ground would be cropped to nothing legible.
     logo: {
       "@type": "ImageObject",
-      url: `${siteUrl}/logo/wordmark-dark.png`,
+      url: `${siteUrl}/logo/mark-512.png`,
+      width: 512,
+      height: 512,
       caption: site.name,
     },
+    ...(sameAs.length ? { sameAs } : {}),
     contactPoint: [
       {
         "@type": "ContactPoint",

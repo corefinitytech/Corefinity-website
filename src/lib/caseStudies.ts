@@ -58,9 +58,9 @@ export const caseStudies: CaseStudy[] = [
     industry: "Ecommerce",
     summary:
       "An AI support assistant on WhatsApp and web chat that answers from the product catalogue and live order data.",
-    title: "AI WhatsApp Support Chatbot for Ecommerce: Case Study",
+    title: "AI WhatsApp Chatbot for Ecommerce: Case Study",
     description:
-      "How Corefinity built an AI support assistant on WhatsApp and web chat for an online skincare brand. It answers from live order data and now resolves 71 percent of queries without an agent.",
+      "How Corefinity built an AI support chatbot on WhatsApp and web chat for an online skincare brand that resolves 71 percent of queries without an agent.",
     keywords: [
       "AI chatbot case study",
       "WhatsApp chatbot for ecommerce",
@@ -166,9 +166,9 @@ export const caseStudies: CaseStudy[] = [
     industry: "Freight and logistics",
     summary:
       "An operations dashboard, Python data pipelines and a customer tracking portal that replaced a freight team's spreadsheets.",
-    title: "Logistics Operations Dashboard and Automation: Case Study",
+    title: "Logistics Dashboard and Automation: Case Study",
     description:
-      "Corefinity replaced a freight forwarder's spreadsheets with an operations dashboard, Python data pipelines and a customer tracking portal, saving 22 hours of manual reporting every week.",
+      "How Corefinity replaced a freight forwarder's spreadsheets with a logistics dashboard, Python pipelines and a tracking portal, saving 22 hours a week.",
     keywords: [
       "logistics dashboard case study",
       "freight operations software",
@@ -274,9 +274,9 @@ export const caseStudies: CaseStudy[] = [
     industry: "Hospitality",
     summary:
       "A commission free direct booking engine and the front desk dashboard behind it, live in under three weeks.",
-    title: "Hotel Direct Booking Engine Case Study: Lodgex Systems",
+    title: "Hotel Direct Booking Engine: Case Study",
     description:
-      "How Corefinity built a commission free direct booking engine and front desk dashboard for boutique hotels, with Stripe payments and two way iCal sync, live in under three weeks.",
+      "How Corefinity built a commission free hotel booking engine with Stripe payments, two way iCal sync and a front desk dashboard, live in three weeks.",
     keywords: [
       "hotel booking engine case study",
       "direct booking system",

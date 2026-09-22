@@ -33,6 +33,7 @@ function Tag({
 }
 
 function Card({
+  href,
   title,
   body,
   tag,
@@ -43,6 +44,9 @@ function Card({
   background,
   children,
 }: {
+  /** The service page this card describes. The card's own title and body
+   *  are the link text, so the anchor describes where it goes. */
+  href: string;
   title: string;
   body?: string;
   tag?: string;
@@ -57,8 +61,8 @@ function Card({
   children?: ReactNode;
 }) {
   return (
-    <a
-      href="#contact"
+    <Link
+      href={href}
       className={`group relative isolate flex flex-col overflow-hidden rounded-[20px] p-6 pb-16 transition duration-300 hover:-translate-y-0.5 ${
         light ? "text-ink" : "text-white"
       } ${className}`}
@@ -95,7 +99,7 @@ function Card({
         </div>
       )}
       <CardNotch />
-    </a>
+    </Link>
   );
 }
 
@@ -123,6 +127,7 @@ export default function Capabilities() {
         <div className="mt-10 grid gap-3 lg:grid-cols-3">
           <Card
             className="min-h-[300px] lg:row-span-2"
+            href="/services/web-development"
             title="Web Platforms & Dashboards"
             body="Frontend, backend and everything between. Operations systems, customer portals, SaaS dashboards and internal tools that replace the pile of subscriptions and spreadsheets you are running now."
             tag="Multitenant architecture"
@@ -152,6 +157,7 @@ export default function Capabilities() {
 
           <Card
             className="min-h-[300px] lg:row-span-2"
+            href="/services/ai-development"
             title="AI & Chatbot Development"
             body="Assistants that answer from your own documents, agents that handle the repetitive queries, and language models wired into the systems you already run rather than bolted on beside them."
             tag="Built with guardrails"
@@ -174,6 +180,7 @@ export default function Capabilities() {
 
           <Card
             className="min-h-[200px]"
+            href="/services/mobile-app-development"
             title="Mobile Applications"
             body="Cross platform apps for iOS and Android, plus the APIs and admin tooling that sit behind them."
             tag="One codebase"
@@ -198,6 +205,7 @@ export default function Capabilities() {
 
           <Card
             className="min-h-[200px]"
+            href="/services/python-automation"
             title="Python Scripting & Automation"
             body="Data pipelines, scraping, scheduled jobs and reporting that take the repetitive work off someone's desk."
             tag="Runs unattended"
@@ -224,6 +232,7 @@ export default function Capabilities() {
           <Card
             light
             className="min-h-[200px]"
+            href="/services/seo"
             title="Search Engine Optimisation"
             surface="bg-mist"
             background={<ContourDomeBackground variant="light" />}
@@ -242,6 +251,7 @@ export default function Capabilities() {
 
           <Card
             className="min-h-[200px]"
+            href="/services/systems-integration"
             title="Systems Integration"
             body="Two way connections across payment gateways, CRMs, WhatsApp, calendars and databases."
             tag="Nothing typed twice"
@@ -251,6 +261,7 @@ export default function Capabilities() {
           <Card
             light
             className="min-h-[200px]"
+            href="/services/ui-ux-design"
             title="UI & UX Design"
             body="Design systems built and agreed in Figma before any production code is written, so nobody pays to rebuild a screen twice."
             surface="bg-mist"
@@ -259,6 +270,7 @@ export default function Capabilities() {
 
           <Card
             className="min-h-[200px] lg:col-span-2"
+            href="/case-studies/hotel-direct-booking-engine"
             title="Direct Booking & Commerce"
             body="Commission free reservation and checkout flows with Stripe settlement and two way calendar sync, built so operators stop handing 15 to 25 percent of revenue to booking portals."
             tag="Stripe & iCal"
@@ -267,6 +279,7 @@ export default function Capabilities() {
 
           <Card
             className="min-h-[200px]"
+            href="/services/cloud-deployment"
             title="Cloud & Deployment"
             body="CI and CD pipelines, edge hosting, monitoring and security on every release."
             surface="bg-[linear-gradient(140deg,#101317_0%,#1b2026_100%)]"

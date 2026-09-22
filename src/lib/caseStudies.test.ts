@@ -56,14 +56,15 @@ describe("search metadata", () => {
   it("keeps titles short enough not to be truncated", () => {
     for (const c of caseStudies) {
       // The brand is appended by the title template, so budget for it.
-      expect(c.title.length).toBeLessThanOrEqual(65);
+      // 60 characters in total once " | Corefinity" (13) is appended.
+      expect(c.title.length).toBeLessThanOrEqual(47);
     }
   });
 
   it("keeps meta descriptions inside the length search engines display", () => {
     for (const c of caseStudies) {
       expect(c.description.length).toBeGreaterThan(70);
-      expect(c.description.length).toBeLessThanOrEqual(200);
+      expect(c.description.length).toBeLessThanOrEqual(160);
     }
   });
 

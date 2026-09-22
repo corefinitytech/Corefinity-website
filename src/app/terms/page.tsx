@@ -317,6 +317,7 @@ const sections: LegalSection[] = [
 export default function TermsPage() {
   return (
     <LegalLayout
+      path="/terms"
       eyebrow="Terms of Service"
       title="The terms we"
       accent="work under."

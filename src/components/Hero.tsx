@@ -1,4 +1,5 @@
 import HeroBanner from "./HeroBanner";
+import { H1Eyebrow } from "./PageHeading";
 import { ArrowRight } from "./icons";
 
 export default function Hero() {
@@ -7,6 +8,7 @@ export default function Hero() {
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <h1 className="max-w-3xl text-[clamp(2.5rem,6.6vw,5.25rem)] font-medium leading-[0.98] tracking-[-0.035em] text-ink">
+            <H1Eyebrow>Custom software development company</H1Eyebrow>
             Architecting{" "}
             <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
               High Performance Digital Platforms
