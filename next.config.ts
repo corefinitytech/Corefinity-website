@@ -11,11 +11,15 @@ import bundleAnalyzer from "@next/bundle-analyzer";
  * Given the site renders no user supplied HTML and embeds no third party
  * scripts, the trade is worth making. Revisit if either of those changes.
  */
+// React uses eval() in development to rebuild server error stacks in the
+// browser. It never does in production, so the allowance is dev only.
+const isDev = process.env.NODE_ENV === "development";
+
 const csp = [
   "default-src 'self'",
   // plausible.io is listed so the analytics script can load for visitors who
   // opt in. It is inert for everyone else, because the tag is never rendered.
-  "script-src 'self' 'unsafe-inline' https://plausible.io",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://plausible.io`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self' data:",

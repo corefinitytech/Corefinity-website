@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { ArrowRight } from "./icons";
 
 const results = [
@@ -40,13 +42,21 @@ export default function CaseStudy() {
               ))}
             </ul>
 
-            <a
-              href="#contact"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-[13px] font-medium text-white transition hover:bg-ink/85"
-            >
-              Talk to us about a build like this
-              <ArrowRight className="size-3.5" />
-            </a>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/case-studies/hotel-direct-booking-engine"
+                className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-[13px] font-medium text-white transition hover:bg-ink/85"
+              >
+                Read the full case study
+                <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="/case-studies"
+                className="inline-flex items-center gap-2 rounded-full border border-black/10 px-6 py-3 text-[13px] font-medium text-ink/80 transition hover:border-ink hover:text-ink"
+              >
+                All case studies
+              </Link>
+            </div>
           </div>
 
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-ink">
