@@ -1,5 +1,12 @@
 import { faqs } from "./faqs";
-import { sameAs, services, site, siteUrl } from "./site";
+import {
+  address,
+  disambiguation,
+  sameAs,
+  services,
+  site,
+  siteUrl,
+} from "./site";
 
 /**
  * Schema.org graph for the site.
@@ -11,6 +18,17 @@ import { sameAs, services, site, siteUrl } from "./site";
  */
 
 const organizationId = `${siteUrl}/#organization`;
+
+function postalAddress() {
+  return {
+    "@type": "PostalAddress",
+    streetAddress: address.streetAddress,
+    addressLocality: address.addressLocality,
+    addressRegion: address.addressRegion,
+    postalCode: address.postalCode,
+    addressCountry: address.addressCountry,
+  };
+}
 const websiteId = `${siteUrl}/#website`;
 
 export function organizationSchema() {
@@ -23,7 +41,9 @@ export function organizationSchema() {
     url: siteUrl,
     email: site.email,
     description: site.description,
+    disambiguatingDescription: disambiguation,
     slogan: site.tagline,
+    address: postalAddress(),
     // Square mark: Google shows the logo in a square frame, where the wide
     // wordmark on its navy ground would be cropped to nothing legible.
     logo: {
@@ -79,6 +99,7 @@ export function serviceSchema() {
     url: siteUrl,
     email: site.email,
     description: site.description,
+    address: postalAddress(),
     provider: { "@id": organizationId },
     // Stated as worldwide because delivery is remote, which is true.
     areaServed: { "@type": "Place", name: "Worldwide" },

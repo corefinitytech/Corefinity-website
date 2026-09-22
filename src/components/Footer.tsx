@@ -3,7 +3,7 @@ import Link from "next/link";
 import Brand from "./Brand";
 import ConsentReset from "./ConsentReset";
 import { services } from "@/lib/services";
-import { site } from "@/lib/site";
+import { address, site, socialLinks } from "@/lib/site";
 
 /**
  * Every link here resolves to something that exists. Placeholder hrefs were
@@ -40,6 +40,28 @@ export default function Footer() {
             >
               {site.email}
             </a>
+            {/* Visible name, address and profiles, matching the structured
+                data and the Google Business Profile word for word. */}
+            <address className="mt-3 text-sm not-italic leading-relaxed text-ink/60">
+              {address.streetAddress},
+              <br />
+              {address.addressLocality} {address.postalCode},{" "}
+              {address.countryName}
+            </address>
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+              {socialLinks.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="me noopener noreferrer"
+                    className="text-sm font-medium text-ink/70 transition hover:text-accent-ink"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <nav aria-label="Footer" className="flex flex-wrap gap-x-12 gap-y-8">

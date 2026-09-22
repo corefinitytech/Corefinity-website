@@ -1,9 +1,12 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
 import { describe, expect, it } from "vitest";
 
 import { faqs } from "./faqs";
 import { organizationSchema } from "./schema";
 import { services } from "./services";
-import { legal, site } from "./site";
+import { address, legal, site } from "./site";
 
 /**
  * Search and answer engine rules that span the whole site. The per page rules
@@ -26,6 +29,19 @@ describe("homepage metadata", () => {
 describe("brand entity", () => {
   it("lists the Google Business Profile name as an alternate name", () => {
     expect(organizationSchema().alternateName).toContain("CoreFinity Tech");
+  });
+
+  it("publishes the office address the Business Profile shows", () => {
+    const org = organizationSchema();
+    expect(org.address.addressLocality).toBe("Islamabad");
+    expect(org.address.addressCountry).toBe("PK");
+    expect(org.address.postalCode).toBe(address.postalCode);
+  });
+
+  it("tells engines it is not the unrelated corefinity.com", () => {
+    expect(organizationSchema().disambiguatingDescription).toContain(
+      "not affiliated with corefinity.com",
+    );
   });
 
   it("uses a square logo, which is what search engines crop to", () => {
@@ -77,5 +93,31 @@ describe("legal dates", () => {
       { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" },
     );
     expect(readable).toBe(legal.effectiveDate);
+  });
+});
+
+describe("llms.txt", () => {
+  const llms = readFileSync(
+    path.join(process.cwd(), "public", "llms.txt"),
+    "utf8",
+  );
+
+  it("carries every homepage FAQ word for word", () => {
+    // Assistants that read llms.txt should get the same answer as the page.
+    for (const f of faqs) {
+      expect(llms, f.q).toContain(f.q);
+      expect(llms, f.q).toContain(f.a);
+    }
+  });
+
+  it("names the business the way the Business Profile does", () => {
+    expect(llms).toContain("CoreFinity Tech");
+    expect(llms).toContain("not affiliated with corefinity.com");
+  });
+
+  it("links every service page", () => {
+    for (const s of services) {
+      expect(llms).toContain(`https://corefinity.tech/services/${s.slug}`);
+    }
   });
 });

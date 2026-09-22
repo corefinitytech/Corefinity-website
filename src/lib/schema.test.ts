@@ -75,8 +75,16 @@ describe("honesty guarantees", () => {
     expect(serialised).not.toContain(`"${field}":`);
   });
 
-  it("declares no social profiles while none exist", () => {
-    expect(organizationSchema()).not.toHaveProperty("sameAs");
+  it("lists only clean, real profile URLs", () => {
+    // Share links and tracking parameters are not stable profile URLs, and a
+    // duplicate would suggest two different entities.
+    const profiles = organizationSchema().sameAs ?? [];
+    expect(profiles.length).toBeGreaterThan(0);
+    expect(new Set(profiles).size).toBe(profiles.length);
+    for (const url of profiles) {
+      expect(url).toMatch(/^https:\/\//);
+      expect(url).not.toMatch(/[?#]|\/share\//);
+    }
   });
 
   it("points at a logo that is actually deployed", () => {
