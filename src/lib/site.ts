@@ -42,7 +42,45 @@ export const site = {
  * search engines tie the brand's profiles to one entity. Only list profiles
  * that exist and are controlled by Corefinity; an empty list emits nothing.
  */
-export const sameAs: string[] = [];
+export const sameAs: string[] = [
+  "https://www.linkedin.com/company/corefintytech",
+  "https://www.linkedin.com/in/corefinity-tech",
+  "https://www.instagram.com/corefinitytech/",
+  // The canonical page URL behind the share link, which is a redirect.
+  "https://www.facebook.com/people/Core-Finity/pfbid024hZfxue6v4k7STpvALyJSCoz9yvodEBsq25F9gfWEpWoHshFP5dhENb1ohc9CNEdl/",
+];
+
+/** Profiles shown in the footer, one per network. */
+export const socialLinks = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/corefintytech" },
+  { label: "Instagram", href: "https://www.instagram.com/corefinitytech/" },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/people/Core-Finity/pfbid024hZfxue6v4k7STpvALyJSCoz9yvodEBsq25F9gfWEpWoHshFP5dhENb1ohc9CNEdl/",
+  },
+] as const;
+
+/**
+ * Office address, written to match the Google Business Profile ("CoreFinity
+ * Tech", Islamabad). Search engines match the business profile to this site
+ * partly by comparing these details, so change both together or not at all.
+ */
+export const address = {
+  streetAddress: "Office no 08, Royal Inn Plaza, Basement, Kohistan Rd, F-8 Markaz",
+  addressLocality: "Islamabad",
+  addressRegion: "Islamabad Capital Territory",
+  postalCode: "44000",
+  addressCountry: "PK",
+  countryName: "Pakistan",
+} as const;
+
+/**
+ * An unrelated UK hosting company trades as Corefinity at corefinity.com.
+ * Stated in structured data and llms.txt so search engines and assistants
+ * stop merging the two businesses.
+ */
+export const disambiguation =
+  "Corefinity at corefinity.tech is a software development company based in Islamabad, Pakistan. It is not affiliated with corefinity.com, a UK cloud hosting company.";
 
 /**
  * Search engine ownership tokens. Set these in the environment once each

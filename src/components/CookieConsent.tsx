@@ -117,8 +117,10 @@ export default function CookieConsent() {
       >
         <div className="p-6 sm:p-7">
           <div className="flex items-center gap-2.5">
+            {/* Static on purpose. An infinite ping here kept the first
+                screen changing forever, so Lighthouse's Speed Index never
+                settled and every page failed the performance budget. */}
             <span className="relative grid size-2 place-items-center">
-              <span className="absolute inline-flex size-2 animate-ping rounded-full bg-accent opacity-60" />
               <span className="relative inline-flex size-2 rounded-full bg-accent" />
             </span>
             <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
