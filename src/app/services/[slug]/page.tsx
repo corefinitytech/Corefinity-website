@@ -6,6 +6,7 @@ import CardNotch from "@/components/CardNotch";
 import Check from "@/components/Check";
 import JsonLd from "@/components/JsonLd";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
+import { caseStudiesFor } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService, relatedTo, services } from "@/lib/services";
 import { site, siteUrl } from "@/lib/site";
@@ -14,6 +15,11 @@ import { site, siteUrl } from "@/lib/site";
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
+
+// Anything outside that list is a hard 404. Without this, the root loading
+// boundary starts streaming a 200 before notFound() runs, which search engines
+// treat as a soft 404.
+export const dynamicParams = false;
 
 export async function generateMetadata({
   params,
@@ -56,6 +62,7 @@ export default async function ServicePage({
   if (!service) notFound();
 
   const related = relatedTo(service);
+  const studies = caseStudiesFor(service.slug);
 
   return (
     <main id="main">
@@ -285,6 +292,64 @@ export default async function ServicePage({
           </dl>
         </div>
       </section>
+
+      {/* Proof: case studies that used this service */}
+      {studies.length > 0 && (
+        <section className="px-4 pb-20 sm:px-6 sm:pb-24">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
+                  ( In practice )
+                </p>
+                <h2 className="mt-4 text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
+                  {service.navLabel}{" "}
+                  <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
+                    case studies
+                  </span>
+                </h2>
+              </div>
+              <Link
+                href="/case-studies"
+                className="inline-flex items-center gap-2 rounded-full border border-black/10 px-5 py-2.5 text-[13px] font-medium text-ink/80 transition hover:border-ink hover:text-ink"
+              >
+                All case studies
+                <ArrowRight className="size-3.5" />
+              </Link>
+            </div>
+
+            <div
+              className={`mt-10 grid gap-3 ${studies.length > 1 ? "md:grid-cols-2" : ""}`}
+            >
+              {studies.map((c, i) => (
+                <Link
+                  key={c.slug}
+                  href={`/case-studies/${c.slug}`}
+                  className={`group relative isolate flex min-h-[220px] flex-col overflow-hidden rounded-[20px] p-6 pb-16 text-white transition duration-300 hover:-translate-y-0.5 ${
+                    surfaces[(i + 1) % surfaces.length]
+                  }`}
+                >
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-white/60">
+                    {c.industry} / {c.client}
+                  </p>
+                  <h3 className="mt-4 max-w-md text-xl font-medium leading-snug tracking-[-0.02em]">
+                    {c.headline.lead} {c.headline.accent}
+                  </h3>
+                  <p className="mt-auto pt-6 text-[13px] text-white/75">
+                    <span className="text-2xl font-medium text-white">
+                      {c.metrics[0].prefix}
+                      {c.metrics[0].value}
+                      {c.metrics[0].suffix}
+                    </span>{" "}
+                    {c.metrics[0].label.toLowerCase()}
+                  </p>
+                  <CardNotch />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related and CTA */}
       <section className="px-4 py-12 sm:px-6">

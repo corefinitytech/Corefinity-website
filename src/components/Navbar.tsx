@@ -25,7 +25,7 @@ const links: NavLink[] = [
   { label: "About", id: "process" },
   { label: "Why us", id: "expertise" },
   { label: "Pricing", id: "pricing" },
-  { label: "Case study", id: "case-studies" },
+  { label: "Case studies", id: "case-studies", href: "/case-studies" },
 ];
 
 export default function Navbar() {

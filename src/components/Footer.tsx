@@ -13,7 +13,7 @@ import { site } from "@/lib/site";
 const sections = [
   { label: "All services", href: "/services" },
   { label: "How we work", href: "/#process" },
-  { label: "Case study", href: "/#case-studies" },
+  { label: "Case studies", href: "/case-studies" },
   { label: "Engagements", href: "/#pricing" },
   { label: "Questions", href: "/#faq" },
 ];
