@@ -3,14 +3,15 @@ import Link from "next/link";
 
 import CardNotch from "@/components/CardNotch";
 import JsonLd from "@/components/JsonLd";
+import { H1Eyebrow } from "@/components/PageHeading";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { services } from "@/lib/services";
 import { site, siteUrl } from "@/lib/site";
 
-const title = "Services";
+const title = "Software Development Services";
 const description =
-  "Web development, mobile apps, AI and chatbots, Python automation, SEO, systems integration, UI and UX design, and cloud deployment. Fixed scope, full code ownership.";
+  "Web development, mobile apps, AI chatbots, Python automation, SEO, integrations, UI and UX design and cloud deployment. Fixed price, full code ownership.";
 
 export const metadata: Metadata = {
   title,
@@ -48,12 +49,9 @@ export default function ServicesIndex() {
             Back to home
           </Link>
 
-          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/60">
-            ( Services )
-          </p>
-
-          <div className="mt-4 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
+              <H1Eyebrow>Software development services</H1Eyebrow>
               Everything we{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 build and run.

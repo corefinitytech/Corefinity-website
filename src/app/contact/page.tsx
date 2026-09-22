@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import QuoteForm from "@/components/QuoteForm";
 import JsonLd from "@/components/JsonLd";
+import { H1Eyebrow } from "@/components/PageHeading";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { site } from "@/lib/site";
 import {
@@ -14,7 +15,7 @@ import {
   MapPin,
 } from "@/components/icons";
 
-const title = "Get a Quote";
+const title = "Get a Quote for Your Software Project";
 const description =
   "Send Corefinity your project brief and get a written technical roadmap, a timeline and a fixed price back within 48 hours.";
 
@@ -71,12 +72,9 @@ export default function ContactPage() {
             Back to home
           </Link>
 
-          <p className="mt-8 text-[11px] uppercase tracking-[0.2em] text-ink/60">
-            ( Get a Quote )
-          </p>
-
-          <div className="mt-4 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
+              <H1Eyebrow>Get a quote</H1Eyebrow>
               Tell us what you&apos;re{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 building.

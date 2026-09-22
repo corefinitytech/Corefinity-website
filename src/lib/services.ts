@@ -36,9 +36,9 @@ export const services: ServicePage[] = [
     slug: "web-development",
     navLabel: "Web development",
     name: "Web Development",
-    title: "Custom Web Development: Platforms, Dashboards and Portals",
+    title: "Custom Web Development Services",
     description:
-      "Custom web development across frontend, backend and full stack. Web applications, SaaS dashboards, customer portals and internal tools built on Next.js and TypeScript, quoted at a fixed price.",
+      "Custom web development: web applications, SaaS dashboards, customer portals and internal tools built on Next.js and TypeScript, quoted at a fixed price.",
     headline: { lead: "Web platforms built", accent: "around your business." },
     summary:
       "Frontend, backend and everything between, built from scratch rather than assembled from plugins.",
@@ -120,20 +120,20 @@ export const services: ServicePage[] = [
     ],
     faqs: [
       {
-        q: "How long does a web application take?",
-        a: "A focused MVP or marketing build is usually ready for review on staging inside 10 to 14 business days. A full application with authentication, a real data model and an admin side runs 3 to 4 weeks. Anything larger we break into stages so something useful ships early.",
+        q: "How long does custom web application development take?",
+        a: "Corefinity typically delivers a focused MVP or marketing site for staging review in 10 to 14 business days. A full web application with authentication, a real data model and an admin side takes 3 to 4 weeks, and larger builds ship in stages.",
       },
       {
-        q: "Can you take over a project someone else started?",
-        a: "Often, yes. We read the codebase first and tell you honestly whether continuing or restarting is the better value. Sometimes the existing work is a solid foundation. Sometimes rebuilding is genuinely cheaper than untangling it, and we will say so rather than quietly billing for the untangling.",
+        q: "Can Corefinity take over a web project another developer started?",
+        a: "Yes, in most cases. Corefinity reviews the existing codebase first and states in writing whether continuing or rebuilding is better value, because a rebuild is sometimes cheaper than untangling poor code.",
       },
       {
-        q: "Do you work with our existing designers?",
-        a: "Yes. If you have a design team or a brand system, we build to it. If you do not, we design the screens first and agree them with you before writing production code.",
+        q: "Can Corefinity build to our existing designs or brand system?",
+        a: "Yes. Corefinity builds to an existing design team's files or brand system, and designs and agrees the screens first when a client has none.",
       },
       {
-        q: "What happens after launch?",
-        a: "Defects in what we built are fixed at no charge for the support period in your proposal. Beyond that, you can take the code to any team you like, or keep working with us. There is no retainer you have to sign to keep your own software running.",
+        q: "What support does Corefinity provide after a website launches?",
+        a: "Corefinity fixes defects in its own work at no charge for the support period stated in the proposal. After that, the client can keep working with Corefinity or take the code to any team, with no retainer required.",
       },
     ],
     related: ["ui-ux-design", "systems-integration", "cloud-deployment"],
@@ -225,20 +225,20 @@ export const services: ServicePage[] = [
     ],
     faqs: [
       {
-        q: "Cross platform or native?",
-        a: "Cross platform suits most products, and it is what we recommend by default: one codebase, one set of fixes, roughly half the cost. Native earns its price when an app leans hard on device hardware, heavy graphics or platform specific features. We will tell you which one your product actually needs rather than defaulting to the more expensive answer.",
+        q: "Should a mobile app be cross platform or native?",
+        a: "Cross platform development suits most apps, because one codebase serves both iOS and Android at roughly half the cost of two native apps. Native development is worth the extra cost only when an app depends heavily on device hardware, advanced graphics or platform specific features.",
       },
       {
-        q: "Do the app stores charge separately?",
-        a: "Yes. Apple charges an annual developer fee and Google a one time registration fee. Both are paid on your own accounts, so the app is registered to your business rather than to us.",
+        q: "Do Apple and Google charge app store fees separately?",
+        a: "Yes. Apple charges an annual developer fee and Google charges a one time registration fee, both separate from Corefinity's price and paid on the client's own accounts so the app is registered to the client's business.",
       },
       {
-        q: "How long does store approval take?",
-        a: "Usually a few days per store, though a first submission is often rejected over something small in the guidelines. We build that round trip into the timeline rather than treating it as a surprise.",
+        q: "How long does App Store and Google Play approval take?",
+        a: "App store review usually takes a few days per store, and a first submission is often rejected over a minor guideline issue. Corefinity builds that resubmission round trip into the project timeline.",
       },
       {
-        q: "Can the app work offline?",
-        a: "Depending on what it does, yes. Offline support changes how the data layer is designed, so it is worth raising in the brief rather than after the build has started.",
+        q: "Can a mobile app work offline?",
+        a: "Yes, many mobile apps can work offline, but offline support changes how the data layer is designed. It should be raised in the project brief rather than added after the build has started.",
       },
     ],
     related: ["web-development", "ai-development", "systems-integration"],
@@ -248,7 +248,7 @@ export const services: ServicePage[] = [
     slug: "ai-development",
     navLabel: "AI development",
     name: "AI & Chatbot Development",
-    title: "AI Development and Chatbot Integration for Business",
+    title: "AI Chatbot and AI Development Services",
     description:
       "AI development, chatbots and assistants that answer from your own documents, plus language model integration into the systems your business already runs.",
     headline: { lead: "AI wired into", accent: "the work you already do." },
@@ -330,20 +330,20 @@ export const services: ServicePage[] = [
     ],
     faqs: [
       {
-        q: "Will it make things up?",
-        a: "Language models are probabilistic and can produce output that is wrong. Nothing removes that entirely, and anyone promising otherwise is overselling. What we do is ground answers in your own documents, constrain what the system will attempt, and design a clear path to a person when it is unsure. We will be direct with you about where the limits sit.",
+        q: "Can an AI chatbot make things up?",
+        a: "Yes. Language models can produce wrong answers, and no provider can remove that risk entirely. Corefinity reduces it by grounding answers in the client's own documents, limiting what the chatbot will attempt and handing uncertain questions to a person.",
       },
       {
-        q: "Does our data get used to train models?",
-        a: "Not by us. We use provider configurations that exclude your data from training, and we do not use your material to build anything for anyone else. This is written into our terms rather than just promised here.",
+        q: "Is company data used to train AI models?",
+        a: "Not in AI systems built by Corefinity. Corefinity uses provider settings that exclude client data from model training, never reuses client material for anyone else, and puts this commitment in its terms.",
       },
       {
-        q: "What does it cost to run?",
-        a: "Model usage is billed by the provider, on your own account, so you keep control of it. We size the likely monthly cost during scoping and design to keep it predictable rather than letting it drift.",
+        q: "How much does an AI chatbot cost to run?",
+        a: "AI model usage is billed by the provider on the client's own account, so running costs scale with usage and stay under the client's control. Corefinity estimates the monthly cost during scoping and designs the system to keep it predictable.",
       },
       {
-        q: "What if a provider changes or shuts down a model?",
-        a: "It happens regularly. We build so that swapping providers is possible wherever it is practical, rather than wiring your business into one vendor's roadmap.",
+        q: "What happens if an AI provider changes or retires a model?",
+        a: "AI providers change and retire models regularly. Corefinity builds AI systems so the model provider can be swapped wherever practical, instead of tying the business to one vendor.",
       },
     ],
     related: ["python-automation", "web-development", "systems-integration"],
@@ -353,9 +353,9 @@ export const services: ServicePage[] = [
     slug: "python-automation",
     navLabel: "Python automation",
     name: "Python Scripting & Automation",
-    title: "Python Scripting and Business Process Automation",
+    title: "Python Automation and Scripting Services",
     description:
-      "Python automation for data pipelines, web scraping, scheduled reporting and repetitive back office work, built to run unattended and tell you when something breaks.",
+      "Python automation for data pipelines, web scraping, scheduled reports and repetitive back office work, built to run unattended and alert you on failure.",
     headline: { lead: "Automate the work", accent: "nobody should be doing." },
     summary:
       "Data pipelines, scraping, scheduled jobs and reporting that take repetitive tasks off someone's desk.",
@@ -435,20 +435,20 @@ export const services: ServicePage[] = [
     ],
     faqs: [
       {
-        q: "How long does a typical automation take?",
-        a: "A single well defined job is often a few days. A pipeline spanning several systems, with validation and alerting, is usually one to two weeks. We quote it fixed once the task is clear.",
+        q: "How long does a Python automation project take?",
+        a: "A single well defined Python automation job usually takes a few days, and a pipeline spanning several systems with validation and alerting takes one to two weeks. Corefinity quotes a fixed price once the task is clear.",
       },
       {
-        q: "What happens when a website we scrape changes?",
-        a: "It will, eventually. We build scrapers to fail visibly rather than silently return nothing, so you find out immediately. Repairs are quick because the code is written to be repaired.",
+        q: "What happens when a scraped website changes its layout?",
+        a: "Scrapers break when a source website changes, so Corefinity builds them to fail loudly and alert the client instead of silently returning nothing. The code is written so repairs are quick.",
       },
       {
-        q: "Is scraping legal?",
-        a: "It depends entirely on the source, its terms and what the data is. We check before building, and we will tell you if a particular source is a bad idea rather than building it and leaving the question with you.",
+        q: "Is web scraping legal?",
+        a: "Web scraping legality depends on the source website, its terms of service and the type of data collected. Corefinity checks each source before building and advises against sources that carry legal risk.",
       },
       {
-        q: "Can you fix a script we already have?",
-        a: "Usually. We read it first and tell you whether repairing or rewriting is better value, which for a short script is often rewriting.",
+        q: "Can Corefinity fix an existing Python script?",
+        a: "Usually, yes. Corefinity reviews the script first and recommends repairing or rewriting it based on value, and for a short script a rewrite is often cheaper.",
       },
     ],
     related: ["ai-development", "systems-integration", "web-development"],
@@ -456,11 +456,11 @@ export const services: ServicePage[] = [
 
   {
     slug: "seo",
-    navLabel: "SEO",
+    navLabel: "Technical SEO",
     name: "Search Engine Optimisation",
     title: "Technical SEO and Search Performance",
     description:
-      "Technical SEO, structured data, page speed and site architecture, done by the engineers who build the site. No ranking guarantees, because nobody can honestly give one.",
+      "Technical SEO, structured data, page speed and site architecture, done by the engineers who build the site. No ranking guarantees, because nobody can give one.",
     headline: { lead: "SEO done by the people", accent: "who build the site." },
     summary:
       "Technical SEO, structured data, speed and architecture. We commit to the work, not to a position.",
@@ -539,20 +539,20 @@ export const services: ServicePage[] = [
     ],
     faqs: [
       {
-        q: "Can you guarantee first page rankings?",
-        a: "No, and you should be wary of anyone who does. Nobody controls how a search engine ranks a page. What we can commit to is the technical work, done properly and documented, which is the part that is actually within anyone's control.",
+        q: "Can any agency guarantee first page Google rankings?",
+        a: "No. Nobody controls how search engines rank pages, so any agency guaranteeing first page rankings is overselling. Corefinity commits to the technical SEO work itself, done properly and documented.",
       },
       {
-        q: "How long before results show?",
-        a: "Technical fixes such as indexing and speed can register within weeks. Competitive ranking movement usually takes months. Anyone promising quick wins on a competitive term is either lucky or misleading you.",
+        q: "How long does SEO take to show results?",
+        a: "Technical SEO fixes such as indexing and page speed can register within weeks, while ranking movement on competitive keywords usually takes several months.",
       },
       {
-        q: "Do you write content too?",
-        a: "We handle structure, technical work and how content should be organised. Words about your own business are usually better written by you, and we will tell you exactly what each page needs to cover.",
+        q: "Does Corefinity write SEO content?",
+        a: "Corefinity handles site structure, technical SEO and content planning, and specifies exactly what each page needs to cover. Copy about a client's own business is usually best written by the client, following that plan.",
       },
       {
-        q: "Why does Bing matter if Google is bigger?",
-        a: "Because Bing's index is what ChatGPT browsing and Microsoft Copilot retrieve from. If Bing has never crawled you, those assistants cannot cite you, whatever your Google position looks like.",
+        q: "Why does Bing matter for SEO if Google is bigger?",
+        a: "Bing's index is what ChatGPT browsing and Microsoft Copilot retrieve from, so a site Bing has never crawled cannot be cited by those AI assistants, whatever its Google ranking.",
       },
     ],
     related: ["web-development", "cloud-deployment", "ui-ux-design"],
@@ -560,7 +560,7 @@ export const services: ServicePage[] = [
 
   {
     slug: "systems-integration",
-    navLabel: "Integration",
+    navLabel: "Systems integration",
     name: "Systems Integration",
     title: "API and Systems Integration Services",
     description:
@@ -645,20 +645,20 @@ export const services: ServicePage[] = [
     ],
     faqs: [
       {
-        q: "What if a system has no API?",
-        a: "There is often another route, such as a file export, a database connection or careful automation of the interface. We check what is available before quoting, and we tell you if the only honest answer is that it cannot be done reliably.",
+        q: "Can a system with no API still be integrated?",
+        a: "Often, yes. A system without an API can usually be connected through file exports, direct database access or careful automation of its interface, and Corefinity confirms which route is reliable before quoting.",
       },
       {
-        q: "Who pays for third party API costs?",
-        a: "You do, billed to your own accounts. We set them up in your name so you keep control of the keys, the spend and the relationship.",
+        q: "Who pays for third party API costs in an integration project?",
+        a: "The client pays third party API costs directly, billed to the client's own accounts. Corefinity sets up every service in the client's name so the client controls the keys, the spending and the vendor relationship.",
       },
       {
-        q: "What happens when their API changes?",
-        a: "Providers deprecate endpoints with varying amounts of notice. We build so breakage is detected and reported immediately rather than discovered through missing data weeks later.",
+        q: "What happens when a third party API changes?",
+        a: "API providers deprecate endpoints with varying notice, so Corefinity builds integrations that detect and report breakage immediately instead of letting data go missing for weeks.",
       },
       {
-        q: "Can you fix an integration built by someone else?",
-        a: "Usually. We read what is there, find why it fails, and tell you whether repairing or replacing is better value.",
+        q: "Can Corefinity fix an integration built by someone else?",
+        a: "Usually, yes. Corefinity diagnoses why the existing integration fails and recommends repairing or replacing it based on value.",
       },
     ],
     related: ["web-development", "python-automation", "cloud-deployment"],
@@ -742,20 +742,20 @@ export const services: ServicePage[] = [
     stack: ["Figma", "Design tokens", "Tailwind CSS", "WCAG 2.2"],
     faqs: [
       {
-        q: "Can we take the designs elsewhere to build?",
-        a: "Yes. The Figma files are yours, organised for another team to work from. We would like to build it, but you are not locked in, and the files are not structured to make leaving difficult.",
+        q: "Can another development team build from Corefinity's designs?",
+        a: "Yes. The client owns the Figma files, which Corefinity organises so any development team can build from them without being locked in.",
       },
       {
-        q: "How many revisions are included?",
-        a: "Your proposal states a number, and it is a realistic one rather than a trap. In practice, designing structure before surface means most revisions are small by the time anyone is looking at colour.",
+        q: "How many design revisions are included?",
+        a: "The number of design revisions is stated in each Corefinity proposal and set at a realistic level. Because page structure is agreed before visual detail, most later revisions are small.",
       },
       {
-        q: "Do you do brand and logo work?",
-        a: "We work with your existing brand. If you do not have one, we can define a workable visual direction for the product, but a full brand identity is a different discipline and we will say so rather than improvising it.",
+        q: "Does Corefinity do brand and logo design?",
+        a: "Corefinity designs products within an existing brand and can set a workable visual direction when none exists. A full brand identity is a separate discipline, and Corefinity says so rather than improvising one.",
       },
       {
-        q: "Is design worth it for an internal tool?",
-        a: "Often more than for a public site. Internal tools get used for hours a day by people who cannot leave, so friction compounds rather than costing you a visitor.",
+        q: "Is UX design worth it for an internal tool?",
+        a: "Yes, often more than for a public website. Staff use internal tools for hours every day, so poor usability costs time on every task rather than just losing a visitor.",
       },
     ],
     related: ["web-development", "mobile-app-development", "seo"],
@@ -763,7 +763,7 @@ export const services: ServicePage[] = [
 
   {
     slug: "cloud-deployment",
-    navLabel: "Cloud and DevOps",
+    navLabel: "Cloud deployment",
     name: "Cloud Deployment & Infrastructure",
     title: "Cloud Deployment, CI/CD and Infrastructure",
     description:
@@ -846,20 +846,20 @@ export const services: ServicePage[] = [
     ],
     faqs: [
       {
-        q: "Do we have to use Vercel?",
-        a: "No. It suits Next.js projects and it is our default for that reason, but we work with AWS, Cloudflare and traditional hosting where those fit better. The right answer depends on your stack and your compliance requirements, not on our preference.",
+        q: "Does Corefinity only deploy to Vercel?",
+        a: "No. Corefinity defaults to Vercel for Next.js projects but also deploys to AWS, Cloudflare and traditional hosting, choosing based on the client's stack and compliance requirements.",
       },
       {
-        q: "Who owns the hosting accounts?",
-        a: "You do. Everything is set up in your organisation's name, billed to you, with us added as collaborators. Removing us never puts your infrastructure at risk.",
+        q: "Who owns the hosting and cloud accounts?",
+        a: "The client owns every hosting and cloud account, set up in the client's organisation name and billed to the client. Corefinity is added only as a collaborator, so removing Corefinity never puts the infrastructure at risk.",
       },
       {
-        q: "What does hosting cost?",
-        a: "It varies with traffic and what the application does. Most small to medium projects sit in the low tens of dollars a month. We size it during scoping rather than letting you find out from an invoice.",
+        q: "How much does web application hosting cost?",
+        a: "Hosting cost depends on traffic and what the application does, and most small to medium projects cost in the low tens of US dollars a month. Corefinity estimates the hosting cost during scoping.",
       },
       {
-        q: "Can you take over existing infrastructure?",
-        a: "Yes. We audit what is running first and give you a written picture of the risks, then fix them in priority order.",
+        q: "Can Corefinity take over existing cloud infrastructure?",
+        a: "Yes. Corefinity audits the running infrastructure first, delivers a written risk assessment, and fixes the issues in priority order.",
       },
     ],
     related: ["web-development", "systems-integration", "seo"],

@@ -29,14 +29,15 @@ describe("service data", () => {
   it("keeps meta descriptions inside the length search engines display", () => {
     for (const s of services) {
       expect(s.description.length).toBeGreaterThan(70);
-      expect(s.description.length).toBeLessThanOrEqual(200);
+      expect(s.description.length).toBeLessThanOrEqual(160);
     }
   });
 
   it("keeps titles short enough not to be truncated", () => {
     for (const s of services) {
       // The brand is appended by the template, so budget for it.
-      expect(s.title.length).toBeLessThanOrEqual(65);
+      // 60 characters in total once " | Corefinity" (13) is appended.
+      expect(s.title.length).toBeLessThanOrEqual(47);
     }
   });
 

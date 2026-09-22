@@ -9,7 +9,7 @@
     "lint": "eslint",
     "analyze": "cross-env ANALYZE=true next build",
     "lighthouse": "lhci autorun",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
   },

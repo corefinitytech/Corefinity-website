@@ -11,8 +11,9 @@ import {
 } from "@/components/CaseStudyVisual";
 import Check from "@/components/Check";
 import JsonLd from "@/components/JsonLd";
+import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
 import { CountUpOutline } from "@/components/backgrounds/LazyBackgrounds";
-import { ArrowLeft, ArrowRight } from "@/components/icons";
+import { ArrowRight } from "@/components/icons";
 import { getCaseStudy, caseStudies, nextCaseStudy } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
@@ -101,20 +102,17 @@ export default async function CaseStudyPage({
       {/* Header */}
       <section className="px-4 pt-28 sm:px-6 sm:pt-36">
         <div className="mx-auto max-w-7xl">
-          <Link
-            href="/case-studies"
-            className="group inline-flex items-center gap-2 text-[12px] font-medium text-ink/60 transition hover:text-ink"
-          >
-            <ArrowLeft className="size-3 transition-transform duration-300 group-hover:-translate-x-1" />
-            All case studies
-          </Link>
+          <Breadcrumbs
+            trail={[
+              { name: "Home", href: "/" },
+              { name: "Case studies", href: "/case-studies" },
+              { name: study.client, href: `/case-studies/${study.slug}` },
+            ]}
+          />
 
-          <p className={`mt-8 ${eyebrow} text-ink/60`}>
-            ( Case study / {study.industry} )
-          </p>
-
-          <div className="mt-4 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+          <div className="mt-8 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
+              <H1Eyebrow>{`${study.industry} case study`}</H1Eyebrow>
               {study.headline.lead}{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 {study.headline.accent}

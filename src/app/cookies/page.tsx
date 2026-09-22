@@ -194,6 +194,7 @@ const sections: LegalSection[] = [
 export default function CookiesPage() {
   return (
     <LegalLayout
+      path="/cookies"
       eyebrow="Cookie Policy"
       title="What we store"
       accent="in your browser."

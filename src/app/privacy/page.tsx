@@ -270,6 +270,7 @@ const sections: LegalSection[] = [
 export default function PrivacyPage() {
   return (
     <LegalLayout
+      path="/privacy"
       eyebrow="Privacy Policy"
       title="What we do with"
       accent="your information."

@@ -18,16 +18,31 @@ export const site = {
   email: "hello@corefinity.tech",
   founded: "2024",
   /** Used as the default <title> and in structured data. */
-  title: "Corefinity | Custom Web Platforms, Dashboards and Booking Systems",
+  title: "Corefinity | Custom Software Development Company",
+  /**
+   * Other names the business is known by. "CoreFinity Tech" is the name on
+   * the Google Business Profile, so listing it lets search engines connect
+   * that profile to this site.
+   */
+  alternateNames: ["CoreFinity Tech", "CoreFinity"],
   tagline: "Architecting high performance digital platforms",
   description:
-    "Corefinity builds custom web platforms, operations dashboards and direct booking systems for businesses that have outgrown templates. Fixed scope, full source code ownership, live in weeks.",
+    "Corefinity is a custom software development company building web platforms, AI chatbots, mobile apps and automation for clients worldwide. Fixed price quotes.",
   /** Short form for cards and structured data where long copy gets clipped. */
   shortDescription:
     "Corefinity builds custom web platforms, operations dashboards and direct booking systems. Fixed scope, full code ownership.",
   locale: "en_US",
   twitter: "@corefinity",
+  /** Bump when page content changes; feeds sitemap lastModified. */
+  contentUpdated: "2026-09-22",
 } as const;
+
+/**
+ * Official profiles, emitted as sameAs in the Organization schema. This is how
+ * search engines tie the brand's profiles to one entity. Only list profiles
+ * that exist and are controlled by Corefinity; an empty list emits nothing.
+ */
+export const sameAs: string[] = [];
 
 /**
  * Search engine ownership tokens. Set these in the environment once each
@@ -118,6 +133,8 @@ export const legal = {
   courts: "the courts of Pakistan",
   /** Update when a page is materially changed. */
   effectiveDate: "19 September 2026",
+  /** Same date, machine readable, for the sitemap. Keep the two in step. */
+  effectiveDateIso: "2026-09-19",
   /** Days a client has to raise an invoice dispute. */
   paymentTermDays: 14,
 } as const;
