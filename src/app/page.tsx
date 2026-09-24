@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import Statement from "@/components/Statement";
 import Capabilities from "@/components/Capabilities";
+import Shopify from "@/components/Shopify";
 import Marquee from "@/components/Marquee";
 import Philosophy from "@/components/Philosophy";
 import Advantage from "@/components/Advantage";
@@ -34,6 +35,7 @@ export default function Home() {
       <Hero />
       <Statement />
       <Capabilities />
+      <Shopify />
       <Marquee />
       <Philosophy />
       <Advantage />
