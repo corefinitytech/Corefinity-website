@@ -14,6 +14,7 @@ const sections = [
   { label: "All services", href: "/services" },
   { label: "How we work", href: "/#process" },
   { label: "Case studies", href: "/case-studies" },
+  { label: "Blog", href: "/blog" },
   { label: "Engagements", href: "/#pricing" },
   { label: "Questions", href: "/#faq" },
 ];

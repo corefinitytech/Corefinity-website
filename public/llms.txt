@@ -168,6 +168,9 @@ Send a project brief through the form at corefinity.tech/contact. Corefinity rev
 * [Systems integration](https://corefinity.tech/services/systems-integration): payments, CRMs, WhatsApp, calendars and databases.
 * [UI and UX design](https://corefinity.tech/services/ui-ux-design): design systems and prototypes agreed before production code.
 * [Cloud deployment and infrastructure](https://corefinity.tech/services/cloud-deployment): CI and CD, hosting, monitoring, backups.
+* [Blog](https://corefinity.tech/blog): plain English writing on scalability,
+  custom software and automation for business owners.
+* [Is your product ready for sudden growth?](https://corefinity.tech/blog/is-your-product-ready-for-sudden-growth): what happens when demand arrives faster than planned, where systems give way first, and the questions to ask before a launch.
 * [Get a quote](https://corefinity.tech/contact): project brief form, what the
   process looks like and how to reach the team.
 * [Privacy policy](https://corefinity.tech/privacy): what personal information
