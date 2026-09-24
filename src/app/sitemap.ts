@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { posts } from "@/lib/blog";
 import { caseStudies } from "@/lib/caseStudies";
 import { services } from "@/lib/services";
 import { legal, site, siteUrl } from "@/lib/site";
@@ -33,6 +34,13 @@ const routes: {
     priority: 0.7,
     changeFrequency: "yearly" as const,
     lastModified: c.datePublished,
+  })),
+  { path: "/blog", priority: 0.8, changeFrequency: "weekly", lastModified: content },
+  ...posts.map((p) => ({
+    path: `/blog/${p.slug}`,
+    priority: 0.7,
+    changeFrequency: "monthly" as const,
+    lastModified: p.datePublished,
   })),
   { path: "/privacy", priority: 0.3, changeFrequency: "yearly", lastModified: legalDate },
   { path: "/terms", priority: 0.3, changeFrequency: "yearly", lastModified: legalDate },
