@@ -6,8 +6,10 @@ import Capabilities from "@/components/Capabilities";
 import Marquee from "@/components/Marquee";
 import Philosophy from "@/components/Philosophy";
 import Advantage from "@/components/Advantage";
+import Clients from "@/components/Clients";
 import Pricing from "@/components/Pricing";
 import CaseStudy from "@/components/CaseStudy";
+import LatestPosts from "@/components/LatestPosts";
 import Faq from "@/components/Faq";
 import ProjectBrief from "@/components/ProjectBrief";
 import JsonLd from "@/components/JsonLd";
@@ -35,8 +37,10 @@ export default function Home() {
       <Marquee />
       <Philosophy />
       <Advantage />
+      <Clients />
       <Pricing />
       <CaseStudy />
+      <LatestPosts />
       <Faq />
       <ProjectBrief />
       <JsonLd schema={graph(faqSchema())} />
