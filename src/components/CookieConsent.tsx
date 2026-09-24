@@ -52,7 +52,7 @@ function Toggle({
       }`}
     >
       <span
-        className="absolute top-0.5 size-4 rounded-full bg-white shadow-sm"
+        className="absolute left-0 top-0.5 size-4 rounded-full bg-white shadow-sm"
         style={{
           transform: `translateX(${checked ? 18 : 2}px)`,
           transition: `transform 320ms ${EASE}`,
@@ -108,14 +108,14 @@ export default function CookieConsent() {
       className="pointer-events-none fixed inset-x-0 bottom-0 z-50 px-4 pb-4 sm:px-6 sm:pb-6"
     >
       <div
-        className="pointer-events-auto mx-auto max-w-3xl overflow-hidden rounded-[28px] border border-black/[0.07] bg-white shadow-2xl shadow-black/10"
+        className="pointer-events-auto mx-auto max-h-[calc(100dvh-2rem)] max-w-3xl overflow-y-auto overscroll-contain rounded-[28px] border border-black/[0.07] bg-white shadow-2xl shadow-black/10"
         style={{
           animation: `${leaving ? "consent-out" : "consent-in"} ${
             leaving ? LEAVE_MS : 450
           }ms ${EASE} both`,
         }}
       >
-        <div className="p-6 sm:p-7">
+        <div className="p-5 sm:p-7">
           <div className="flex items-center gap-2.5">
             {/* Static on purpose. An infinite ping here kept the first
                 screen changing forever, so Lighthouse's Speed Index never
@@ -162,7 +162,7 @@ export default function CookieConsent() {
                 {CATEGORIES.map((c) => (
                   <div
                     key={c.id}
-                    className="flex items-start gap-4 rounded-2xl bg-mist p-4"
+                    className="flex items-start gap-3 rounded-2xl bg-mist p-3.5 sm:gap-4 sm:p-4"
                   >
                     <div className="min-w-0">
                       <p className="text-[13px] font-medium tracking-[-0.01em] text-ink">
@@ -191,23 +191,23 @@ export default function CookieConsent() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <div className="mt-5 grid grid-cols-2 gap-2 sm:mt-6 sm:flex sm:items-center">
             <button
               onClick={() => dismiss(customising ? draft : ACCEPT_ALL)}
-              className="inline-flex h-11 items-center justify-center rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85"
+              className="inline-flex h-11 items-center justify-center rounded-full bg-ink px-4 text-[13px] sm:px-6 font-medium text-white transition hover:bg-ink/85"
             >
               {customising ? "Save my choices" : "Accept all"}
             </button>
             <button
               onClick={() => dismiss(DEFAULT_CONSENT)}
-              className="inline-flex h-11 items-center justify-center rounded-full border border-black/10 px-6 text-[13px] font-medium text-ink/75 transition hover:border-ink hover:text-ink"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-black/10 px-4 text-[13px] sm:px-6 font-medium text-ink/75 transition hover:border-ink hover:text-ink"
             >
               Reject optional
             </button>
             <button
               onClick={() => setCustomising((v) => !v)}
               aria-expanded={customising}
-              className="inline-flex h-11 items-center justify-center rounded-full px-4 text-[13px] font-medium text-ink/65 transition hover:text-ink sm:ml-auto"
+              className="col-span-2 inline-flex h-10 items-center justify-center rounded-full px-4 text-[13px] font-medium text-ink/65 transition hover:text-ink sm:ml-auto sm:h-11"
             >
               {customising ? "Hide options" : "Customise"}
             </button>
