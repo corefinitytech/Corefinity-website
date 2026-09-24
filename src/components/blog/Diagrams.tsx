@@ -353,11 +353,67 @@ export function CustomerJourneyDiagram() {
   );
 }
 
+/** Readiness as a repeating habit rather than a one off project. */
+export function ReadinessLoopDiagram() {
+  const steps: [string, string][] = [
+    ["Measure", "what the system does today"],
+    ["Rehearse", "simulate the busy day"],
+    ["Fix the first limit", "the step that gave way"],
+    ["Watch", "so the next drift is visible"],
+  ];
+  return (
+    <Frame
+      title="Measure, rehearse, fix the first limit, watch, and repeat before the next growth event"
+      viewBox="0 0 900 260"
+    >
+      <text x={10} y={28} fontSize={15} fontWeight={500} fill={INK}>
+        Capacity is a habit, not a project
+      </text>
+      <text x={10} y={48} fontSize={13} fill={MUTED}>
+        Each pass moves the ceiling. The limit moves with it, so the loop runs again.
+      </text>
+
+      {steps.map(([label, sub], i) => {
+        const x = 10 + i * 224;
+        return (
+          <g key={label}>
+            <rect x={x} y={84} width={196} height={66} rx={14} fill="#ffffff" stroke={i === 2 ? ACCENT : LINE} strokeWidth={1.5} />
+            <text x={x + 18} y={106} fontSize={12} fontWeight={500} fill={ACCENT}>
+              {`0${i + 1}`}
+            </text>
+            <text x={x + 18} y={126} fontSize={15} fontWeight={500} fill={INK}>
+              {label}
+            </text>
+            <text x={x + 18} y={144} fontSize={12} fill={MUTED}>
+              {sub}
+            </text>
+            {i < steps.length - 1 && <Arrow from={x + 200} to={x + 222} y={117} />}
+          </g>
+        );
+      })}
+
+      {/* Back round to the start */}
+      <path
+        d="M888 172 L888 200 Q888 212 876 212 L120 212 Q108 212 108 200 L108 182"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth={1.6}
+        strokeDasharray="6 6"
+      />
+      <path d="M108 172 l-4.5 8 h9 z" fill={ACCENT} />
+      <text x={400} y={236} fontSize={12} fill={MUTED}>
+        before the next campaign, launch or busy season
+      </text>
+    </Frame>
+  );
+}
+
 export const diagrams = {
   "growth-spike": GrowthSpikeDiagram,
   "signup-flow": SignupFlowDiagram,
   bottleneck: BottleneckDiagram,
   "customer-journey": CustomerJourneyDiagram,
+  "readiness-loop": ReadinessLoopDiagram,
 } as const;
 
 export type DiagramKey = keyof typeof diagrams;

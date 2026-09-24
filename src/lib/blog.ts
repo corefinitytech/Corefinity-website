@@ -188,6 +188,61 @@ export const posts: BlogPost[] = [
         type: "p",
         text: "You cannot schedule those moments, which is exactly why they are worth preparing for. The whole point of a good launch is that you do not control how well it goes.",
       },
+      { type: "h2", text: "What actually helps, in plain terms" },
+      {
+        type: "p",
+        text: "None of this needs a big budget or a rebuild. Most of it is a handful of habits, and each one answers a question you would otherwise be answering live, in front of customers.",
+      },
+      { type: "h3", text: "Rehearse the busy day before it arrives" },
+      {
+        type: "p",
+        text: "You can imitate a crowd. A load test sends thousands of pretend customers at the system on a quiet Tuesday and shows you exactly where it slows down and what gives way first. It turns an argument about opinions into a number you can plan around, and it is far cheaper than finding out during a campaign.",
+      },
+      { type: "h3", text: "Let the system tell you, not your customers" },
+      {
+        type: "p",
+        text: "Something should be checking speed and errors continuously, and something should message a human when the numbers drift. Most damaging outages are not sudden. They creep, and a complaint from a customer is a slow, expensive alarm clock.",
+      },
+      { type: "h3", text: "Make sure one broken part is not the whole shop" },
+      {
+        type: "p",
+        text: "Systems fail in pieces, and that is fine if you plan for it. If the recommendations stop working, checkout should still take money. If the email provider is down, the order should still be recorded and the email sent later. Keeping the money path alive while a side feature rests is a design decision, made long before the bad afternoon.",
+      },
+      { type: "h3", text: "Let capacity follow demand, not your best guess" },
+      {
+        type: "p",
+        text: "Hosting can add capacity as the queue grows and release it when the rush passes. That way you pay for a crowd on the days you have one, instead of paying all year for a crowd that visits twice.",
+      },
+      { type: "h3", text: "Keep the busiest pages cheap to serve" },
+      {
+        type: "p",
+        text: "At peak, most people ask for the same handful of pages. Serving a ready made copy of those, rather than rebuilding them for every visitor, removes a large share of the pressure for very little effort. It is the cheapest win available in most projects.",
+      },
+      { type: "h3", text: "Decide now what you will do at 2am" },
+      {
+        type: "p",
+        text: "Write the short version down: who gets called, what gets switched off first, what you tell customers, and how you know it is over. An hour of confusion during an incident costs more than the incident, and nobody thinks clearly while the phone is going.",
+      },
+      {
+        type: "figure",
+        diagram: "readiness-loop",
+        caption:
+          "Measure, rehearse, fix the step that gave way, then watch. Each pass raises the ceiling, which is why it is worth repeating before every growth event.",
+      },
+      {
+        type: "p",
+        text: "The loop matters more than any single fix. Raise one limit and the next one appears somewhere else, which sounds discouraging but is actually the useful part: the ceiling moves in a direction you chose, at a pace you control, rather than arriving as a surprise.",
+      },
+      {
+        type: "callout",
+        title: "A sensible rhythm for a growing business",
+        items: [
+          "Before anything that could bring a crowd: a campaign, a launch, press coverage or a partnership.",
+          "After any change to the parts that carry money: payments, signups, bookings or the database.",
+          "Every few months while you are growing, because the limit moves as the product changes.",
+          "After every incident, while the detail is still fresh and the lesson is free.",
+        ],
+      },
       { type: "h2", text: "Nine questions worth asking before the spike" },
       {
         type: "p",
@@ -247,6 +302,10 @@ export const posts: BlogPost[] = [
       {
         q: "Does scalability just mean buying a bigger server?",
         a: "No. A bigger server helps only if the server is the limit, and often it is not. Bottlenecks move between the database, outside services and the application itself as traffic grows, so capacity is a question of design and measurement rather than spending.",
+      },
+      {
+        q: "How can a business reduce downtime during a traffic spike?",
+        a: "Rehearse the peak with a load test so the weak step is known in advance, monitor speed and errors so problems surface before customers report them, and design so one failed part does not stop the rest. Hosting that adds capacity as demand grows absorbs most of what is left.",
       },
       {
         q: "When should a small business think about scalability?",
