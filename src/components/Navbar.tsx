@@ -25,7 +25,9 @@ const links: NavLink[] = [
   { label: "About", id: "process" },
   { label: "Why us", id: "expertise" },
   { label: "Case studies", id: "case-studies", href: "/case-studies" },
-  { label: "Blogs", id: "blog", href: "/blog" },
+  // No href: this one scrolls to the blog section on the home page. The full
+  // blog lives behind the "View more articles" link inside that section.
+  { label: "Blogs", id: "blog" },
 ];
 
 export default function Navbar() {

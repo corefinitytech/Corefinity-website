@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import JsonLd from "@/components/JsonLd";
+import {
+  CoverBackground,
+  CoverScrim,
+} from "@/components/blog/CoverBackground";
 import { H1Eyebrow } from "@/components/PageHeading";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
 import { postsByDate, readingMinutes } from "@/lib/blog";
@@ -130,14 +134,18 @@ export default function BlogIndex() {
 
               {/* Cover */}
               <div
-                className={`relative grid min-h-[260px] place-items-center overflow-hidden p-8 text-white ${
+                className={`relative isolate grid min-h-[260px] place-items-center overflow-hidden p-8 text-white ${
                   surfaces[i % surfaces.length]
                 } ${flip ? "lg:order-1" : ""}`}
               >
+                <div aria-hidden className="absolute inset-0">
+                  <CoverBackground index={i} />
+                </div>
                 <div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:40px_40px]"
                 />
+                <CoverScrim />
                 <p className="relative max-w-[26ch] text-center text-[clamp(1.1rem,2vw,1.5rem)] font-medium leading-snug tracking-[-0.02em]">
                   {post.description.split(".")[0]}.
                 </p>
