@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import CardNotch from "./CardNotch";
+import { CoverBackground, CoverScrim } from "./blog/CoverBackground";
 import { ArrowRight } from "./icons";
 import { postsByDate, readingMinutes } from "@/lib/blog";
 import { getService } from "@/lib/services";
@@ -58,10 +59,14 @@ export default function BlogTeaser() {
                   covers[i % covers.length]
                 }`}
               >
+                <div aria-hidden className="absolute inset-0">
+                  <CoverBackground index={i} />
+                </div>
                 <div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 opacity-[0.14] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:36px_36px]"
                 />
+                <CoverScrim />
                 <div
                   aria-hidden
                   className="pointer-events-none absolute -right-16 -top-20 size-56 rounded-full bg-sky/25 blur-3xl transition duration-500 group-hover:bg-sky/40"
