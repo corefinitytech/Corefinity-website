@@ -26,7 +26,7 @@ export default function BlogTeaser() {
     <section id="blog" className="px-4 py-20 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-7xl">
         <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
-          ( Writing )
+          ( Blogs )
         </p>
 
         <div className="mt-4 flex flex-wrap items-end justify-between gap-6">
