@@ -445,12 +445,276 @@ export function ReadinessLoopDiagram() {
   );
 }
 
+/** The questions that go in, and the decisions that come out. */
+export function SizingInputsDiagram() {
+  const inputs = [
+    "People in the busiest hour",
+    "What each person does",
+    "How fast the data grows",
+    "How fast it has to feel",
+    "What must never fail",
+    "What it leans on outside",
+  ];
+  const outputs = [
+    "Shape of the hosting",
+    "Where the data lives",
+    "What gets kept ready or queued",
+    "What we watch, and when it alerts",
+  ];
+  return (
+    <Frame
+      title="Business questions on the left feed a sizing calculation, which decides the technical choices on the right"
+      viewBox="0 0 960 352"
+    >
+      <text x={8} y={26} fontSize={15} fontWeight={500} fill={INK}>
+        What we ask, and what it decides
+      </text>
+      <text x={8} y={46} fontSize={13} fill={MUTED}>
+        Nothing on the left is a technical question. Everything on the right depends on the answers.
+      </text>
+
+      <text x={8} y={84} fontSize={11} fontWeight={600} fill={MUTED} letterSpacing="0.14em">
+        WHAT WE ASK
+      </text>
+      {inputs.map((label, i) => {
+        const y = 100 + i * 36;
+        return (
+          <g key={label}>
+            <rect x={8} y={y} width={258} height={28} rx={14} fill="#ffffff" stroke={LINE} strokeWidth={1.5} />
+            <text x={24} y={y + 19} fontSize={13} fill={INK}>
+              {label}
+            </text>
+            <line x1={266} y1={y + 14} x2={368} y2={191} stroke={ACCENT} strokeWidth={1.1} opacity={0.45} />
+          </g>
+        );
+      })}
+
+      <rect x={372} y={152} width={192} height={78} rx={16} fill="#e8f3fc" stroke={ACCENT} strokeWidth={1.5} />
+      <text x={468} y={182} textAnchor="middle" fontSize={15} fontWeight={500} fill={INK}>
+        The arithmetic
+      </text>
+      <text x={468} y={202} textAnchor="middle" fontSize={12} fill={MUTED}>
+        peak, per second,
+      </text>
+      <text x={468} y={218} textAnchor="middle" fontSize={12} fill={MUTED}>
+        then headroom
+      </text>
+
+      <text x={648} y={84} fontSize={11} fontWeight={600} fill={MUTED} letterSpacing="0.14em">
+        WHAT IT DECIDES
+      </text>
+      {outputs.map((label, i) => {
+        const y = 112 + i * 44;
+        return (
+          <g key={label}>
+            <line x1={564} y1={191} x2={640} y2={y + 15} stroke={ACCENT} strokeWidth={1.1} opacity={0.45} />
+            <rect x={648} y={y} width={304} height={30} rx={15} fill="#ffffff" stroke={LINE} strokeWidth={1.5} />
+            <text x={666} y={y + 20} fontSize={13} fill={INK}>
+              {label}
+            </text>
+          </g>
+        );
+      })}
+
+      <text x={8} y={332} fontSize={12} fill={MUTED}>
+        Change one answer on the left and the right changes with it. That is the reason for asking first.
+      </text>
+    </Frame>
+  );
+}
+
+/** Turning a headline number into the number a system actually feels. */
+export function PeakMathDiagram() {
+  const steps: [string, string][] = [
+    ["10,000 visits", "expected on launch day"],
+    ["55% in 2 hours", "the window that matters"],
+    ["46 people a minute", "at that pace"],
+    ["3 actions each", "browse, sign up, pay"],
+  ];
+  return (
+    <Frame
+      title="A launch day visitor number turned into requests per second at the busiest moment, then multiplied for bursts"
+      viewBox="0 0 980 300"
+    >
+      <text x={8} y={26} fontSize={15} fontWeight={500} fill={INK}>
+        One number, translated into something you can build against
+      </text>
+      <text x={8} y={46} fontSize={13} fill={MUTED}>
+        Back of an envelope arithmetic. Ten minutes, and it settles most arguments.
+      </text>
+
+      {steps.map(([value, note], i) => {
+        const x = 8 + i * 190;
+        return (
+          <g key={value}>
+            <rect x={x} y={92} width={164} height={70} rx={14} fill="#ffffff" stroke={LINE} strokeWidth={1.5} />
+            <text x={x + 16} y={124} fontSize={17} fontWeight={600} fill={INK}>
+              {value}
+            </text>
+            <text x={x + 16} y={144} fontSize={12} fill={MUTED}>
+              {note}
+            </text>
+            <Arrow from={x + 168} to={x + 186} y={127} />
+          </g>
+        );
+      })}
+
+      <rect x={768} y={92} width={204} height={70} rx={14} fill={INK} />
+      <text x={788} y={124} fontSize={17} fontWeight={600} fill="#ffffff">
+        2 a second
+      </text>
+      <text x={788} y={144} fontSize={12} fill="#ffffffaa">
+        average across the peak
+      </text>
+
+      <g>
+        <line x1={870} y1={166} x2={870} y2={204} stroke={ACCENT} strokeWidth={1.5} strokeDasharray="5 5" />
+        <path d="M870 210 l-5 -9 h10 z" fill={ACCENT} />
+        <rect x={676} y={212} width={296} height={54} rx={14} fill="#e8f3fc" stroke={ACCENT} strokeWidth={1.5} />
+        <text x={696} y={238} fontSize={15} fontWeight={600} fill={INK}>
+          Build for 8 to 20 a second
+        </text>
+        <text x={696} y={256} fontSize={12} fill={MUTED}>
+          real traffic arrives in bursts, never evenly
+        </text>
+      </g>
+
+      <text x={8} y={238} fontSize={13} fill={MUTED}>
+        Two a second sounds like nothing, and on a quiet day it is.
+      </text>
+      <text x={8} y={258} fontSize={13} fill={MUTED}>
+        The number worth designing against is the burst, not the average.
+      </text>
+    </Frame>
+  );
+}
+
+/** How the three layers talk to each other on one request. */
+export function LayersDiagram() {
+  const y = 132;
+  return (
+    <Frame
+      title="The browser asks the backend, the backend asks the database, and the answer travels back the same way"
+      viewBox="0 0 980 344"
+    >
+      <text x={8} y={26} fontSize={15} fontWeight={500} fill={INK}>
+        Frontend, backend, database: who asks whom
+      </text>
+      <text x={8} y={46} fontSize={13} fill={MUTED}>
+        The customer only ever talks to the first box. Everything else happens out of sight.
+      </text>
+
+      <Node x={40} y={y} w={210} h={76} label="Frontend" sub="what the customer sees" tone="dark" />
+      <Node x={386} y={y} w={210} h={76} label="Backend" sub="rules, checks, permissions" tone="accent" />
+      <Node x={732} y={y} w={210} h={76} label="Database" sub="the record of truth" tone="accent" />
+
+      {/* Requests travelling right */}
+      <g>
+        <Arrow from={250} to={382} y={y + 26} />
+        <text x={316} y={y + 16} textAnchor="middle" fontSize={12} fill={MUTED}>
+          asks for something
+        </text>
+        <Arrow from={596} to={728} y={y + 26} />
+        <text x={662} y={y + 16} textAnchor="middle" fontSize={12} fill={MUTED}>
+          looks it up, or writes it
+        </text>
+      </g>
+
+      {/* Answers travelling back */}
+      <g>
+        <line x1={728} y1={y + 58} x2={604} y2={y + 58} stroke={MUTED} strokeWidth={1.6} strokeDasharray="5 5" />
+        <path d="M596 58 l8 -4.5 v9 z" fill={MUTED} transform={`translate(0 ${y})`} />
+        <text x={662} y={y + 104} textAnchor="middle" fontSize={12} fill={MUTED}>
+          rows come back
+        </text>
+        <line x1={382} y1={y + 58} x2={258} y2={y + 58} stroke={MUTED} strokeWidth={1.6} strokeDasharray="5 5" />
+        <path d="M250 58 l8 -4.5 v9 z" fill={MUTED} transform={`translate(0 ${y})`} />
+        <text x={316} y={y + 104} textAnchor="middle" fontSize={12} fill={MUTED}>
+          an answer, shaped for the screen
+        </text>
+      </g>
+
+      <text x={40} y={288} fontSize={12} fill={MUTED}>
+        The frontend never speaks to the database directly. That rule is what keeps
+      </text>
+      <text x={40} y={306} fontSize={12} fill={MUTED}>
+        your data safe when someone pokes at the page from the outside.
+      </text>
+
+      <g>
+        <rect x={586} y={266} width={356} height={54} rx={14} fill="#fdeeeb" stroke={CORAL} strokeWidth={1.5} />
+        <text x={606} y={289} fontSize={13} fontWeight={500} fill={INK}>
+          Under load, this middle hop is where queues form
+        </text>
+        <text x={606} y={307} fontSize={12} fill={MUTED}>
+          so the backend and the database get sized together
+        </text>
+      </g>
+    </Frame>
+  );
+}
+
+/** Capacity added in stages, each with the signal that triggers it. */
+export function CapacityLadderDiagram() {
+  const stages: [string, string, string][] = [
+    ["One box does it all", "At launch, and for longer", "than most people expect"],
+    ["Data gets its own home", "When the app and database", "fight over one machine"],
+    ["Busy pages kept ready", "When thousands ask for", "exactly the same thing"],
+    ["Slow work moved aside", "When emails and reports", "hold up the checkout"],
+    ["Several copies at once", "When one machine", "has become the ceiling"],
+  ];
+  return (
+    <Frame
+      title="Five stages of capacity, each added when a specific signal appears rather than all at once"
+      viewBox="0 0 980 380"
+    >
+      <text x={8} y={26} fontSize={15} fontWeight={500} fill={INK}>
+        Capacity gets added in stages, not all at once
+      </text>
+      <text x={8} y={46} fontSize={13} fill={MUTED}>
+        Each step is modest on its own. Doing all five before launch is how budgets disappear.
+      </text>
+
+      {stages.map(([title, l1, l2], i) => {
+        const x = 8 + i * 194;
+        const y = 240 - i * 40;
+        return (
+          <g key={title}>
+            <rect x={x} y={y} width={178} height={62} rx={14} fill={i === 0 ? "#e8f3fc" : "#ffffff"} stroke={i === 0 ? ACCENT : LINE} strokeWidth={1.5} />
+            <text x={x + 16} y={y + 22} fontSize={11} fontWeight={600} fill={ACCENT}>
+              {`0${i + 1}`}
+            </text>
+            <text x={x + 16} y={y + 44} fontSize={13} fontWeight={500} fill={INK}>
+              {title}
+            </text>
+            <text x={x + 16} y={y + 82} fontSize={11.5} fill={MUTED}>
+              {l1}
+            </text>
+            <text x={x + 16} y={y + 98} fontSize={11.5} fill={MUTED}>
+              {l2}
+            </text>
+            {i < stages.length - 1 && <Arrow from={x + 182} to={x + 200} y={y + 31} />}
+          </g>
+        );
+      })}
+
+      <text x={8} y={372} fontSize={12} fill={MUTED}>
+        The signal matters more than the step. Adding capacity before the signal arrives is guesswork with an invoice attached.
+      </text>
+    </Frame>
+  );
+}
+
 export const diagrams = {
   "growth-spike": GrowthSpikeDiagram,
   "signup-flow": SignupFlowDiagram,
   bottleneck: BottleneckDiagram,
   "customer-journey": CustomerJourneyDiagram,
   "readiness-loop": ReadinessLoopDiagram,
+  "sizing-inputs": SizingInputsDiagram,
+  "peak-math": PeakMathDiagram,
+  layers: LayersDiagram,
+  "capacity-ladder": CapacityLadderDiagram,
 } as const;
 
 export type DiagramKey = keyof typeof diagrams;

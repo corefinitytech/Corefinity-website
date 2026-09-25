@@ -73,13 +73,19 @@ export default function BlogIndex() {
       {/* Posts */}
       <section className="px-4 py-14 sm:px-6 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-4">
-          {all.map((post, i) => (
+          {all.map((post, i) => {
+            const flip = i % 2 === 1;
+            return (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group grid overflow-hidden rounded-[32px] bg-mist transition duration-300 hover:-translate-y-0.5 lg:grid-cols-[1.15fr_1fr]"
+              className="group grid overflow-hidden rounded-[32px] bg-mist transition duration-300 hover:-translate-y-0.5 lg:grid-cols-2"
             >
-              <div className="flex flex-col p-7 sm:p-10 lg:p-12">
+              <div
+                className={`flex flex-col p-7 sm:p-10 lg:p-12 ${
+                  flip ? "lg:order-2" : ""
+                }`}
+              >
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-ink">
                     {post.topic}
@@ -126,7 +132,7 @@ export default function BlogIndex() {
               <div
                 className={`relative grid min-h-[260px] place-items-center overflow-hidden p-8 text-white ${
                   surfaces[i % surfaces.length]
-                }`}
+                } ${flip ? "lg:order-1" : ""}`}
               >
                 <div
                   aria-hidden
@@ -137,7 +143,8 @@ export default function BlogIndex() {
                 </p>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
 
