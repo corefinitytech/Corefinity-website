@@ -125,63 +125,100 @@ function Arrow({
 
 /** Planned demand against demand that actually turned up. */
 export function GrowthSpikeDiagram() {
-  const baseY = 250;
+  // Plot area. Value axis runs 0 to 12,000 so 11,670 lands just under the top.
+  const left = 112;
+  const right = 908;
+  const top = 88;
+  const base = 336;
+  const y = (value: number) => base - (value / 12000) * (base - top);
+  const gridValues = [0, 3000, 6000, 9000, 12000];
+
+  // The curve: flat for most of the week, then away.
+  const actual =
+    "M112 333 C 300 331, 470 327, 580 313 C 660 303, 702 281, 742 241 C 792 191, 838 124, 880 91";
+  const turnX = 600;
+  const turnY = 309;
+
   return (
     <Frame
-      title="A launch planned for about 50 users that received 11,670 instead"
-      viewBox="0 0 760 300"
+      title="A launch planned for about 50 users that received 11,670 in the same week"
+      viewBox="0 0 960 424"
     >
-      <line x1={60} y1={baseY} x2={720} y2={baseY} stroke={LINE} strokeWidth={1.5} />
-      <line x1={60} y1={40} x2={60} y2={baseY} stroke={LINE} strokeWidth={1.5} />
+      <defs>
+        <linearGradient id="cf-growth-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={ACCENT} stopOpacity={0.18} />
+          <stop offset="100%" stopColor={ACCENT} stopOpacity={0.01} />
+        </linearGradient>
+      </defs>
 
-      {/* The plan: a gentle climb */}
+      <text x={8} y={26} fontSize={15} fontWeight={500} fill={INK}>
+        Planned demand, against what actually arrived
+      </text>
+      <text x={8} y={48} fontSize={13} fill={MUTED}>
+        The same week, on the same system, sized for the number on the left.
+      </text>
+
+      {/* Value axis */}
+      {gridValues.map((v) => (
+        <g key={v}>
+          <line x1={left} y1={y(v)} x2={right + 16} y2={y(v)} stroke={v === 0 ? LINE : "#eef0f4"} strokeWidth={1.5} />
+          <text x={left - 16} y={y(v) + 4} textAnchor="end" fontSize={12} fill={MUTED}>
+            {v.toLocaleString("en-GB")}
+          </text>
+        </g>
+      ))}
+
+      {/* What the plan assumed: a line that barely leaves the floor */}
       <path
-        d={`M70 ${baseY - 6} C 200 ${baseY - 12}, 320 ${baseY - 20}, 430 ${baseY - 28}`}
+        d="M112 333 C 340 330, 620 326, 908 318"
         fill="none"
         stroke={MUTED}
         strokeWidth={2}
-        strokeDasharray="6 6"
+        strokeDasharray="7 7"
+        opacity={0.75}
       />
-      <text x={130} y={baseY - 20} fontSize={13} fill={MUTED}>
-        What the plan assumed
-      </text>
-      <text x={130} y={baseY - 4} fontSize={12} fill={MUTED}>
-        roughly 50 people, arriving steadily
-      </text>
-
-      {/* What happened */}
-      <path
-        d={`M430 ${baseY - 28} C 500 ${baseY - 34}, 520 ${baseY - 60}, 545 ${baseY - 150} C 560 ${baseY - 200}, 580 ${baseY - 214}, 640 ${baseY - 216} L 640 ${baseY} L 430 ${baseY} Z`}
-        fill="#1570bc18"
-      />
-      <path
-        d={`M430 ${baseY - 28} C 500 ${baseY - 34}, 520 ${baseY - 60}, 545 ${baseY - 150} C 560 ${baseY - 200}, 580 ${baseY - 214}, 640 ${baseY - 216}`}
-        fill="none"
-        stroke={ACCENT}
-        strokeWidth={3}
-      />
-      <circle cx={640} cy={baseY - 216} r={6} fill={ACCENT} />
-
-      <text x={470} y={52} fontSize={26} fontWeight={600} fill={INK}>
-        11,670
-      </text>
-      <text x={470} y={72} fontSize={13} fill={MUTED}>
-        people wanted in
-      </text>
-
-      <text x={64} y={baseY + 24} fontSize={12} fill={MUTED}>
-        Launch day
-      </text>
-      <text x={596} y={baseY + 24} fontSize={12} fill={MUTED}>
-        Same week
-      </text>
-
       <g>
-        <rect x={392} y={baseY - 22} width={4} height={22} rx={2} fill={CORAL} />
-        <text x={286} y={baseY + 24} fontSize={12} fill={CORAL}>
+        <line x1={286} y1={276} x2={330} y2={325} stroke={MUTED} strokeWidth={1.2} />
+        <circle cx={330} cy={327} r={3.5} fill={MUTED} />
+        <text x={188} y={250} fontSize={14} fontWeight={500} fill={INK}>
+          What the plan assumed
+        </text>
+        <text x={188} y={268} fontSize={13} fill={MUTED}>
+          Roughly 50 people, arriving steadily
+        </text>
+      </g>
+
+      {/* What arrived */}
+      <path d={`${actual} L 880 ${base} L 112 ${base} Z`} fill="url(#cf-growth-fill)" />
+      <path d={actual} fill="none" stroke={ACCENT} strokeWidth={3} strokeLinecap="round" />
+
+      {/* The point where the two stories separate */}
+      <line x1={turnX} y1={turnY + 8} x2={turnX} y2={356} stroke={CORAL} strokeWidth={1.5} strokeDasharray="4 4" />
+      <circle cx={turnX} cy={turnY} r={6.5} fill={CORAL} stroke="#ffffff" strokeWidth={2} />
+      <g>
+        <rect x={turnX - 148} y={358} width={296} height={26} rx={13} fill={CORAL} />
+        <text x={turnX} y={375} textAnchor="middle" fontSize={12.5} fontWeight={500} fill="#ffffff">
           the moment the plan stopped being true
         </text>
       </g>
+
+      {/* Where it ended up */}
+      <line x1={806} y1={92} x2={868} y2={88} stroke={ACCENT} strokeWidth={1.2} />
+      <circle cx={880} cy={91} r={7} fill={ACCENT} stroke="#ffffff" strokeWidth={2.5} />
+      <text x={796} y={78} textAnchor="end" fontSize={26} fontWeight={600} fill={INK}>
+        11,670
+      </text>
+      <text x={796} y={98} textAnchor="end" fontSize={13} fill={MUTED}>
+        people wanted in
+      </text>
+
+      {/* Time axis */}
+      <text x={left} y={406} fontSize={13} fontWeight={500} fill={MUTED}>
+        Launch day
+      </text>
+      <text x={right + 16} y={406} textAnchor="end" fontSize={13} fontWeight={500} fill={MUTED}>
+        Same week
+      </text>
     </Frame>
   );
 }
