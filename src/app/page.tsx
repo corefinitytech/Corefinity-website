@@ -10,7 +10,7 @@ import Advantage from "@/components/Advantage";
 import Clients from "@/components/Clients";
 import Pricing from "@/components/Pricing";
 import CaseStudy from "@/components/CaseStudy";
-import LatestPosts from "@/components/LatestPosts";
+import BlogTeaser from "@/components/BlogTeaser";
 import Faq from "@/components/Faq";
 import ProjectBrief from "@/components/ProjectBrief";
 import JsonLd from "@/components/JsonLd";
@@ -42,7 +42,7 @@ export default function Home() {
       <Clients />
       <Pricing />
       <CaseStudy />
-      <LatestPosts />
+      <BlogTeaser />
       <Faq />
       <ProjectBrief />
       <JsonLd schema={graph(faqSchema())} />

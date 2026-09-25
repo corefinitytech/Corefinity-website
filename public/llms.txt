@@ -171,6 +171,7 @@ Send a project brief through the form at corefinity.tech/contact. Corefinity rev
 * [Blog](https://corefinity.tech/blog): plain English writing on scalability,
   custom software and automation for business owners.
 * [Is your product ready for sudden growth?](https://corefinity.tech/blog/is-your-product-ready-for-sudden-growth): what happens when demand arrives faster than planned, where systems give way first, and the questions to ask before a launch.
+* [How we size a system before we build it](https://corefinity.tech/blog/how-we-size-a-system-before-building-it): the questions asked before any code is written, the peak hour arithmetic, and how capacity is added in stages.
 * [Get a quote](https://corefinity.tech/contact): project brief form, what the
   process looks like and how to reach the team.
 * [Privacy policy](https://corefinity.tech/privacy): what personal information

@@ -16,7 +16,17 @@ export type BlogBlock =
   | { type: "list"; items: string[]; ordered?: boolean }
   | { type: "quote"; text: string }
   | { type: "callout"; title: string; items: string[] }
-  | { type: "figure"; diagram: DiagramKey; caption: string };
+  | { type: "figure"; diagram: DiagramKey; caption: string }
+  /** A supplied illustration, rather than one drawn in code. */
+  | {
+      type: "image";
+      src: string;
+      /** Describes the diagram for search engines and screen readers. */
+      alt: string;
+      width: number;
+      height: number;
+      caption: string;
+    };
 
 export type BlogPost = {
   slug: string;
@@ -37,6 +47,186 @@ export type BlogPost = {
 };
 
 export const posts: BlogPost[] = [
+  {
+    slug: "how-we-size-a-system-before-building-it",
+    title: "How We Size a System Before We Build It",
+    description:
+      "The questions we ask before any code gets written: how many people at once, what they are doing, and the arithmetic that turns those answers into a build.",
+    keywords: [
+      "how many users can a website handle",
+      "concurrent users",
+      "capacity planning for web applications",
+      "system design for business",
+      "peak traffic calculation",
+      "scalable architecture planning",
+    ],
+    headline: { lead: "Before we build anything,", accent: "we do the arithmetic." },
+    excerpt:
+      "How big should we build this? Ask three developers and you get three confident answers. We would rather work it out on paper.",
+    topic: "How we work",
+    datePublished: "2026-09-25",
+    services: ["web-development", "cloud-deployment", "systems-integration"],
+    blocks: [
+      {
+        type: "p",
+        text: "Every project runs into the same awkward question, usually about ten minutes into the first call. How big should we build this? Ask three developers and you will get three confident answers, none of them written down, each one shaped by whatever the last project happened to need.",
+      },
+      {
+        type: "p",
+        text: "We would rather do arithmetic. Not difficult arithmetic. The kind you can do on the back of an envelope while the kettle boils, using numbers that come from your business rather than from somebody's instinct about what a modern system ought to look like.",
+      },
+      { type: "h2", text: "The questions come before the technology" },
+      {
+        type: "p",
+        text: "Before anyone draws a box or argues about a database, we ask a short list of questions. None of them are technical. You already know most of the answers, and the ones you do not know usually turn out to be worth finding out anyway.",
+      },
+      {
+        type: "figure",
+        diagram: "sizing-inputs",
+        caption:
+          "Answers on the left decide the choices on the right. Change one and the other side moves with it.",
+      },
+      { type: "h3", text: "How many people, and when do they turn up" },
+      {
+        type: "p",
+        text: "Monthly visitors is a number for investors. It tells us very little. Thirty thousand a month spread evenly is one person every ninety seconds, which almost anything can handle. Thirty thousand a month where eight thousand arrive the morning tickets go on sale is a completely different piece of software. The busiest hour is the system you are actually paying for. The rest of the month is quiet by comparison.",
+      },
+      { type: "h3", text: "What are they doing while they are there" },
+      {
+        type: "p",
+        text: "Reading is cheap. Writing is expensive. Somebody browsing twenty pages costs less than somebody finishing one checkout, because the checkout has to check stock, take money, write a record and send a confirmation, and it has to manage all of that without ever ending up half done. So we count actions, not visitors.",
+      },
+      { type: "h3", text: "How much data is there, and how fast does it grow" },
+      {
+        type: "p",
+        text: "A search across five hundred records is instant however badly it is written. The same search across five million is a different experience entirely. Most of the slow systems we get asked to look at were not slow when they launched. They simply filled up, quietly, over about two years.",
+      },
+      { type: "h3", text: "How quickly does it need to feel" },
+      {
+        type: "p",
+        text: "Fast is not a plan. A number is. Under a second for a page, a couple of seconds for a search, ten seconds for a report nobody sits and watches. Once those are written down they can be tested, and everybody stops arguing from taste.",
+      },
+      { type: "h3", text: "What must never fail, and what can wait" },
+      {
+        type: "p",
+        text: "Not every part deserves the same protection. If the payment path stays up while a dashboard graph goes missing for an hour, most businesses get through the afternoon comfortably. Reverse it and nobody is comfortable. Knowing which is which changes where the effort goes, and usually saves money.",
+      },
+      { type: "h3", text: "What does it lean on that you do not control" },
+      {
+        type: "p",
+        text: "Payment providers, SMS gateways, calendars, delivery partners. Each has its own limits, and the moment you depend on one, their ceiling becomes your ceiling. Far better to know that number in advance than to learn it during your best hour of trading.",
+      },
+      { type: "h3", text: "What is it allowed to cost to run" },
+      {
+        type: "p",
+        text: "Monthly hosting is a design input, not a surprise on a card statement. Tell us the budget early and the design bends around it. Mention it after launch and something has to be unpicked.",
+      },
+      { type: "h2", text: "Then we do the sums" },
+      {
+        type: "p",
+        text: "Here is the entire method, on a launch that expects ten thousand visits in its first day.",
+      },
+      {
+        type: "figure",
+        diagram: "peak-math",
+        caption:
+          "Four steps from a headline number to a figure you can build against, then a multiplier for the fact that people do not arrive in an orderly queue.",
+      },
+      {
+        type: "p",
+        text: "Two requests a second. That is the honest answer, and it tends to disappoint people who were braced for something more dramatic. Two a second is not much at all. But traffic clumps rather than spacing itself out politely, so we design for several times that, somewhere between eight and twenty a second in this example. We would rather carry headroom we never use than go looking for it at ten past nine on launch morning.",
+      },
+      {
+        type: "p",
+        text: "The arithmetic is not the clever part. The clever part is that it exists on paper, where you can disagree with it. If you think ten thousand is optimistic, or that the rush lasts thirty minutes rather than two hours, say so and the numbers move. Nobody has to take anybody's word for anything.",
+      },
+      { type: "h2", text: "What the three layers are actually doing" },
+      {
+        type: "p",
+        text: "Nearly everything we build has three parts, and it helps to know who talks to whom, because that is what explains where things pile up when it gets busy.",
+      },
+      {
+        type: "figure",
+        diagram: "layers",
+        caption:
+          "The customer only ever talks to the first box. The other two do the work, in that order, every single time.",
+      },
+      {
+        type: "p",
+        text: "The screen never speaks to the database directly. It asks the backend, the backend decides whether that request is allowed and who is making it, and only then does the database get involved. It looks like a detour. It is the reason your data does not walk out of the building the first time somebody curious starts poking at the page.",
+      },
+      {
+        type: "p",
+        text: "It is also where capacity lives. The frontend usually copes with far more people than the rest of the chain. The middle hop is where a queue forms first, which is why we size the backend and the database together and never one without the other.",
+      },
+      { type: "h2", text: "Headroom is a decision, not a feeling" },
+      {
+        type: "p",
+        text: "We aim for something that can absorb roughly five to ten times the expected peak without needing to be redesigned. That range covers nearly every launch that goes well. Past that point you are buying insurance against a scenario nobody can describe, and paying for it every month until you stop.",
+      },
+      {
+        type: "quote",
+        text: "The goal is not a system that cannot break. It is knowing what breaks first, and how long it takes to add room.",
+      },
+      { type: "h2", text: "Capacity gets added in stages" },
+      {
+        type: "p",
+        text: "You do not need all of this on day one, and buying it early is how budgets quietly disappear. Each stage has a signal that says it is time. Until the signal shows up, the stage is a cost with nothing to show for it.",
+      },
+      {
+        type: "figure",
+        diagram: "capacity-ladder",
+        caption:
+          "Five steps, each triggered by something real rather than by a plan written a year earlier.",
+      },
+      {
+        type: "p",
+        text: "Plenty of products sit happily on the first two steps for years. We have also seen teams jump straight to the last one before they had a single customer, because that is what big companies do, and then spend their budget maintaining a shape nobody needed yet. Taken in order, in response to something that has actually happened, these steps are cheap.",
+      },
+      { type: "h2", text: "The part where we try to break it" },
+      {
+        type: "p",
+        text: "Before launch, a copy of the system gets a rehearsal. Thousands of pretend customers do what real ones are about to do, all at once, while nobody is watching. It gives us the measured number rather than the calculated one, and the two are never quite the same. Finding the limit on a quiet Tuesday costs nothing. Finding it on launch day costs customers.",
+      },
+      { type: "h2", text: "What you end up holding" },
+      {
+        type: "list",
+        items: [
+          "A number: how many people at once, comfortably, with the working shown.",
+          "The name of the first thing that will give way, and a rough idea of when.",
+          "Which stage you are on, and what the next one would cost.",
+          "Alerts set below the limit, so a warning arrives before a problem does.",
+          "A plan for the day demand goes past all of it, because occasionally it will.",
+        ],
+      },
+      {
+        type: "p",
+        text: "None of that makes a product exciting. It makes a launch boring, which is the correct ambition for a launch.",
+      },
+      {
+        type: "p",
+        text: "If you already have something running and nobody has ever done this arithmetic for it, you are in the majority. Working out where you currently stand is usually a short piece of work, and it is a fair amount of what we get asked for.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How many users should a new web application be built for?",
+        a: "Build for the busiest hour rather than the monthly total, then allow five to ten times that as headroom. For most new products the resulting number is smaller than people expect, and it comes from the launch plan rather than from ambition.",
+      },
+      {
+        q: "What does concurrent users mean?",
+        a: "Concurrent users means the number of people using a system in the same moment, rather than across a day or a month. A thousand people spread over a day and a thousand arriving in one minute are completely different loads, and only the second one decides how much capacity is needed.",
+      },
+      {
+        q: "How do you calculate peak traffic for a website?",
+        a: "Start with the visits expected on the busiest day, estimate the share arriving in the busiest hour or two, divide that down to a figure per second, then multiply by the number of actions each visitor performs. Multiply the result again by four or more, because real traffic arrives in bursts.",
+      },
+      {
+        q: "Does designing for scale cost more at the start?",
+        a: "Designing for scale costs very little when it is arithmetic and a few sensible choices made early. Building infrastructure for users who do not exist yet is the expensive version, which is why capacity is best added in stages as real signals appear.",
+      },
+    ],
+  },
   {
     slug: "is-your-product-ready-for-sudden-growth",
     title: "Is Your Product Ready for Sudden Growth?",
@@ -325,12 +515,20 @@ export function readingMinutes(post: BlogPost) {
     .flatMap((b) => {
       if (b.type === "list") return b.items;
       if (b.type === "callout") return [b.title, ...b.items];
-      if (b.type === "figure") return [b.caption];
+      if (b.type === "figure" || b.type === "image") return [b.caption];
       return [b.text];
     })
     .join(" ")
     .split(/\s+/).length;
   return Math.max(1, Math.round(words / 200));
+}
+
+/** The next article to read, wrapping round. Null while only one exists. */
+export function nextPost(post: BlogPost) {
+  const ordered = postsByDate();
+  if (ordered.length < 2) return null;
+  const i = ordered.findIndex((p) => p.slug === post.slug);
+  return ordered[(i + 1) % ordered.length];
 }
 
 /** Newest first, for the index. */

@@ -1,3 +1,6 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
+
 import { describe, expect, it } from "vitest";
 
 import { diagrams } from "@/components/blog/Diagrams";
@@ -18,6 +21,7 @@ function prose(): string[] {
       if (b.type === "list") return b.items;
       if (b.type === "callout") return [b.title, ...b.items];
       if (b.type === "figure") return [b.caption];
+      if (b.type === "image") return [b.caption, b.alt];
       return [b.text];
     }),
     ...p.faqs.flatMap((f) => [f.q, f.a]),
@@ -35,6 +39,15 @@ describe("blog data", () => {
     for (const p of posts) {
       for (const b of p.blocks) {
         if (b.type === "figure") expect(diagrams[b.diagram], b.diagram).toBeDefined();
+        if (b.type === "image") {
+          // A supplied image is useless to search engines without alt text,
+          // and the file has to actually be in public/.
+          expect(b.alt.length, b.src).toBeGreaterThan(30);
+          expect(
+            existsSync(path.join(process.cwd(), "public", b.src)),
+            b.src,
+          ).toBe(true);
+        }
       }
       for (const slug of p.services) {
         expect(getService(slug), `${p.slug} -> ${slug}`).toBeDefined();
@@ -52,7 +65,9 @@ describe("blog data", () => {
   it("is long enough to be worth publishing and carries diagrams", () => {
     for (const p of posts) {
       expect(readingMinutes(p)).toBeGreaterThanOrEqual(4);
-      const figures = p.blocks.filter((b) => b.type === "figure");
+      const figures = p.blocks.filter(
+        (b) => b.type === "figure" || b.type === "image",
+      );
       expect(figures.length, p.slug).toBeGreaterThanOrEqual(2);
       // Headings break the article up rather than leaving a wall of text.
       expect(p.blocks.filter((b) => b.type === "h2").length).toBeGreaterThanOrEqual(4);

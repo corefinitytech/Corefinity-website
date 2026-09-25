@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -6,7 +7,13 @@ import JsonLd from "@/components/JsonLd";
 import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
 import { diagrams } from "@/components/blog/Diagrams";
 import { ArrowRight } from "@/components/icons";
-import { getPost, posts, readingMinutes, type BlogBlock } from "@/lib/blog";
+import {
+  getPost,
+  nextPost,
+  posts,
+  readingMinutes,
+  type BlogBlock,
+} from "@/lib/blog";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService, type ServicePage } from "@/lib/services";
 import { site, siteUrl } from "@/lib/site";
@@ -109,6 +116,23 @@ function Block({ block }: { block: BlogBlock }) {
           </ul>
         </div>
       );
+    case "image":
+      return (
+        <figure className="mt-12 lg:-mx-16 xl:-mx-24">
+          <Image
+            src={block.src}
+            alt={block.alt}
+            width={block.width}
+            height={block.height}
+            // Below the fold in every article, so it loads lazily by default.
+            sizes="(max-width: 1024px) 100vw, 900px"
+            className="h-auto w-full rounded-[24px] border border-black/[0.08]"
+          />
+          <figcaption className="mt-3 text-[13px] leading-relaxed text-ink/60">
+            {block.caption}
+          </figcaption>
+        </figure>
+      );
     case "figure": {
       const Diagram = diagrams[block.diagram];
       return (
@@ -142,6 +166,7 @@ export default async function BlogPostPage({
   const services = post.services
     .map(getService)
     .filter((s): s is ServicePage => Boolean(s));
+  const next = nextPost(post);
   const url = `${siteUrl}/blog/${post.slug}`;
   const published = new Date(post.datePublished).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -204,7 +229,7 @@ export default async function BlogPostPage({
           <h2 className="text-[clamp(1.5rem,3vw,2.15rem)] font-medium leading-[1.15] tracking-[-0.03em] text-ink">
             Common questions about{" "}
             <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-              scalability
+              {post.topic.toLowerCase()}
             </span>
           </h2>
 
@@ -222,6 +247,36 @@ export default async function BlogPostPage({
           </dl>
         </div>
       </section>
+
+      {/* Read next */}
+      {next && (
+        <section className="px-4 pb-4 sm:px-6">
+          <div className="mx-auto max-w-3xl">
+            <Link
+              href={`/blog/${next.slug}`}
+              className="group flex flex-col gap-4 rounded-[24px] border border-black/[0.08] bg-mist p-7 transition hover:-translate-y-0.5 sm:flex-row sm:items-center sm:justify-between sm:p-8"
+            >
+              <span>
+                <span className="block text-[11px] uppercase tracking-[0.2em] text-ink/60">
+                  ( Read next / {next.topic} )
+                </span>
+                <span className="mt-3 block max-w-lg text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug tracking-[-0.02em] text-ink">
+                  {next.headline.lead}{" "}
+                  <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
+                    {next.headline.accent}
+                  </span>
+                </span>
+                <span className="mt-2 block max-w-md text-[13px] leading-relaxed text-ink/60">
+                  {next.excerpt}
+                </span>
+              </span>
+              <span className="grid size-11 shrink-0 place-items-center rounded-full bg-ink text-white transition duration-300 group-hover:scale-110">
+                <ArrowRight className="size-4" />
+              </span>
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Where to go next */}
       <section className="px-4 pb-12 sm:px-6">
