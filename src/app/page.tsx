@@ -8,6 +8,7 @@ import Philosophy from "@/components/Philosophy";
 import Advantage from "@/components/Advantage";
 import Pricing from "@/components/Pricing";
 import CaseStudy from "@/components/CaseStudy";
+import BlogTeaser from "@/components/BlogTeaser";
 import Faq from "@/components/Faq";
 import ProjectBrief from "@/components/ProjectBrief";
 import JsonLd from "@/components/JsonLd";
@@ -37,6 +38,7 @@ export default function Home() {
       <Advantage />
       <Pricing />
       <CaseStudy />
+      <BlogTeaser />
       <Faq />
       <ProjectBrief />
       <JsonLd schema={graph(faqSchema())} />
