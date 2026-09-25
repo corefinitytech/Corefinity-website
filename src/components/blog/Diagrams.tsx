@@ -112,13 +112,13 @@ function Arrow({
       <line
         x1={from}
         y1={y}
-        x2={to - 7}
+        x2={to - 8}
         y2={y}
         stroke={color}
         strokeWidth={1.8}
         strokeDasharray={dashed ? "5 5" : undefined}
       />
-      <path d={`M${to} ${y} l-8 -4.5 v9 z`} fill={color} />
+      <path d={`M${to} ${y} l-9 -5 v10 z`} fill={color} />
     </g>
   );
 }
@@ -431,13 +431,13 @@ export function ReadinessLoopDiagram() {
 
       {/* Back round to the start */}
       <path
-        d="M888 172 L888 200 Q888 212 876 212 L120 212 Q108 212 108 200 L108 182"
+        d="M888 172 L888 200 Q888 212 876 212 L120 212 Q108 212 108 200 L108 179"
         fill="none"
         stroke={ACCENT}
         strokeWidth={1.6}
         strokeDasharray="6 6"
       />
-      <path d="M108 172 l-4.5 8 h9 z" fill={ACCENT} />
+      <path d="M108 170 l-5 9 h10 z" fill={ACCENT} />
       <text x={400} y={236} fontSize={12} fill={MUTED}>
         before the next campaign, launch or busy season
       </text>
@@ -445,80 +445,251 @@ export function ReadinessLoopDiagram() {
   );
 }
 
+/**
+ * Small stroked glyphs, drawn on a 24 by 24 grid and scaled into place.
+ * Same construction as the site icons, so a diagram badge and a button icon
+ * look like they came from the same set.
+ */
+const glyphs: Record<string, ReactNode> = {
+  people: (
+    <>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" />
+      <path d="M16.5 5.6a3 3 0 0 1 0 5.4" />
+      <path d="M19 20c0-2.1-.8-4-2.2-5.2" />
+    </>
+  ),
+  person: (
+    <>
+      <circle cx="12" cy="8" r="3.2" />
+      <path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" />
+    </>
+  ),
+  database: (
+    <>
+      <ellipse cx="12" cy="6" rx="7" ry="3" />
+      <path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6" />
+      <path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3" />
+    </>
+  ),
+  growth: (
+    <>
+      <path d="M4 17l5-5 3.5 3.5L20 8" />
+      <path d="M15 8h5v5" />
+    </>
+  ),
+  bolt: <path d="M13 3 6 13.5h5l-1 7.5 7-11h-5l1-7Z" />,
+  shield: <path d="M12 3.2 19 6v5.2c0 4.4-2.9 8.3-7 9.6-4.1-1.3-7-5.2-7-9.6V6l7-2.8Z" />,
+  link: (
+    <>
+      <path d="M10.5 13.5a4 4 0 0 0 5.7 0l2-2a4 4 0 1 0-5.7-5.7l-1 1" />
+      <path d="M13.5 10.5a4 4 0 0 0-5.7 0l-2 2a4 4 0 1 0 5.7 5.7l1-1" />
+    </>
+  ),
+  cloud: <path d="M7.5 18.5h9.2a3.8 3.8 0 0 0 .5-7.6 6 6 0 0 0-11.3 1.7 3.4 3.4 0 0 0 1.6 5.9Z" />,
+  list: (
+    <>
+      <path d="M9 7h11M9 12h11M9 17h11" />
+      <path d="M4.6 7h.02M4.6 12h.02M4.6 17h.02" />
+    </>
+  ),
+  pulse: <path d="M3 12h3.8l2.4-7 4 14 2.4-7H21" />,
+  calculator: (
+    <>
+      <rect x="5" y="3" width="14" height="18" rx="2.5" />
+      <path d="M8.5 7.5h7" />
+      <path d="M8.6 12h.02M12 12h.02M15.4 12h.02M8.6 16h.02M12 16h.02M15.4 16h.02" />
+    </>
+  ),
+  monitor: (
+    <>
+      <rect x="3" y="4.5" width="18" height="12" rx="2.5" />
+      <path d="M8.5 20.5h7M12 16.5v4" />
+    </>
+  ),
+  gear: (
+    <>
+      <circle cx="12" cy="12" r="3.2" />
+      <path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4 18 18M18 6l-1.6 1.6M7.6 16.4 6 18" />
+    </>
+  ),
+  question: (
+    <>
+      <path d="M9.4 9.2a2.7 2.7 0 1 1 3.8 2.5c-.9.4-1.2 1-1.2 1.9" />
+      <path d="M12 17.2h.02" />
+    </>
+  ),
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="8" />
+      <path d="M12 7.6V12l2.9 1.8" />
+    </>
+  ),
+};
+
+function Glyph({
+  name,
+  x,
+  y,
+  size = 17,
+  color = ACCENT,
+}: {
+  name: keyof typeof glyphs | string;
+  x: number;
+  y: number;
+  size?: number;
+  color?: string;
+}) {
+  return (
+    <g
+      transform={`translate(${x - size / 2} ${y - size / 2}) scale(${size / 24})`}
+      fill="none"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {glyphs[name]}
+    </g>
+  );
+}
+
+/** Badge behind a glyph. */
+function Badge({
+  x,
+  y,
+  r = 17,
+  glyph,
+  tone = "tint",
+}: {
+  x: number;
+  y: number;
+  r?: number;
+  glyph: string;
+  tone?: "tint" | "solid" | "onDark";
+}) {
+  const fill = tone === "solid" ? ACCENT : tone === "onDark" ? "#ffffff1f" : "#e8f3fc";
+  const stroke = tone === "solid" || tone === "onDark" ? "#ffffff" : ACCENT;
+  return (
+    <g>
+      <circle cx={x} cy={y} r={r} fill={fill} />
+      <Glyph name={glyph} x={x} y={y} color={stroke} />
+    </g>
+  );
+}
+
+/** Heading pill, for the column titles. */
+function ColumnHeading({ x, y, label, glyph }: { x: number; y: number; label: string; glyph: string }) {
+  return (
+    <g>
+      <rect x={x} y={y} width={286} height={44} rx={22} fill="#eef5fc" />
+      <Badge x={x + 24} y={y + 22} r={14} glyph={glyph} tone="solid" />
+      <line x1={x + 46} y1={y + 12} x2={x + 46} y2={y + 32} stroke={ACCENT} strokeOpacity={0.3} strokeWidth={1.5} />
+      <text x={x + 60} y={y + 28} fontSize={14} fontWeight={700} letterSpacing="0.1em" fill={INK}>
+        {label}
+      </text>
+    </g>
+  );
+}
+
+/** Caption under a diagram, with a rule either side. */
+function FootNote({ y, text, width = 980 }: { y: number; text: string; width?: number }) {
+  const half = text.length * 3.3;
+  return (
+    <g>
+      <line x1={8} y1={y - 4} x2={width / 2 - half - 16} y2={y - 4} stroke={LINE} strokeWidth={1.5} />
+      <text x={width / 2} y={y} textAnchor="middle" fontSize={12.5} fill={MUTED}>
+        {text}
+      </text>
+      <line x1={width / 2 + half + 16} y1={y - 4} x2={width - 8} y2={y - 4} stroke={LINE} strokeWidth={1.5} />
+    </g>
+  );
+}
+
 /** The questions that go in, and the decisions that come out. */
 export function SizingInputsDiagram() {
-  const inputs = [
-    "People in the busiest hour",
-    "What each person does",
-    "How fast the data grows",
-    "How fast it has to feel",
-    "What must never fail",
-    "What it leans on outside",
+  const inputs: [string, string][] = [
+    ["People in the busiest hour", "people"],
+    ["What each person does", "person"],
+    ["How fast the data grows", "growth"],
+    ["How fast it has to feel", "bolt"],
+    ["What must never fail", "shield"],
+    ["What it leans on outside", "link"],
   ];
-  const outputs = [
-    "Shape of the hosting",
-    "Where the data lives",
-    "What gets kept ready or queued",
-    "What we watch, and when it alerts",
+  const outputs: [string, string][] = [
+    ["Shape of the hosting", "cloud"],
+    ["Where the data lives", "database"],
+    ["What gets kept ready or queued", "list"],
+    ["What we watch, and when it alerts", "pulse"],
   ];
+  const cx = 490;
+  const cy = 250;
+
   return (
     <Frame
-      title="Business questions on the left feed a sizing calculation, which decides the technical choices on the right"
-      viewBox="0 0 960 352"
+      title="Six business questions feed a sizing calculation, which decides four technical choices"
+      viewBox="0 0 980 474"
     >
-      <text x={8} y={26} fontSize={15} fontWeight={500} fill={INK}>
-        What we ask, and what it decides
-      </text>
-      <text x={8} y={46} fontSize={13} fill={MUTED}>
-        Nothing on the left is a technical question. Everything on the right depends on the answers.
-      </text>
+      <ColumnHeading x={8} y={8} label="WHAT WE ASK" glyph="question" />
+      <ColumnHeading x={686} y={8} label="WHAT IT DECIDES" glyph="gear" />
 
-      <text x={8} y={84} fontSize={11} fontWeight={600} fill={MUTED} letterSpacing="0.14em">
-        WHAT WE ASK
-      </text>
-      {inputs.map((label, i) => {
-        const y = 100 + i * 36;
+      {inputs.map(([label, glyph], i) => {
+        const y = 78 + i * 56;
+        const mid = y + 23;
         return (
           <g key={label}>
-            <rect x={8} y={y} width={258} height={28} rx={14} fill="#ffffff" stroke={LINE} strokeWidth={1.5} />
-            <text x={24} y={y + 19} fontSize={13} fill={INK}>
+            <path
+              d={`M310 ${mid} C 350 ${mid}, 352 ${cy}, 392 ${cy}`}
+              fill="none"
+              stroke={ACCENT}
+              strokeWidth={1.4}
+              strokeOpacity={0.35}
+            />
+            <rect x={8} y={y} width={302} height={46} rx={23} fill="#fbfcfe" stroke="#e7ebf2" strokeWidth={1.5} />
+            <Badge x={39} y={mid} glyph={glyph} />
+            <text x={68} y={mid + 5} fontSize={14.5} fill={INK}>
               {label}
             </text>
-            <line x1={266} y1={y + 14} x2={368} y2={191} stroke={ACCENT} strokeWidth={1.1} opacity={0.45} />
           </g>
         );
       })}
 
-      <rect x={372} y={152} width={192} height={78} rx={16} fill="#e8f3fc" stroke={ACCENT} strokeWidth={1.5} />
-      <text x={468} y={182} textAnchor="middle" fontSize={15} fontWeight={500} fill={INK}>
+      {outputs.map(([label, glyph], i) => {
+        const y = 106 + i * 72;
+        const mid = y + 23;
+        return (
+          <g key={label}>
+            <path
+              d={`M588 ${cy} C 628 ${cy}, 630 ${mid}, 670 ${mid}`}
+              fill="none"
+              stroke={ACCENT}
+              strokeWidth={1.4}
+              strokeOpacity={0.35}
+            />
+            <rect x={670} y={y} width={302} height={46} rx={23} fill="#fbfcfe" stroke="#e7ebf2" strokeWidth={1.5} />
+            <Badge x={701} y={mid} glyph={glyph} />
+            <text x={730} y={mid + 5} fontSize={14.5} fill={INK}>
+              {label}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* The calculation in the middle */}
+      <ellipse cx={cx} cy={cy} rx={150} ry={96} fill={ACCENT} opacity={0.05} />
+      <rect x={392} y={188} width={196} height={124} rx={24} fill="#ffffff" stroke={ACCENT} strokeWidth={2} />
+      <Badge x={cx} y={222} r={19} glyph="calculator" tone="solid" />
+      <text x={cx} y={266} textAnchor="middle" fontSize={17} fontWeight={600} fill={INK}>
         The arithmetic
       </text>
-      <text x={468} y={202} textAnchor="middle" fontSize={12} fill={MUTED}>
+      <text x={cx} y={286} textAnchor="middle" fontSize={12.5} fill={MUTED}>
         peak, per second,
       </text>
-      <text x={468} y={218} textAnchor="middle" fontSize={12} fill={MUTED}>
+      <text x={cx} y={302} textAnchor="middle" fontSize={12.5} fill={MUTED}>
         then headroom
       </text>
 
-      <text x={648} y={84} fontSize={11} fontWeight={600} fill={MUTED} letterSpacing="0.14em">
-        WHAT IT DECIDES
-      </text>
-      {outputs.map((label, i) => {
-        const y = 112 + i * 44;
-        return (
-          <g key={label}>
-            <line x1={564} y1={191} x2={640} y2={y + 15} stroke={ACCENT} strokeWidth={1.1} opacity={0.45} />
-            <rect x={648} y={y} width={304} height={30} rx={15} fill="#ffffff" stroke={LINE} strokeWidth={1.5} />
-            <text x={666} y={y + 20} fontSize={13} fill={INK}>
-              {label}
-            </text>
-          </g>
-        );
-      })}
-
-      <text x={8} y={332} fontSize={12} fill={MUTED}>
-        Change one answer on the left and the right changes with it. That is the reason for asking first.
-      </text>
+      <FootNote y={452} text="Change one answer on the left and the right changes with it." />
     </Frame>
   );
 }
@@ -528,62 +699,77 @@ export function PeakMathDiagram() {
   const steps: [string, string][] = [
     ["10,000 visits", "expected on launch day"],
     ["55% in 2 hours", "the window that matters"],
-    ["46 people a minute", "at that pace"],
+    ["46 a minute", "at that pace"],
     ["3 actions each", "browse, sign up, pay"],
   ];
   return (
     <Frame
-      title="A launch day visitor number turned into requests per second at the busiest moment, then multiplied for bursts"
-      viewBox="0 0 980 300"
+      title="A launch day visitor number reduced to requests per second, then multiplied for bursts"
+      viewBox="0 0 980 328"
     >
       <text x={8} y={26} fontSize={15} fontWeight={500} fill={INK}>
         One number, translated into something you can build against
       </text>
-      <text x={8} y={46} fontSize={13} fill={MUTED}>
+      <text x={8} y={47} fontSize={13} fill={MUTED}>
         Back of an envelope arithmetic. Ten minutes, and it settles most arguments.
       </text>
 
       {steps.map(([value, note], i) => {
-        const x = 8 + i * 190;
+        const x = 8 + i * 178;
         return (
           <g key={value}>
-            <rect x={x} y={92} width={164} height={70} rx={14} fill="#ffffff" stroke={LINE} strokeWidth={1.5} />
-            <text x={x + 16} y={124} fontSize={17} fontWeight={600} fill={INK}>
+            <rect x={x} y={84} width={158} height={96} rx={18} fill="#fbfcfe" stroke="#e7ebf2" strokeWidth={1.5} />
+            <circle cx={x + 26} cy={110} r={13} fill="#e8f3fc" />
+            <text x={x + 26} y={115} textAnchor="middle" fontSize={11.5} fontWeight={700} fill={ACCENT}>
+              {i + 1}
+            </text>
+            <text x={x + 18} y={148} fontSize={18} fontWeight={600} fill={INK}>
               {value}
             </text>
-            <text x={x + 16} y={144} fontSize={12} fill={MUTED}>
+            <text x={x + 18} y={166} fontSize={11.5} fill={MUTED}>
               {note}
             </text>
-            <Arrow from={x + 168} to={x + 186} y={127} />
           </g>
         );
       })}
 
-      <rect x={768} y={92} width={204} height={70} rx={14} fill={INK} />
-      <text x={788} y={124} fontSize={17} fontWeight={600} fill="#ffffff">
+      {/* Connectors last, so no box can clip an arrow head */}
+      {[0, 1, 2, 3].map((i) => {
+        const from = 8 + i * 178 + 162;
+        const to = i === 3 ? 722 : 8 + (i + 1) * 178;
+        return <Arrow key={i} from={from} to={to} y={132} />;
+      })}
+
+      {/* Where the arithmetic lands */}
+      <rect x={726} y={84} width={246} height={96} rx={18} fill={INK} />
+      <Badge x={760} y={112} r={15} glyph="clock" tone="onDark" />
+      <text x={744} y={152} fontSize={20} fontWeight={600} fill="#ffffff">
         2 a second
       </text>
-      <text x={788} y={144} fontSize={12} fill="#ffffffaa">
+      <text x={744} y={170} fontSize={11.5} fill="#ffffffa8">
         average across the peak
       </text>
 
-      <g>
-        <line x1={870} y1={166} x2={870} y2={204} stroke={ACCENT} strokeWidth={1.5} strokeDasharray="5 5" />
-        <path d="M870 210 l-5 -9 h10 z" fill={ACCENT} />
-        <rect x={676} y={212} width={296} height={54} rx={14} fill="#e8f3fc" stroke={ACCENT} strokeWidth={1.5} />
-        <text x={696} y={238} fontSize={15} fontWeight={600} fill={INK}>
-          Build for 8 to 20 a second
-        </text>
-        <text x={696} y={256} fontSize={12} fill={MUTED}>
-          real traffic arrives in bursts, never evenly
-        </text>
-      </g>
-
-      <text x={8} y={238} fontSize={13} fill={MUTED}>
-        Two a second sounds like nothing, and on a quiet day it is.
+      {/* And where it has to be built */}
+      <line x1={849} y1={184} x2={849} y2={212} stroke={ACCENT} strokeWidth={1.6} strokeDasharray="5 5" />
+      <path d="M849 220 l-5.5 -9 h11 z" fill={ACCENT} />
+      <rect x={612} y={224} width={360} height={66} rx={18} fill="#eef5fc" stroke={ACCENT} strokeWidth={1.5} />
+      <Badge x={646} y={257} r={16} glyph="bolt" tone="solid" />
+      <text x={676} y={252} fontSize={16} fontWeight={600} fill={INK}>
+        Build for 8 to 20 a second
       </text>
-      <text x={8} y={258} fontSize={13} fill={MUTED}>
-        The number worth designing against is the burst, not the average.
+      <text x={676} y={271} fontSize={12} fill={MUTED}>
+        traffic arrives in bursts, never evenly
+      </text>
+
+      <text x={8} y={252} fontSize={13.5} fill={INK} fontWeight={500}>
+        Two a second sounds like nothing.
+      </text>
+      <text x={8} y={272} fontSize={13} fill={MUTED}>
+        On a quiet day it is. The burst is the number
+      </text>
+      <text x={8} y={290} fontSize={13} fill={MUTED}>
+        worth designing against.
       </text>
     </Frame>
   );
@@ -591,65 +777,142 @@ export function PeakMathDiagram() {
 
 /** How the three layers talk to each other on one request. */
 export function LayersDiagram() {
-  const y = 132;
+  const top = 150;
+  const h = 116;
+  const cards: [number, string, string, string][] = [
+    [8, "Frontend", "what the customer sees", "monitor"],
+    [350, "Backend", "rules, checks, permissions", "gear"],
+    [692, "Database", "the record of truth", "database"],
+  ];
   return (
     <Frame
       title="The browser asks the backend, the backend asks the database, and the answer travels back the same way"
-      viewBox="0 0 980 344"
+      viewBox="0 0 980 438"
     >
       <text x={8} y={26} fontSize={15} fontWeight={500} fill={INK}>
         Frontend, backend, database: who asks whom
       </text>
-      <text x={8} y={46} fontSize={13} fill={MUTED}>
-        The customer only ever talks to the first box. Everything else happens out of sight.
+      <text x={8} y={47} fontSize={13} fill={MUTED}>
+        The customer only ever talks to the first box. The rest happens out of sight.
       </text>
 
-      <Node x={40} y={y} w={210} h={76} label="Frontend" sub="what the customer sees" tone="dark" />
-      <Node x={386} y={y} w={210} h={76} label="Backend" sub="rules, checks, permissions" tone="accent" />
-      <Node x={732} y={y} w={210} h={76} label="Database" sub="the record of truth" tone="accent" />
+      <defs>
+        <marker
+          id="cf-layers-ask"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto-start-reverse"
+        >
+          <path d="M0 0 L10 5 L0 10 z" fill={ACCENT} />
+        </marker>
+        <marker
+          id="cf-layers-answer"
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto-start-reverse"
+        >
+          <path d="M0 0 L10 5 L0 10 z" fill={MUTED} />
+        </marker>
+      </defs>
 
-      {/* Requests travelling right */}
-      <g>
-        <Arrow from={250} to={382} y={y + 26} />
-        <text x={316} y={y + 16} textAnchor="middle" fontSize={12} fill={MUTED}>
-          asks for something
-        </text>
-        <Arrow from={596} to={728} y={y + 26} />
-        <text x={662} y={y + 16} textAnchor="middle" fontSize={12} fill={MUTED}>
-          looks it up, or writes it
-        </text>
-      </g>
+      {/* Requests, travelling right over the top */}
+      {[
+        [288, 350, "asks for something"],
+        [630, 692, "looks it up, or writes it"],
+      ].map(([a, b, label]) => (
+        <g key={label as string}>
+          <path
+            d={`M${a} ${top - 6} C ${(a as number) + 24} ${top - 48}, ${(b as number) - 24} ${top - 48}, ${b} ${top - 4}`}
+            fill="none"
+            stroke={ACCENT}
+            strokeWidth={1.8}
+            markerEnd="url(#cf-layers-ask)"
+          />
+          <text
+            x={((a as number) + (b as number)) / 2}
+            y={top - 54}
+            textAnchor="middle"
+            fontSize={12.5}
+            fill={ACCENT}
+          >
+            {label}
+          </text>
+        </g>
+      ))}
 
-      {/* Answers travelling back */}
-      <g>
-        <line x1={728} y1={y + 58} x2={604} y2={y + 58} stroke={MUTED} strokeWidth={1.6} strokeDasharray="5 5" />
-        <path d="M596 58 l8 -4.5 v9 z" fill={MUTED} transform={`translate(0 ${y})`} />
-        <text x={662} y={y + 104} textAnchor="middle" fontSize={12} fill={MUTED}>
-          rows come back
-        </text>
-        <line x1={382} y1={y + 58} x2={258} y2={y + 58} stroke={MUTED} strokeWidth={1.6} strokeDasharray="5 5" />
-        <path d="M250 58 l8 -4.5 v9 z" fill={MUTED} transform={`translate(0 ${y})`} />
-        <text x={316} y={y + 104} textAnchor="middle" fontSize={12} fill={MUTED}>
-          an answer, shaped for the screen
-        </text>
-      </g>
+      {cards.map(([x, title, sub, glyph], i) => {
+        const dark = i === 0;
+        return (
+          <g key={title}>
+            <rect
+              x={x}
+              y={top}
+              width={280}
+              height={h}
+              rx={22}
+              fill={dark ? INK : "#ffffff"}
+              stroke={dark ? INK : ACCENT}
+              strokeWidth={dark ? 1.5 : 2}
+            />
+            <Badge x={x + 40} y={top + 40} r={18} glyph={glyph} tone={dark ? "onDark" : "tint"} />
+            <text x={x + 70} y={top + 46} fontSize={18} fontWeight={600} fill={dark ? "#ffffff" : INK}>
+              {title}
+            </text>
+            <text x={x + 24} y={top + 88} fontSize={12.5} fill={dark ? "#ffffffa8" : MUTED}>
+              {sub}
+            </text>
+          </g>
+        );
+      })}
 
-      <text x={40} y={288} fontSize={12} fill={MUTED}>
-        The frontend never speaks to the database directly. That rule is what keeps
+      {/* Answers, travelling back underneath */}
+      {[
+        [350, 288, "an answer, shaped for the screen"],
+        [692, 630, "rows come back"],
+      ].map(([a, b, label]) => (
+        <g key={label as string}>
+          <path
+            d={`M${a} ${top + h + 6} C ${(a as number) - 24} ${top + h + 48}, ${(b as number) + 24} ${top + h + 48}, ${b} ${top + h + 4}`}
+            fill="none"
+            stroke={MUTED}
+            strokeWidth={1.6}
+            strokeDasharray="5 5"
+            markerEnd="url(#cf-layers-answer)"
+          />
+          <text
+            x={((a as number) + (b as number)) / 2}
+            y={top + h + 66}
+            textAnchor="middle"
+            fontSize={12.5}
+            fill={MUTED}
+          >
+            {label}
+          </text>
+        </g>
+      ))}
+
+      <text x={8} y={372} fontSize={12.5} fill={MUTED}>
+        The frontend never speaks to the database directly. That rule is what keeps your
       </text>
-      <text x={40} y={306} fontSize={12} fill={MUTED}>
-        your data safe when someone pokes at the page from the outside.
+      <text x={8} y={390} fontSize={12.5} fill={MUTED}>
+        data safe when somebody starts poking at the page from the outside.
       </text>
 
-      <g>
-        <rect x={586} y={266} width={356} height={54} rx={14} fill="#fdeeeb" stroke={CORAL} strokeWidth={1.5} />
-        <text x={606} y={289} fontSize={13} fontWeight={500} fill={INK}>
-          Under load, this middle hop is where queues form
-        </text>
-        <text x={606} y={307} fontSize={12} fill={MUTED}>
-          so the backend and the database get sized together
-        </text>
-      </g>
+      <rect x={586} y={348} width={386} height={62} rx={18} fill="#fdeeeb" stroke={CORAL} strokeWidth={1.5} />
+      <circle cx={620} cy={379} r={15} fill="#ffffff" />
+      <Glyph name="bolt" x={620} y={379} size={16} color={CORAL} />
+      <text x={646} y={374} fontSize={13} fontWeight={600} fill={INK}>
+        Under load, queues form at this middle hop
+      </text>
+      <text x={646} y={393} fontSize={12} fill={MUTED}>
+        so the backend and the database get sized together
+      </text>
     </Frame>
   );
 }
@@ -658,49 +921,90 @@ export function LayersDiagram() {
 export function CapacityLadderDiagram() {
   const stages: [string, string, string][] = [
     ["One box does it all", "At launch, and for longer", "than most people expect"],
-    ["Data gets its own home", "When the app and database", "fight over one machine"],
-    ["Busy pages kept ready", "When thousands ask for", "exactly the same thing"],
-    ["Slow work moved aside", "When emails and reports", "hold up the checkout"],
-    ["Several copies at once", "When one machine", "has become the ceiling"],
+    ["Separate the database", "When the app and database", "fight over one machine"],
+    ["Keep busy pages ready", "When thousands ask for", "exactly the same thing"],
+    ["Move slow work aside", "When emails and reports", "hold up the checkout"],
+    ["Run several copies", "When one machine", "has become the ceiling"],
   ];
+  const w = 172;
+  const h = 122;
+
   return (
     <Frame
       title="Five stages of capacity, each added when a specific signal appears rather than all at once"
-      viewBox="0 0 980 380"
+      viewBox="0 0 980 424"
     >
       <text x={8} y={26} fontSize={15} fontWeight={500} fill={INK}>
         Capacity gets added in stages, not all at once
       </text>
-      <text x={8} y={46} fontSize={13} fill={MUTED}>
-        Each step is modest on its own. Doing all five before launch is how budgets disappear.
+      <text x={8} y={47} fontSize={13} fill={MUTED}>
+        Each step is modest on its own, and each one waits for the signal underneath it.
+      </text>
+      <text x={8} y={67} fontSize={13} fill={MUTED}>
+        Doing all five before launch is how budgets disappear.
       </text>
 
       {stages.map(([title, l1, l2], i) => {
-        const x = 8 + i * 194;
-        const y = 240 - i * 40;
+        const x = 8 + i * 196;
+        const y = 240 - i * 38;
+        const first = i === 0;
         return (
           <g key={title}>
-            <rect x={x} y={y} width={178} height={62} rx={14} fill={i === 0 ? "#e8f3fc" : "#ffffff"} stroke={i === 0 ? ACCENT : LINE} strokeWidth={1.5} />
-            <text x={x + 16} y={y + 22} fontSize={11} fontWeight={600} fill={ACCENT}>
+            <rect
+              x={x}
+              y={y}
+              width={w}
+              height={h}
+              rx={18}
+              fill={first ? "#eef5fc" : "#fbfcfe"}
+              stroke={first ? ACCENT : "#e7ebf2"}
+              strokeWidth={first ? 2 : 1.5}
+            />
+            <circle cx={x + 30} cy={y + 30} r={15} fill={first ? ACCENT : "#e8f3fc"} />
+            <text
+              x={x + 30}
+              y={y + 35}
+              textAnchor="middle"
+              fontSize={11.5}
+              fontWeight={700}
+              fill={first ? "#ffffff" : ACCENT}
+            >
               {`0${i + 1}`}
             </text>
-            <text x={x + 16} y={y + 44} fontSize={13} fontWeight={500} fill={INK}>
+            <text x={x + 16} y={y + 68} fontSize={13} fontWeight={500} fill={INK}>
               {title}
             </text>
-            <text x={x + 16} y={y + 82} fontSize={11.5} fill={MUTED}>
+            <line
+              x1={x + 16}
+              y1={y + 80}
+              x2={x + w - 16}
+              y2={y + 80}
+              stroke={first ? "#cfe4f7" : "#eef0f4"}
+              strokeWidth={1.5}
+            />
+            <text x={x + 16} y={y + 98} fontSize={11.5} fill={MUTED}>
               {l1}
             </text>
-            <text x={x + 16} y={y + 98} fontSize={11.5} fill={MUTED}>
+            <text x={x + 16} y={y + 113} fontSize={11.5} fill={MUTED}>
               {l2}
             </text>
-            {i < stages.length - 1 && <Arrow from={x + 182} to={x + 200} y={y + 31} />}
           </g>
         );
       })}
 
-      <text x={8} y={372} fontSize={12} fill={MUTED}>
-        The signal matters more than the step. Adding capacity before the signal arrives is guesswork with an invoice attached.
-      </text>
+      {/* Connectors last, so no card can clip an arrow head */}
+      {stages.slice(0, -1).map((stage, i) => {
+        const x = 8 + i * 196;
+        const y = 240 - i * 38;
+        // Both cards exist between y and y + 84, so an arrow at y + 42 points
+        // from one to the next without drifting above or below either.
+        return <Arrow key={`step-${stage[0]}`} from={x + 175} to={x + 193} y={y + 42} />;
+      })}
+
+      <FootNote
+        y={410}
+        text="The signal matters more than the step. Capacity added before the signal is guesswork with an invoice."
+      />
     </Frame>
   );
 }

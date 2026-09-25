@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -114,6 +115,23 @@ function Block({ block }: { block: BlogBlock }) {
             ))}
           </ul>
         </div>
+      );
+    case "image":
+      return (
+        <figure className="mt-12 lg:-mx-16 xl:-mx-24">
+          <Image
+            src={block.src}
+            alt={block.alt}
+            width={block.width}
+            height={block.height}
+            // Below the fold in every article, so it loads lazily by default.
+            sizes="(max-width: 1024px) 100vw, 900px"
+            className="h-auto w-full rounded-[24px] border border-black/[0.08]"
+          />
+          <figcaption className="mt-3 text-[13px] leading-relaxed text-ink/60">
+            {block.caption}
+          </figcaption>
+        </figure>
       );
     case "figure": {
       const Diagram = diagrams[block.diagram];

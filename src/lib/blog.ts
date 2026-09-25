@@ -16,7 +16,17 @@ export type BlogBlock =
   | { type: "list"; items: string[]; ordered?: boolean }
   | { type: "quote"; text: string }
   | { type: "callout"; title: string; items: string[] }
-  | { type: "figure"; diagram: DiagramKey; caption: string };
+  | { type: "figure"; diagram: DiagramKey; caption: string }
+  /** A supplied illustration, rather than one drawn in code. */
+  | {
+      type: "image";
+      src: string;
+      /** Describes the diagram for search engines and screen readers. */
+      alt: string;
+      width: number;
+      height: number;
+      caption: string;
+    };
 
 export type BlogPost = {
   slug: string;
@@ -505,7 +515,7 @@ export function readingMinutes(post: BlogPost) {
     .flatMap((b) => {
       if (b.type === "list") return b.items;
       if (b.type === "callout") return [b.title, ...b.items];
-      if (b.type === "figure") return [b.caption];
+      if (b.type === "figure" || b.type === "image") return [b.caption];
       return [b.text];
     })
     .join(" ")
