@@ -19,6 +19,7 @@ const routes: {
   lastModified: string;
 }[] = [
   { path: "/", priority: 1, changeFrequency: "weekly", lastModified: content },
+  { path: "/about", priority: 0.8, changeFrequency: "monthly", lastModified: content },
   { path: "/services", priority: 0.9, changeFrequency: "monthly", lastModified: content },
   { path: "/contact", priority: 0.8, changeFrequency: "monthly", lastModified: content },
   // Service pages carry the search intent, so they rank above the legal pages.
