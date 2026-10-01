@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { ArrowRight } from "./icons";
 
 export default function Philosophy() {
@@ -35,13 +37,22 @@ export default function Philosophy() {
               scratch, so it loads fast and follows your rules rather than the
               defaults someone else picked.
             </p>
-            <a
-              href="#solutions"
-              className="mt-2 inline-flex w-fit items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-[13px] font-medium text-white transition hover:border-white hover:bg-white hover:text-ink"
-            >
-              See what we build
-              <ArrowRight className="size-3.5" />
-            </a>
+            <div className="mt-2 flex flex-wrap gap-3">
+              <Link
+                href="/about"
+                className="group inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-3 text-[13px] font-medium text-ink transition hover:bg-white/90"
+              >
+                More about Corefinity
+                <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <a
+                href="#solutions"
+                className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-[13px] font-medium text-white transition hover:border-white hover:bg-white hover:text-ink"
+              >
+                See what we build
+                <ArrowRight className="size-3.5" />
+              </a>
+            </div>
           </div>
         </div>
       </div>

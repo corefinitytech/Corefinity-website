@@ -65,6 +65,12 @@ export const socialLinks = [
  * Tech", Islamabad). Search engines match the business profile to this site
  * partly by comparing these details, so change both together or not at all.
  */
+export const founders = [
+  { name: "Maarij Bukhari" },
+  { name: "Muhammad Sohaib" },
+  { name: "Syed M Taha" },
+] as const;
+
 export const address = {
   streetAddress: "Office no 08, Royal Inn Plaza, Basement, Kohistan Rd, F-8 Markaz",
   addressLocality: "Islamabad",

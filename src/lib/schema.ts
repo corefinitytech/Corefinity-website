@@ -2,6 +2,7 @@ import { faqs } from "./faqs";
 import {
   address,
   disambiguation,
+  founders,
   sameAs,
   services,
   site,
@@ -53,6 +54,7 @@ export function organizationSchema() {
       height: 512,
       caption: site.name,
     },
+    founder: founders.map((f) => ({ "@type": "Person", name: f.name })),
     ...(sameAs.length ? { sameAs } : {}),
     contactPoint: [
       {

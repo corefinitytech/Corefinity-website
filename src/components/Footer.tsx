@@ -11,6 +11,7 @@ import { address, site, socialLinks } from "@/lib/site";
  * gives crawlers nothing to follow.
  */
 const sections = [
+  { label: "About us", href: "/about" },
   { label: "All services", href: "/services" },
   { label: "How we work", href: "/#process" },
   { label: "Case studies", href: "/case-studies" },
