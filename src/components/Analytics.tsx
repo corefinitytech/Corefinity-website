@@ -4,6 +4,7 @@ import Script from "next/script";
 import { useEffect } from "react";
 import { useSyncExternalStore } from "react";
 
+import { contactMethod, trackEvent } from "@/lib/analytics";
 import { analytics } from "@/lib/site";
 import {
   getConsentServerSnapshot,
@@ -50,6 +51,26 @@ export default function Analytics() {
     if (!id) return;
     const w = window as unknown as Record<string, boolean>;
     w[`ga-disable-${id}`] = !allowed;
+  }, [id, allowed]);
+
+  /**
+   * Email, phone and WhatsApp links leave the site without a page view, so GA
+   * never sees them. One delegated listener reports them as contact_click,
+   * wherever the link sits on the page.
+   */
+  useEffect(() => {
+    if (!id || !allowed) return;
+    function onClick(e: MouseEvent) {
+      const link = (e.target as Element | null)?.closest?.("a[href]");
+      if (!link) return;
+      const method = contactMethod(link.getAttribute("href") ?? "");
+      if (method) {
+        trackEvent("contact_click", { method, page: location.pathname });
+      }
+    }
+    document.addEventListener("click", onClick, { capture: true });
+    return () =>
+      document.removeEventListener("click", onClick, { capture: true });
   }, [id, allowed]);
 
   if (!id || !allowed) return null;
