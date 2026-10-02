@@ -36,8 +36,8 @@ describe("service data", () => {
   it("keeps titles short enough not to be truncated", () => {
     for (const s of services) {
       // The brand is appended by the template, so budget for it.
-      // 60 characters in total once " | Corefinity" (13) is appended.
-      expect(s.title.length).toBeLessThanOrEqual(47);
+      // 60 characters in total once " | Corefinity Tech" (18) is appended.
+      expect(s.title.length).toBeLessThanOrEqual(42);
     }
   });
 

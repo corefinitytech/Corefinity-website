@@ -10,13 +10,13 @@ export default function Philosophy() {
           aria-hidden
           className="pointer-events-none absolute inset-0 grid select-none place-items-center text-center text-[clamp(5rem,15vw,13rem)] font-semibold leading-none tracking-tighter text-white/[0.045]"
         >
-          CoreFinity
+          Corefinity Tech
         </span>
 
         <div className="relative grid gap-12 lg:grid-cols-[1fr_1fr]">
           <div>
             <p className="text-[11px] uppercase tracking-[0.2em] text-white/50">
-              ( About Corefinity )
+              ( About Corefinity Tech )
             </p>
             <h2 className="mt-5 max-w-md text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em]">
               We do not ship templates. We build{" "}
@@ -42,7 +42,7 @@ export default function Philosophy() {
                 href="/about"
                 className="group inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-3 text-[13px] font-medium text-ink transition hover:bg-white/90"
               >
-                More about Corefinity
+                More about Corefinity Tech
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
               <a

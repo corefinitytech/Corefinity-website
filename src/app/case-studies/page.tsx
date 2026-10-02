@@ -14,9 +14,9 @@ import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
 import { site, siteUrl } from "@/lib/site";
 
-const title = "Case Studies: AI, Web and Automation Projects";
+const title = "Case Studies: AI, Web and Automation";
 const description =
-  "Corefinity case studies: an AI WhatsApp support assistant, a logistics operations dashboard with Python automation, and a commission free hotel booking engine.";
+  "Corefinity Tech case studies: an AI WhatsApp support assistant, a logistics operations dashboard with Python automation, and a commission free hotel booking engine.";
 
 export const metadata: Metadata = {
   title,
