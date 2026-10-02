@@ -6,6 +6,7 @@ import Check from "./Check";
 
 import Select from "./Select";
 import { ArrowRight } from "./icons";
+import { trackEvent } from "@/lib/analytics";
 import { site } from "@/lib/site";
 
 const projectTypes = [
@@ -49,6 +50,11 @@ export default function QuoteForm() {
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error("Request failed");
+      // GA4's recommended lead event; mark it as a key event in GA4 admin.
+      trackEvent("generate_lead", {
+        form: "project_brief",
+        project_type: String(data.projectType),
+      });
       setStatus("sent");
     } catch {
       setStatus("error");
