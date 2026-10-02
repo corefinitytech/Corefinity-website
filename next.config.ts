@@ -17,12 +17,21 @@ import bundleAnalyzer from "@next/bundle-analyzer";
 const isDev = process.env.NODE_ENV === "development";
 
 // Google Analytics 4 loads gtag.js from googletagmanager.com, then sends hits
-// to the regional google-analytics.com collectors (fetch, with an image beacon
-// as fallback). The hosts are listed so it can run for visitors who opt in. It
-// is inert for everyone else, because the tag is never rendered.
-const gaScript = "https://www.googletagmanager.com";
-const gaCollect =
-  "https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com";
+// (fetch, with an image beacon as fallback) to whichever collector it picks:
+// analytics.google.com, www.google.com, the regional google-analytics.com
+// hosts, or stats.g.doubleclick.net when Google signals is on. This is
+// Google's documented GA4 list. Note *.analytics.google.com does not cover
+// analytics.google.com itself, which is why *.google.com is listed. The hosts
+// let it run for visitors who opt in. It is inert for everyone else, because
+// the tag is never rendered.
+const gaScript = "https://*.googletagmanager.com";
+const gaCollect = [
+  "https://*.google-analytics.com",
+  "https://*.analytics.google.com",
+  "https://*.googletagmanager.com",
+  "https://*.g.doubleclick.net",
+  "https://*.google.com",
+].join(" ");
 
 const csp = [
   "default-src 'self'",
