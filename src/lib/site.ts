@@ -12,25 +12,25 @@ export const siteUrl = (
 ).replace(/\/$/, "");
 
 export const site = {
-  name: "Corefinity",
-  legalName: "Corefinity",
+  name: "Corefinity Tech",
+  legalName: "Corefinity Tech",
   url: siteUrl,
   email: "hello@corefinity.tech",
   founded: "2024",
   /** Used as the default <title> and in structured data. */
-  title: "Corefinity | Custom Software Development Company",
+  title: "Corefinity Tech | Custom Software Development Company",
   /**
    * Other names the business is known by. "CoreFinity Tech" is the name on
    * the Google Business Profile, so listing it lets search engines connect
    * that profile to this site.
    */
-  alternateNames: ["CoreFinity Tech", "CoreFinity"],
+  alternateNames: ["CoreFinity Tech", "Corefinity"],
   tagline: "Architecting high performance digital platforms",
   description:
-    "Corefinity is a custom software development company building web platforms, AI chatbots, mobile apps and automation for clients worldwide. Fixed price quotes.",
+    "Corefinity Tech is a custom software development company building web platforms, AI chatbots, mobile apps and automation for clients worldwide. Fixed prices.",
   /** Short form for cards and structured data where long copy gets clipped. */
   shortDescription:
-    "Corefinity builds custom web platforms, operations dashboards and direct booking systems. Fixed scope, full code ownership.",
+    "Corefinity Tech builds custom web platforms, operations dashboards and direct booking systems. Fixed scope, full code ownership.",
   locale: "en_US",
   twitter: "@corefinity",
   /** Bump when page content changes; feeds sitemap lastModified. */
@@ -40,7 +40,7 @@ export const site = {
 /**
  * Official profiles, emitted as sameAs in the Organization schema. This is how
  * search engines tie the brand's profiles to one entity. Only list profiles
- * that exist and are controlled by Corefinity; an empty list emits nothing.
+ * that exist and are controlled by Corefinity Tech; an empty list emits nothing.
  */
 export const sameAs: string[] = [
   "https://www.linkedin.com/company/corefintytech",
@@ -61,7 +61,7 @@ export const socialLinks = [
 ] as const;
 
 /**
- * Office address, written to match the Google Business Profile ("CoreFinity
+ * Office address, written to match the Google Business Profile ("Corefinity Tech
  * Tech", Islamabad). Search engines match the business profile to this site
  * partly by comparing these details, so change both together or not at all.
  */
@@ -86,7 +86,7 @@ export const address = {
  * stop merging the two businesses.
  */
 export const disambiguation =
-  "Corefinity at corefinity.tech is a software development company based in Islamabad, Pakistan. It is not affiliated with corefinity.com, a UK cloud hosting company.";
+  "Corefinity Tech at corefinity.tech is a software development company based in Islamabad, Pakistan. It is not affiliated with corefinity.com, a UK cloud hosting company.";
 
 /**
  * Search engine ownership tokens. Set these in the environment once each
@@ -171,7 +171,7 @@ export const services: Service[] = [
  */
 export const legal = {
   /** Replace once the business is formally registered. */
-  entity: "Corefinity",
+  entity: "Corefinity Tech",
   country: "Pakistan",
   governingLaw: "the laws of the Islamic Republic of Pakistan",
   courts: "the courts of Pakistan",

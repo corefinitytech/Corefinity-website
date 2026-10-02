@@ -4,7 +4,7 @@ import logoDark from "../../public/logo/wordmark-ink.png";
 import logoLight from "../../public/logo/wordmark-light.png";
 
 /**
- * Full CoreFinity lockup.
+ * Full Corefinity Tech lockup.
  * "dark" = ink wordmark and graphite mark on transparent, for light backgrounds.
  * "light" = white wordmark on transparent, for dark backgrounds.
  *
@@ -29,7 +29,7 @@ export default function Brand({
   return (
     <Image
       src={src}
-      alt="CoreFinity"
+      alt="Corefinity Tech"
       className={className}
       priority={priority}
       sizes="200px"

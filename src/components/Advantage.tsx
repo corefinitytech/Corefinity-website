@@ -23,7 +23,7 @@ export default function Advantage() {
     <section id="expertise" className="px-4 py-20 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-7xl">
         <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
-          ( Why CoreFinity )
+          ( Why Corefinity Tech )
         </p>
         <h2 className="mt-4 text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
           The{" "}

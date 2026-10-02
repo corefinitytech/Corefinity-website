@@ -6,7 +6,7 @@
  * illustrative. Replace each entry with a real, client approved engagement
  * before relying on these pages publicly: search engines and assistants both
  * treat a case study as a factual claim, and the rest of the site is careful
- * to publish only what Corefinity can stand behind (see services.ts, schema.ts
+ * to publish only what Corefinity Tech can stand behind (see services.ts, schema.ts
  * and the notes in public/llms.txt).
  *
  * Structured data built from this file deliberately uses Article only. There
@@ -58,9 +58,9 @@ export const caseStudies: CaseStudy[] = [
     industry: "Ecommerce",
     summary:
       "An AI support assistant on WhatsApp and web chat that answers from the product catalogue and live order data.",
-    title: "AI WhatsApp Chatbot for Ecommerce: Case Study",
+    title: "AI WhatsApp Chatbot: Ecommerce Case Study",
     description:
-      "How Corefinity built an AI support chatbot on WhatsApp and web chat for an online skincare brand that resolves 71 percent of queries without an agent.",
+      "How Corefinity Tech built an AI support chatbot on WhatsApp and web chat for an online skincare brand that resolves 71 percent of queries without an agent.",
     keywords: [
       "AI chatbot case study",
       "WhatsApp chatbot for ecommerce",
@@ -166,9 +166,9 @@ export const caseStudies: CaseStudy[] = [
     industry: "Freight and logistics",
     summary:
       "An operations dashboard, Python data pipelines and a customer tracking portal that replaced a freight team's spreadsheets.",
-    title: "Logistics Dashboard and Automation: Case Study",
+    title: "Logistics Dashboard Automation Case Study",
     description:
-      "How Corefinity replaced a freight forwarder's spreadsheets with a logistics dashboard, Python pipelines and a tracking portal, saving 22 hours a week.",
+      "How Corefinity Tech replaced a freight forwarder's spreadsheets with a logistics dashboard, Python pipelines and a tracking portal, saving 22 hours a week.",
     keywords: [
       "logistics dashboard case study",
       "freight operations software",
@@ -276,7 +276,7 @@ export const caseStudies: CaseStudy[] = [
       "A commission free direct booking engine and the front desk dashboard behind it, live in under three weeks.",
     title: "Hotel Direct Booking Engine: Case Study",
     description:
-      "How Corefinity built a commission free hotel booking engine with Stripe payments, two way iCal sync and a front desk dashboard, live in three weeks.",
+      "How Corefinity Tech built a commission free hotel booking engine with Stripe payments, two way iCal sync and a front desk dashboard, live in three weeks.",
     keywords: [
       "hotel booking engine case study",
       "direct booking system",

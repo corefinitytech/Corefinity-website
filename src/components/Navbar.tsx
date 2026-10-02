@@ -161,7 +161,7 @@ export default function Navbar() {
         <Link
           href="/"
           className="flex shrink-0 items-center"
-          aria-label="CoreFinity home"
+          aria-label="Corefinity Tech home"
         >
           <Brand className="h-7 w-auto" priority />
         </Link>

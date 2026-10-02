@@ -13,9 +13,9 @@ import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
 import { site, siteUrl } from "@/lib/site";
 
-const title = "Blog: Building Software That Handles Growth";
+const title = "Blog: Building Software for Growth";
 const description =
-  "Plain English writing from the Corefinity team on scalability, custom software, automation and the decisions that decide whether growth helps or hurts a business.";
+  "Plain English writing from the Corefinity Tech team on scalability, custom software, automation and the decisions that decide whether growth helps or hurts a business.";
 
 export const metadata: Metadata = {
   title,
@@ -59,7 +59,7 @@ export default function BlogIndex() {
 
           <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
-              <H1Eyebrow>Corefinity blog</H1Eyebrow>
+              <H1Eyebrow>Corefinity Tech blog</H1Eyebrow>
               Notes on building software that{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 survives growth.

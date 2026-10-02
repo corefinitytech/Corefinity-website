@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Page not found",
   description:
-    "That page does not exist. Head back to the Corefinity home page.",
+    "That page does not exist. Head back to the Corefinity Tech home page.",
   robots: { index: false, follow: true },
 };
 

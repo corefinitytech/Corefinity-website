@@ -6,7 +6,7 @@ import type { DiagramKey } from "@/components/blog/Diagrams";
  * Articles are structured blocks rather than raw HTML, so the rendering stays
  * consistent with the rest of the site and every diagram is a real component
  * instead of an image. Same rules as the service pages: no invented client
- * names, no numbers Corefinity cannot stand behind, no long dashes.
+ * names, no numbers Corefinity Tech cannot stand behind, no long dashes.
  */
 
 export type BlogBlock =
@@ -477,7 +477,7 @@ export const posts: BlogPost[] = [
       },
       {
         type: "p",
-        text: "That is usually the work we are asked for at Corefinity: understanding what is really happening behind a product, finding the step that gives way first, and planning a path that grows with the business rather than against it. Sometimes that means building something new. Often it just means knowing where you stand before the busy day arrives.",
+        text: "That is usually the work we are asked for at Corefinity Tech: understanding what is really happening behind a product, finding the step that gives way first, and planning a path that grows with the business rather than against it. Sometimes that means building something new. Often it just means knowing where you stand before the busy day arrives.",
       },
     ],
     faqs: [

@@ -1,6 +1,6 @@
-# Corefinity
+# Corefinity Tech
 
-Marketing site for Corefinity. Next.js App Router, TypeScript, Tailwind v4,
+Marketing site for Corefinity Tech. Next.js App Router, TypeScript, Tailwind v4,
 statically prerendered and deployed on Vercel.
 
 ## Running it

@@ -8,22 +8,29 @@ import bundleAnalyzer from "@next/bundle-analyzer";
  * bootstrap into every statically prerendered page. The stricter option is a
  * per request nonce set from middleware, but that forces every page to render
  * dynamically and gives up the static prerendering this site depends on.
- * Given the site renders no user supplied HTML and embeds no third party
- * scripts, the trade is worth making. Revisit if either of those changes.
+ * Given the site renders no user supplied HTML and its only third party script
+ * is the opt-in Google Analytics tag, the trade is worth making. Revisit if
+ * either of those changes.
  */
 // React uses eval() in development to rebuild server error stacks in the
 // browser. It never does in production, so the allowance is dev only.
 const isDev = process.env.NODE_ENV === "development";
 
+// Google Analytics 4 loads gtag.js from googletagmanager.com, then sends hits
+// to the regional google-analytics.com collectors (fetch, with an image beacon
+// as fallback). The hosts are listed so it can run for visitors who opt in. It
+// is inert for everyone else, because the tag is never rendered.
+const gaScript = "https://www.googletagmanager.com";
+const gaCollect =
+  "https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com";
+
 const csp = [
   "default-src 'self'",
-  // plausible.io is listed so the analytics script can load for visitors who
-  // opt in. It is inert for everyone else, because the tag is never rendered.
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://plausible.io`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} ${gaScript}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  `img-src 'self' data: blob: ${gaCollect}`,
   "font-src 'self' data:",
-  "connect-src 'self' https://plausible.io",
+  `connect-src 'self' ${gaCollect}`,
   "form-action 'self'",
   "frame-ancestors 'none'",
   "base-uri 'self'",

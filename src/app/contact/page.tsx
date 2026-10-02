@@ -17,14 +17,14 @@ import {
 
 const title = "Get a Quote for Your Software Project";
 const description =
-  "Send Corefinity your project brief and get a written technical roadmap, a timeline and a fixed price back within 48 hours.";
+  "Send Corefinity Tech your project brief and get a written technical roadmap, a timeline and a fixed price back within 48 hours.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/contact" },
   openGraph: {
-    title: `${title} | Corefinity`,
+    title: `${title} | Corefinity Tech`,
     description,
     url: "/contact",
   },
