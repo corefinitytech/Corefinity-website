@@ -17,7 +17,7 @@ import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 const title = "Case Studies: AI, Web and Automation";
 const description =
-  "CoreFinity Tech case studies, starting with IELTS Counsel: an IELTS platform with instant AI band scores for Writing and Speaking and Easypaisa checkout.";
+  "CoreFinity Tech case studies, starting with IELTS Counsel: an IELTS online practice platform with an AI writing checker and Easypaisa checkout.";
 
 export const metadata: Metadata = {
   title,

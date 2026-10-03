@@ -288,7 +288,7 @@ function EducationScreen() {
         ))}
       </ul>
       <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-[10px] text-white/55">
-        <span>Median of 3 judgements</span>
+        <span>Read 3 times, middle score used</span>
         <span>Mentor review available</span>
       </div>
     </div>

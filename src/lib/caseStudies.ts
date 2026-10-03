@@ -54,22 +54,22 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "ielts-counsel-ai-writing-speaking-evaluation",
+    slug: "ielts-counsel-writing-checker-online-practice",
     client: "IELTS Counsel",
     clientUrl: "https://ieltscounsel.com/",
     industry: "Education",
     summary:
-      "An IELTS preparation platform for an Islamabad institute, with instant AI band scores for Writing and Speaking, Easypaisa plans, an admin panel and protected study resources.",
-    title: "AI IELTS Writing and Speaking Case Study",
+      "An IELTS online practice platform for an Islamabad institute, with an AI writing checker, speaking scores, Easypaisa plans and an admin panel.",
+    title: "IELTS Writing Checker Platform Case Study",
     description:
-      "How CoreFinity Tech built IELTS Counsel an IELTS platform with instant AI band scores for Writing and Speaking, Easypaisa checkout and an admin panel.",
+      "How CoreFinity Tech built IELTS Counsel an IELTS online practice platform with an AI writing checker, speaking scores and Easypaisa checkout.",
     keywords: [
-      "AI IELTS evaluation case study",
-      "AI IELTS writing checker",
-      "IELTS speaking AI scoring",
-      "AI essay scoring system",
-      "edtech platform development Pakistan",
-      "Easypaisa payment integration",
+      "IELTS writing checker",
+      "IELTS online practice",
+      "IELTS practice",
+      "IELTS online",
+      "IELTS speaking score",
+      "IELTS platform development",
     ],
     headline: {
       lead: "Instant IELTS band scores,",
@@ -80,44 +80,44 @@ export const caseStudies: CaseStudy[] = [
     datePublished: "2026-10-03",
     services: ["ai-development", "web-development", "systems-integration"],
     metrics: [
-      { value: 7, label: "Evaluation modes across Writing and Speaking" },
-      { value: 3, label: "AI judgements per essay, median taken" },
-      { value: 6, label: "Expert band samples used to calibrate" },
+      { value: 7, label: "Scoring modes for Writing and Speaking" },
+      { value: 3, label: "Readings per essay, middle score used" },
+      { value: 6, label: "Expert marked scripts used for tuning" },
       { value: 8, label: "Protection layers on every paid PDF" },
     ],
     challenge: [
-      "IELTS Counsel is an IELTS institute in Islamabad that prepares Pakistani students for the Academic and General Training tests, in person and online. Writing and Speaking are the modules students most need feedback on, and the slowest to mark. Every essay and every recording waited for an instructor, so how often a student could practise was set by teacher time, not by the student.",
-      "The business also ran in separate pieces. Online buyers, on campus students and installment payers lived in different records. Plans had to mean something, so paid tests, downloads and evaluations needed limits that could not be bypassed from the browser. Paid study material needed protecting from being passed around. And students in Pakistan needed to pay the way they actually pay, with Easypaisa rather than a card.",
+      "IELTS Counsel is an IELTS institute in Islamabad. It prepares students for the Academic and General Training tests, in class and online. Writing and Speaking are where students need the most feedback, and they take the longest to mark. Every essay and recording went to an instructor, so students could only practise as often as a teacher had time to mark.",
+      "The rest of the business was split across different places. Online students, campus students and students paying in installments were tracked separately. Paid plans needed limits that students could not get around, and paid study material needed protecting. Most students also wanted to pay with Easypaisa, so a card checkout alone would not work.",
     ],
     approach: [
-      "We built the AI engine as an examiner that gathers evidence, not one that guesses a number. The language model reads the answer and returns counts and observations: grammar and tense errors, uncommon vocabulary, collocations, cohesion problems, whether every part of the question was answered. Code then turns that evidence into criterion bands using threshold tables, hard caps and IELTS style rounding. A confident sounding model never decides a band on its own.",
-      "Each essay is judged three times and the median is taken, so one unusual reading cannot move a score. We calibrated the whole engine against the client's expert banded scripts from Band 4 to Band 9, fixed where the earlier version pulled weak and strong essays towards Band 6, and ran the new engine in shadow mode beside the old one before switching students over.",
-      "Around the engine sits the rest of the business: plans enforced on the server, Easypaisa checkout, an admin panel for online and on campus students, and mentor review kept for the students who want a human eye.",
+      "We designed the IELTS writing checker so the AI model does the reading and the code does the marking. The model goes through each answer and reports what it finds: grammar and tense errors, vocabulary range, collocations, linking problems, and whether every part of the question was answered. The code then works out each criterion band from that evidence, using fixed thresholds, caps and IELTS style rounding.",
+      "Each essay is read three times and the middle result is used, which keeps scores steady from one attempt to the next. We tuned the engine against the institute's own expert marked scripts from Band 4 to Band 9. The first version pushed weak and strong essays towards Band 6, so we corrected that, then ran the new engine alongside the old one before moving students over.",
+      "The rest of the platform covers plans and limits, Easypaisa checkout, an admin panel for online and campus students, and mentor review for students who still want a teacher to look at their work.",
     ],
     built: [
       {
-        title: "AI Writing engine",
-        body: "Scores Task 1 Academic, Task 1 General Training and Task 2 essays on all four IELTS criteria, with strengths, weaknesses and quoted examples from the answer. Short, off topic or memorised answers are capped rather than rewarded.",
+        title: "AI writing checker",
+        body: "Marks Task 1 Academic, Task 1 General Training and Task 2 on all four IELTS criteria. Students see their strengths, what to improve and examples quoted from their own answer. Very short, off topic or memorised answers are capped.",
       },
       {
-        title: "AI Speaking engine",
-        body: "A real exam flow across Parts 1, 2 and 3 with a microphone check, question audio and timers. Each recording is transcribed and measured for pace, pauses, hesitation, grammar, vocabulary and pronunciation, then combined into a full exam band.",
+        title: "AI speaking scores",
+        body: "Follows the real test across Parts 1, 2 and 3, with a microphone check, question audio and timers. Each recording is transcribed and checked for pace, pauses, hesitation, grammar, vocabulary and pronunciation, and the three parts are combined into one band.",
       },
       {
-        title: "Plans enforced on the server",
-        body: "Free trial, Bronze, Silver and Golden plans decide which mock tests, tracks, downloads and AI evaluations a student gets. Usage is counted in transactions, and a failed evaluation hands the credit back.",
+        title: "Plans and limits",
+        body: "Free trial, Bronze, Silver and Golden plans control which mock tests, tracks, downloads and AI evaluations a student can use. The server keeps count, and if an evaluation fails the student gets the credit back.",
       },
       {
         title: "Easypaisa checkout",
-        body: "Mobile account payments with status checks, amount verification and a receipt by email. A plan starts when the payment is confirmed, and an old order can never renew it twice.",
+        body: "Students pay from their Easypaisa mobile account. The system checks the payment status and amount, emails a receipt and starts the plan once the payment is confirmed. An old order cannot be used to renew a plan.",
       },
       {
         title: "Admin panel and analytics",
-        body: "Online and on campus students in one place, with CNIC or passport records, installments, due dates and balances, plus tests, blogs, pending evaluations, revenue by source, plan mix and average bands.",
+        body: "One place for online and campus students, including CNIC or passport records, installments, due dates and balances. Admins also manage tests and blogs, see pending evaluations, and track revenue by source, plan mix and average bands.",
       },
       {
         title: "Protected study resources",
-        body: "Every paid PDF is watermarked for the student who downloads it, with visible and invisible trace marks, so a shared file can be traced back to its source.",
+        body: "Each paid PDF is marked for the student who downloaded it, with visible and hidden trace marks, so a shared copy can be traced back.",
       },
     ],
     phases: [
@@ -125,33 +125,33 @@ export const caseStudies: CaseStudy[] = [
         when: "Phase 1",
         title: "Platform and plans",
         detail:
-          "The student app with Academic and General Training routes, mock tests for all four modules, accounts, and plan access decided on the server.",
+          "The student app with Academic and General Training routes, IELTS online practice tests for all four modules, accounts, and plan limits checked on the server.",
       },
       {
         when: "Phase 2",
         title: "Payments and operations",
         detail:
-          "Easypaisa checkout, the admin panel, on campus and installment students, protected resources and the analytics dashboard.",
+          "Easypaisa checkout, the admin panel, campus and installment students, protected resources and the analytics dashboard.",
       },
       {
         when: "Phase 3",
-        title: "AI engines",
+        title: "Writing and speaking scores",
         detail:
-          "The Writing and Speaking pipelines, from evidence extraction and audio analysis through to criterion scoring and feedback.",
+          "The writing checker and the speaking pipeline, from reading the answer or the recording through to criterion bands and feedback.",
       },
       {
         when: "Phase 4",
-        title: "Calibrate and roll out",
+        title: "Tune and roll out",
         detail:
-          "Tuning against expert banded scripts from Band 4 to Band 9, then shadow mode beside the old engine before students were switched over.",
+          "We tuned the scores against expert marked scripts from Band 4 to Band 9, then ran the new engine next to the old one before switching students over.",
       },
     ],
     results: [
-      "Students get a band score and criterion feedback on Writing and Speaking straight after submitting, instead of waiting for an instructor.",
-      "Mentor review is still there, now as a targeted step for the students who want it rather than the only way to get feedback.",
-      "The institute sells structured plans online through Easypaisa, with on campus and installment students in the same system.",
-      "Paid tests, downloads and AI evaluations are enforced on the server, so every plan delivers exactly what it promises.",
-      "Admins see revenue, plan mix, pending evaluations and average bands in one dashboard.",
+      "Students get a band score and feedback on each criterion as soon as they submit a Writing or Speaking task.",
+      "Mentor review is still available for students who want a teacher's view.",
+      "The institute sells its plans online through Easypaisa, and campus and installment students are managed in the same system.",
+      "Plan limits are checked on the server for every test, download and AI evaluation.",
+      "Admins see revenue, plan mix, pending evaluations and average bands on one dashboard.",
     ],
     stack: [
       "React",
