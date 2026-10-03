@@ -4,6 +4,7 @@ import Link from "next/link";
 import Check from "@/components/Check";
 import JsonLd from "@/components/JsonLd";
 import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
+import { SocialIcon } from "@/components/SocialIcons";
 import { ArrowRight } from "@/components/icons";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { services } from "@/lib/services";
@@ -360,8 +361,9 @@ export default function AboutPage() {
                       href={l.href}
                       target="_blank"
                       rel="me noopener noreferrer"
-                      className="text-sm font-medium text-white/70 transition hover:text-white"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-white/70 transition hover:text-white"
                     >
+                      <SocialIcon network={l.label} className="size-3.5" />
                       {l.label}
                     </a>
                   </li>

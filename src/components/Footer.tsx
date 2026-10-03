@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import Brand from "./Brand";
 import ConsentReset from "./ConsentReset";
+import { SocialIcon } from "./SocialIcons";
 import { services } from "@/lib/services";
 import { address, site, socialLinks } from "@/lib/site";
 
@@ -50,15 +51,16 @@ export default function Footer() {
               {address.addressLocality} {address.postalCode},{" "}
               {address.countryName}
             </address>
-            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+            <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-2">
               {socialLinks.map((l) => (
                 <li key={l.label}>
                   <a
                     href={l.href}
                     target="_blank"
                     rel="me noopener noreferrer"
-                    className="text-sm font-medium text-ink/70 transition hover:text-accent-ink"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-ink/70 transition hover:text-accent-ink"
                   >
+                    <SocialIcon network={l.label} className="size-3.5" />
                     {l.label}
                   </a>
                 </li>
