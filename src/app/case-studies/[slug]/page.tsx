@@ -12,6 +12,8 @@ import {
 import Check from "@/components/Check";
 import JsonLd from "@/components/JsonLd";
 import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
+import StepKeycaps from "@/components/StepKeycaps";
+import TechIcon from "@/components/TechIcon";
 import { CountUpOutline } from "@/components/backgrounds/LazyBackgrounds";
 import { ArrowRight } from "@/components/icons";
 import { getCaseStudy, caseStudies, nextCaseStudy } from "@/lib/caseStudies";
@@ -409,8 +411,9 @@ export default async function CaseStudyPage({
               {study.stack.map((t) => (
                 <li
                   key={t}
-                  className="rounded-full border border-black/10 bg-mist px-4 py-2 text-[13px] text-ink/75"
+                  className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-mist px-4 py-2 text-[13px] text-ink/75"
                 >
+                  <TechIcon name={t} className="size-3.5 shrink-0" />
                   {t}
                 </li>
               ))}
@@ -447,27 +450,38 @@ export default async function CaseStudyPage({
             </Link>
           )}
 
-          <div className="flex flex-col justify-between rounded-[32px] bg-mist p-8 sm:p-10">
-            <div>
-              <h2 className="max-w-md text-[clamp(1.75rem,3.6vw,2.5rem)] font-medium leading-[1.05] tracking-[-0.03em] text-ink">
-                Want results{" "}
-                <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                  like these?
-                </span>
-              </h2>
-              <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
-                Send a brief and you get a written scope, a timeline and a fixed
-                price back within 48 hours. It costs nothing and commits you to
-                nothing.
-              </p>
+          <div
+            className={`rounded-[32px] bg-mist p-8 sm:p-10 ${
+              next
+                ? "flex flex-col justify-between"
+                : "grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16"
+            }`}
+          >
+            <div className="flex flex-col justify-between">
+              <div>
+                <h2 className="max-w-md text-[clamp(1.75rem,3.6vw,2.5rem)] font-medium leading-[1.05] tracking-[-0.03em] text-ink">
+                  Want results{" "}
+                  <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
+                    like these?
+                  </span>
+                </h2>
+                <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
+                  Send a brief and you get a written scope, a timeline and a
+                  fixed price back within 48 hours. It costs nothing and commits
+                  you to nothing.
+                </p>
+              </div>
+              <Link
+                href="/contact"
+                className="group mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85 sm:w-auto sm:self-start"
+              >
+                Get a quote
+                <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </div>
-            <Link
-              href="/contact"
-              className="group mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85 sm:w-auto sm:self-start"
-            >
-              Get a quote
-              <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
+            {/* With no "read next" card beside it, the CTA spans the row, so
+                the steps fill the space the card would have taken. */}
+            {!next && <StepKeycaps />}
           </div>
         </div>
       </section>

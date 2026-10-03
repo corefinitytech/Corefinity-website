@@ -86,6 +86,14 @@ export const socialLinks = [
  * Tech", Islamabad). Search engines match the business profile to this site
  * partly by comparing these details, so change both together or not at all.
  */
+/**
+ * The company is in stealth, so founder names are kept here but not published:
+ * the About page team section, the Organization schema founder field and
+ * llms.txt all stay silent while this is false. Flip it to name them again
+ * (and restore the founder lines in public/llms.txt).
+ */
+export const foundersPublic = false;
+
 export const founders = [
   { name: "Maarij Bukhari" },
   { name: "Muhammad Sohaib" },
