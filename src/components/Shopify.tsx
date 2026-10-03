@@ -51,10 +51,10 @@ export default function Shopify() {
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
               <Link
-                href="/case-studies/ai-whatsapp-support-assistant-ecommerce"
+                href="/services/web-development"
                 className="inline-flex items-center gap-2 rounded-full border border-black/10 px-6 py-3 text-[13px] font-medium text-ink/80 transition hover:border-ink hover:text-ink"
               >
-                See our Shopify work
+                See our web development
               </Link>
             </div>
           </div>

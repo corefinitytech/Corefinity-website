@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import {
@@ -9,7 +10,7 @@ import {
 import JsonLd from "@/components/JsonLd";
 import { H1Eyebrow } from "@/components/PageHeading";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
-import { caseStudies } from "@/lib/caseStudies";
+import { caseStudies, hasCaseStudies } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
 import { openGraphDefaults, site, siteUrl } from "@/lib/site";
@@ -38,6 +39,9 @@ export const metadata: Metadata = {
 };
 
 export default function CaseStudiesIndex() {
+  // No real case studies yet, so the index is a 404 rather than an empty page.
+  if (!hasCaseStudies) notFound();
+
   return (
     <main id="main">
       {/* Header */}

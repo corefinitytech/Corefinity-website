@@ -4,6 +4,7 @@ import {
   caseStudies,
   caseStudiesFor,
   getCaseStudy,
+  hasCaseStudies,
   nextCaseStudy,
 } from "./caseStudies";
 import { getService } from "./services";
@@ -108,7 +109,16 @@ describe("copy rules", () => {
   });
 });
 
-describe("lookups", () => {
+describe("with no case studies published", () => {
+  it("reports none, so links, nav, sitemap and pages stay hidden", () => {
+    expect(hasCaseStudies).toBe(caseStudies.length > 0);
+    expect(getCaseStudy("not-a-case-study")).toBeUndefined();
+    expect(caseStudiesFor("not-a-service")).toEqual([]);
+  });
+});
+
+// These need at least one real study to look up.
+describe.skipIf(!hasCaseStudies)("lookups", () => {
   it("keeps the slug the home page section links to", () => {
     // CaseStudy.tsx links here directly; renaming the slug breaks that link.
     expect(getCaseStudy("hotel-direct-booking-engine")).toBeDefined();

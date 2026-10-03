@@ -32,7 +32,20 @@ const links: NavLink[] = [
   { label: "Blog", id: "blog", href: "/blog" },
 ];
 
-export default function Navbar() {
+// Without real case studies the page is a 404, so the nav leaves it out.
+// Both arrays are module constants, so the effects below see a stable value.
+const linksWithoutCaseStudies = links.filter((l) => l.id !== "case-studies");
+
+/**
+ * showCaseStudies comes from the server layout, which can read the case study
+ * list without shipping that content to the browser in this client bundle.
+ */
+export default function Navbar({
+  showCaseStudies,
+}: {
+  showCaseStudies: boolean;
+}) {
+  const navLinks = showCaseStudies ? links : linksWithoutCaseStudies;
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -61,7 +74,7 @@ export default function Navbar() {
   useEffect(() => {
     if (!isHome) return;
 
-    const sections = links
+    const sections = navLinks
       .map((l, i) => {
         const el = document.getElementById(l.id);
         return el ? { el, i } : null;
@@ -92,7 +105,7 @@ export default function Navbar() {
 
     sections.forEach((s) => observer.observe(s.el));
     return () => observer.disconnect();
-  }, [isHome]);
+  }, [isHome, navLinks]);
 
   const measure = useCallback(() => {
     const el = target === null ? null : itemRefs.current[target];
@@ -189,7 +202,7 @@ export default function Navbar() {
           />
 
           <ul ref={listRef} className="relative z-10 flex items-center gap-1">
-            {links.map((l, i) => (
+            {navLinks.map((l, i) => (
               <li key={l.label}>
                 <Link
                   ref={(el) => {
@@ -239,7 +252,7 @@ export default function Navbar() {
           className="mx-auto mt-2 max-w-7xl rounded-3xl border border-black/5 bg-white p-3 shadow-xl lg:hidden"
         >
           <ul className="grid gap-1">
-            {links.map((l) => (
+            {navLinks.map((l) => (
               <li key={l.label}>
                 <Link
                   href={l.href ?? `/#${l.id}`}
