@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import JsonLd from "@/components/JsonLd";
-import { CoverBackground, CoverScrim } from "@/components/blog/CoverBackground";
+import CoverPlate from "@/components/blog/CoverPlate";
 import { H1Eyebrow } from "@/components/PageHeading";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
 import { postsByDate, readingMinutes } from "@/lib/blog";
@@ -33,11 +33,6 @@ export const metadata: Metadata = {
 };
 
 /** Surfaces cycle so a column of posts does not read as one flat block. */
-const surfaces = [
-  "bg-[radial-gradient(120%_120%_at_20%_15%,#1880d8_0%,#0f4c93_38%,#0d1a33_74%,#080b18_100%)]",
-  "bg-[linear-gradient(160deg,#061426_0%,#0f3a66_52%,#050b14_100%)]",
-  "bg-[linear-gradient(140deg,#14161a_0%,#1a1d23_60%,#123a6b_100%)]",
-];
 
 export default function BlogIndex() {
   const all = postsByDate();
@@ -130,24 +125,13 @@ export default function BlogIndex() {
                   </div>
                 </div>
 
-                {/* Cover */}
-                <div
-                  className={`relative isolate grid min-h-[260px] place-items-center overflow-hidden p-8 text-white ${
-                    surfaces[i % surfaces.length]
-                  } ${flip ? "lg:order-1" : ""}`}
-                >
-                  <div aria-hidden className="absolute inset-0">
-                    <CoverBackground index={i} />
-                  </div>
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:40px_40px]"
-                  />
-                  <CoverScrim />
-                  <p className="relative max-w-[26ch] text-center text-[clamp(1.1rem,2vw,1.5rem)] font-medium leading-snug tracking-[-0.02em]">
-                    {post.description.split(".")[0]}.
-                  </p>
-                </div>
+                {/* Cover: the post's engraved plate on matching paper */}
+                <CoverPlate
+                  src={post.cover.src}
+                  alt={post.cover.alt}
+                  sizes="(min-width: 1024px) 640px, 100vw"
+                  className={`min-h-[300px] ${flip ? "lg:order-1" : ""}`}
+                />
               </Link>
             );
           })}

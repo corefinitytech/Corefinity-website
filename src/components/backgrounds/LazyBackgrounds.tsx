@@ -40,11 +40,7 @@ function whenNearViewport<P extends object>(Effect: ComponentType<P>) {
   return Deferred;
 }
 
-// ShaderCanvas and ContourDome gate themselves on visibility already.
-export const LiquidSilkBackground = dynamic(() => import("./LiquidSilk"), {
-  ssr: false,
-});
-
+// ContourDome gates itself on visibility already.
 export const ContourDomeBackground = dynamic(() => import("./ContourDome"), {
   ssr: false,
 });

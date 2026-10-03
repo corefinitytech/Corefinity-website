@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import JsonLd from "@/components/JsonLd";
 import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
+import CoverPlate from "@/components/blog/CoverPlate";
 import { diagrams } from "@/components/blog/Diagrams";
 import { ArrowRight } from "@/components/icons";
 import {
@@ -151,7 +152,7 @@ function Block({ block }: { block: BlogBlock }) {
           </div>
           <figcaption className="mt-3 text-[13px] leading-relaxed text-ink/60">
             {block.caption}
-            <span className="mt-1 block text-ink/45 sm:hidden">
+            <span className="mt-1 block text-ink/60 sm:hidden">
               Scroll sideways to see the whole diagram.
             </span>
           </figcaption>
@@ -219,6 +220,17 @@ export default async function BlogPostPage({
             <span>{readingMinutes(post)} minute read</span>
           </div>
         </div>
+      </section>
+
+      {/* Cover plate */}
+      <section className="px-4 pt-10 sm:px-6">
+        <CoverPlate
+          src={post.cover.src}
+          alt={post.cover.alt}
+          sizes="(min-width: 1024px) 1024px, 100vw"
+          priority
+          className="mx-auto aspect-[3/2] max-w-5xl rounded-[32px]"
+        />
       </section>
 
       {/* Article */}
