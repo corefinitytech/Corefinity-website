@@ -29,7 +29,7 @@ local development, but note what each one turns off when missing:
 | Variable | Without it |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonicals fall back to the production domain, which is wrong on preview deploys |
-| `RESEND_API_KEY`, `BRIEF_FROM_EMAIL` | The brief form returns 503 rather than silently dropping a lead |
+| `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` | The brief form returns 503 rather than silently dropping a lead |
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | The Google verification tag is omitted |
 | `NEXT_PUBLIC_BING_SITE_VERIFICATION` | The Bing verification tag is omitted |
 | `INDEXNOW_KEY` | `/api/indexnow` and `/indexnow-key.txt` return 404 |
