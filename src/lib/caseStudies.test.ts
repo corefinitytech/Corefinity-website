@@ -56,7 +56,7 @@ describe("search metadata", () => {
   it("keeps titles short enough not to be truncated", () => {
     for (const c of caseStudies) {
       // The brand is appended by the title template, so budget for it.
-      // 60 characters in total once " | Corefinity Tech" (18) is appended.
+      // 60 characters in total once " | CoreFinity Tech" (18) is appended.
       expect(c.title.length).toBeLessThanOrEqual(42);
     }
   });

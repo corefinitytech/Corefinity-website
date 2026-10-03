@@ -1,7 +1,7 @@
 /**
  * Service page content.
  *
- * Every claim here describes how Corefinity Tech works, not what it has delivered.
+ * Every claim here describes how CoreFinity Tech works, not what it has delivered.
  * No client names, no project counts, no outcome figures, because none of that
  * is published yet and inventing it would poison the structured data these
  * pages emit. Add proof to a page the day there is real proof to add.
@@ -121,19 +121,19 @@ export const services: ServicePage[] = [
     faqs: [
       {
         q: "How long does custom web application development take?",
-        a: "Corefinity Tech typically delivers a focused MVP or marketing site for staging review in 10 to 14 business days. A full web application with authentication, a real data model and an admin side takes 3 to 4 weeks, and larger builds ship in stages.",
+        a: "CoreFinity Tech typically delivers a focused MVP or marketing site for staging review in 10 to 14 business days. A full web application with authentication, a real data model and an admin side takes 3 to 4 weeks, and larger builds ship in stages.",
       },
       {
-        q: "Can Corefinity Tech take over a web project another developer started?",
-        a: "Yes, in most cases. Corefinity Tech reviews the existing codebase first and states in writing whether continuing or rebuilding is better value, because a rebuild is sometimes cheaper than untangling poor code.",
+        q: "Can CoreFinity Tech take over a web project another developer started?",
+        a: "Yes, in most cases. CoreFinity Tech reviews the existing codebase first and states in writing whether continuing or rebuilding is better value, because a rebuild is sometimes cheaper than untangling poor code.",
       },
       {
-        q: "Can Corefinity Tech build to our existing designs or brand system?",
-        a: "Yes. Corefinity Tech builds to an existing design team's files or brand system, and designs and agrees the screens first when a client has none.",
+        q: "Can CoreFinity Tech build to our existing designs or brand system?",
+        a: "Yes. CoreFinity Tech builds to an existing design team's files or brand system, and designs and agrees the screens first when a client has none.",
       },
       {
-        q: "What support does Corefinity Tech provide after a website launches?",
-        a: "Corefinity Tech fixes defects in its own work at no charge for the support period stated in the proposal. After that, the client can keep working with Corefinity Tech or take the code to any team, with no retainer required.",
+        q: "What support does CoreFinity Tech provide after a website launches?",
+        a: "CoreFinity Tech fixes defects in its own work at no charge for the support period stated in the proposal. After that, the client can keep working with CoreFinity Tech or take the code to any team, with no retainer required.",
       },
     ],
     related: ["ui-ux-design", "systems-integration", "cloud-deployment"],
@@ -230,11 +230,11 @@ export const services: ServicePage[] = [
       },
       {
         q: "Do Apple and Google charge app store fees separately?",
-        a: "Yes. Apple charges an annual developer fee and Google charges a one time registration fee, both separate from Corefinity Tech's price and paid on the client's own accounts so the app is registered to the client's business.",
+        a: "Yes. Apple charges an annual developer fee and Google charges a one time registration fee, both separate from CoreFinity Tech's price and paid on the client's own accounts so the app is registered to the client's business.",
       },
       {
         q: "How long does App Store and Google Play approval take?",
-        a: "App store review usually takes a few days per store, and a first submission is often rejected over a minor guideline issue. Corefinity Tech builds that resubmission round trip into the project timeline.",
+        a: "App store review usually takes a few days per store, and a first submission is often rejected over a minor guideline issue. CoreFinity Tech builds that resubmission round trip into the project timeline.",
       },
       {
         q: "Can a mobile app work offline?",
@@ -331,19 +331,19 @@ export const services: ServicePage[] = [
     faqs: [
       {
         q: "Can an AI chatbot make things up?",
-        a: "Yes. Language models can produce wrong answers, and no provider can remove that risk entirely. Corefinity Tech reduces it by grounding answers in the client's own documents, limiting what the chatbot will attempt and handing uncertain questions to a person.",
+        a: "Yes. Language models can produce wrong answers, and no provider can remove that risk entirely. CoreFinity Tech reduces it by grounding answers in the client's own documents, limiting what the chatbot will attempt and handing uncertain questions to a person.",
       },
       {
         q: "Is company data used to train AI models?",
-        a: "Not in AI systems built by Corefinity Tech. Corefinity Tech uses provider settings that exclude client data from model training, never reuses client material for anyone else, and puts this commitment in its terms.",
+        a: "Not in AI systems built by CoreFinity Tech. CoreFinity Tech uses provider settings that exclude client data from model training, never reuses client material for anyone else, and puts this commitment in its terms.",
       },
       {
         q: "How much does an AI chatbot cost to run?",
-        a: "AI model usage is billed by the provider on the client's own account, so running costs scale with usage and stay under the client's control. Corefinity Tech estimates the monthly cost during scoping and designs the system to keep it predictable.",
+        a: "AI model usage is billed by the provider on the client's own account, so running costs scale with usage and stay under the client's control. CoreFinity Tech estimates the monthly cost during scoping and designs the system to keep it predictable.",
       },
       {
         q: "What happens if an AI provider changes or retires a model?",
-        a: "AI providers change and retire models regularly. Corefinity Tech builds AI systems so the model provider can be swapped wherever practical, instead of tying the business to one vendor.",
+        a: "AI providers change and retire models regularly. CoreFinity Tech builds AI systems so the model provider can be swapped wherever practical, instead of tying the business to one vendor.",
       },
     ],
     related: ["python-automation", "web-development", "systems-integration"],
@@ -436,19 +436,19 @@ export const services: ServicePage[] = [
     faqs: [
       {
         q: "How long does a Python automation project take?",
-        a: "A single well defined Python automation job usually takes a few days, and a pipeline spanning several systems with validation and alerting takes one to two weeks. Corefinity Tech quotes a fixed price once the task is clear.",
+        a: "A single well defined Python automation job usually takes a few days, and a pipeline spanning several systems with validation and alerting takes one to two weeks. CoreFinity Tech quotes a fixed price once the task is clear.",
       },
       {
         q: "What happens when a scraped website changes its layout?",
-        a: "Scrapers break when a source website changes, so Corefinity Tech builds them to fail loudly and alert the client instead of silently returning nothing. The code is written so repairs are quick.",
+        a: "Scrapers break when a source website changes, so CoreFinity Tech builds them to fail loudly and alert the client instead of silently returning nothing. The code is written so repairs are quick.",
       },
       {
         q: "Is web scraping legal?",
-        a: "Web scraping legality depends on the source website, its terms of service and the type of data collected. Corefinity Tech checks each source before building and advises against sources that carry legal risk.",
+        a: "Web scraping legality depends on the source website, its terms of service and the type of data collected. CoreFinity Tech checks each source before building and advises against sources that carry legal risk.",
       },
       {
-        q: "Can Corefinity Tech fix an existing Python script?",
-        a: "Usually, yes. Corefinity Tech reviews the script first and recommends repairing or rewriting it based on value, and for a short script a rewrite is often cheaper.",
+        q: "Can CoreFinity Tech fix an existing Python script?",
+        a: "Usually, yes. CoreFinity Tech reviews the script first and recommends repairing or rewriting it based on value, and for a short script a rewrite is often cheaper.",
       },
     ],
     related: ["ai-development", "systems-integration", "web-development"],
@@ -540,15 +540,15 @@ export const services: ServicePage[] = [
     faqs: [
       {
         q: "Can any agency guarantee first page Google rankings?",
-        a: "No. Nobody controls how search engines rank pages, so any agency guaranteeing first page rankings is overselling. Corefinity Tech commits to the technical SEO work itself, done properly and documented.",
+        a: "No. Nobody controls how search engines rank pages, so any agency guaranteeing first page rankings is overselling. CoreFinity Tech commits to the technical SEO work itself, done properly and documented.",
       },
       {
         q: "How long does SEO take to show results?",
         a: "Technical SEO fixes such as indexing and page speed can register within weeks, while ranking movement on competitive keywords usually takes several months.",
       },
       {
-        q: "Does Corefinity Tech write SEO content?",
-        a: "Corefinity Tech handles site structure, technical SEO and content planning, and specifies exactly what each page needs to cover. Copy about a client's own business is usually best written by the client, following that plan.",
+        q: "Does CoreFinity Tech write SEO content?",
+        a: "CoreFinity Tech handles site structure, technical SEO and content planning, and specifies exactly what each page needs to cover. Copy about a client's own business is usually best written by the client, following that plan.",
       },
       {
         q: "Why does Bing matter for SEO if Google is bigger?",
@@ -646,19 +646,19 @@ export const services: ServicePage[] = [
     faqs: [
       {
         q: "Can a system with no API still be integrated?",
-        a: "Often, yes. A system without an API can usually be connected through file exports, direct database access or careful automation of its interface, and Corefinity Tech confirms which route is reliable before quoting.",
+        a: "Often, yes. A system without an API can usually be connected through file exports, direct database access or careful automation of its interface, and CoreFinity Tech confirms which route is reliable before quoting.",
       },
       {
         q: "Who pays for third party API costs in an integration project?",
-        a: "The client pays third party API costs directly, billed to the client's own accounts. Corefinity Tech sets up every service in the client's name so the client controls the keys, the spending and the vendor relationship.",
+        a: "The client pays third party API costs directly, billed to the client's own accounts. CoreFinity Tech sets up every service in the client's name so the client controls the keys, the spending and the vendor relationship.",
       },
       {
         q: "What happens when a third party API changes?",
-        a: "API providers deprecate endpoints with varying notice, so Corefinity Tech builds integrations that detect and report breakage immediately instead of letting data go missing for weeks.",
+        a: "API providers deprecate endpoints with varying notice, so CoreFinity Tech builds integrations that detect and report breakage immediately instead of letting data go missing for weeks.",
       },
       {
-        q: "Can Corefinity Tech fix an integration built by someone else?",
-        a: "Usually, yes. Corefinity Tech diagnoses why the existing integration fails and recommends repairing or replacing it based on value.",
+        q: "Can CoreFinity Tech fix an integration built by someone else?",
+        a: "Usually, yes. CoreFinity Tech diagnoses why the existing integration fails and recommends repairing or replacing it based on value.",
       },
     ],
     related: ["web-development", "python-automation", "cloud-deployment"],
@@ -742,16 +742,16 @@ export const services: ServicePage[] = [
     stack: ["Figma", "Design tokens", "Tailwind CSS", "WCAG 2.2"],
     faqs: [
       {
-        q: "Can another development team build from Corefinity Tech's designs?",
-        a: "Yes. The client owns the Figma files, which Corefinity Tech organises so any development team can build from them without being locked in.",
+        q: "Can another development team build from CoreFinity Tech's designs?",
+        a: "Yes. The client owns the Figma files, which CoreFinity Tech organises so any development team can build from them without being locked in.",
       },
       {
         q: "How many design revisions are included?",
-        a: "The number of design revisions is stated in each Corefinity Tech proposal and set at a realistic level. Because page structure is agreed before visual detail, most later revisions are small.",
+        a: "The number of design revisions is stated in each CoreFinity Tech proposal and set at a realistic level. Because page structure is agreed before visual detail, most later revisions are small.",
       },
       {
-        q: "Does Corefinity Tech do brand and logo design?",
-        a: "Corefinity Tech designs products within an existing brand and can set a workable visual direction when none exists. A full brand identity is a separate discipline, and Corefinity Tech says so rather than improvising one.",
+        q: "Does CoreFinity Tech do brand and logo design?",
+        a: "CoreFinity Tech designs products within an existing brand and can set a workable visual direction when none exists. A full brand identity is a separate discipline, and CoreFinity Tech says so rather than improvising one.",
       },
       {
         q: "Is UX design worth it for an internal tool?",
@@ -846,20 +846,20 @@ export const services: ServicePage[] = [
     ],
     faqs: [
       {
-        q: "Does Corefinity Tech only deploy to Vercel?",
-        a: "No. Corefinity Tech defaults to Vercel for Next.js projects but also deploys to AWS, Cloudflare and traditional hosting, choosing based on the client's stack and compliance requirements.",
+        q: "Does CoreFinity Tech only deploy to Vercel?",
+        a: "No. CoreFinity Tech defaults to Vercel for Next.js projects but also deploys to AWS, Cloudflare and traditional hosting, choosing based on the client's stack and compliance requirements.",
       },
       {
         q: "Who owns the hosting and cloud accounts?",
-        a: "The client owns every hosting and cloud account, set up in the client's organisation name and billed to the client. Corefinity Tech is added only as a collaborator, so removing Corefinity Tech never puts the infrastructure at risk.",
+        a: "The client owns every hosting and cloud account, set up in the client's organisation name and billed to the client. CoreFinity Tech is added only as a collaborator, so removing CoreFinity Tech never puts the infrastructure at risk.",
       },
       {
         q: "How much does web application hosting cost?",
-        a: "Hosting cost depends on traffic and what the application does, and most small to medium projects cost in the low tens of US dollars a month. Corefinity Tech estimates the hosting cost during scoping.",
+        a: "Hosting cost depends on traffic and what the application does, and most small to medium projects cost in the low tens of US dollars a month. CoreFinity Tech estimates the hosting cost during scoping.",
       },
       {
-        q: "Can Corefinity Tech take over existing cloud infrastructure?",
-        a: "Yes. Corefinity Tech audits the running infrastructure first, delivers a written risk assessment, and fixes the issues in priority order.",
+        q: "Can CoreFinity Tech take over existing cloud infrastructure?",
+        a: "Yes. CoreFinity Tech audits the running infrastructure first, delivers a written risk assessment, and fixes the issues in priority order.",
       },
     ],
     related: ["web-development", "systems-integration", "seo"],

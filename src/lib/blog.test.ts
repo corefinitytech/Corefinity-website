@@ -81,7 +81,7 @@ describe("blog data", () => {
 
 describe("search metadata", () => {
   it("keeps titles short enough not to be truncated", () => {
-    // 60 characters in total once " | Corefinity Tech" (18) is appended.
+    // 60 characters in total once " | CoreFinity Tech" (18) is appended.
     for (const p of posts) expect(p.title.length).toBeLessThanOrEqual(42);
   });
 

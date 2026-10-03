@@ -6,7 +6,7 @@ import { legal, site } from "@/lib/site";
 
 const title = "Terms of Service";
 const description =
-  "The terms that govern using the Corefinity Tech website and engaging Corefinity Tech for web, mobile, AI, automation and SEO work.";
+  "The terms that govern using the CoreFinity Tech website and engaging CoreFinity Tech for web, mobile, AI, automation and SEO work.";
 
 export const metadata: Metadata = {
   title,

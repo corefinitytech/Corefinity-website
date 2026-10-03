@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: site.title,
-    // Page titles read "Get a Quote | Corefinity Tech" without repeating the brand.
+    // Page titles read "Get a Quote | CoreFinity Tech" without repeating the brand.
     template: `%s | ${site.name}`,
   },
   description: site.description,
