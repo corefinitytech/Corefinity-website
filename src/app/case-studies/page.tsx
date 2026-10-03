@@ -17,7 +17,7 @@ import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 const title = "Case Studies: AI, Web and Automation";
 const description =
-  "CoreFinity Tech case studies: an AI WhatsApp support assistant, a logistics operations dashboard with Python automation, and a commission free hotel booking engine.";
+  "CoreFinity Tech case studies, starting with IELTS Counsel: an IELTS platform with instant AI band scores for Writing and Speaking and Easypaisa checkout.";
 
 export const metadata: Metadata = {
   title,
@@ -66,7 +66,7 @@ export default function CaseStudiesIndex() {
 
             <p className="max-w-sm shrink-0 text-sm leading-relaxed text-ink/65 lg:pb-3">
               What we built, why it was built that way, and what changed for the
-              business afterwards. Each one started as a two minute brief.
+              business afterwards.
             </p>
           </div>
         </div>
