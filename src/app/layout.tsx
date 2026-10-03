@@ -12,6 +12,7 @@ import {
   serviceSchema,
   websiteSchema,
 } from "@/lib/schema";
+import { hasCaseStudies } from "@/lib/caseStudies";
 import { openGraphDefaults, site, siteUrl, verification } from "@/lib/site";
 
 import "./globals.css";
@@ -101,7 +102,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <Navbar />
+        <Navbar showCaseStudies={hasCaseStudies} />
         {children}
         <Footer />
         <CookieConsent />

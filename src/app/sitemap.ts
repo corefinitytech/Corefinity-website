@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { posts } from "@/lib/blog";
-import { caseStudies } from "@/lib/caseStudies";
+import { caseStudies, hasCaseStudies } from "@/lib/caseStudies";
 import { services } from "@/lib/services";
 import { legal, site, siteUrl } from "@/lib/site";
 
@@ -29,7 +29,9 @@ const routes: {
     changeFrequency: "monthly" as const,
     lastModified: content,
   })),
-  { path: "/case-studies", priority: 0.8, changeFrequency: "monthly", lastModified: content },
+  ...(hasCaseStudies
+    ? [{ path: "/case-studies", priority: 0.8, changeFrequency: "monthly", lastModified: content } as const]
+    : []),
   ...caseStudies.map((c) => ({
     path: `/case-studies/${c.slug}`,
     priority: 0.7,

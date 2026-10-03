@@ -10,6 +10,7 @@ import Advantage from "@/components/Advantage";
 import Clients from "@/components/Clients";
 import Pricing from "@/components/Pricing";
 import CaseStudy from "@/components/CaseStudy";
+import { hasCaseStudies } from "@/lib/caseStudies";
 import BlogTeaser from "@/components/BlogTeaser";
 import Faq from "@/components/Faq";
 import ProjectBrief from "@/components/ProjectBrief";
@@ -42,7 +43,7 @@ export default function Home() {
       <Advantage />
       <Clients />
       <Pricing />
-      <CaseStudy />
+      {hasCaseStudies && <CaseStudy />}
       <BlogTeaser />
       <Faq />
       <ProjectBrief />

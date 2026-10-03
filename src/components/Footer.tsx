@@ -3,6 +3,7 @@ import Link from "next/link";
 import Brand from "./Brand";
 import ConsentReset from "./ConsentReset";
 import { SocialIcon } from "./SocialIcons";
+import { hasCaseStudies } from "@/lib/caseStudies";
 import { services } from "@/lib/services";
 import { address, site, socialLinks } from "@/lib/site";
 
@@ -15,7 +16,7 @@ const sections = [
   { label: "About us", href: "/about" },
   { label: "All services", href: "/services" },
   { label: "How we work", href: "/#process" },
-  { label: "Case studies", href: "/case-studies" },
+  ...(hasCaseStudies ? [{ label: "Case studies", href: "/case-studies" }] : []),
   { label: "Blog", href: "/blog" },
   { label: "Engagements", href: "/#pricing" },
   { label: "Questions", href: "/#faq" },

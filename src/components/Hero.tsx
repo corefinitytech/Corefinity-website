@@ -1,6 +1,7 @@
 import HeroBanner from "./HeroBanner";
 import { H1Eyebrow } from "./PageHeading";
 import { ArrowRight } from "./icons";
+import { hasCaseStudies } from "@/lib/caseStudies";
 
 export default function Hero() {
   return (
@@ -30,10 +31,10 @@ export default function Hero() {
                 <ArrowRight className="size-3.5 transition-transform" />
               </a>
               <a
-                href="#case-studies"
+                href={hasCaseStudies ? "#case-studies" : "/contact"}
                 className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full border border-black/10 px-5 text-[13px] font-medium text-ink/75 transition hover:border-ink hover:text-ink"
               >
-                See a build we shipped
+                {hasCaseStudies ? "See a build we shipped" : "Get a Quote"}
               </a>
             </div>
           </div>

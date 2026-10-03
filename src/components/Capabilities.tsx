@@ -270,7 +270,7 @@ export default function Capabilities() {
 
           <Card
             className="min-h-[200px] lg:col-span-2"
-            href="/case-studies/hotel-direct-booking-engine"
+            href="/services/web-development"
             title="Direct Booking & Commerce"
             body="Commission free reservation and checkout flows with Stripe settlement and two way calendar sync, built so operators stop handing 15 to 25 percent of revenue to booking portals."
             tag="Stripe & iCal"

@@ -159,7 +159,7 @@ Send a project brief through the form at corefinity.tech/contact. CoreFinity Tec
 ## Pages
 
 * [Home](https://corefinity.tech): services, engagement options, pricing
-  structure, case study and frequently asked questions.
+  structure and frequently asked questions.
 * [About](https://corefinity.tech/about): who CoreFinity Tech is, the three founders, how a project runs and what the company will not do.
 * [Services](https://corefinity.tech/services): index of everything CoreFinity Tech
   builds and runs.
