@@ -45,10 +45,6 @@ export const LiquidSilkBackground = dynamic(() => import("./LiquidSilk"), {
   ssr: false,
 });
 
-export const GlowingRingBackground = dynamic(() => import("./GlowingRing"), {
-  ssr: false,
-});
-
 export const ContourDomeBackground = dynamic(() => import("./ContourDome"), {
   ssr: false,
 });
@@ -63,10 +59,6 @@ export const MoltenMetalBackground = whenNearViewport(
 
 export const GradientWavesBackground = whenNearViewport(
   dynamic(() => import("./GradientWaves"), { ssr: false }),
-);
-
-export const OrbParticlesBackground = whenNearViewport(
-  dynamic(() => import("./OrbParticles"), { ssr: false }),
 );
 
 export const GradientBlindsBackground = whenNearViewport(
