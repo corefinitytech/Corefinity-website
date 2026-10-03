@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import CardNotch from "./CardNotch";
-import { CoverBackground, CoverScrim } from "./blog/CoverBackground";
+import CoverPlate from "./blog/CoverPlate";
 import { ArrowRight } from "./icons";
 import { postsByDate, readingMinutes } from "@/lib/blog";
 import { getService } from "@/lib/services";
@@ -12,12 +12,6 @@ import { getService } from "@/lib/services";
  * One card per article, all the same shape. With a single article published
  * the row simply holds one card rather than padding the space out.
  */
-
-const covers = [
-  "bg-[radial-gradient(120%_120%_at_20%_15%,#1880d8_0%,#0f4c93_38%,#0d1a33_74%,#080b18_100%)]",
-  "bg-[linear-gradient(160deg,#061426_0%,#0f3a66_52%,#050b14_100%)]",
-  "bg-[linear-gradient(140deg,#14161a_0%,#1a1d23_60%,#123a6b_100%)]",
-];
 
 export default function BlogTeaser() {
   const latest = postsByDate().slice(0, 3);
@@ -47,39 +41,29 @@ export default function BlogTeaser() {
         </div>
 
         <div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-          {latest.map((post, i) => (
+          {latest.map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
               className="group relative flex flex-col overflow-hidden rounded-[24px] border border-black/[0.08] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/[0.06]"
             >
-              {/* Cover */}
-              <div
-                className={`relative isolate flex h-44 items-end overflow-hidden p-6 text-white ${
-                  covers[i % covers.length]
-                }`}
+              {/* Cover: the post's engraved plate on matching paper */}
+              <CoverPlate
+                src={post.cover.src}
+                alt={post.cover.alt}
+                sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                className="flex h-48 items-end p-5"
+                plateClassName="pb-12 pt-3"
               >
-                <div aria-hidden className="absolute inset-0">
-                  <CoverBackground index={i} />
-                </div>
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-[0.14] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:36px_36px]"
-                />
-                <CoverScrim />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -right-16 -top-20 size-56 rounded-full bg-sky/25 blur-3xl transition duration-500 group-hover:bg-sky/40"
-                />
                 <div className="relative flex w-full items-end justify-between gap-4">
-                  <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em] backdrop-blur-sm">
+                  <span className="rounded-full border border-black/10 bg-white/80 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-ink/75 backdrop-blur-sm">
                     {post.topic}
                   </span>
-                  <span className="text-[11px] text-white/70">
+                  <span className="rounded-full bg-white/80 px-2.5 py-1 text-[11px] text-ink/65 backdrop-blur-sm">
                     {readingMinutes(post)} min read
                   </span>
                 </div>
-              </div>
+              </CoverPlate>
 
               {/* Body */}
               <div className="flex flex-1 flex-col p-6 pb-16">
@@ -112,7 +96,6 @@ export default function BlogTeaser() {
               <CardNotch />
             </Link>
           ))}
-
         </div>
       </div>
     </section>

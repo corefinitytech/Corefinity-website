@@ -171,6 +171,7 @@ Send a project brief through the form at corefinity.tech/contact. CoreFinity Tec
 * [Cloud deployment and infrastructure](https://corefinity.tech/services/cloud-deployment): CI and CD, hosting, monitoring, backups.
 * [Blog](https://corefinity.tech/blog): plain English writing on scalability,
   custom software and automation for business owners.
+* [How to evaluate a software agency](https://corefinity.tech/blog/how-to-evaluate-a-software-agency): how to choose a software development company, what to put in a brief, five things to weigh (proof, process, price, ownership, people), questions for the first call, warning signs, and how to compare quotes.
 * [Is your product ready for sudden growth?](https://corefinity.tech/blog/is-your-product-ready-for-sudden-growth): what happens when demand arrives faster than planned, where systems give way first, and the questions to ask before a launch.
 * [How we size a system before we build it](https://corefinity.tech/blog/how-we-size-a-system-before-building-it): the questions asked before any code is written, the peak hour arithmetic, and how capacity is added in stages.
 * [Case studies](https://corefinity.tech/case-studies): real client engagements, what was built and what changed for the business.

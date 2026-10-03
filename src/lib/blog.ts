@@ -39,6 +39,11 @@ export type BlogPost = {
   /** Shown on the index card and beside the heading. */
   excerpt: string;
   topic: string;
+  /**
+   * Engraved plate shown on the cards and above the article. Lives in
+   * public/blog/covers, 1536 by 1024, on paper the colour of COVER_PAPER.
+   */
+  cover: { src: string; alt: string };
   datePublished: string;
   /** Service pages this article naturally leads to. */
   services: string[];
@@ -46,7 +51,184 @@ export type BlogPost = {
   faqs: { q: string; a: string }[];
 };
 
+/** Paper tone of the engraved covers, so the panel around them is seamless. */
+export const COVER_PAPER = "#eceef1";
+
 export const posts: BlogPost[] = [
+  {
+    slug: "how-to-evaluate-a-software-agency",
+    title: "How to Evaluate a Software Agency",
+    description:
+      "A practical guide to choosing a software development company: what to check, what to ask on the first call, and the warning signs to walk away from.",
+    keywords: [
+      "how to choose a software development company",
+      "hire a software agency",
+      "questions to ask a software development company",
+      "software agency red flags",
+      "fixed price software development",
+      "who owns the code software development",
+    ],
+    headline: {
+      lead: "How to judge a software agency",
+      accent: "before you sign anything.",
+    },
+    excerpt:
+      "Every proposal says experienced, fast and affordable. Here is how to tell which one means it.",
+    topic: "Hiring a software team",
+    cover: {
+      src: "/blog/covers/precision-balance.webp",
+      alt: "Engraving of a precision balance scale with a stack of papers on one pan and brass weights on the other, the beam perfectly level",
+    },
+    datePublished: "2026-10-04",
+    services: ["web-development", "ui-ux-design", "mobile-app-development"],
+    blocks: [
+      {
+        type: "p",
+        text: "Hiring a software agency is a decision most business owners make once or twice, with real money and very little to compare. The proposals arrive looking alike. Everyone is experienced, everyone is fast, everyone cares about quality. By the third call it is hard to remember who said what.",
+      },
+      {
+        type: "p",
+        text: "You do not need to be technical to choose well. You need to know what to look at, what to ask, and which answers should make you pause. This guide covers all three, from the point of view of the person paying for the work.",
+      },
+      { type: "h2", text: "Write down the problem before you talk to anyone" },
+      {
+        type: "p",
+        text: "Most poor agency choices start before the first call. Without a clear brief, every proposal answers a slightly different question, and you end up comparing prices for different projects. Half an hour spent on a short note saves weeks of confusion later.",
+      },
+      {
+        type: "callout",
+        title: "What your brief should cover",
+        items: [
+          "The problem you want solved, in one or two sentences.",
+          "Who will use the software, and roughly how many people.",
+          "What success looks like three months after launch.",
+          "The budget range you are comfortable with.",
+          "Any date that cannot move, such as a launch or a busy season.",
+        ],
+      },
+      {
+        type: "p",
+        text: "You do not need technical detail. A good agency will turn your note into a technical plan. How they respond to it is your first piece of evidence: the best ones ask questions about it before they talk about price.",
+      },
+      { type: "h2", text: "Five things worth weighing" },
+      {
+        type: "figure",
+        diagram: "agency-scorecard",
+        caption:
+          "Five checks that separate a capable agency from a confident pitch.",
+      },
+      { type: "h3", text: "Proof" },
+      {
+        type: "p",
+        text: "Ask to see software that is live and in use, not only designs or screenshots. A named client, a working link and a case study that explains what changed for the business tell you far more than a page of logos. If you can, ask to speak to one of those clients for ten minutes.",
+      },
+      { type: "h3", text: "Process" },
+      {
+        type: "p",
+        text: "Ask what happens between signing and launch. You want to hear about a short discovery stage where the requirements are tested, a written scope, regular demos you can click through yourself, and a clear point where you approve the work. An agency that cannot describe its process will improvise one on your project.",
+      },
+      { type: "h3", text: "Price" },
+      {
+        type: "p",
+        text: "There are two common ways to charge. Hourly billing is flexible but leaves the final cost open. A fixed price for an agreed scope gives you a number you can plan around, as long as the scope is written down properly. Whichever you choose, ask how changes are priced, because changes are where most budgets grow.",
+      },
+      { type: "h3", text: "Ownership" },
+      {
+        type: "p",
+        text: "At the end of the project you should own the source code, the design files, the hosting account, the domain and the database. Ask for this in the contract, and ask for access to the code repository from the first week. Software you cannot take elsewhere keeps you tied to one supplier for as long as it runs.",
+      },
+      { type: "h3", text: "People" },
+      {
+        type: "p",
+        text: "Find out who will actually build your product and whether you can talk to them directly. Some agencies sell with a senior team and deliver with a different one. Short lines of communication mean fewer misunderstandings and faster answers when something needs a decision.",
+      },
+      { type: "h2", text: "Questions to ask on the first call" },
+      {
+        type: "p",
+        text: "These questions are simple, and the answers are revealing. Write down what each agency says so you can compare them side by side afterwards.",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "What would you need to know before giving us a price?",
+          "Can you show us something similar you built that is live today?",
+          "Who will work on our project, and will we speak to them directly?",
+          "What does the first month look like, week by week?",
+          "How do you handle a change to the scope halfway through?",
+          "Who owns the code, the hosting and the accounts when you finish?",
+          "What happens after launch if something breaks?",
+          "What would you advise us not to build?",
+        ],
+      },
+      {
+        type: "p",
+        text: "The last question is the most useful. An agency that can tell you what to leave out is thinking about your budget and your users.",
+      },
+      { type: "h2", text: "Good signs and warning signs" },
+      {
+        type: "figure",
+        diagram: "agency-signals",
+        caption:
+          "None of these settles the decision alone, but a pattern usually does.",
+      },
+      {
+        type: "p",
+        text: "One warning sign is not a reason to walk away. A small agency may not have many named clients yet, and a new one may still be refining how it works. What matters is the pattern. If several of the signs on the right appear together, take that seriously.",
+      },
+      { type: "h2", text: "Comparing quotes that look nothing alike" },
+      {
+        type: "p",
+        text: "Quotes are hard to compare because each agency includes different things. One price covers design, testing and the first month of support. Another covers development only and adds the rest later. Before comparing numbers, check every quote against the same list.",
+      },
+      {
+        type: "list",
+        items: [
+          "Is design included, or only development?",
+          "Is testing on real phones and browsers included?",
+          "Who sets up the hosting, and who pays for it?",
+          "How many rounds of changes are included?",
+          "What support is included after launch, and for how long?",
+          "When are payments due, and what is each one tied to?",
+        ],
+      },
+      {
+        type: "p",
+        text: "Once the quotes cover the same work, the real differences become clear. The cheapest quote is often the one that left the most out.",
+      },
+      { type: "h2", text: "What a good first month looks like" },
+      {
+        type: "p",
+        text: "The first few weeks show you whether you chose well. By the end of the first month with a capable agency you should have a written scope you have approved, a working link where you can see progress, a short demo every week or two, and access to the code from day one. If any of those are missing, raise it early, while changing direction is still cheap.",
+      },
+      {
+        type: "p",
+        text: "This is how we run projects at CoreFinity Tech. Every engagement starts with a written scope and a fixed price, the client owns the code and the accounts from the start, and progress is shown on a live link you can open at any time. Our IELTS Counsel case study shows what that looks like on a real project.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How do I choose a software development company?",
+        a: "Start with a short written brief so every agency answers the same question. Then compare them on proof of live work, a clear process, how the price is set, who owns the result, and who you will actually work with.",
+      },
+      {
+        q: "What questions should I ask a software agency before hiring?",
+        a: "Ask what they need to know before pricing, to see similar live work, who will build it, how scope changes are handled and who owns the code at the end. Also ask what they would advise you not to build, since the answer shows whether they are thinking about your budget.",
+      },
+      {
+        q: "Is a fixed price or an hourly rate better for software development?",
+        a: "A fixed price for a written scope gives a cost you can plan around, while hourly billing stays flexible but leaves the total open. Either works when changes are priced clearly in advance.",
+      },
+      {
+        q: "Who owns the code when an agency builds my software?",
+        a: "Ownership depends on the contract, so agree it in writing before work starts. The client should own the source code, design files, hosting, domain and database, with access to the code repository from the first week.",
+      },
+      {
+        q: "What are the warning signs of a bad software agency?",
+        a: "Common warning signs are a price given before any real questions, no live work to show, a vague scope, code or hosting kept in the agency's name, and agreement with every request. One sign alone is not decisive, but several together are worth taking seriously.",
+      },
+    ],
+  },
   {
     slug: "how-we-size-a-system-before-building-it",
     title: "How We Size a System Before We Build It",
@@ -60,10 +242,17 @@ export const posts: BlogPost[] = [
       "peak traffic calculation",
       "scalable architecture planning",
     ],
-    headline: { lead: "Before we build anything,", accent: "we do the arithmetic." },
+    headline: {
+      lead: "Before we build anything,",
+      accent: "we do the arithmetic.",
+    },
     excerpt:
       "How big should we build this? Ask three developers and you get three confident answers. We would rather work it out on paper.",
     topic: "How we work",
+    cover: {
+      src: "/blog/covers/measuring-instruments.webp",
+      alt: "Engraving of drafting instruments: brass dividers resting on a scale rule beside a vernier caliper and a set square",
+    },
     datePublished: "2026-09-25",
     services: ["web-development", "cloud-deployment", "systems-integration"],
     blocks: [
@@ -244,6 +433,10 @@ export const posts: BlogPost[] = [
     excerpt:
       "You planned for 50 users. 11,670 turned up. The good news and the bad news are the same sentence.",
     topic: "Growth and scalability",
+    cover: {
+      src: "/blog/covers/gear-train.webp",
+      alt: "Engraving of a gear train on a cast iron bed, a small brass gear driving four progressively larger gears",
+    },
     datePublished: "2026-09-24",
     services: ["web-development", "cloud-deployment", "systems-integration"],
     blocks: [
@@ -533,5 +726,7 @@ export function nextPost(post: BlogPost) {
 
 /** Newest first, for the index. */
 export function postsByDate() {
-  return [...posts].sort((a, b) => b.datePublished.localeCompare(a.datePublished));
+  return [...posts].sort((a, b) =>
+    b.datePublished.localeCompare(a.datePublished),
+  );
 }

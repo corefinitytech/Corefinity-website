@@ -38,7 +38,8 @@ describe("blog data", () => {
   it("only points at diagrams and services that exist", () => {
     for (const p of posts) {
       for (const b of p.blocks) {
-        if (b.type === "figure") expect(diagrams[b.diagram], b.diagram).toBeDefined();
+        if (b.type === "figure")
+          expect(diagrams[b.diagram], b.diagram).toBeDefined();
         if (b.type === "image") {
           // A supplied image is useless to search engines without alt text,
           // and the file has to actually be in public/.
@@ -70,7 +71,19 @@ describe("blog data", () => {
       );
       expect(figures.length, p.slug).toBeGreaterThanOrEqual(2);
       // Headings break the article up rather than leaving a wall of text.
-      expect(p.blocks.filter((b) => b.type === "h2").length).toBeGreaterThanOrEqual(4);
+      expect(
+        p.blocks.filter((b) => b.type === "h2").length,
+      ).toBeGreaterThanOrEqual(4);
+    }
+  });
+
+  it("gives every post an engraved cover that exists in public/", () => {
+    for (const p of posts) {
+      expect(p.cover.alt.length, p.slug).toBeGreaterThan(30);
+      expect(
+        existsSync(path.join(process.cwd(), "public", p.cover.src)),
+        p.cover.src,
+      ).toBe(true);
     }
   });
 
@@ -106,7 +119,9 @@ describe("answer engine FAQs", () => {
         expect(f.q.endsWith("?"), f.q).toBe(true);
         const sentences = f.a.split(/(?<=[.!?])\s+/).filter(Boolean);
         expect(sentences.length, f.q).toBeLessThanOrEqual(3);
-        expect(/^(It|That|This|They|These|You do)\b/.test(f.a), f.q).toBe(false);
+        expect(/^(It|That|This|They|These|You do)\b/.test(f.a), f.q).toBe(
+          false,
+        );
       }
     }
   });
@@ -118,7 +133,9 @@ describe("copy rules", () => {
   });
 
   it("contains no hyphenated compounds", () => {
-    expect(prose().filter((t) => /[A-Za-z]{2,}-[A-Za-z]{2,}/.test(t))).toEqual([]);
+    expect(prose().filter((t) => /[A-Za-z]{2,}-[A-Za-z]{2,}/.test(t))).toEqual(
+      [],
+    );
   });
 });
 

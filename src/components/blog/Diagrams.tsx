@@ -61,13 +61,34 @@ function Node({
   tone?: "plain" | "accent" | "strain" | "dark";
 }) {
   const fill =
-    tone === "dark" ? INK : tone === "strain" ? "#fdeeeb" : tone === "accent" ? "#e8f3fc" : "#ffffff";
+    tone === "dark"
+      ? INK
+      : tone === "strain"
+        ? "#fdeeeb"
+        : tone === "accent"
+          ? "#e8f3fc"
+          : "#ffffff";
   const stroke =
-    tone === "dark" ? INK : tone === "strain" ? CORAL : tone === "accent" ? ACCENT : LINE;
+    tone === "dark"
+      ? INK
+      : tone === "strain"
+        ? CORAL
+        : tone === "accent"
+          ? ACCENT
+          : LINE;
   const text = tone === "dark" ? "#ffffff" : INK;
   return (
     <g>
-      <rect x={x} y={y} width={w} height={h} rx={14} fill={fill} stroke={stroke} strokeWidth={1.5} />
+      <rect
+        x={x}
+        y={y}
+        width={w}
+        height={h}
+        rx={14}
+        fill={fill}
+        stroke={stroke}
+        strokeWidth={1.5}
+      />
       <text
         x={x + w / 2}
         y={sub ? y + h / 2 - 4 : y + h / 2 + 5}
@@ -161,8 +182,21 @@ export function GrowthSpikeDiagram() {
       {/* Value axis */}
       {gridValues.map((v) => (
         <g key={v}>
-          <line x1={left} y1={y(v)} x2={right + 16} y2={y(v)} stroke={v === 0 ? LINE : "#eef0f4"} strokeWidth={1.5} />
-          <text x={left - 16} y={y(v) + 4} textAnchor="end" fontSize={12} fill={MUTED}>
+          <line
+            x1={left}
+            y1={y(v)}
+            x2={right + 16}
+            y2={y(v)}
+            stroke={v === 0 ? LINE : "#eef0f4"}
+            strokeWidth={1.5}
+          />
+          <text
+            x={left - 16}
+            y={y(v) + 4}
+            textAnchor="end"
+            fontSize={12}
+            fill={MUTED}
+          >
             {v.toLocaleString("en-GB")}
           </text>
         </g>
@@ -178,7 +212,14 @@ export function GrowthSpikeDiagram() {
         opacity={0.75}
       />
       <g>
-        <line x1={286} y1={276} x2={330} y2={325} stroke={MUTED} strokeWidth={1.2} />
+        <line
+          x1={286}
+          y1={276}
+          x2={330}
+          y2={325}
+          stroke={MUTED}
+          strokeWidth={1.2}
+        />
         <circle cx={330} cy={327} r={3.5} fill={MUTED} />
         <text x={188} y={250} fontSize={14} fontWeight={500} fill={INK}>
           What the plan assumed
@@ -189,23 +230,82 @@ export function GrowthSpikeDiagram() {
       </g>
 
       {/* What arrived */}
-      <path d={`${actual} L 880 ${base} L 112 ${base} Z`} fill="url(#cf-growth-fill)" />
-      <path d={actual} fill="none" stroke={ACCENT} strokeWidth={3} strokeLinecap="round" />
+      <path
+        d={`${actual} L 880 ${base} L 112 ${base} Z`}
+        fill="url(#cf-growth-fill)"
+      />
+      <path
+        d={actual}
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
 
       {/* The point where the two stories separate */}
-      <line x1={turnX} y1={turnY + 8} x2={turnX} y2={356} stroke={CORAL} strokeWidth={1.5} strokeDasharray="4 4" />
-      <circle cx={turnX} cy={turnY} r={6.5} fill={CORAL} stroke="#ffffff" strokeWidth={2} />
+      <line
+        x1={turnX}
+        y1={turnY + 8}
+        x2={turnX}
+        y2={356}
+        stroke={CORAL}
+        strokeWidth={1.5}
+        strokeDasharray="4 4"
+      />
+      <circle
+        cx={turnX}
+        cy={turnY}
+        r={6.5}
+        fill={CORAL}
+        stroke="#ffffff"
+        strokeWidth={2}
+      />
       <g>
-        <rect x={turnX - 148} y={358} width={296} height={26} rx={13} fill={CORAL} />
-        <text x={turnX} y={375} textAnchor="middle" fontSize={12.5} fontWeight={500} fill="#ffffff">
+        <rect
+          x={turnX - 148}
+          y={358}
+          width={296}
+          height={26}
+          rx={13}
+          fill={CORAL}
+        />
+        <text
+          x={turnX}
+          y={375}
+          textAnchor="middle"
+          fontSize={12.5}
+          fontWeight={500}
+          fill="#ffffff"
+        >
           the moment the plan stopped being true
         </text>
       </g>
 
       {/* Where it ended up */}
-      <line x1={806} y1={92} x2={868} y2={88} stroke={ACCENT} strokeWidth={1.2} />
-      <circle cx={880} cy={91} r={7} fill={ACCENT} stroke="#ffffff" strokeWidth={2.5} />
-      <text x={796} y={78} textAnchor="end" fontSize={26} fontWeight={600} fill={INK}>
+      <line
+        x1={806}
+        y1={92}
+        x2={868}
+        y2={88}
+        stroke={ACCENT}
+        strokeWidth={1.2}
+      />
+      <circle
+        cx={880}
+        cy={91}
+        r={7}
+        fill={ACCENT}
+        stroke="#ffffff"
+        strokeWidth={2.5}
+      />
+      <text
+        x={796}
+        y={78}
+        textAnchor="end"
+        fontSize={26}
+        fontWeight={600}
+        fill={INK}
+      >
         11,670
       </text>
       <text x={796} y={98} textAnchor="end" fontSize={13} fill={MUTED}>
@@ -216,7 +316,14 @@ export function GrowthSpikeDiagram() {
       <text x={left} y={406} fontSize={13} fontWeight={500} fill={MUTED}>
         Launch day
       </text>
-      <text x={right + 16} y={406} textAnchor="end" fontSize={13} fontWeight={500} fill={MUTED}>
+      <text
+        x={right + 16}
+        y={406}
+        textAnchor="end"
+        fontSize={13}
+        fontWeight={500}
+        fill={MUTED}
+      >
         Same week
       </text>
     </Frame>
@@ -235,9 +342,21 @@ export function SignupFlowDiagram() {
       <Arrow from={158} to={196} y={y + 32} />
       <Node x={196} y={y} label="Your website" sub="takes the request" />
       <Arrow from={344} to={382} y={y + 32} />
-      <Node x={382} y={y} label="Application" sub="checks the rules" tone="accent" />
+      <Node
+        x={382}
+        y={y}
+        label="Application"
+        sub="checks the rules"
+        tone="accent"
+      />
       <Arrow from={530} to={568} y={y + 32} />
-      <Node x={568} y={y} label="Database" sub="stores the account" tone="accent" />
+      <Node
+        x={568}
+        y={y}
+        label="Database"
+        sub="stores the account"
+        tone="accent"
+      />
       <Arrow from={716} to={754} y={y + 32} />
       <Node x={754} y={y} label="Other services" sub="email, payment, SMS" />
 
@@ -249,10 +368,38 @@ export function SignupFlowDiagram() {
       </text>
 
       <g>
-        <line x1={84} y1={y + 78} x2={828} y2={y + 78} stroke={LINE} strokeWidth={1.5} />
-        <line x1={84} y1={y + 72} x2={84} y2={y + 84} stroke={LINE} strokeWidth={1.5} />
-        <line x1={828} y1={y + 72} x2={828} y2={y + 84} stroke={LINE} strokeWidth={1.5} />
-        <rect x={352} y={y + 66} width={208} height={24} rx={12} fill="#ffffff" />
+        <line
+          x1={84}
+          y1={y + 78}
+          x2={828}
+          y2={y + 78}
+          stroke={LINE}
+          strokeWidth={1.5}
+        />
+        <line
+          x1={84}
+          y1={y + 72}
+          x2={84}
+          y2={y + 84}
+          stroke={LINE}
+          strokeWidth={1.5}
+        />
+        <line
+          x1={828}
+          y1={y + 72}
+          x2={828}
+          y2={y + 84}
+          stroke={LINE}
+          strokeWidth={1.5}
+        />
+        <rect
+          x={352}
+          y={y + 66}
+          width={208}
+          height={24}
+          rx={12}
+          fill="#ffffff"
+        />
         <text x={456} y={y + 83} textAnchor="middle" fontSize={12} fill={MUTED}>
           under a second while it is quiet
         </text>
@@ -315,9 +462,23 @@ export function BottleneckDiagram() {
         ))}
       </g>
 
-      <Node x={540} y={y} w={168} label="Database" sub="queue building" tone="strain" />
+      <Node
+        x={540}
+        y={y}
+        w={168}
+        label="Database"
+        sub="queue building"
+        tone="strain"
+      />
       <Arrow from={708} to={748} y={y + 32} tone="strain" dashed />
-      <Node x={748} y={y} w={150} label="Email, payment" sub="still waiting" tone="strain" />
+      <Node
+        x={748}
+        y={y}
+        w={150}
+        label="Email, payment"
+        sub="still waiting"
+        tone="strain"
+      />
 
       <text x={540} y={y + 90} fontSize={13} fontWeight={500} fill={CORAL}>
         One slow step
@@ -361,14 +522,30 @@ export function CustomerJourneyDiagram() {
         const tone = i < 2 ? ACCENT : CORAL;
         return (
           <g key={label}>
-            <rect x={x} y={72} width={196} height={62} rx={14} fill="#ffffff" stroke={LINE} strokeWidth={1.5} />
+            <rect
+              x={x}
+              y={72}
+              width={196}
+              height={62}
+              rx={14}
+              fill="#ffffff"
+              stroke={LINE}
+              strokeWidth={1.5}
+            />
             <text x={x + 18} y={99} fontSize={15} fontWeight={500} fill={INK}>
               {label}
             </text>
             <text x={x + 18} y={118} fontSize={13} fill={MUTED}>
               {sub}
             </text>
-            {i < steps.length - 1 && <Arrow from={x + 200} to={x + 222} y={103} tone={i < 1 ? "plain" : "strain"} />}
+            {i < steps.length - 1 && (
+              <Arrow
+                from={x + 200}
+                to={x + 222}
+                y={103}
+                tone={i < 1 ? "plain" : "strain"}
+              />
+            )}
 
             {/* How many are still with you by this point */}
             <rect
@@ -380,8 +557,17 @@ export function CustomerJourneyDiagram() {
               fill={tone}
               opacity={i < 2 ? 0.2 : 0.28}
             />
-            <text x={x + 18} y={barTop + barMax + 24} fontSize={12} fill={MUTED}>
-              {i === 0 ? "everyone who arrived" : i === 3 ? "what you keep" : ""}
+            <text
+              x={x + 18}
+              y={barTop + barMax + 24}
+              fontSize={12}
+              fill={MUTED}
+            >
+              {i === 0
+                ? "everyone who arrived"
+                : i === 3
+                  ? "what you keep"
+                  : ""}
             </text>
           </g>
         );
@@ -407,15 +593,31 @@ export function ReadinessLoopDiagram() {
         Capacity is a habit, not a project
       </text>
       <text x={10} y={48} fontSize={13} fill={MUTED}>
-        Each pass moves the ceiling. The limit moves with it, so the loop runs again.
+        Each pass moves the ceiling. The limit moves with it, so the loop runs
+        again.
       </text>
 
       {steps.map(([label, sub], i) => {
         const x = 10 + i * 224;
         return (
           <g key={label}>
-            <rect x={x} y={84} width={196} height={66} rx={14} fill="#ffffff" stroke={i === 2 ? ACCENT : LINE} strokeWidth={1.5} />
-            <text x={x + 18} y={106} fontSize={12} fontWeight={500} fill={ACCENT}>
+            <rect
+              x={x}
+              y={84}
+              width={196}
+              height={66}
+              rx={14}
+              fill="#ffffff"
+              stroke={i === 2 ? ACCENT : LINE}
+              strokeWidth={1.5}
+            />
+            <text
+              x={x + 18}
+              y={106}
+              fontSize={12}
+              fontWeight={500}
+              fill={ACCENT}
+            >
               {`0${i + 1}`}
             </text>
             <text x={x + 18} y={126} fontSize={15} fontWeight={500} fill={INK}>
@@ -424,7 +626,9 @@ export function ReadinessLoopDiagram() {
             <text x={x + 18} y={144} fontSize={12} fill={MUTED}>
               {sub}
             </text>
-            {i < steps.length - 1 && <Arrow from={x + 200} to={x + 222} y={117} />}
+            {i < steps.length - 1 && (
+              <Arrow from={x + 200} to={x + 222} y={117} />
+            )}
           </g>
         );
       })}
@@ -479,14 +683,18 @@ const glyphs: Record<string, ReactNode> = {
     </>
   ),
   bolt: <path d="M13 3 6 13.5h5l-1 7.5 7-11h-5l1-7Z" />,
-  shield: <path d="M12 3.2 19 6v5.2c0 4.4-2.9 8.3-7 9.6-4.1-1.3-7-5.2-7-9.6V6l7-2.8Z" />,
+  shield: (
+    <path d="M12 3.2 19 6v5.2c0 4.4-2.9 8.3-7 9.6-4.1-1.3-7-5.2-7-9.6V6l7-2.8Z" />
+  ),
   link: (
     <>
       <path d="M10.5 13.5a4 4 0 0 0 5.7 0l2-2a4 4 0 1 0-5.7-5.7l-1 1" />
       <path d="M13.5 10.5a4 4 0 0 0-5.7 0l-2 2a4 4 0 1 0 5.7 5.7l1-1" />
     </>
   ),
-  cloud: <path d="M7.5 18.5h9.2a3.8 3.8 0 0 0 .5-7.6 6 6 0 0 0-11.3 1.7 3.4 3.4 0 0 0 1.6 5.9Z" />,
+  cloud: (
+    <path d="M7.5 18.5h9.2a3.8 3.8 0 0 0 .5-7.6 6 6 0 0 0-11.3 1.7 3.4 3.4 0 0 0 1.6 5.9Z" />
+  ),
   list: (
     <>
       <path d="M9 7h11M9 12h11M9 17h11" />
@@ -568,7 +776,8 @@ function Badge({
   glyph: string;
   tone?: "tint" | "solid" | "onDark";
 }) {
-  const fill = tone === "solid" ? ACCENT : tone === "onDark" ? "#ffffff1f" : "#e8f3fc";
+  const fill =
+    tone === "solid" ? ACCENT : tone === "onDark" ? "#ffffff1f" : "#e8f3fc";
   const stroke = tone === "solid" || tone === "onDark" ? "#ffffff" : ACCENT;
   return (
     <g>
@@ -579,13 +788,38 @@ function Badge({
 }
 
 /** Heading pill, for the column titles. */
-function ColumnHeading({ x, y, label, glyph }: { x: number; y: number; label: string; glyph: string }) {
+function ColumnHeading({
+  x,
+  y,
+  label,
+  glyph,
+}: {
+  x: number;
+  y: number;
+  label: string;
+  glyph: string;
+}) {
   return (
     <g>
       <rect x={x} y={y} width={286} height={44} rx={22} fill="#eef5fc" />
       <Badge x={x + 24} y={y + 22} r={14} glyph={glyph} tone="solid" />
-      <line x1={x + 46} y1={y + 12} x2={x + 46} y2={y + 32} stroke={ACCENT} strokeOpacity={0.3} strokeWidth={1.5} />
-      <text x={x + 60} y={y + 28} fontSize={14} fontWeight={700} letterSpacing="0.1em" fill={INK}>
+      <line
+        x1={x + 46}
+        y1={y + 12}
+        x2={x + 46}
+        y2={y + 32}
+        stroke={ACCENT}
+        strokeOpacity={0.3}
+        strokeWidth={1.5}
+      />
+      <text
+        x={x + 60}
+        y={y + 28}
+        fontSize={14}
+        fontWeight={700}
+        letterSpacing="0.1em"
+        fill={INK}
+      >
         {label}
       </text>
     </g>
@@ -593,15 +827,43 @@ function ColumnHeading({ x, y, label, glyph }: { x: number; y: number; label: st
 }
 
 /** Caption under a diagram, with a rule either side. */
-function FootNote({ y, text, width = 980 }: { y: number; text: string; width?: number }) {
+function FootNote({
+  y,
+  text,
+  width = 980,
+}: {
+  y: number;
+  text: string;
+  width?: number;
+}) {
   const half = text.length * 3.3;
   return (
     <g>
-      <line x1={8} y1={y - 4} x2={width / 2 - half - 16} y2={y - 4} stroke={LINE} strokeWidth={1.5} />
-      <text x={width / 2} y={y} textAnchor="middle" fontSize={12.5} fill={MUTED}>
+      <line
+        x1={8}
+        y1={y - 4}
+        x2={width / 2 - half - 16}
+        y2={y - 4}
+        stroke={LINE}
+        strokeWidth={1.5}
+      />
+      <text
+        x={width / 2}
+        y={y}
+        textAnchor="middle"
+        fontSize={12.5}
+        fill={MUTED}
+      >
         {text}
       </text>
-      <line x1={width / 2 + half + 16} y1={y - 4} x2={width - 8} y2={y - 4} stroke={LINE} strokeWidth={1.5} />
+      <line
+        x1={width / 2 + half + 16}
+        y1={y - 4}
+        x2={width - 8}
+        y2={y - 4}
+        stroke={LINE}
+        strokeWidth={1.5}
+      />
     </g>
   );
 }
@@ -645,7 +907,16 @@ export function SizingInputsDiagram() {
               strokeWidth={1.4}
               strokeOpacity={0.35}
             />
-            <rect x={8} y={y} width={302} height={46} rx={23} fill="#fbfcfe" stroke="#e7ebf2" strokeWidth={1.5} />
+            <rect
+              x={8}
+              y={y}
+              width={302}
+              height={46}
+              rx={23}
+              fill="#fbfcfe"
+              stroke="#e7ebf2"
+              strokeWidth={1.5}
+            />
             <Badge x={39} y={mid} glyph={glyph} />
             <text x={68} y={mid + 5} fontSize={14.5} fill={INK}>
               {label}
@@ -666,7 +937,16 @@ export function SizingInputsDiagram() {
               strokeWidth={1.4}
               strokeOpacity={0.35}
             />
-            <rect x={670} y={y} width={302} height={46} rx={23} fill="#fbfcfe" stroke="#e7ebf2" strokeWidth={1.5} />
+            <rect
+              x={670}
+              y={y}
+              width={302}
+              height={46}
+              rx={23}
+              fill="#fbfcfe"
+              stroke="#e7ebf2"
+              strokeWidth={1.5}
+            />
             <Badge x={701} y={mid} glyph={glyph} />
             <text x={730} y={mid + 5} fontSize={14.5} fill={INK}>
               {label}
@@ -677,9 +957,25 @@ export function SizingInputsDiagram() {
 
       {/* The calculation in the middle */}
       <ellipse cx={cx} cy={cy} rx={150} ry={96} fill={ACCENT} opacity={0.05} />
-      <rect x={392} y={188} width={196} height={124} rx={24} fill="#ffffff" stroke={ACCENT} strokeWidth={2} />
+      <rect
+        x={392}
+        y={188}
+        width={196}
+        height={124}
+        rx={24}
+        fill="#ffffff"
+        stroke={ACCENT}
+        strokeWidth={2}
+      />
       <Badge x={cx} y={222} r={19} glyph="calculator" tone="solid" />
-      <text x={cx} y={266} textAnchor="middle" fontSize={17} fontWeight={600} fill={INK}>
+      <text
+        x={cx}
+        y={266}
+        textAnchor="middle"
+        fontSize={17}
+        fontWeight={600}
+        fill={INK}
+      >
         The arithmetic
       </text>
       <text x={cx} y={286} textAnchor="middle" fontSize={12.5} fill={MUTED}>
@@ -689,7 +985,10 @@ export function SizingInputsDiagram() {
         then headroom
       </text>
 
-      <FootNote y={452} text="Change one answer on the left and the right changes with it." />
+      <FootNote
+        y={452}
+        text="Change one answer on the left and the right changes with it."
+      />
     </Frame>
   );
 }
@@ -711,16 +1010,33 @@ export function PeakMathDiagram() {
         One number, translated into something you can build against
       </text>
       <text x={8} y={47} fontSize={13} fill={MUTED}>
-        Back of an envelope arithmetic. Ten minutes, and it settles most arguments.
+        Back of an envelope arithmetic. Ten minutes, and it settles most
+        arguments.
       </text>
 
       {steps.map(([value, note], i) => {
         const x = 8 + i * 178;
         return (
           <g key={value}>
-            <rect x={x} y={84} width={158} height={96} rx={18} fill="#fbfcfe" stroke="#e7ebf2" strokeWidth={1.5} />
+            <rect
+              x={x}
+              y={84}
+              width={158}
+              height={96}
+              rx={18}
+              fill="#fbfcfe"
+              stroke="#e7ebf2"
+              strokeWidth={1.5}
+            />
             <circle cx={x + 26} cy={110} r={13} fill="#e8f3fc" />
-            <text x={x + 26} y={115} textAnchor="middle" fontSize={11.5} fontWeight={700} fill={ACCENT}>
+            <text
+              x={x + 26}
+              y={115}
+              textAnchor="middle"
+              fontSize={11.5}
+              fontWeight={700}
+              fill={ACCENT}
+            >
               {i + 1}
             </text>
             <text x={x + 18} y={148} fontSize={18} fontWeight={600} fill={INK}>
@@ -751,9 +1067,26 @@ export function PeakMathDiagram() {
       </text>
 
       {/* And where it has to be built */}
-      <line x1={849} y1={184} x2={849} y2={212} stroke={ACCENT} strokeWidth={1.6} strokeDasharray="5 5" />
+      <line
+        x1={849}
+        y1={184}
+        x2={849}
+        y2={212}
+        stroke={ACCENT}
+        strokeWidth={1.6}
+        strokeDasharray="5 5"
+      />
       <path d="M849 220 l-5.5 -9 h11 z" fill={ACCENT} />
-      <rect x={612} y={224} width={360} height={66} rx={18} fill="#eef5fc" stroke={ACCENT} strokeWidth={1.5} />
+      <rect
+        x={612}
+        y={224}
+        width={360}
+        height={66}
+        rx={18}
+        fill="#eef5fc"
+        stroke={ACCENT}
+        strokeWidth={1.5}
+      />
       <Badge x={646} y={257} r={16} glyph="bolt" tone="solid" />
       <text x={676} y={252} fontSize={16} fontWeight={600} fill={INK}>
         Build for 8 to 20 a second
@@ -793,7 +1126,8 @@ export function LayersDiagram() {
         Frontend, backend, database: who asks whom
       </text>
       <text x={8} y={47} fontSize={13} fill={MUTED}>
-        The customer only ever talks to the first box. The rest happens out of sight.
+        The customer only ever talks to the first box. The rest happens out of
+        sight.
       </text>
 
       <defs>
@@ -860,11 +1194,28 @@ export function LayersDiagram() {
               stroke={dark ? INK : ACCENT}
               strokeWidth={dark ? 1.5 : 2}
             />
-            <Badge x={x + 40} y={top + 40} r={18} glyph={glyph} tone={dark ? "onDark" : "tint"} />
-            <text x={x + 70} y={top + 46} fontSize={18} fontWeight={600} fill={dark ? "#ffffff" : INK}>
+            <Badge
+              x={x + 40}
+              y={top + 40}
+              r={18}
+              glyph={glyph}
+              tone={dark ? "onDark" : "tint"}
+            />
+            <text
+              x={x + 70}
+              y={top + 46}
+              fontSize={18}
+              fontWeight={600}
+              fill={dark ? "#ffffff" : INK}
+            >
               {title}
             </text>
-            <text x={x + 24} y={top + 88} fontSize={12.5} fill={dark ? "#ffffffa8" : MUTED}>
+            <text
+              x={x + 24}
+              y={top + 88}
+              fontSize={12.5}
+              fill={dark ? "#ffffffa8" : MUTED}
+            >
               {sub}
             </text>
           </g>
@@ -898,13 +1249,23 @@ export function LayersDiagram() {
       ))}
 
       <text x={8} y={372} fontSize={12.5} fill={MUTED}>
-        The frontend never speaks to the database directly. That rule is what keeps your
+        The frontend never speaks to the database directly. That rule is what
+        keeps your
       </text>
       <text x={8} y={390} fontSize={12.5} fill={MUTED}>
         data safe when somebody starts poking at the page from the outside.
       </text>
 
-      <rect x={586} y={348} width={386} height={62} rx={18} fill="#fdeeeb" stroke={CORAL} strokeWidth={1.5} />
+      <rect
+        x={586}
+        y={348}
+        width={386}
+        height={62}
+        rx={18}
+        fill="#fdeeeb"
+        stroke={CORAL}
+        strokeWidth={1.5}
+      />
       <circle cx={620} cy={379} r={15} fill="#ffffff" />
       <Glyph name="bolt" x={620} y={379} size={16} color={CORAL} />
       <text x={646} y={374} fontSize={13} fontWeight={600} fill={INK}>
@@ -920,9 +1281,21 @@ export function LayersDiagram() {
 /** Capacity added in stages, each with the signal that triggers it. */
 export function CapacityLadderDiagram() {
   const stages: [string, string, string][] = [
-    ["One box does it all", "At launch, and for longer", "than most people expect"],
-    ["Separate the database", "When the app and database", "fight over one machine"],
-    ["Keep busy pages ready", "When thousands ask for", "exactly the same thing"],
+    [
+      "One box does it all",
+      "At launch, and for longer",
+      "than most people expect",
+    ],
+    [
+      "Separate the database",
+      "When the app and database",
+      "fight over one machine",
+    ],
+    [
+      "Keep busy pages ready",
+      "When thousands ask for",
+      "exactly the same thing",
+    ],
     ["Move slow work aside", "When emails and reports", "hold up the checkout"],
     ["Run several copies", "When one machine", "has become the ceiling"],
   ];
@@ -938,7 +1311,8 @@ export function CapacityLadderDiagram() {
         Capacity gets added in stages, not all at once
       </text>
       <text x={8} y={47} fontSize={13} fill={MUTED}>
-        Each step is modest on its own, and each one waits for the signal underneath it.
+        Each step is modest on its own, and each one waits for the signal
+        underneath it.
       </text>
       <text x={8} y={67} fontSize={13} fill={MUTED}>
         Doing all five before launch is how budgets disappear.
@@ -960,7 +1334,12 @@ export function CapacityLadderDiagram() {
               stroke={first ? ACCENT : "#e7ebf2"}
               strokeWidth={first ? 2 : 1.5}
             />
-            <circle cx={x + 30} cy={y + 30} r={15} fill={first ? ACCENT : "#e8f3fc"} />
+            <circle
+              cx={x + 30}
+              cy={y + 30}
+              r={15}
+              fill={first ? ACCENT : "#e8f3fc"}
+            />
             <text
               x={x + 30}
               y={y + 35}
@@ -971,7 +1350,13 @@ export function CapacityLadderDiagram() {
             >
               {`0${i + 1}`}
             </text>
-            <text x={x + 16} y={y + 68} fontSize={13} fontWeight={500} fill={INK}>
+            <text
+              x={x + 16}
+              y={y + 68}
+              fontSize={13}
+              fontWeight={500}
+              fill={INK}
+            >
               {title}
             </text>
             <line
@@ -998,13 +1383,190 @@ export function CapacityLadderDiagram() {
         const y = 240 - i * 38;
         // Both cards exist between y and y + 84, so an arrow at y + 42 points
         // from one to the next without drifting above or below either.
-        return <Arrow key={`step-${stage[0]}`} from={x + 175} to={x + 193} y={y + 42} />;
+        return (
+          <Arrow
+            key={`step-${stage[0]}`}
+            from={x + 175}
+            to={x + 193}
+            y={y + 42}
+          />
+        );
       })}
 
       <FootNote
         y={410}
         text="The signal matters more than the step. Capacity added before the signal is guesswork with an invoice."
       />
+    </Frame>
+  );
+}
+
+/** Five things to weigh before signing with an agency. */
+export function AgencyScorecardDiagram() {
+  const checks: [string, string, string][] = [
+    ["Proof", "live work and", "named clients"],
+    ["Process", "questions come", "before the quote"],
+    ["Price", "fixed scope, with", "changes priced"],
+    ["Ownership", "code and accounts", "are yours"],
+    ["People", "you talk to the", "people building"],
+  ];
+  return (
+    <Frame
+      title="Proof, process, price, ownership and people: five checks before hiring a software agency"
+      viewBox="0 0 900 230"
+    >
+      <text x={10} y={28} fontSize={15} fontWeight={500} fill={INK}>
+        Five checks before you sign
+      </text>
+      <text x={10} y={48} fontSize={13} fill={MUTED}>
+        A confident pitch can pass one of them. A capable agency passes all
+        five.
+      </text>
+
+      {checks.map(([label, line1, line2], i) => {
+        const x = 10 + i * 178;
+        return (
+          <g key={label}>
+            <rect
+              x={x}
+              y={78}
+              width={164}
+              height={112}
+              rx={14}
+              fill={i === 3 ? "#e8f3fc" : "#ffffff"}
+              stroke={i === 3 ? ACCENT : LINE}
+              strokeWidth={1.5}
+            />
+            <text
+              x={x + 18}
+              y={102}
+              fontSize={12}
+              fontWeight={500}
+              fill={ACCENT}
+            >
+              {`0${i + 1}`}
+            </text>
+            <text x={x + 18} y={130} fontSize={16} fontWeight={500} fill={INK}>
+              {label}
+            </text>
+            <text x={x + 18} y={156} fontSize={12} fill={MUTED}>
+              {line1}
+            </text>
+            <text x={x + 18} y={173} fontSize={12} fill={MUTED}>
+              {line2}
+            </text>
+          </g>
+        );
+      })}
+
+      <text x={450} y={220} textAnchor="middle" fontSize={12} fill={MUTED}>
+        Ownership is the one to get in writing before any work starts
+      </text>
+    </Frame>
+  );
+}
+
+/** What a good agency does, set against the signs worth pausing on. */
+export function AgencySignalsDiagram() {
+  const good = [
+    "Asks about your users before your budget",
+    "Shows live products and named clients",
+    "Puts scope, price and timeline in writing",
+    "Gives you the code and accounts from day one",
+    "Tells you what not to build",
+  ];
+  const warning = [
+    "Quotes a price after one short call",
+    "Shows only mockups and a wall of logos",
+    "Keeps the scope vague, so changes cost extra",
+    "Holds the code or hosting in its own name",
+    "Says yes to every request",
+  ];
+  const row = (y: number) => 112 + y * 38;
+  return (
+    <Frame
+      title="Good signs and warning signs when hiring a software agency"
+      viewBox="0 0 900 330"
+    >
+      <text x={10} y={28} fontSize={15} fontWeight={500} fill={INK}>
+        What to look for, and what to question
+      </text>
+      <text x={10} y={48} fontSize={13} fill={MUTED}>
+        One warning sign is not a verdict. Several together usually are.
+      </text>
+
+      <rect
+        x={10}
+        y={70}
+        width={430}
+        height={240}
+        rx={16}
+        fill="#ffffff"
+        stroke={LINE}
+        strokeWidth={1.5}
+      />
+      <rect
+        x={460}
+        y={70}
+        width={430}
+        height={240}
+        rx={16}
+        fill="#ffffff"
+        stroke={LINE}
+        strokeWidth={1.5}
+      />
+      <text x={34} y={98} fontSize={13} fontWeight={500} fill={ACCENT}>
+        Good signs
+      </text>
+      <text x={484} y={98} fontSize={13} fontWeight={500} fill={CORAL}>
+        Warning signs
+      </text>
+
+      {good.map((t, i) => (
+        <g key={t}>
+          <circle
+            cx={42}
+            cy={row(i) + 14}
+            r={9}
+            fill="#e8f3fc"
+            stroke={ACCENT}
+            strokeWidth={1.4}
+          />
+          <path
+            d={`M37.5 ${row(i) + 14.2} l3 3 l5.5 -6`}
+            fill="none"
+            stroke={ACCENT}
+            strokeWidth={1.8}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <text x={60} y={row(i) + 18.5} fontSize={13} fill={INK}>
+            {t}
+          </text>
+        </g>
+      ))}
+      {warning.map((t, i) => (
+        <g key={t}>
+          <circle
+            cx={492}
+            cy={row(i) + 14}
+            r={9}
+            fill="#fdeeeb"
+            stroke={CORAL}
+            strokeWidth={1.4}
+          />
+          <path
+            d={`M488.5 ${row(i) + 10.5} l7 7 M495.5 ${row(i) + 10.5} l-7 7`}
+            fill="none"
+            stroke={CORAL}
+            strokeWidth={1.8}
+            strokeLinecap="round"
+          />
+          <text x={510} y={row(i) + 18.5} fontSize={13} fill={INK}>
+            {t}
+          </text>
+        </g>
+      ))}
     </Frame>
   );
 }
@@ -1019,6 +1581,8 @@ export const diagrams = {
   "peak-math": PeakMathDiagram,
   layers: LayersDiagram,
   "capacity-ladder": CapacityLadderDiagram,
+  "agency-scorecard": AgencyScorecardDiagram,
+  "agency-signals": AgencySignalsDiagram,
 } as const;
 
 export type DiagramKey = keyof typeof diagrams;
