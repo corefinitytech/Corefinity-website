@@ -6,7 +6,7 @@ import { legal, site } from "@/lib/site";
 
 const title = "Privacy Policy";
 const description =
-  "How Corefinity Tech collects, uses and protects personal information, what we never do with it, and the rights you hold over your own data.";
+  "How CoreFinity Tech collects, uses and protects personal information, what we never do with it, and the rights you hold over your own data.";
 
 export const metadata: Metadata = {
   title,

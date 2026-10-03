@@ -17,17 +17,17 @@ import {
 
 const title = "About Us: Who We Are and How We Work";
 const description =
-  "Corefinity Tech is a custom software company in Islamabad, founded by Maarij Bukhari, Muhammad Sohaib and Syed M Taha, working remotely with clients worldwide.";
+  "CoreFinity Tech is a custom software company in Islamabad, founded by Maarij Bukhari, Muhammad Sohaib and Syed M Taha, working remotely with clients worldwide.";
 
 export const metadata: Metadata = {
   title,
   description,
   keywords: [
-    "about Corefinity Tech",
+    "about CoreFinity Tech",
     "CoreFinity Tech",
     "software development company Islamabad",
     "custom software team Pakistan",
-    "Corefinity Tech founders",
+    "CoreFinity Tech founders",
   ],
   alternates: { canonical: "/about" },
   openGraph: {
@@ -109,7 +109,7 @@ export default function AboutPage() {
 
           <div className="mt-8 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
-              <H1Eyebrow>About Corefinity Tech</H1Eyebrow>
+              <H1Eyebrow>About CoreFinity Tech</H1Eyebrow>
               A small team building{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 software worth owning.
@@ -118,7 +118,7 @@ export default function AboutPage() {
 
             <div className="w-full max-w-sm shrink-0 lg:pb-3">
               <p className="text-sm leading-relaxed text-ink/65">
-                Corefinity Tech builds custom web platforms, AI assistants, mobile
+                CoreFinity Tech builds custom web platforms, AI assistants, mobile
                 apps and automation for businesses that have outgrown the tools
                 they started with. We are based in Islamabad and work remotely
                 with clients across the world.

@@ -12,25 +12,25 @@ export const siteUrl = (
 ).replace(/\/$/, "");
 
 export const site = {
-  name: "Corefinity Tech",
-  legalName: "Corefinity Tech",
+  name: "CoreFinity Tech",
+  legalName: "CoreFinity Tech",
   url: siteUrl,
   email: "hello@corefinity.tech",
   founded: "2024",
   /** Used as the default <title> and in structured data. */
-  title: "Corefinity Tech | Custom Software Development Company",
+  title: "CoreFinity Tech | Custom Software Development Company",
   /**
-   * Other names the business is known by. "CoreFinity Tech" is the name on
-   * the Google Business Profile, so listing it lets search engines connect
-   * that profile to this site.
+   * Other spellings people search for. The brand is "CoreFinity Tech" (as on
+   * the Google Business Profile and social profiles); these variants let
+   * search engines connect lower case and short forms to the same entity.
    */
-  alternateNames: ["CoreFinity Tech", "Corefinity"],
+  alternateNames: ["Corefinity Tech", "CoreFinity", "Corefinity"],
   tagline: "Architecting high performance digital platforms",
   description:
-    "Corefinity Tech is a custom software development company building web platforms, AI chatbots, mobile apps and automation for clients worldwide. Fixed prices.",
+    "CoreFinity Tech is a custom software development company building web platforms, AI chatbots, mobile apps and automation for clients worldwide. Fixed prices.",
   /** Short form for cards and structured data where long copy gets clipped. */
   shortDescription:
-    "Corefinity Tech builds custom web platforms, operations dashboards and direct booking systems. Fixed scope, full code ownership.",
+    "CoreFinity Tech builds custom web platforms, operations dashboards and direct booking systems. Fixed scope, full code ownership.",
   locale: "en_US",
   twitter: "@corefinity",
   /** Bump when page content changes; feeds sitemap lastModified. */
@@ -40,28 +40,35 @@ export const site = {
 /**
  * Official profiles, emitted as sameAs in the Organization schema. This is how
  * search engines tie the brand's profiles to one entity. Only list profiles
- * that exist and are controlled by Corefinity Tech; an empty list emits nothing.
+ * that exist and are controlled by CoreFinity Tech; an empty list emits nothing.
  */
 export const sameAs: string[] = [
+  // LinkedIn has not been renamed yet; the slug really is missing an "i".
   "https://www.linkedin.com/company/corefintytech",
-  "https://www.linkedin.com/in/corefinity-tech",
   "https://www.instagram.com/corefinitytech/",
-  // The canonical page URL behind the share link, which is a redirect.
-  "https://www.facebook.com/people/Core-Finity/pfbid024hZfxue6v4k7STpvALyJSCoz9yvodEBsq25F9gfWEpWoHshFP5dhENb1ohc9CNEdl/",
+  "https://www.facebook.com/corefinity.tech/",
 ];
+
+/**
+ * WhatsApp Business line. Also published as the schema telephone, so it should
+ * match the number on the Google Business Profile.
+ */
+export const whatsapp = {
+  display: "+92 307 9783476",
+  e164: "+923079783476",
+  href: "https://wa.me/923079783476",
+} as const;
 
 /** Profiles shown in the footer, one per network. */
 export const socialLinks = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/corefintytech" },
   { label: "Instagram", href: "https://www.instagram.com/corefinitytech/" },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/people/Core-Finity/pfbid024hZfxue6v4k7STpvALyJSCoz9yvodEBsq25F9gfWEpWoHshFP5dhENb1ohc9CNEdl/",
-  },
+  { label: "Facebook", href: "https://www.facebook.com/corefinity.tech/" },
+  { label: "WhatsApp", href: whatsapp.href },
 ] as const;
 
 /**
- * Office address, written to match the Google Business Profile ("Corefinity Tech
+ * Office address, written to match the Google Business Profile ("CoreFinity Tech
  * Tech", Islamabad). Search engines match the business profile to this site
  * partly by comparing these details, so change both together or not at all.
  */
@@ -86,7 +93,7 @@ export const address = {
  * stop merging the two businesses.
  */
 export const disambiguation =
-  "Corefinity Tech at corefinity.tech is a software development company based in Islamabad, Pakistan. It is not affiliated with corefinity.com, a UK cloud hosting company.";
+  "CoreFinity Tech at corefinity.tech is a software development company based in Islamabad, Pakistan. It is not affiliated with corefinity.com, a UK cloud hosting company.";
 
 /**
  * Search engine ownership tokens. Set these in the environment once each
@@ -171,7 +178,7 @@ export const services: Service[] = [
  */
 export const legal = {
   /** Replace once the business is formally registered. */
-  entity: "Corefinity Tech",
+  entity: "CoreFinity Tech",
   country: "Pakistan",
   governingLaw: "the laws of the Islamic Republic of Pakistan",
   courts: "the courts of Pakistan",

@@ -7,6 +7,7 @@ import {
   services,
   site,
   siteUrl,
+  whatsapp,
 } from "./site";
 
 /**
@@ -41,6 +42,7 @@ export function organizationSchema() {
     legalName: site.legalName,
     url: siteUrl,
     email: site.email,
+    telephone: whatsapp.e164,
     description: site.description,
     disambiguatingDescription: disambiguation,
     slogan: site.tagline,
@@ -61,6 +63,7 @@ export function organizationSchema() {
         "@type": "ContactPoint",
         contactType: "sales",
         email: site.email,
+        telephone: whatsapp.e164,
         availableLanguage: ["English"],
         url: `${siteUrl}/contact`,
       },
@@ -100,6 +103,7 @@ export function serviceSchema() {
     name: site.name,
     url: siteUrl,
     email: site.email,
+    telephone: whatsapp.e164,
     description: site.description,
     address: postalAddress(),
     provider: { "@id": organizationId },
