@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 import { site } from "@/lib/site";
 
@@ -10,6 +11,9 @@ type Brief = {
   /** Honeypot. Anything in here means a bot filled the form. */
   company_website?: string;
 };
+
+/** Every brief's subject starts with this, so an inbox rule can file them. */
+const BRIEF_SUBJECT_PREFIX = "[Website Brief]";
 
 const LIMITS = { name: 120, email: 200, projectType: 80, overview: 5000 };
 
@@ -107,15 +111,20 @@ export async function POST(request: Request) {
     );
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.BRIEF_TO_EMAIL ?? site.email;
-  const from = process.env.BRIEF_FROM_EMAIL;
+  // Sent through the company's own Private Email mailbox: the site signs in
+  // as that mailbox and mails the brief to it, so briefs land in the normal
+  // inbox, signed with the domain's DKIM key, with no third party involved.
+  const host = process.env.SMTP_HOST;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  const port = Number(process.env.SMTP_PORT ?? 465);
+  const to = process.env.BRIEF_TO_EMAIL ?? user ?? site.email;
 
-  // Without a provider configured there is nowhere to send this. Say so rather
+  // Without a mailbox configured there is nowhere to send this. Say so rather
   // than returning ok and dropping a real lead on the floor.
-  if (!apiKey || !from) {
+  if (!host || !user || !pass) {
     console.error(
-      "[project-brief] No email provider configured. Set RESEND_API_KEY and BRIEF_FROM_EMAIL.",
+      "[project-brief] No mailbox configured. Set SMTP_HOST, SMTP_USER and SMTP_PASS.",
       { from: fields.email, projectType: fields.projectType },
     );
     return NextResponse.json(
@@ -133,26 +142,37 @@ export async function POST(request: Request) {
     <p style="white-space:pre-wrap">${escapeHtml(fields.overview)}</p>
   `;
 
+  const text = [
+    "New project brief",
+    `Name: ${fields.name}`,
+    `Email: ${fields.email}`,
+    `Project type: ${fields.projectType}`,
+    "",
+    fields.overview,
+  ].join("\n");
+
   try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: fields.email,
-        subject: `Project brief: ${fields.projectType}, ${fields.name}`,
-        html,
-      }),
+    const transport = nodemailer.createTransport({
+      host,
+      port,
+      // 465 is implicit TLS; 587 starts plain and upgrades with STARTTLS.
+      secure: port === 465,
+      auth: { user, pass },
+      // Fail fast rather than holding the serverless function open.
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 15_000,
     });
 
-    if (!res.ok) {
-      console.error("[project-brief] Provider rejected send", await res.text());
-      return NextResponse.json({ error: "Could not send" }, { status: 502 });
-    }
+    await transport.sendMail({
+      from: { name: `${site.name} Website`, address: user },
+      to,
+      replyTo: { name: fields.name, address: fields.email },
+      // The fixed prefix is what inbox filter rules match on.
+      subject: `${BRIEF_SUBJECT_PREFIX} ${fields.projectType}, ${fields.name}`,
+      text,
+      html,
+    });
   } catch (err) {
     console.error("[project-brief] Send failed", err);
     return NextResponse.json({ error: "Could not send" }, { status: 502 });
