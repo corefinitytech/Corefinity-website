@@ -15,7 +15,7 @@ import Faq from "@/components/Faq";
 import ProjectBrief from "@/components/ProjectBrief";
 import JsonLd from "@/components/JsonLd";
 import { faqSchema, graph } from "@/lib/schema";
-import { site } from "@/lib/site";
+import { openGraphDefaults, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   // Absolute so the brand is not appended twice on the page that carries it.
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   description: site.description,
   alternates: { canonical: "/" },
   openGraph: {
+    ...openGraphDefaults,
     title: site.title,
     description: site.description,
     url: "/",

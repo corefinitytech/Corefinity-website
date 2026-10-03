@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import LegalLayout, { type LegalSection } from "@/components/LegalLayout";
-import { legal, site } from "@/lib/site";
+import { legal, openGraphDefaults, site } from "@/lib/site";
 
 const title = "Privacy Policy";
 const description =
@@ -12,7 +12,12 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/privacy" },
-  openGraph: { title: `${title} | ${site.name}`, description, url: "/privacy" },
+  openGraph: {
+    ...openGraphDefaults,
+    title: `${title} | ${site.name}`,
+    description,
+    url: "/privacy",
+  },
 };
 
 const sections: LegalSection[] = [

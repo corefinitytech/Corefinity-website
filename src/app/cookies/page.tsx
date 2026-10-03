@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import LegalLayout, { type LegalSection } from "@/components/LegalLayout";
 import ConsentReset from "@/components/ConsentReset";
-import { legal, site } from "@/lib/site";
+import { legal, openGraphDefaults, site } from "@/lib/site";
 
 const title = "Cookie Policy";
 const description =
@@ -13,7 +13,12 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/cookies" },
-  openGraph: { title: `${title} | ${site.name}`, description, url: "/cookies" },
+  openGraph: {
+    ...openGraphDefaults,
+    title: `${title} | ${site.name}`,
+    description,
+    url: "/cookies",
+  },
 };
 
 const sections: LegalSection[] = [

@@ -11,6 +11,7 @@ import { services } from "@/lib/services";
 import {
   address,
   founders,
+  openGraphDefaults,
   site,
   siteUrl,
   socialLinks,
@@ -32,6 +33,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/about" },
   openGraph: {
+    ...openGraphDefaults,
     title: `${title} | ${site.name}`,
     description,
     url: "/about",
@@ -110,8 +112,7 @@ export default function AboutPage() {
 
           <div className="mt-8 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
-              <H1Eyebrow>About CoreFinity Tech</H1Eyebrow>
-              A small team building{" "}
+              <H1Eyebrow>About CoreFinity Tech</H1Eyebrow>A small team building{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 software worth owning.
               </span>
@@ -119,10 +120,10 @@ export default function AboutPage() {
 
             <div className="w-full max-w-sm shrink-0 lg:pb-3">
               <p className="text-sm leading-relaxed text-ink/65">
-                CoreFinity Tech builds custom web platforms, AI assistants, mobile
-                apps and automation for businesses that have outgrown the tools
-                they started with. We are based in Islamabad and work remotely
-                with clients across the world.
+                CoreFinity Tech builds custom web platforms, AI assistants,
+                mobile apps and automation for businesses that have outgrown the
+                tools they started with. We are based in Islamabad and work
+                remotely with clients across the world.
               </p>
               <Link
                 href="/contact"
@@ -175,9 +176,9 @@ export default function AboutPage() {
           <div className="grid gap-5">
             <p className="text-[15px] leading-relaxed text-ink/70">
               Almost every project we are asked about starts the same way.
-              Something that worked fine at the beginning has stopped fitting.
-              A spreadsheet runs a process nobody fully understands any more.
-              Four subscriptions hold four pieces of the same job, and somebody
+              Something that worked fine at the beginning has stopped fitting. A
+              spreadsheet runs a process nobody fully understands any more. Four
+              subscriptions hold four pieces of the same job, and somebody
               retypes data between them every morning.
             </p>
             <p className="text-[15px] leading-relaxed text-ink/70">
@@ -189,9 +190,9 @@ export default function AboutPage() {
               do the job.
             </p>
             <p className="text-[15px] leading-relaxed text-ink/70">
-              So we keep the work narrow and the price fixed. You should be
-              able to see what you are buying before you commit to it, and own
-              every part of it afterwards.
+              So we keep the work narrow and the price fixed. You should be able
+              to see what you are buying before you commit to it, and own every
+              part of it afterwards.
             </p>
           </div>
         </div>

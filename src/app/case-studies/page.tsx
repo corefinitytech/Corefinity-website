@@ -12,7 +12,7 @@ import { ArrowLeft, ArrowRight } from "@/components/icons";
 import { caseStudies } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
-import { site, siteUrl } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 const title = "Case Studies: AI, Web and Automation";
 const description =
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   keywords: caseStudies.flatMap((c) => c.keywords.slice(0, 2)),
   alternates: { canonical: "/case-studies" },
   openGraph: {
+    ...openGraphDefaults,
     title: `${title} | ${site.name}`,
     description,
     url: "/case-studies",

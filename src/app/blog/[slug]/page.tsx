@@ -16,7 +16,7 @@ import {
 } from "@/lib/blog";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService, type ServicePage } from "@/lib/services";
-import { site, siteUrl } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -41,6 +41,7 @@ export async function generateMetadata({
     keywords: post.keywords,
     alternates: { canonical: url },
     openGraph: {
+      ...openGraphDefaults,
       type: "article",
       title: `${post.title} | ${site.name}`,
       description: post.description,
@@ -108,8 +109,14 @@ function Block({ block }: { block: BlogBlock }) {
           </p>
           <ul className="mt-5 grid gap-3">
             {block.items.map((item) => (
-              <li key={item} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
-                <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+              <li
+                key={item}
+                className="flex gap-3 text-[15px] leading-relaxed text-ink/75"
+              >
+                <span
+                  aria-hidden
+                  className="mt-2 size-1.5 shrink-0 rounded-full bg-accent"
+                />
                 {item}
               </li>
             ))}

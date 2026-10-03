@@ -10,7 +10,7 @@ import { ArrowRight } from "@/components/icons";
 import { caseStudiesFor } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService, relatedTo, services } from "@/lib/services";
-import { site, siteUrl } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 /** Every service page is known at build time, so all of them prerender. */
 export function generateStaticParams() {
@@ -36,6 +36,7 @@ export async function generateMetadata({
     description: service.description,
     alternates: { canonical: `/services/${service.slug}` },
     openGraph: {
+      ...openGraphDefaults,
       title: `${service.title} | ${site.name}`,
       description: service.description,
       url: `/services/${service.slug}`,

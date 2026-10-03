@@ -38,6 +38,18 @@ export const site = {
 } as const;
 
 /**
+ * Open Graph fields every page shares. Next replaces the layout's openGraph
+ * wholesale when a page sets its own, so pages spread this first; without it
+ * og:site_name, which search engines read as a site name signal, goes missing.
+ * Pages that are articles override type after the spread.
+ */
+export const openGraphDefaults = {
+  type: "website",
+  siteName: site.name,
+  locale: site.locale,
+} as const;
+
+/**
  * Official profiles, emitted as sameAs in the Organization schema. This is how
  * search engines tie the brand's profiles to one entity. Only list profiles
  * that exist and are controlled by CoreFinity Tech; an empty list emits nothing.
@@ -47,6 +59,7 @@ export const sameAs: string[] = [
   "https://www.linkedin.com/company/corefintytech",
   "https://www.instagram.com/corefinitytech/",
   "https://www.facebook.com/corefinity.tech/",
+  "https://github.com/corefinitytech",
 ];
 
 /**
@@ -64,6 +77,7 @@ export const socialLinks = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/corefintytech" },
   { label: "Instagram", href: "https://www.instagram.com/corefinitytech/" },
   { label: "Facebook", href: "https://www.facebook.com/corefinity.tech/" },
+  { label: "GitHub", href: "https://github.com/corefinitytech" },
   { label: "WhatsApp", href: whatsapp.href },
 ] as const;
 
@@ -79,7 +93,8 @@ export const founders = [
 ] as const;
 
 export const address = {
-  streetAddress: "Office no 08, Royal Inn Plaza, Basement, Kohistan Rd, F-8 Markaz",
+  streetAddress:
+    "Office no 08, Royal Inn Plaza, Basement, Kohistan Rd, F-8 Markaz",
   addressLocality: "Islamabad",
   addressRegion: "Islamabad Capital Territory",
   postalCode: "44000",

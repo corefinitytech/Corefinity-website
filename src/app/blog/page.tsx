@@ -2,16 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import JsonLd from "@/components/JsonLd";
-import {
-  CoverBackground,
-  CoverScrim,
-} from "@/components/blog/CoverBackground";
+import { CoverBackground, CoverScrim } from "@/components/blog/CoverBackground";
 import { H1Eyebrow } from "@/components/PageHeading";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
 import { postsByDate, readingMinutes } from "@/lib/blog";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
-import { site, siteUrl } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 const title = "Blog: Building Software for Growth";
 const description =
@@ -22,6 +19,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/blog" },
   openGraph: {
+    ...openGraphDefaults,
     title: `${title} | ${site.name}`,
     description,
     url: "/blog",
@@ -80,77 +78,77 @@ export default function BlogIndex() {
           {all.map((post, i) => {
             const flip = i % 2 === 1;
             return (
-            <Link
-              key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="group grid overflow-hidden rounded-[32px] bg-mist transition duration-300 hover:-translate-y-0.5 lg:grid-cols-2"
-            >
-              <div
-                className={`flex flex-col p-7 sm:p-10 lg:p-12 ${
-                  flip ? "lg:order-2" : ""
-                }`}
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group grid overflow-hidden rounded-[32px] bg-mist transition duration-300 hover:-translate-y-0.5 lg:grid-cols-2"
               >
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-ink">
-                    {post.topic}
-                  </span>
-                  <span aria-hidden className="text-ink/25">
-                    /
-                  </span>
-                  <span className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
-                    {readingMinutes(post)} minute read
-                  </span>
-                </div>
-
-                <h2 className="mt-5 max-w-lg text-[clamp(1.5rem,2.8vw,2.25rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-                  {post.headline.lead}{" "}
-                  <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                    {post.headline.accent}
-                  </span>
-                </h2>
-                <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
-                  {post.excerpt}
-                </p>
-
-                <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-10">
-                  <ul className="flex flex-wrap gap-1.5">
-                    {post.services.map((s) => (
-                      <li
-                        key={s}
-                        className="rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] text-ink/70"
-                      >
-                        {getService(s)?.navLabel}
-                      </li>
-                    ))}
-                  </ul>
-                  <span className="inline-flex items-center gap-2 text-[13px] font-medium text-ink">
-                    Read article
-                    <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition duration-300 group-hover:scale-110">
-                      <ArrowRight className="size-3.5" />
-                    </span>
-                  </span>
-                </div>
-              </div>
-
-              {/* Cover */}
-              <div
-                className={`relative isolate grid min-h-[260px] place-items-center overflow-hidden p-8 text-white ${
-                  surfaces[i % surfaces.length]
-                } ${flip ? "lg:order-1" : ""}`}
-              >
-                <div aria-hidden className="absolute inset-0">
-                  <CoverBackground index={i} />
-                </div>
                 <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:40px_40px]"
-                />
-                <CoverScrim />
-                <p className="relative max-w-[26ch] text-center text-[clamp(1.1rem,2vw,1.5rem)] font-medium leading-snug tracking-[-0.02em]">
-                  {post.description.split(".")[0]}.
-                </p>
-              </div>
-            </Link>
+                  className={`flex flex-col p-7 sm:p-10 lg:p-12 ${
+                    flip ? "lg:order-2" : ""
+                  }`}
+                >
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-ink">
+                      {post.topic}
+                    </span>
+                    <span aria-hidden className="text-ink/25">
+                      /
+                    </span>
+                    <span className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
+                      {readingMinutes(post)} minute read
+                    </span>
+                  </div>
+
+                  <h2 className="mt-5 max-w-lg text-[clamp(1.5rem,2.8vw,2.25rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
+                    {post.headline.lead}{" "}
+                    <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
+                      {post.headline.accent}
+                    </span>
+                  </h2>
+                  <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-10">
+                    <ul className="flex flex-wrap gap-1.5">
+                      {post.services.map((s) => (
+                        <li
+                          key={s}
+                          className="rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] text-ink/70"
+                        >
+                          {getService(s)?.navLabel}
+                        </li>
+                      ))}
+                    </ul>
+                    <span className="inline-flex items-center gap-2 text-[13px] font-medium text-ink">
+                      Read article
+                      <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition duration-300 group-hover:scale-110">
+                        <ArrowRight className="size-3.5" />
+                      </span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Cover */}
+                <div
+                  className={`relative isolate grid min-h-[260px] place-items-center overflow-hidden p-8 text-white ${
+                    surfaces[i % surfaces.length]
+                  } ${flip ? "lg:order-1" : ""}`}
+                >
+                  <div aria-hidden className="absolute inset-0">
+                    <CoverBackground index={i} />
+                  </div>
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:40px_40px]"
+                  />
+                  <CoverScrim />
+                  <p className="relative max-w-[26ch] text-center text-[clamp(1.1rem,2vw,1.5rem)] font-medium leading-snug tracking-[-0.02em]">
+                    {post.description.split(".")[0]}.
+                  </p>
+                </div>
+              </Link>
             );
           })}
         </div>

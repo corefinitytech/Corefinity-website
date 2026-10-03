@@ -18,7 +18,7 @@ import { getCaseStudy, caseStudies, nextCaseStudy } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
 import type { ServicePage } from "@/lib/services";
-import { site, siteUrl } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 /** Every case study is known at build time, so all of them prerender. */
 export function generateStaticParams() {
@@ -46,6 +46,7 @@ export async function generateMetadata({
     keywords: study.keywords,
     alternates: { canonical: url },
     openGraph: {
+      ...openGraphDefaults,
       type: "article",
       title: `${study.title} | ${site.name}`,
       description: study.description,
