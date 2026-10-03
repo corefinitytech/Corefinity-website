@@ -6,11 +6,7 @@ import { ArrowRight } from "./icons";
 import {
   ContourDomeBackground,
   CountUpOutline,
-  GhostFibersBackground,
   GradientBlindsBackground,
-  GradientWavesBackground,
-  MoltenMetalBackground,
-  OrbParticlesBackground,
 } from "./backgrounds/LazyBackgrounds";
 import { palette } from "./backgrounds/palette";
 
@@ -34,6 +30,7 @@ function Tag({
 
 function Card({
   href,
+  index,
   title,
   body,
   tag,
@@ -47,6 +44,8 @@ function Card({
   /** The service page this card describes. The card's own title and body
    *  are the link text, so the anchor describes where it goes. */
   href: string;
+  /** Two digit number shown above the title, as on the case study cards. */
+  index?: string;
   title: string;
   body?: string;
   tag?: string;
@@ -78,15 +77,20 @@ function Card({
           }`}
         />
       )}
+      {index && (
+        <span className="text-[11px] font-medium tracking-[0.18em] text-white/50">
+          {index}
+        </span>
+      )}
       <h3
-        className={`text-xl font-medium leading-snug tracking-[-0.02em] ${titleClassName}`}
+        className={`text-xl font-medium leading-snug tracking-[-0.02em] ${index ? "mt-5" : ""} ${titleClassName}`}
       >
         {title}
       </h3>
       {body && (
         <p
           className={`mt-3 max-w-[46ch] text-[13px] leading-relaxed ${
-            light ? "text-ink/65" : "text-white/65"
+            light ? "text-ink/65" : index ? "text-white/75" : "text-white/65"
           }`}
         >
           {body}
@@ -128,54 +132,19 @@ export default function Capabilities() {
           <Card
             className="min-h-[300px] lg:row-span-2"
             href="/services/web-development"
+            index="01"
             title="Web Platforms & Dashboards"
             body="Frontend, backend and everything between. Operations systems, customer portals, SaaS dashboards and internal tools that replace the pile of subscriptions and spreadsheets you are running now."
-            tag="Multitenant architecture"
             surface="bg-[radial-gradient(120%_120%_at_20%_15%,#1880d8_0%,#0f4c93_38%,#0d1a33_74%,#080b18_100%)]"
-            background={
-              <MoltenMetalBackground
-                color1={palette.deepNavy}
-                color2={palette.electricBlue}
-                color3={palette.cyan}
-                colorMode="molten"
-                speed={0.3}
-                scale={5}
-                detail={4}
-                glow={2.2}
-                coreSize={0.15}
-                swirl={1.3}
-                fold={-0.3}
-                blackPoint={0.02}
-                brightness={2.2}
-                grain
-                grainIntensity={0.04}
-                mouseInteraction
-                mouseStrength={0.25}
-              />
-            }
           />
 
           <Card
             className="min-h-[300px] lg:row-span-2"
             href="/services/ai-development"
+            index="02"
             title="AI & Chatbot Development"
             body="Assistants that answer from your own documents, agents that handle the repetitive queries, and language models wired into the systems you already run rather than bolted on beside them."
-            tag="Built with guardrails"
             surface="bg-[linear-gradient(160deg,#061426_0%,#0f3a66_52%,#050b14_100%)]"
-            background={
-              <GhostFibersBackground
-                lineColor={palette.deepNavy}
-                glowColor={palette.cyan}
-                layers={6}
-                scale={1.6}
-                speed={0.16}
-                twist={0.14}
-                lineSharpness={14}
-                glowIntensity={1.3}
-                brightness={1.7}
-                vignette={0.7}
-              />
-            }
           />
 
           <Card
@@ -187,7 +156,11 @@ export default function Capabilities() {
             surface="bg-[linear-gradient(140deg,#101317_0%,#1b2026_100%)]"
             background={
               <GradientBlindsBackground
-                gradientColors={[palette.deepNavy, palette.electricBlue, palette.cyan]}
+                gradientColors={[
+                  palette.deepNavy,
+                  palette.electricBlue,
+                  palette.cyan,
+                ]}
                 angle={18}
                 noise={0.25}
                 blindCount={14}
@@ -206,27 +179,10 @@ export default function Capabilities() {
           <Card
             className="min-h-[200px]"
             href="/services/python-automation"
+            index="03"
             title="Python Scripting & Automation"
             body="Data pipelines, scraping, scheduled jobs and reporting that take the repetitive work off someone's desk."
-            tag="Runs unattended"
             surface="bg-[linear-gradient(140deg,#0d1a33_0%,#123a6b_100%)]"
-            background={
-              <OrbParticlesBackground
-                particleColors={[palette.cyan, palette.electricBlue, palette.offWhite]}
-                particleCount={750}
-                particleSpread={3.2}
-                cameraDistance={20}
-                speed={0.1}
-                particleBaseSize={46}
-                shellThickness={0.16}
-                jitter={0.3}
-                moveParticlesOnHover
-                particleHoverFactor={0.6}
-                alphaParticles
-                disableRotation={false}
-                pixelRatio={2}
-              />
-            }
           />
 
           <Card
@@ -271,30 +227,19 @@ export default function Capabilities() {
           <Card
             className="min-h-[200px] lg:col-span-2"
             href="/services/web-development"
+            index="04"
             title="Direct Booking & Commerce"
             body="Commission free reservation and checkout flows with Stripe settlement and two way calendar sync, built so operators stop handing 15 to 25 percent of revenue to booking portals."
-            tag="Stripe & iCal"
             surface="bg-[linear-gradient(105deg,#05070f_0%,#0d2a52_45%,#1868c8_82%,#18a8e8_100%)]"
           />
 
           <Card
             className="min-h-[200px]"
             href="/services/cloud-deployment"
+            index="05"
             title="Cloud & Deployment"
             body="CI and CD pipelines, edge hosting, monitoring and security on every release."
             surface="bg-[linear-gradient(140deg,#101317_0%,#1b2026_100%)]"
-            background={
-              <GradientWavesBackground
-                horizonColor={palette.baseNearBlack}
-                waveColor={palette.deepNavy}
-                crestColor={palette.cyan}
-                speed={0.22}
-                grain
-                grainIntensity={0.05}
-                mouseInteraction
-                parallaxStrength={0.35}
-              />
-            }
           />
         </div>
       </div>
