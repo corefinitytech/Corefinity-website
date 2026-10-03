@@ -12,7 +12,7 @@ import {
   serviceSchema,
   websiteSchema,
 } from "@/lib/schema";
-import { site, siteUrl, verification } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl, verification } from "@/lib/site";
 
 import "./globals.css";
 
@@ -49,12 +49,10 @@ export const metadata: Metadata = {
   category: "technology",
   alternates: { canonical: "/" },
   openGraph: {
-    type: "website",
-    siteName: site.name,
+    ...openGraphDefaults,
     title: site.title,
     description: site.description,
     url: siteUrl,
-    locale: site.locale,
   },
   twitter: {
     card: "summary_large_image",

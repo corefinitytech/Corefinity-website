@@ -5,7 +5,7 @@ import QuoteForm from "@/components/QuoteForm";
 import JsonLd from "@/components/JsonLd";
 import { H1Eyebrow } from "@/components/PageHeading";
 import { breadcrumbSchema, graph } from "@/lib/schema";
-import { site, whatsapp } from "@/lib/site";
+import { openGraphDefaults, site, whatsapp } from "@/lib/site";
 import {
   ArrowLeft,
   Bolt,
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/contact" },
   openGraph: {
+    ...openGraphDefaults,
     title: `${title} | CoreFinity Tech`,
     description,
     url: "/contact",

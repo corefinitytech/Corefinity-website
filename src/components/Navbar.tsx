@@ -22,12 +22,14 @@ type NavLink = { label: string; id: string; href?: string };
 
 const links: NavLink[] = [
   { label: "Services", id: "solutions", href: "/services" },
-  { label: "About", id: "process" },
+  // Every link with a page of its own points at that page, not a home page
+  // section: search engines build sitelinks from distinct URLs in the nav,
+  // and "/#blog" is just the home page again. The id still drives the
+  // scroll-spy pill on the home page.
+  { label: "About", id: "process", href: "/about" },
   { label: "Why us", id: "expertise" },
   { label: "Case studies", id: "case-studies", href: "/case-studies" },
-  // No href: this one scrolls to the blog section on the home page. The full
-  // blog lives behind the "View more articles" link inside that section.
-  { label: "Blogs", id: "blog" },
+  { label: "Blog", id: "blog", href: "/blog" },
 ];
 
 export default function Navbar() {

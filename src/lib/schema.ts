@@ -88,8 +88,11 @@ export function websiteSchema() {
   return {
     "@type": "WebSite",
     "@id": websiteId,
-    url: siteUrl,
+    // Google reads name and alternateName here for the site name it shows
+    // above each result, in place of the bare domain.
+    url: `${siteUrl}/`,
     name: site.name,
+    alternateName: site.alternateNames,
     description: site.description,
     inLanguage: "en",
     publisher: { "@id": organizationId },
