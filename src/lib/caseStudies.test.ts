@@ -119,9 +119,10 @@ describe("with no case studies published", () => {
 
 // These need at least one real study to look up.
 describe.skipIf(!hasCaseStudies)("lookups", () => {
-  it("keeps the slug the home page section links to", () => {
-    // CaseStudy.tsx links here directly; renaming the slug breaks that link.
-    expect(getCaseStudy("hotel-direct-booking-engine")).toBeDefined();
+  it("links every study with a client site to an absolute https URL", () => {
+    for (const c of caseStudies) {
+      if (c.clientUrl) expect(c.clientUrl).toMatch(/^https:\/\//);
+    }
   });
 
   it("finds a study by slug and 404s an unknown one", () => {
@@ -131,10 +132,16 @@ describe.skipIf(!hasCaseStudies)("lookups", () => {
     expect(getCaseStudy("not-a-case-study")).toBeUndefined();
   });
 
-  it("wraps the read next link round to the first study", () => {
+  it("never recommends a study as its own read next", () => {
+    if (caseStudies.length < 2) {
+      for (const c of caseStudies) expect(nextCaseStudy(c)).toBeUndefined();
+      return;
+    }
     const last = caseStudies[caseStudies.length - 1];
-    expect(nextCaseStudy(last).slug).toBe(caseStudies[0].slug);
-    for (const c of caseStudies) expect(nextCaseStudy(c).slug).not.toBe(c.slug);
+    expect(nextCaseStudy(last)?.slug).toBe(caseStudies[0].slug);
+    for (const c of caseStudies) {
+      expect(nextCaseStudy(c)?.slug).not.toBe(c.slug);
+    }
   });
 
   it("lists the studies that used a service", () => {

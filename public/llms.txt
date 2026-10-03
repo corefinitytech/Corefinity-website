@@ -159,7 +159,7 @@ Send a project brief through the form at corefinity.tech/contact. CoreFinity Tec
 ## Pages
 
 * [Home](https://corefinity.tech): services, engagement options, pricing
-  structure and frequently asked questions.
+  structure, a featured case study and frequently asked questions.
 * [About](https://corefinity.tech/about): who CoreFinity Tech is, the three founders, how a project runs and what the company will not do.
 * [Services](https://corefinity.tech/services): index of everything CoreFinity Tech
   builds and runs.
@@ -175,6 +175,8 @@ Send a project brief through the form at corefinity.tech/contact. CoreFinity Tec
   custom software and automation for business owners.
 * [Is your product ready for sudden growth?](https://corefinity.tech/blog/is-your-product-ready-for-sudden-growth): what happens when demand arrives faster than planned, where systems give way first, and the questions to ask before a launch.
 * [How we size a system before we build it](https://corefinity.tech/blog/how-we-size-a-system-before-building-it): the questions asked before any code is written, the peak hour arithmetic, and how capacity is added in stages.
+* [Case studies](https://corefinity.tech/case-studies): real client engagements, what was built and what changed for the business.
+* [IELTS Counsel: IELTS writing checker and online practice platform](https://corefinity.tech/case-studies/ielts-counsel-writing-checker-online-practice): built for an IELTS institute in Islamabad (ieltscounsel.com). Students get an instant band score from an AI writing checker for Task 1 and Task 2, and AI speaking scores for Parts 1 to 3. The AI model reports evidence from each answer and code works out the band, tuned against expert marked scripts from Band 4 to Band 9. The platform also has IELTS online practice tests, Easypaisa checkout, plan limits checked on the server, an admin panel for online and campus students, and protected study PDFs. Built over about six months in 2026.
 * [Get a quote](https://corefinity.tech/contact): project brief form, what the
   process looks like and how to reach the team.
 * [Privacy policy](https://corefinity.tech/privacy): what personal information

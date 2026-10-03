@@ -91,8 +91,8 @@ export default async function CaseStudyPage({
   const next = nextCaseStudy(study);
   const url = `${siteUrl}/case-studies/${study.slug}`;
 
-  const facts: [string, string][] = [
-    ["Client", study.client],
+  const facts: [string, string, string?][] = [
+    ["Client", study.client, study.clientUrl],
     ["Industry", study.industry],
     ["Timeline", study.timeline],
     ["Year", study.year],
@@ -125,13 +125,24 @@ export default async function CaseStudyPage({
                 {study.summary}
               </p>
               <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-black/[0.08] bg-black/[0.08]">
-                {facts.map(([k, v]) => (
+                {facts.map(([k, v, href]) => (
                   <div key={k} className="bg-white px-4 py-3">
-                    <dt className="text-[10px] uppercase tracking-[0.14em] text-ink/55">
+                    <dt className="text-[10px] uppercase tracking-[0.14em] text-ink/65">
                       {k}
                     </dt>
                     <dd className="mt-1 text-[13px] font-medium text-ink">
-                      {v}
+                      {href ? (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener"
+                          className="underline decoration-black/20 underline-offset-4 transition hover:text-accent-ink hover:decoration-current"
+                        >
+                          {v}
+                        </a>
+                      ) : (
+                        v
+                      )}
                     </dd>
                   </div>
                 ))}
@@ -256,10 +267,11 @@ export default async function CaseStudyPage({
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-ink px-6 py-16 text-white sm:px-12 sm:py-20">
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 select-none text-center text-[clamp(4rem,13vw,11rem)] font-semibold leading-[0.8] tracking-tighter text-white/[0.04]"
-          >
-            Results
-          </span>
+            // Drawn from a pseudo element: it is decoration meant to be faint,
+            // and real text that faint fails the contrast audit.
+            data-text="Results"
+            className="pointer-events-none absolute inset-x-0 bottom-0 select-none text-center text-[clamp(4rem,13vw,11rem)] font-semibold leading-[0.8] tracking-tighter text-white/[0.04] before:content-[attr(data-text)]"
+          />
 
           <div className="relative grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
             <div>
@@ -413,23 +425,27 @@ export default async function CaseStudyPage({
 
       {/* Read next and CTA */}
       <section className="px-4 pb-12 sm:px-6">
-        <div className="mx-auto grid max-w-7xl gap-3 lg:grid-cols-[1.1fr_1fr]">
-          <Link
-            href={`/case-studies/${next.slug}`}
-            className={`group relative isolate flex min-h-[320px] flex-col overflow-hidden rounded-[32px] p-8 text-white transition duration-300 hover:-translate-y-0.5 sm:p-10 ${caseSurface[next.theme]}`}
-          >
-            <GridOverlay />
-            <p className={`relative ${eyebrow} text-white/60`}>
-              ( Read next / {next.industry} )
-            </p>
-            <h2 className="relative mt-5 max-w-md text-[clamp(1.5rem,2.8vw,2.25rem)] font-medium leading-[1.1] tracking-[-0.03em]">
-              {next.headline.lead} {next.headline.accent}
-            </h2>
-            <p className="relative mt-4 max-w-sm text-[13px] leading-relaxed text-white/70">
-              {next.summary}
-            </p>
-            <CardNotch />
-          </Link>
+        <div
+          className={`mx-auto grid max-w-7xl gap-3 ${next ? "lg:grid-cols-[1.1fr_1fr]" : ""}`}
+        >
+          {next && (
+            <Link
+              href={`/case-studies/${next.slug}`}
+              className={`group relative isolate flex min-h-[320px] flex-col overflow-hidden rounded-[32px] p-8 text-white transition duration-300 hover:-translate-y-0.5 sm:p-10 ${caseSurface[next.theme]}`}
+            >
+              <GridOverlay />
+              <p className={`relative ${eyebrow} text-white/60`}>
+                ( Read next / {next.industry} )
+              </p>
+              <h2 className="relative mt-5 max-w-md text-[clamp(1.5rem,2.8vw,2.25rem)] font-medium leading-[1.1] tracking-[-0.03em]">
+                {next.headline.lead} {next.headline.accent}
+              </h2>
+              <p className="relative mt-4 max-w-sm text-[13px] leading-relaxed text-white/70">
+                {next.summary}
+              </p>
+              <CardNotch />
+            </Link>
+          )}
 
           <div className="flex flex-col justify-between rounded-[32px] bg-mist p-8 sm:p-10">
             <div>
@@ -477,6 +493,15 @@ export default async function CaseStudyPage({
             about: services.map((s) => ({
               "@id": `${siteUrl}/services/${s.slug}#service`,
             })),
+            ...(study.clientUrl
+              ? {
+                  mentions: {
+                    "@type": "Organization",
+                    name: study.client,
+                    url: study.clientUrl,
+                  },
+                }
+              : {}),
           },
           breadcrumbSchema([
             { name: "Home", path: "/" },

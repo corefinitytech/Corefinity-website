@@ -19,6 +19,8 @@ export const caseSurface: Record<CaseStudyTheme, string> = {
   ops: "bg-[linear-gradient(140deg,#050b14_0%,#0d1a33_45%,#123a6b_100%)]",
   booking:
     "bg-[radial-gradient(110%_120%_at_75%_25%,#1880d8_0%,#123a6b_42%,#0a0f22_78%,#05070f_100%)]",
+  education:
+    "bg-[linear-gradient(150deg,#05070f_0%,#0f2f5c_50%,#1868c8_100%)]",
 };
 
 /** Animated layer, reusing the tuned settings from the Capabilities cards. */
@@ -36,6 +38,20 @@ export function CaseStudyBackdrop({ theme }: { theme: CaseStudyTheme }) {
         glowIntensity={1.3}
         brightness={1.7}
         vignette={0.7}
+      />
+    );
+  }
+  if (theme === "education") {
+    return (
+      <GradientWavesBackground
+        horizonColor={palette.baseNearBlack}
+        waveColor={palette.deepNavy}
+        crestColor={palette.electricBlue}
+        speed={0.18}
+        grain
+        grainIntensity={0.05}
+        mouseInteraction
+        parallaxStrength={0.3}
       />
     );
   }
@@ -234,7 +250,53 @@ function BookingScreen() {
   );
 }
 
+function EducationScreen() {
+  // One Writing Task 2 result as a student sees it: the overall band, then
+  // each official criterion. Bars are band out of 9.
+  const criteria: [string, number][] = [
+    ["Task Response", 7],
+    ["Coherence and Cohesion", 6.5],
+    ["Lexical Resource", 7],
+    ["Grammatical Range and Accuracy", 6.5],
+  ];
+  return (
+    <div className={`${glass} w-full max-w-sm`}>
+      <PanelLabel>IELTS Counsel · Writing Task 2</PanelLabel>
+      <div className="mt-4 flex items-end justify-between gap-4">
+        <div>
+          <p className="text-[10px] text-white/55">Overall band</p>
+          <p className="mt-0.5 text-3xl font-medium sm:text-4xl">7.0</p>
+        </div>
+        <span className="rounded-full bg-sky/20 px-2 py-0.5 text-[10px] text-sky">
+          Scored instantly
+        </span>
+      </div>
+      <ul className="mt-4 grid gap-2.5 border-t border-white/10 pt-3">
+        {criteria.map(([name, band]) => (
+          <li key={name}>
+            <div className="flex items-center justify-between text-[11px] text-white/75">
+              <span className="truncate">{name}</span>
+              <span className="text-white">{band.toFixed(1)}</span>
+            </div>
+            <div className="mt-1 h-1.5 rounded-full bg-white/10" aria-hidden>
+              <div
+                className="h-full rounded-full bg-sky/80"
+                style={{ width: `${(band / 9) * 100}%` }}
+              />
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-[10px] text-white/55">
+        <span>Read 3 times, middle score used</span>
+        <span>Mentor review available</span>
+      </div>
+    </div>
+  );
+}
+
 export function CaseStudyScreen({ theme }: { theme: CaseStudyTheme }) {
+  if (theme === "education") return <EducationScreen />;
   if (theme === "ai") return <ChatScreen />;
   if (theme === "ops") return <OpsScreen />;
   return <BookingScreen />;
