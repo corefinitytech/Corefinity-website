@@ -13,7 +13,8 @@
  * invented.
  */
 
-export type CaseStudyTheme = "ai" | "ops" | "booking" | "education";
+export type CaseStudyTheme =
+  "ai" | "ops" | "booking" | "education" | "industrial";
 
 export type CaseStudyMetric = {
   /** Integer, so it can count up. Keep decimals out of here. */
@@ -170,6 +171,109 @@ export const caseStudies: CaseStudy[] = [
       "Docker",
     ],
     theme: "education",
+  },
+  {
+    slug: "aeroflex-industrial-supplier-website",
+    client: "Aeroflex",
+    clientUrl: "https://www.aeroflex.pk/",
+    industry: "Industrial equipment",
+    summary:
+      "The first website for an Islamabad supplier of industrial testing equipment, built in two weeks with 13 pages, a blog and search optimisation from day one.",
+    title: "Industrial Supplier Website Case Study",
+    description:
+      "How CoreFinity Tech built Aeroflex, an Islamabad testing equipment supplier, its first website: 13 pages, a blog and SEO ready for Google and AI search.",
+    keywords: [
+      "industrial supplier website",
+      "website for engineering company",
+      "B2B website development Pakistan",
+      "calibration company website",
+      "web development Islamabad",
+      "SEO for industrial suppliers",
+    ],
+    headline: {
+      lead: "A first website for an industrial supplier,",
+      accent: "built to be found.",
+    },
+    timeline: "2 weeks",
+    year: "2026",
+    datePublished: "2026-10-04",
+    services: ["web-development", "seo", "ui-ux-design"],
+    metrics: [
+      { value: 13, label: "Pages, each with its own search title" },
+      { value: 6, label: "Services, each with its own section" },
+      { value: 100, label: "Lighthouse SEO score" },
+      { value: 15, label: "Search and AI crawlers welcomed by name" },
+    ],
+    challenge: [
+      "Aeroflex supplies, calibrates, repairs and services testing instruments for oil and gas, energy, healthcare and manufacturing teams around Islamabad. The company has been running since 2014, yet it had no website. Work came in through phone calls, WhatsApp messages and referrals.",
+      "That works until a plant manager or a procurement officer searches for a calibration or repair supplier and finds nothing. Engineering buyers check a supplier online before they pick up the phone. They want to see the services, the process and a quick way to reach someone. Aeroflex needed a site that answered those questions, showed up in search, and could keep growing with articles over time.",
+    ],
+    approach: [
+      "We started from how an engineering buyer reads a supplier's site. What do you do, can you handle my equipment, how fast, and how do I reach a person? Every page is built around one of those questions, in plain language, with the direct number for urgent repairs always close at hand.",
+      "Search was part of the build from the first day. Each page has its own title and description, the site publishes structured data and a sitemap, and its crawler rules welcome Google, Bing and the AI assistants that now answer buying questions. A blog gives Aeroflex a place to publish field notes that keep bringing in searches after launch.",
+    ],
+    built: [
+      {
+        title: "Service pages",
+        body: "Six services, from instrument supply and calibration to repair, training, procurement and spare parts, each explained by what the customer gets, with a direct way to ask about it.",
+      },
+      {
+        title: "A clear process",
+        body: "Consult, specify, deliver and support, laid out in four steps so a buyer knows exactly what happens after the first call.",
+      },
+      {
+        title: "Fast contact for urgent work",
+        body: "A contact form, the engineers' direct number on every page and a call button, because broken equipment on a night shift cannot wait for an email reply.",
+      },
+      {
+        title: "Blog and field notes",
+        body: "A blog with categories for calibration, maintenance, training, procurement and parts, live with six articles at launch, so the site keeps earning searches.",
+      },
+      {
+        title: "Search and AI ready",
+        body: "Unique titles and descriptions, structured data, a sitemap, an llms.txt summary and crawler rules that name Google, Bing, ChatGPT, Claude and Perplexity.",
+      },
+      {
+        title: "Built to grow",
+        body: "A component system in Next.js and Tailwind CSS on Vercel, so new services, articles and pages can be added without starting again.",
+      },
+    ],
+    phases: [
+      {
+        when: "Week 1",
+        title: "Structure and pages",
+        detail:
+          "Mapped the questions engineering buyers ask, planned a page for each, and designed the layout from phone to desktop.",
+      },
+      {
+        when: "Week 2",
+        title: "Build",
+        detail:
+          "Built the pages, the blog and the contact flow in Next.js, with the engineers' number reachable from every screen.",
+      },
+      {
+        when: "Launch",
+        title: "Search setup and go live",
+        detail:
+          "Titles, descriptions, structured data, the sitemap and crawler rules in place, then live on aeroflex.pk.",
+      },
+    ],
+    results: [
+      "Aeroflex has its first website, live on its own domain with 13 pages.",
+      "The site scores 100 for SEO in Google Lighthouse, with search titles, descriptions and structured data in place from launch.",
+      "Google, Bing and AI assistants such as ChatGPT, Claude and Perplexity are all allowed to read the site and cite it.",
+      "A buyer can reach an engineer from any page, by form or by phone.",
+    ],
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Vercel",
+      "Google Analytics",
+    ],
+    theme: "industrial",
   },
   // The three entries below are SAMPLE engagements with fictional clients and
   // illustrative figures. They are commented out, not deleted, so their shape

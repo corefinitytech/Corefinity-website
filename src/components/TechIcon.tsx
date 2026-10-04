@@ -5,12 +5,14 @@ import {
   siFastapi,
   siFigma,
   siFirebase,
+  siGoogleanalytics,
   siNextdotjs,
   siNodedotjs,
   siPostgresql,
   siPython,
   siReact,
   siRedis,
+  siShadcnui,
   siShopify,
   siSpacy,
   siStripe,
@@ -50,6 +52,8 @@ const brand: Record<string, string> = {
   Shopify: siShopify.path,
   "Shopify Admin API": siShopify.path,
   "WhatsApp Business API": siWhatsapp.path,
+  "shadcn/ui": siShadcnui.path,
+  "Google Analytics": siGoogleanalytics.path,
 };
 
 /** Stroked fallbacks, drawn on the same 24 unit grid as icons.tsx. */
