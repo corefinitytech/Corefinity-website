@@ -15,7 +15,7 @@ import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
 import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
-const title = "Case Studies: AI, Web and Automation";
+const title = "Case Studies: Devices, Apps and Web";
 const description =
   "CoreFinity Tech case studies, starting with IELTS Counsel: an IELTS online practice platform with an AI writing checker and Easypaisa checkout.";
 

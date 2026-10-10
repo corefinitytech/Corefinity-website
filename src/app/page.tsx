@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 
-import Hero from "@/components/Hero";
-import Statement from "@/components/Statement";
-import Capabilities from "@/components/Capabilities";
-import Shopify from "@/components/Shopify";
-import Marquee from "@/components/Marquee";
-import Philosophy from "@/components/Philosophy";
-import Advantage from "@/components/Advantage";
-import Clients from "@/components/Clients";
-import Pricing from "@/components/Pricing";
-import CaseStudy from "@/components/CaseStudy";
-import { hasCaseStudies } from "@/lib/caseStudies";
+import HeroDevices from "@/components/home/HeroDevices";
+import StackStrip from "@/components/home/StackStrip";
+import TheGap from "@/components/home/TheGap";
+import SystemMap from "@/components/home/SystemMap";
+import HardwareStage from "@/components/home/HardwareStage";
+import BuildSteps from "@/components/home/BuildSteps";
+import FuelGuard from "@/components/home/FuelGuard";
+import HardParts from "@/components/home/HardParts";
+import TeamFit from "@/components/home/TeamFit";
+import HowToStart from "@/components/home/HowToStart";
+import Partnership from "@/components/home/Partnership";
+import OtherWork from "@/components/home/OtherWork";
+import ClosingCta from "@/components/home/ClosingCta";
 import BlogTeaser from "@/components/BlogTeaser";
 import Faq from "@/components/Faq";
-import ProjectBrief from "@/components/ProjectBrief";
 import JsonLd from "@/components/JsonLd";
 import { faqSchema, graph } from "@/lib/schema";
 import { openGraphDefaults, site } from "@/lib/site";
@@ -34,19 +35,22 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main id="main">
-      <Hero />
-      <Statement />
-      <Capabilities />
-      <Shopify />
-      <Marquee />
-      <Philosophy />
-      <Advantage />
-      <Clients />
-      <Pricing />
-      {hasCaseStudies && <CaseStudy />}
+      {/* Order follows Redesign.md, sections 1 to 13 */}
+      <HeroDevices />
+      <StackStrip />
+      <TheGap />
+      <SystemMap />
+      <HardwareStage />
+      <BuildSteps />
+      <FuelGuard />
+      <HardParts />
+      <TeamFit />
+      <HowToStart />
+      <Partnership />
+      <OtherWork />
       <BlogTeaser />
       <Faq />
-      <ProjectBrief />
+      <ClosingCta />
       <JsonLd schema={graph(faqSchema())} />
     </main>
   );

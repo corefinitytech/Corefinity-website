@@ -20,6 +20,7 @@ export const caseSurface: Record<CaseStudyTheme, string> = {
   booking:
     "bg-[radial-gradient(110%_120%_at_75%_25%,#1880d8_0%,#123a6b_42%,#0a0f22_78%,#05070f_100%)]",
   education: "bg-[linear-gradient(150deg,#05070f_0%,#0f2f5c_50%,#1868c8_100%)]",
+  fuel: "bg-[linear-gradient(150deg,#05070f_0%,#0d2a52_55%,#1868c8_100%)]",
   industrial:
     "bg-[linear-gradient(140deg,#0b0f17_0%,#14213d_55%,#123a6b_100%)]",
 };
@@ -39,6 +40,20 @@ export function CaseStudyBackdrop({ theme }: { theme: CaseStudyTheme }) {
         glowIntensity={1.3}
         brightness={1.7}
         vignette={0.7}
+      />
+    );
+  }
+  if (theme === "fuel") {
+    return (
+      <GradientWavesBackground
+        horizonColor={palette.baseNearBlack}
+        waveColor={palette.deepNavy}
+        crestColor={palette.cyan}
+        speed={0.18}
+        grain
+        grainIntensity={0.05}
+        mouseInteraction
+        parallaxStrength={0.3}
       />
     );
   }
@@ -367,7 +382,39 @@ function IndustrialScreen() {
   );
 }
 
+function FuelScreen() {
+  // One live fill session as the app shows it. Example values, labelled.
+  const readings: [string, string][] = [
+    ["Flow meter", "24.80 L"],
+    ["Dispenser", "24.82 L"],
+  ];
+  return (
+    <div className={`${glass} w-full max-w-sm`}>
+      <PanelLabel>FuelGuard · Live fill</PanelLabel>
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        {readings.map(([l, v]) => (
+          <div key={l} className="rounded-xl bg-white/[0.06] px-3 py-2.5">
+            <p className="text-[10px] text-white/55">{l}</p>
+            <p className="mt-0.5 text-xl font-medium tabular-nums">{v}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-[11px]">
+        <span className="text-white/60">Difference 0.02 L</span>
+        <span className="rounded-full bg-sky/20 px-2 py-0.5 text-sky">
+          Within tolerance
+        </span>
+      </div>
+      <div className="mt-3 flex items-center justify-between text-[10px] text-white/55">
+        <span>Updated every second</span>
+        <span>Photo evidence saved</span>
+      </div>
+    </div>
+  );
+}
+
 export function CaseStudyScreen({ theme }: { theme: CaseStudyTheme }) {
+  if (theme === "fuel") return <FuelScreen />;
   if (theme === "industrial") return <IndustrialScreen />;
   if (theme === "education") return <EducationScreen />;
   if (theme === "ai") return <ChatScreen />;

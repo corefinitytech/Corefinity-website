@@ -131,7 +131,7 @@ export default async function ServicePage({
             {service.covers.map((c, i) => (
               <article
                 key={c.title}
-                className={`group relative isolate flex flex-col overflow-hidden rounded-[20px] p-6 pb-16 text-white transition duration-300 hover:-translate-y-0.5 ${
+                className={`relative isolate flex flex-col overflow-hidden rounded-[20px] p-6 text-white ${
                   surfaces[i % surfaces.length]
                 }`}
               >
@@ -141,7 +141,6 @@ export default async function ServicePage({
                 <p className="mt-3 text-[13px] leading-relaxed text-white/75">
                   {c.body}
                 </p>
-                <CardNotch />
               </article>
             ))}
           </div>

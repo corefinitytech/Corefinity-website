@@ -18,19 +18,19 @@ export const site = {
   email: "hello@corefinity.tech",
   founded: "2024",
   /** Used as the default <title> and in structured data. */
-  title: "CoreFinity Tech | Custom Software Development Company",
+  title: "CoreFinity Tech | Apps and Cloud for Connected Devices",
   /**
    * Other spellings people search for. The brand is "CoreFinity Tech" (as on
    * the Google Business Profile and social profiles); these variants let
    * search engines connect lower case and short forms to the same entity.
    */
   alternateNames: ["Corefinity Tech", "CoreFinity", "Corefinity"],
-  tagline: "Architecting high performance digital platforms",
+  tagline: "The software that turns a device into a product",
   description:
-    "CoreFinity Tech is a custom software development company building web platforms, AI chatbots, mobile apps and automation for clients worldwide. Fixed prices.",
+    "CoreFinity Tech builds companion apps, device to cloud pipelines, admin panels and DevOps for connected hardware, over BLE, MQTT and LoRa on AWS IoT Core.",
   /** Short form for cards and structured data where long copy gets clipped. */
   shortDescription:
-    "CoreFinity Tech builds custom web platforms, operations dashboards and direct booking systems. Fixed scope, full code ownership.",
+    "CoreFinity Tech builds the app, cloud and admin software for connected devices. Fixed scope, full code ownership.",
   locale: "en_US",
   twitter: "@corefinity",
   /** Bump when page content changes; feeds sitemap lastModified. */
