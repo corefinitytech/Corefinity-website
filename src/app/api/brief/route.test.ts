@@ -1,3 +1,6 @@
+// @vitest-environment node
+// The route runs in Node, and multipart parsing needs Node's own FormData and
+// File rather than the jsdom versions.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const sendMail = vi.fn();
@@ -135,6 +138,57 @@ describe("delivery", () => {
     sendMail.mockRejectedValue(new Error("535 Authentication failed"));
     const res = await post(valid);
     expect(res.status).toBe(502);
+  });
+});
+
+describe("spec sheet upload", () => {
+  let n = 0;
+  function postForm(fields: Record<string, string>, file?: File) {
+    n += 1;
+    const form = new FormData();
+    for (const [k, v] of Object.entries(fields)) form.set(k, v);
+    if (file) form.set("spec", file);
+    return POST(
+      new Request("http://localhost/api/brief", {
+        method: "POST",
+        headers: { "x-forwarded-for": `10.9.0.${n}` },
+        body: form,
+      }),
+    );
+  }
+
+  it("attaches a spec sheet and includes the device answer", async () => {
+    configureMailbox();
+    sendMail.mockResolvedValue({});
+    const pdf = new File(["%PDF-1.4 test"], "wristband spec.pdf", {
+      type: "application/pdf",
+    });
+    const res = await postForm({ ...valid, device: "BLE wristband" }, pdf);
+    expect(res.status).toBe(200);
+    const sent = sendMail.mock.calls[0][0];
+    expect(sent.attachments).toHaveLength(1);
+    expect(sent.attachments[0].filename).toBe("wristband spec.pdf");
+    expect(sent.text).toContain("BLE wristband");
+  });
+
+  it("rejects a file over 4 MB", async () => {
+    configureMailbox();
+    const big = new File([new Uint8Array(4 * 1024 * 1024 + 1)], "big.pdf", {
+      type: "application/pdf",
+    });
+    const res = await postForm(valid, big);
+    expect(res.status).toBe(400);
+    expect(sendMail).not.toHaveBeenCalled();
+  });
+
+  it("rejects a file type that is not a document or image", async () => {
+    configureMailbox();
+    const exe = new File(["MZ"], "setup.exe", {
+      type: "application/x-msdownload",
+    });
+    const res = await postForm(valid, exe);
+    expect(res.status).toBe(400);
+    expect(sendMail).not.toHaveBeenCalled();
   });
 });
 

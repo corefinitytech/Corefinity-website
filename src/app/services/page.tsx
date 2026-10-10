@@ -6,12 +6,13 @@ import JsonLd from "@/components/JsonLd";
 import { H1Eyebrow } from "@/components/PageHeading";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
 import { breadcrumbSchema, graph } from "@/lib/schema";
+import { deviceServices } from "@/lib/devices";
 import { services } from "@/lib/services";
 import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
-const title = "Software Development Services";
+const title = "Services for Connected Devices";
 const description =
-  "Web development, mobile apps, AI chatbots, Python automation, SEO, integrations, UI and UX design and cloud deployment. Fixed price, full code ownership.";
+  "Companion apps, device to cloud pipelines, admin panels and DevOps for connected hardware, plus web, mobile, AI and integration work. Fixed price.";
 
 export const metadata: Metadata = {
   title,
@@ -52,35 +53,66 @@ export default function ServicesIndex() {
 
           <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
-              <H1Eyebrow>Software development services</H1Eyebrow>
-              Everything we{" "}
+              <H1Eyebrow>Services for connected devices</H1Eyebrow>
+              Everything{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
-                build and run.
+                from firmware to fleet.
               </span>
             </h1>
 
             <p className="max-w-sm shrink-0 text-sm leading-relaxed text-ink/65 lg:pb-3">
-              Eight services, one team. Most projects use several of them, which
-              is the point of having them under one roof.
+              Firmware and four services that take a device from the bench to a product, and
+              the web, mobile and integration work we also do. One team.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 pt-16 sm:px-6 sm:pt-20">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-3 md:grid-cols-2">
+            {deviceServices.map((s, i) => (
+              <Link
+                key={s.name}
+                href={s.href}
+                className={`group relative isolate flex min-h-[240px] flex-col overflow-hidden rounded-[20px] p-6 pb-16 text-white transition duration-300 hover:-translate-y-0.5 sm:p-8 sm:pb-16 ${surfaces[i % surfaces.length]}`}
+              >
+                <span className="text-[11px] font-medium tracking-[0.18em] text-white/50">
+                  0{i + 1}
+                </span>
+                <h2 className="mt-5 text-2xl font-medium leading-snug tracking-[-0.02em]">
+                  {s.name}
+                </h2>
+                <p className="mt-3 max-w-[46ch] text-[14px] leading-relaxed text-white/75">
+                  {s.summary}
+                </p>
+                <CardNotch />
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="px-4 py-16 sm:px-6 sm:py-20">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+          <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
+            ( Also )
+          </p>
+          <h2 className="mt-4 text-[clamp(1.5rem,3vw,2.25rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
+            The same team also builds
+          </h2>
+          <div className="mt-8 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
             {services.map((s, i) => (
               <Link
                 key={s.slug}
                 href={`/services/${s.slug}`}
-                className={`group relative isolate flex min-h-[260px] flex-col overflow-hidden rounded-[20px] p-6 pb-16 text-white transition duration-300 hover:-translate-y-0.5 ${
-                  surfaces[i % surfaces.length]
-                } ${i < 2 ? "lg:col-span-2 lg:min-h-[300px]" : ""}`}
+                className={`group relative isolate flex min-h-[200px] flex-col overflow-hidden rounded-[20px] p-6 pb-16 text-white transition duration-300 hover:-translate-y-0.5 ${
+                  surfaces[(i + 4) % surfaces.length]
+                }`}
               >
-                <h2 className="text-xl font-medium leading-snug tracking-[-0.02em]">
+                <h3 className="text-lg font-medium leading-snug tracking-[-0.02em]">
                   {s.name}
-                </h2>
+                </h3>
                 <p className="mt-3 max-w-[46ch] text-[13px] leading-relaxed text-white/75">
                   {s.summary}
                 </p>

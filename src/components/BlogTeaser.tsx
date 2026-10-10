@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import CardNotch from "./CardNotch";
+import CardNotch, { CardAction } from "./CardNotch";
 import CoverPlate from "./blog/CoverPlate";
 import { ArrowRight } from "./icons";
 import { postsByDate, readingMinutes } from "@/lib/blog";
@@ -18,10 +18,10 @@ export default function BlogTeaser() {
   if (!latest.length) return null;
 
   return (
-    <section id="blog" className="px-4 py-20 sm:px-6 sm:py-24">
+    <section id="blog" className="px-4 pb-20 sm:px-6 sm:pb-24">
       <div className="mx-auto max-w-7xl">
         <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
-          ( Blogs )
+          ( Blog )
         </p>
 
         <div className="mt-4 flex flex-wrap items-end justify-between gap-6">
@@ -45,16 +45,15 @@ export default function BlogTeaser() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group relative flex flex-col overflow-hidden rounded-[24px] border border-black/[0.08] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/[0.06]"
+              className="group relative flex flex-col overflow-hidden rounded-[20px] border border-black/[0.08] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/[0.06]"
             >
               {/* Cover: the post's engraved plate on matching paper */}
               <CoverPlate
                 src={post.cover.src}
                 alt={post.cover.alt}
                 sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
-                className="flex h-48 items-end p-5"
-                plateClassName="pb-12 pt-3"
-              >
+                className="flex aspect-[3/2] items-end p-4"
+                              >
                 <div className="relative flex w-full items-end justify-between gap-4">
                   <span className="rounded-full border border-black/10 bg-white/80 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-ink/75 backdrop-blur-sm">
                     {post.topic}
@@ -66,7 +65,7 @@ export default function BlogTeaser() {
               </CoverPlate>
 
               {/* Body */}
-              <div className="flex flex-1 flex-col p-6 pb-16">
+              <div className="flex flex-1 flex-col px-6 pt-6">
                 <h3 className="text-xl font-medium leading-snug tracking-[-0.02em] text-ink">
                   {post.headline.lead}{" "}
                   <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
@@ -76,7 +75,7 @@ export default function BlogTeaser() {
                 <p className="mt-3 max-w-[46ch] text-[13px] leading-relaxed text-ink/60">
                   {post.excerpt}
                 </p>
-                <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-3 pt-6">
+                <div className="mt-auto pt-6">
                   <ul className="flex flex-wrap gap-1.5">
                     {post.services.slice(0, 3).map((slug) => (
                       <li
@@ -87,10 +86,8 @@ export default function BlogTeaser() {
                       </li>
                     ))}
                   </ul>
-                  <span className="text-[13px] font-medium text-ink/70 transition group-hover:text-ink">
-                    Read article
-                  </span>
                 </div>
+                <CardAction label="Read article" />
               </div>
 
               <CardNotch />

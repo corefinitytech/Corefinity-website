@@ -15,10 +15,11 @@ import { address, site, socialLinks } from "@/lib/site";
 const sections = [
   { label: "About us", href: "/about" },
   { label: "All services", href: "/services" },
-  { label: "How we work", href: "/#process" },
+  { label: "How it works", href: "/#how-it-works" },
+  { label: "What we build", href: "/#what-we-build" },
   ...(hasCaseStudies ? [{ label: "Case studies", href: "/case-studies" }] : []),
   { label: "Blog", href: "/blog" },
-  { label: "Engagements", href: "/#pricing" },
+  { label: "How to start", href: "/#start" },
   { label: "Questions", href: "/#faq" },
 ];
 
@@ -116,7 +117,7 @@ export default function Footer() {
                     href="/contact"
                     className="text-sm text-ink/60 transition hover:text-ink"
                   >
-                    Get a quote
+                    Talk to an engineer
                   </Link>
                 </li>
                 <li>

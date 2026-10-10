@@ -8,6 +8,8 @@ type Brief = {
   email?: string;
   projectType?: string;
   overview?: string;
+  /** Optional: what the device does and how it connects. */
+  device?: string;
   /** Honeypot. Anything in here means a bot filled the form. */
   company_website?: string;
 };
@@ -16,6 +18,21 @@ type Brief = {
 const BRIEF_SUBJECT_PREFIX = "[Website Brief]";
 
 const LIMITS = { name: 120, email: 200, projectType: 80, overview: 5000 };
+const DEVICE_LIMIT = 3000;
+
+/**
+ * An optional spec sheet, attached to the email. Vercel caps a request body at
+ * 4.5 MB, so 4 MB leaves room for the other fields. PDFs, images and Word
+ * documents only, which covers every spec sheet we have been sent.
+ */
+const MAX_SPEC_BYTES = 4 * 1024 * 1024;
+const SPEC_TYPES = new Set([
+  "application/pdf",
+  "image/png",
+  "image/jpeg",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+]);
 
 /**
  * Rate limit, per IP, in memory.
@@ -69,11 +86,38 @@ export async function POST(request: Request) {
     );
   }
 
+  // The form posts multipart so it can carry a spec sheet. JSON is still
+  // accepted for briefs sent without a file.
   let body: Brief;
+  let spec: File | null = null;
+  const isMultipart = (request.headers.get("content-type") ?? "").includes(
+    "multipart/form-data",
+  );
   try {
-    body = await request.json();
+    if (isMultipart) {
+      const form = await request.formData();
+      body = {};
+      for (const key of [
+        "name",
+        "email",
+        "projectType",
+        "overview",
+        "device",
+        "company_website",
+      ] as const) {
+        const v = form.get(key);
+        if (typeof v === "string") body[key] = v;
+      }
+      const file = form.get("spec");
+      if (file instanceof File && file.size > 0) spec = file;
+    } else {
+      body = await request.json();
+    }
   } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid request body" },
+      { status: 400 },
+    );
   }
 
   // Bots fill every field they can see, including the one nobody can see.
@@ -102,6 +146,29 @@ export async function POST(request: Request) {
       { error: "Field too long", field: oversized },
       { status: 400 },
     );
+  }
+
+  const device = body.device?.toString().trim() ?? "";
+  if (device.length > DEVICE_LIMIT) {
+    return NextResponse.json(
+      { error: "Field too long", field: "device" },
+      { status: 400 },
+    );
+  }
+
+  if (spec) {
+    if (spec.size > MAX_SPEC_BYTES) {
+      return NextResponse.json(
+        { error: "File too large", field: "spec" },
+        { status: 400 },
+      );
+    }
+    if (!SPEC_TYPES.has(spec.type)) {
+      return NextResponse.json(
+        { error: "Unsupported file type", field: "spec" },
+        { status: 400 },
+      );
+    }
   }
 
   if (!EMAIL.test(fields.email)) {
@@ -140,6 +207,13 @@ export async function POST(request: Request) {
     <p><strong>Project type:</strong> ${escapeHtml(fields.projectType)}</p>
     <p><strong>Overview:</strong></p>
     <p style="white-space:pre-wrap">${escapeHtml(fields.overview)}</p>
+    ${
+      device
+        ? `<p><strong>Device and connectivity:</strong></p>
+    <p style="white-space:pre-wrap">${escapeHtml(device)}</p>`
+        : ""
+    }
+    ${spec ? `<p><strong>Spec sheet:</strong> attached (${escapeHtml(spec.name)})</p>` : ""}
   `;
 
   const text = [
@@ -149,7 +223,22 @@ export async function POST(request: Request) {
     `Project type: ${fields.projectType}`,
     "",
     fields.overview,
+    ...(device ? ["", "Device and connectivity:", device] : []),
+    ...(spec ? ["", `Spec sheet attached: ${spec.name}`] : []),
   ].join("\n");
+
+  // Keep only safe characters in the attachment name the inbox will show.
+  const attachments = spec
+    ? [
+        {
+          filename:
+            spec.name.replace(/[^A-Za-z0-9._ ]/g, "_").slice(0, 120) ||
+            "spec-sheet",
+          content: Buffer.from(await spec.arrayBuffer()),
+          contentType: spec.type,
+        },
+      ]
+    : [];
 
   try {
     const transport = nodemailer.createTransport({
@@ -172,6 +261,7 @@ export async function POST(request: Request) {
       subject: `${BRIEF_SUBJECT_PREFIX} ${fields.projectType}, ${fields.name}`,
       text,
       html,
+      attachments,
     });
   } catch (err) {
     console.error("[project-brief] Send failed", err);

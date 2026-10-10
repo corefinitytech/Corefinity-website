@@ -14,7 +14,7 @@
  */
 
 export type CaseStudyTheme =
-  "ai" | "ops" | "booking" | "education" | "industrial";
+  "ai" | "ops" | "booking" | "education" | "industrial" | "fuel";
 
 export type CaseStudyMetric = {
   /** Integer, so it can count up. Keep decimals out of here. */
@@ -29,6 +29,11 @@ export type CaseStudy = {
   client: string;
   /** The client's own site, linked from the page and named in the schema. */
   clientUrl?: string;
+  /**
+   * Set when the client cannot be named. The page then shows the product name
+   * and lists the client as confidential, and nothing names them.
+   */
+  confidential?: boolean;
   industry: string;
   /** Short line for cards and the index. */
   summary: string;
@@ -54,6 +59,130 @@ export type CaseStudy = {
 };
 
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: "fuelguard-iot-fuel-monitoring",
+    client: "FuelGuard",
+    confidential: true,
+    industry: "Fuel and energy",
+    summary:
+      "A fuel monitoring system that checks every fill at the nozzle, with ESP32 firmware, a Flutter app, a FastAPI backend and an admin panel for stations.",
+    title: "FuelGuard IoT Fuel Monitoring Case Study",
+    description:
+      "How CoreFinity Tech built FuelGuard: ESP32 firmware that checks every fill at the nozzle, a Flutter app, fraud alerts and a live admin panel for stations.",
+    keywords: [
+      "IoT fuel monitoring system",
+      "fuel theft detection",
+      "ESP32 flow meter",
+      "fuel dispenser fraud detection",
+      "Flutter IoT app",
+      "IoT admin panel",
+    ],
+    headline: {
+      lead: "Every litre checked",
+      accent: "at the nozzle.",
+    },
+    timeline: "6 months",
+    year: "2026",
+    datePublished: "2026-10-10",
+    services: [
+      "mobile-app-development",
+      "web-development",
+      "systems-integration",
+      "cloud-deployment",
+    ],
+    metrics: [
+      { value: 1, suffix: " s", label: "Between live readings during a fill" },
+      { value: 4, label: "Parts built: firmware, app, backend and panel" },
+      { value: 90, suffix: " days", label: "Photo evidence kept for review" },
+      { value: 5, label: "User roles, from super admin to driver" },
+    ],
+    challenge: [
+      "When drivers, families and fleet owners fill up, they see one number: the reading on the pump. They have no way to check that the fuel that went into the tank matches it. A small shortfall on every fill adds up quickly, and without a record nobody can show where it happened.",
+      "Stations needed the same answer from the other side: a way to prove honest fills, find the dispensers and staff behind repeated problems, and act on it, all from one place.",
+    ],
+    approach: [
+      "We put an independent measurement at the nozzle itself. An ESP32 device fitted there counts the fuel with its own flow meter and reads the dispenser's pulse signal at the same time, so every fill is measured twice and compared litre by litre.",
+      "The device runs its own WiFi hotspot, so the customer's phone connects to it directly and the check works at any pump, with or without mobile signal. The app shows the live readings every second, captures photo evidence and syncs each transaction to the backend, where configurable rules raise fraud alerts and escalate repeat cases automatically.",
+      "Stations manage everything from a web admin panel: a live view of every nozzle, fraud alerts, devices, transactions, reports and staff, with firmware updates sent to the devices over the air.",
+    ],
+    built: [
+      {
+        title: "Nozzle firmware",
+        body: "C++ firmware on the ESP32 that counts flow meter pulses, reads the dispenser signal, converts both to litres and latches a tamper alert the moment the nozzle sensor trips.",
+      },
+      {
+        title: "Live fill session app",
+        body: "A Flutter app that scans the pump's QR code, connects to the device's hotspot and shows both readings side by side every second until the fill is complete.",
+      },
+      {
+        title: "Offline first sync",
+        body: "Every transaction is saved on the phone first and synced the moment a connection returns, so a fill recorded without signal is never lost.",
+      },
+      {
+        title: "Fraud rules and escalation",
+        body: "A FastAPI backend that checks each fill against configurable discrepancy rules, raises fraud alerts and escalates staff and stations with repeated flags to a blacklist.",
+      },
+      {
+        title: "Station admin panel",
+        body: "A Next.js panel with a live nozzle monitor, fraud alerts, device management, transactions, reports, staff and complaints, with access set by role.",
+      },
+      {
+        title: "Remote device control",
+        body: "Devices are registered from the panel with their own key, receive commands remotely and install firmware updates over the air, reporting progress as they go.",
+      },
+    ],
+    phases: [
+      {
+        when: "April",
+        title: "Live fill sessions",
+        detail:
+          "Sign in, the app and API foundations, and the live session between the phone and the nozzle device.",
+      },
+      {
+        when: "May",
+        title: "Reports and admin",
+        detail:
+          "The admin panel modules for stations, with transaction history and reports.",
+      },
+      {
+        when: "August",
+        title: "Production and fleets",
+        detail:
+          "Production deployment of the backend, and features for fleet owners managing vehicles and drivers.",
+      },
+      {
+        when: "September",
+        title: "Fraud control and devices",
+        detail:
+          "Flagging and blacklisting rules, the remote command system for devices and over the air firmware updates.",
+      },
+    ],
+    results: [
+      "Every fill is measured twice at the nozzle and compared live, with any gap above 0.05 litres flagged.",
+      "Tampering with the nozzle is reported the moment the sensor trips.",
+      "Each transaction carries photo evidence, kept for 90 days for review.",
+      "Fills recorded without mobile signal are saved on the phone and synced automatically.",
+      "Repeat problems escalate on their own, flagging staff and stations for the owner to act on.",
+      "Firmware updates reach every device over the air, straight from the admin panel.",
+    ],
+    stack: [
+      "ESP32",
+      "C++",
+      "PlatformIO",
+      "Flutter",
+      "Dart",
+      "FastAPI",
+      "Python",
+      "Firebase",
+      "Firestore",
+      "Cloudinary",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Railway",
+    ],
+    theme: "fuel",
+  },
   {
     slug: "ielts-counsel-writing-checker-online-practice",
     client: "IELTS Counsel",

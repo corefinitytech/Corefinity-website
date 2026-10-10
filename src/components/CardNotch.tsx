@@ -25,4 +25,31 @@ export default function CardNotch() {
   );
 }
 
+/**
+ * The action label for a card with a notch. It sits in a band exactly as tall
+ * as the notch, flush with the card's bottom edge, so the label and the arrow
+ * button always share one centre line. Use it as the last child of a card
+ * whose own bottom padding is zero.
+ */
+export function CardAction({
+  label,
+  dark = false,
+}: {
+  label: string;
+  dark?: boolean;
+}) {
+  return (
+    <span
+      className={`mt-auto flex items-center pr-16 text-[13px] font-medium transition ${
+        dark
+          ? "text-white/80 group-hover:text-white"
+          : "text-ink/70 group-hover:text-ink"
+      }`}
+      style={{ height: NOTCH }}
+    >
+      {label}
+    </span>
+  );
+}
+
 export { NOTCH, FILLET_SIZE };

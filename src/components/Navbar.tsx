@@ -21,20 +21,17 @@ import Brand from "./Brand";
 type NavLink = { label: string; id: string; href?: string };
 
 const links: NavLink[] = [
-  { label: "Services", id: "solutions", href: "/services" },
-  // Every link with a page of its own points at that page, not a home page
-  // section: search engines build sitelinks from distinct URLs in the nav,
-  // and "/#blog" is just the home page again. The id still drives the
-  // scroll-spy pill on the home page.
-  { label: "About", id: "process", href: "/about" },
-  { label: "Why us", id: "expertise" },
-  { label: "Case studies", id: "case-studies", href: "/case-studies" },
-  { label: "Blog", id: "blog", href: "/blog" },
+  // Two home page sections first, as the redesign brief orders them, then the
+  // two links with pages of their own. The ids drive the scroll-spy pill.
+  { label: "How it works", id: "how-it-works", href: "/#how-it-works" },
+  { label: "What we build", id: "what-we-build", href: "/#what-we-build" },
+  { label: "Work", id: "fuelguard", href: "/case-studies" },
+  { label: "About", id: "about", href: "/about" },
 ];
 
 // Without real case studies the page is a 404, so the nav leaves it out.
 // Both arrays are module constants, so the effects below see a stable value.
-const linksWithoutCaseStudies = links.filter((l) => l.id !== "case-studies");
+const linksWithoutCaseStudies = links.filter((l) => l.href !== "/case-studies");
 
 /**
  * showCaseStudies comes from the server layout, which can read the case study
@@ -228,7 +225,7 @@ export default function Navbar({
             href="/contact"
             className="rounded-full bg-ink px-5 py-2.5 text-[13px] font-medium text-white transition hover:bg-ink/85"
           >
-            Get a Quote
+            Talk to an engineer
           </Link>
           <button
             ref={menuButtonRef}
@@ -269,7 +266,7 @@ export default function Navbar({
                 onClick={() => setOpen(false)}
                 className="mt-1 block rounded-2xl bg-ink px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-ink/85"
               >
-                Get a Quote
+                Talk to an engineer
               </Link>
             </li>
           </ul>

@@ -1571,6 +1571,157 @@ export function AgencySignalsDiagram() {
   );
 }
 
+/** What wakes a companion app on each platform, and what does not. */
+export function BleAppStatesDiagram() {
+  const states: [string, string, string, "plain" | "accent" | "strain"][] = [
+    ["Foreground", "app on screen", "connection always works", "plain"],
+    ["Background", "screen off or another app open", "works if the platform allows it", "accent"],
+    ["Suspended", "the system paused the app", "iOS restores it, Android needs a service", "accent"],
+    ["Closed by the user", "swiped away", "nothing can run until it is opened", "strain"],
+  ];
+  return (
+    <Frame
+      title="The four states a companion app passes through, and whether the Bluetooth link survives each"
+      viewBox="0 0 900 250"
+    >
+      <text x={10} y={28} fontSize={15} fontWeight={500} fill={INK}>
+        Where the connection is lost
+      </text>
+      <text x={10} y={48} fontSize={13} fill={MUTED}>
+        The further right the app goes, the more the operating system decides for it.
+      </text>
+      {states.map(([label, sub, note, tone], i) => {
+        const x = 10 + i * 224;
+        return (
+          <g key={label}>
+            <Node x={x} y={80} w={196} h={70} label={label} sub={sub} tone={tone} />
+            <text x={x + 98} y={180} textAnchor="middle" fontSize={12} fill={tone === "strain" ? CORAL : MUTED}>
+              {note}
+            </text>
+            {i < states.length - 1 && <Arrow from={x + 198} to={x + 222} y={115} tone={i === 2 ? "strain" : "plain"} />}
+          </g>
+        );
+      })}
+      <FootNote y={232} width={900} text="Design for the right hand box first. The device has to cope when the app is gone." />
+    </Frame>
+  );
+}
+
+/** Readings buffered on the device and synced in order when the link returns. */
+export function BleSyncDiagram() {
+  return (
+    <Frame
+      title="The device buffers numbered readings while disconnected and the app syncs them in order once it reconnects"
+      viewBox="0 0 900 260"
+    >
+      <text x={10} y={28} fontSize={15} fontWeight={500} fill={INK}>
+        Disconnected is a normal state, not an error
+      </text>
+      <text x={10} y={48} fontSize={13} fill={MUTED}>
+        Every reading gets a sequence number, so nothing is lost and nothing is counted twice.
+      </text>
+      <Node x={10} y={84} w={220} h={78} label="Device" sub="stores readings 41 to 58" tone="dark" />
+      <Arrow from={232} to={330} y={123} dashed tone="strain" />
+      <text x={281} y={110} textAnchor="middle" fontSize={11} fill={CORAL}>link down</text>
+      <Node x={332} y={84} w={220} h={78} label="App reconnects" sub="asks for everything after 40" tone="accent" />
+      <Arrow from={554} to={652} y={123} />
+      <Node x={654} y={84} w={236} h={78} label="Cloud" sub="ignores any number it has seen" />
+      <FootNote y={222} width={900} text="The last confirmed number is the only thing both sides have to agree on." />
+    </Frame>
+  );
+}
+
+/** Each hop between the device and the alert, and the timestamp taken at each. */
+export function LatencyHopsDiagram() {
+  const hops: [string, string][] = [
+    ["Device", "t1 reading taken"],
+    ["Gateway or phone", "t2 forwarded"],
+    ["Broker", "t3 received"],
+    ["Rules and backend", "t4 decision made"],
+    ["Alert", "t5 sent to the user"],
+  ];
+  return (
+    <Frame
+      title="Five timestamps from the reading on the device to the alert reaching the user"
+      viewBox="0 0 900 240"
+    >
+      <text x={10} y={28} fontSize={15} fontWeight={500} fill={INK}>
+        One message, five timestamps
+      </text>
+      <text x={10} y={48} fontSize={13} fill={MUTED}>
+        The difference between neighbours is the time spent in that hop.
+      </text>
+      {hops.map(([label, sub], i) => {
+        const x = 10 + i * 178;
+        return (
+          <g key={label}>
+            <Node x={x} y={80} w={160} h={70} label={label} sub={sub} tone={i === 4 ? "accent" : "plain"} />
+            {i < hops.length - 1 && <Arrow from={x + 162} to={x + 176} y={115} />}
+          </g>
+        );
+      })}
+      <text x={450} y={186} textAnchor="middle" fontSize={13} fontWeight={500} fill={INK}>
+        Total latency is t5 minus t1
+      </text>
+      <FootNote y={222} width={900} text="A slow hop shows up on its own, before it hides inside a good looking total." />
+    </Frame>
+  );
+}
+
+/** Why the median looks fine while the slowest messages do not. */
+export function LatencyPercentilesDiagram() {
+  // An illustrative long tailed distribution, bar heights in arbitrary units.
+  const bars = [6, 20, 44, 62, 58, 41, 27, 18, 12, 9, 7, 5, 4, 3, 3, 2, 2, 1];
+  const marks: [number, string][] = [
+    [4, "median"],
+    [10, "95th"],
+    [15, "99th"],
+  ];
+  const x0 = 40;
+  const bw = 44;
+  const base = 200;
+  return (
+    <Frame
+      title="An illustrative latency distribution with a long tail, marking the median, 95th and 99th percentiles"
+      viewBox="0 0 900 270"
+    >
+      <text x={10} y={28} fontSize={15} fontWeight={500} fill={INK}>
+        The average lives in the middle. Complaints live in the tail.
+      </text>
+      <text x={10} y={48} fontSize={13} fill={MUTED}>
+        Illustration only. Most messages are quick, and a few are very slow.
+      </text>
+      {bars.map((h, i) => (
+        <rect
+          key={i}
+          x={x0 + i * bw}
+          y={base - h * 2}
+          width={bw - 8}
+          height={h * 2}
+          rx={4}
+          fill={i >= 10 ? CORAL : ACCENT}
+          opacity={i >= 10 ? 0.55 : 0.35}
+        />
+      ))}
+      <line x1={x0 - 6} y1={base} x2={x0 + bars.length * bw} y2={base} stroke={LINE} strokeWidth={1.5} />
+      {marks.map(([i, label]) => {
+        const x = x0 + i * bw + (bw - 8) / 2;
+        return (
+          <g key={label}>
+            <line x1={x} y1={70} x2={x} y2={base} stroke={i >= 10 ? CORAL : ACCENT} strokeWidth={1.5} strokeDasharray="4 4" />
+            <text x={x} y={64} textAnchor="middle" fontSize={12} fontWeight={500} fill={i >= 10 ? CORAL : ACCENT}>
+              {label}
+            </text>
+          </g>
+        );
+      })}
+      <text x={x0} y={base + 24} fontSize={12} fill={MUTED}>faster</text>
+      <text x={x0 + bars.length * bw} y={base + 24} textAnchor="end" fontSize={12} fill={MUTED}>slower</text>
+      <FootNote y={256} width={900} text="Track the 95th and 99th percentiles. That is where the late alerts are." />
+    </Frame>
+  );
+}
+
 export const diagrams = {
   "growth-spike": GrowthSpikeDiagram,
   "signup-flow": SignupFlowDiagram,
@@ -1583,6 +1734,10 @@ export const diagrams = {
   "capacity-ladder": CapacityLadderDiagram,
   "agency-scorecard": AgencyScorecardDiagram,
   "agency-signals": AgencySignalsDiagram,
+  "ble-app-states": BleAppStatesDiagram,
+  "ble-sync": BleSyncDiagram,
+  "latency-hops": LatencyHopsDiagram,
+  "latency-percentiles": LatencyPercentilesDiagram,
 } as const;
 
 export type DiagramKey = keyof typeof diagrams;

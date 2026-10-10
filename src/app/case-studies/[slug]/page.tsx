@@ -94,7 +94,9 @@ export default async function CaseStudyPage({
   const url = `${siteUrl}/case-studies/${study.slug}`;
 
   const facts: [string, string, string?][] = [
-    ["Client", study.client, study.clientUrl],
+    study.confidential
+      ? ["Client", "Confidential"]
+      : ["Client", study.client, study.clientUrl],
     ["Industry", study.industry],
     ["Timeline", study.timeline],
     ["Year", study.year],
@@ -244,7 +246,7 @@ export default async function CaseStudyPage({
             {study.built.map((b, i) => (
               <article
                 key={b.title}
-                className={`group relative isolate flex flex-col overflow-hidden rounded-[20px] p-6 pb-16 text-white transition duration-300 hover:-translate-y-0.5 ${
+                className={`relative isolate flex flex-col overflow-hidden rounded-[20px] p-6 text-white ${
                   surfaces[i % surfaces.length]
                 }`}
               >
@@ -257,7 +259,6 @@ export default async function CaseStudyPage({
                 <p className="mt-3 text-[13px] leading-relaxed text-white/75">
                   {b.body}
                 </p>
-                <CardNotch />
               </article>
             ))}
           </div>

@@ -20,7 +20,7 @@ import {
 
 const title = "About Us: Who We Are and How We Work";
 const description =
-  "CoreFinity Tech is a custom software company in Islamabad, building web platforms, AI assistants, mobile apps and automation for clients worldwide.";
+  "CoreFinity Tech is a software company in Islamabad building the app, cloud and admin software for connected devices, working with hardware teams worldwide.";
 
 export const metadata: Metadata = {
   title,
@@ -120,10 +120,10 @@ export default function AboutPage() {
 
             <div className="w-full max-w-sm shrink-0 lg:pb-3">
               <p className="text-sm leading-relaxed text-ink/65">
-                CoreFinity Tech builds custom web platforms, AI assistants,
-                mobile apps and automation for businesses that have outgrown the
-                tools they started with. We are based in Islamabad and work
-                remotely with clients across the world.
+                CoreFinity Tech builds the app, cloud and admin software for
+                connected devices, and the web platforms and dashboards around
+                them. We are based in Islamabad and work remotely with hardware
+                teams across the world.
               </p>
               <Link
                 href="/contact"
