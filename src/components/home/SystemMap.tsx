@@ -16,7 +16,7 @@ export default function SystemMap() {
           ( What we build )
         </p>
         <h2 className="mt-4 max-w-2xl text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-          From firmware to fleet,{" "}
+          From device to fleet,{" "}
           <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
             in one picture
           </span>

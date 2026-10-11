@@ -160,7 +160,7 @@ export default function BlogIndex() {
               href="/contact"
               className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85 sm:w-auto sm:justify-self-start lg:justify-self-end"
             >
-              Get a quote
+              Talk to an engineer
               <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>

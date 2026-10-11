@@ -79,8 +79,8 @@ function DeviceLine() {
               {
                 [
                   "Your hardware",
-                  "BLE or LoRa",
-                  "AWS IoT Core",
+                  "WiFi, BLE or LoRa",
+                  "Your cloud",
                   "Fleet and users",
                 ][i]
               }

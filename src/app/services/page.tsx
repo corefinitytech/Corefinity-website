@@ -56,13 +56,13 @@ export default function ServicesIndex() {
               <H1Eyebrow>Services for connected devices</H1Eyebrow>
               Everything{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
-                from firmware to fleet.
+                from device to fleet.
               </span>
             </h1>
 
             <p className="max-w-sm shrink-0 text-sm leading-relaxed text-ink/65 lg:pb-3">
-              Firmware and four services that take a device from the bench to a product, and
-              the web, mobile and integration work we also do. One team.
+              The app, cloud, admin panel and DevOps that take a device from the
+              bench to a product, plus firmware when you need it. One team.
             </p>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function ServicesIndex() {
               <Link
                 key={s.name}
                 href={s.href}
-                className={`group relative isolate flex min-h-[240px] flex-col overflow-hidden rounded-[20px] p-6 pb-16 text-white transition duration-300 hover:-translate-y-0.5 sm:p-8 sm:pb-16 ${surfaces[i % surfaces.length]}`}
+                className={`group relative isolate flex min-h-[240px] flex-col overflow-hidden rounded-[20px] p-6 pb-16 text-white transition duration-300 hover:-translate-y-0.5 sm:p-8 sm:pb-16 ${surfaces[i % surfaces.length]} ${i === deviceServices.length - 1 && deviceServices.length % 2 === 1 ? "md:col-span-2" : ""}`}
               >
                 <span className="text-[11px] font-medium tracking-[0.18em] text-white/50">
                   0{i + 1}
@@ -144,7 +144,7 @@ export default function ServicesIndex() {
               href="/contact"
               className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85 sm:w-auto sm:justify-self-start lg:justify-self-end"
             >
-              Send a project brief
+              Talk to an engineer
               <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>

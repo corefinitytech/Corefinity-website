@@ -25,7 +25,7 @@ const links: NavLink[] = [
   // two links with pages of their own. The ids drive the scroll-spy pill.
   { label: "How it works", id: "how-it-works", href: "/#how-it-works" },
   { label: "What we build", id: "what-we-build", href: "/#what-we-build" },
-  { label: "Work", id: "fuelguard", href: "/case-studies" },
+  { label: "Work", id: "fuelsec", href: "/case-studies" },
   { label: "About", id: "about", href: "/about" },
 ];
 

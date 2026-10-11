@@ -1,9 +1,10 @@
 # CoreFinity Tech
 
 > CoreFinity Tech (domain corefinity.tech, sometimes written Corefinity Tech) builds the
-> software for connected devices: firmware, companion apps, device to cloud
-> pipelines, admin panels and DevOps for hardware teams. It works over BLE,
-> MQTT and LoRa, runs on AWS IoT Core, and is based in Islamabad, Pakistan,
+> app, cloud and admin software for connected devices: companion apps, device
+> to cloud pipelines, admin panels and DevOps for hardware teams, plus firmware
+> when a client needs it. It works over WiFi, BLE, MQTT and LoRa, and is based
+> in Islamabad, Pakistan,
 > working remotely with clients worldwide. Work is quoted at a fixed price and
 > handed over with full ownership of the code and cloud accounts.
 
@@ -15,16 +16,17 @@ Instagram: https://www.instagram.com/corefinitytech/
 
 ## What CoreFinity Tech does
 
-CoreFinity Tech builds the software for connected hardware, from firmware to fleet:
+CoreFinity Tech builds the software for connected hardware, from the device to the fleet:
 
-* Firmware. Device code for the client's boards, written by an in house firmware
-  team against the same message format as the app and cloud.
 * Companion apps. iOS and Android apps with pairing, automatic reconnect and
   offline sync, built over BLE or LoRa.
 * Device to cloud. Secure device onboarding, ingestion, storage and alert
   rules on AWS IoT Core and MQTT.
 * Admin panels. Web dashboards with a fleet view, alerts, users and roles,
   and reports.
+* Firmware, when needed. Most projects work from the client's own firmware
+  team; CoreFinity Tech's firmware engineers write firmware for ESP32, STM32,
+  Nordic nRF and RAKwireless boards when the client has no team in place.
 * DevOps and handover. Pipelines, monitoring and documentation, with
   repositories, cloud accounts and keys in the client's name.
 
@@ -71,10 +73,10 @@ within 48 hours.
 
 ## Technology
 
-Firmware for STM32, Nordic nRF, Espressif ESP32 and RAKwireless modules. BLE,
-MQTT and LoRa for device communication. AWS IoT Core in the cloud. React
-Native for companion apps. Go and Node.js for backend services. PostgreSQL for
-storage. These are mainstream technologies with deep talent pools, so clients
+Shipped in client work: ESP32 firmware, Flutter apps, Python and FastAPI
+backends, Firebase, and Next.js, React and TypeScript for web and admin panels.
+The team also works with STM32, Nordic nRF and RAKwireless modules, BLE, MQTT
+and LoRa, AWS IoT Core, React Native, Node.js and PostgreSQL. These are mainstream technologies with deep talent pools, so clients
 are never dependent on CoreFinity Tech to maintain what was built.
 
 ## What clients receive at handover
@@ -129,11 +131,11 @@ Yes. CoreFinity Tech agrees the data format with your team and builds the app an
 
 ### Does CoreFinity Tech write firmware?
 
-Yes. CoreFinity Tech has its own firmware team, so the device code, the companion app, the cloud and the admin panel are built by one team working from one message format.
+Yes, when you need it. Most projects pair CoreFinity Tech's app, cloud and admin work with the client's own firmware team, and CoreFinity Tech's firmware engineers step in on ESP32, STM32, Nordic nRF and RAKwireless boards when there is no team in place.
 
 ### Which protocols and chips has CoreFinity Tech worked with?
 
-CoreFinity Tech's firmware team works professionally with STM32, Nordic nRF, Espressif ESP32 and RAKwireless modules, over BLE, MQTT and LoRa. The app and cloud are built to the same message format as the firmware.
+CoreFinity Tech has shipped ESP32 devices with Flutter apps and Python backends, and its firmware engineers also work with STM32, Nordic nRF and RAKwireless modules. Projects connect over WiFi, BLE, MQTT or LoRa.
 
 ### Can CoreFinity Tech take over an app or backend another team started?
 
@@ -182,7 +184,7 @@ CoreFinity Tech is based in Islamabad, Pakistan, and works remotely with hardwar
 * [Is your product ready for sudden growth?](https://corefinity.tech/blog/is-your-product-ready-for-sudden-growth): what happens when demand arrives faster than planned, where systems give way first, and the questions to ask before a launch.
 * [How we size a system before we build it](https://corefinity.tech/blog/how-we-size-a-system-before-building-it): the questions asked before any code is written, the peak hour arithmetic, and how capacity is added in stages.
 * [Case studies](https://corefinity.tech/case-studies): real client engagements, what was built and what changed for the business.
-* [FuelGuard: IoT fuel monitoring at the nozzle](https://corefinity.tech/case-studies/fuelguard-iot-fuel-monitoring): a connected fuel monitoring system, client confidential. ESP32 firmware at the nozzle measures every fill with its own flow meter and the dispenser's pulse signal, compared live every second, with any gap above 0.05 litres flagged and nozzle tampering reported instantly. A Flutter app connects over the device's own WiFi hotspot, captures photo evidence and syncs offline; a FastAPI backend on Firebase raises fraud alerts and escalates repeat cases; a Next.js admin panel shows every nozzle live and sends firmware updates over the air. Built over about six months in 2026.
+* [FuelSec: IoT fuel monitoring at the nozzle](https://corefinity.tech/case-studies/fuelsec-iot-fuel-monitoring): a connected fuel monitoring system, client confidential. ESP32 firmware at the nozzle measures every fill with its own flow meter and the dispenser's pulse signal, compared live every second, with any gap above 0.05 litres flagged and nozzle tampering reported instantly. A Flutter app connects over the device's own WiFi hotspot, captures photo evidence and syncs offline; a FastAPI backend on Firebase raises fraud alerts and escalates repeat cases; a Next.js admin panel shows every nozzle live and sends firmware updates over the air. Built over about six months in 2026.
 * [IELTS Counsel: IELTS writing checker and online practice platform](https://corefinity.tech/case-studies/ielts-counsel-writing-checker-online-practice): built for an IELTS institute in Islamabad (ieltscounsel.com). Students get an instant band score from an AI writing checker for Task 1 and Task 2, and AI speaking scores for Parts 1 to 3. The AI model reports evidence from each answer and code works out the band, tuned against expert marked scripts from Band 4 to Band 9. The platform also has IELTS online practice tests, Easypaisa checkout, plan limits checked on the server, an admin panel for online and campus students, and protected study PDFs. Built over about six months in 2026.
 * [Aeroflex: first website for an industrial supplier](https://corefinity.tech/case-studies/aeroflex-industrial-supplier-website): built for an Islamabad supplier of industrial testing equipment (aeroflex.pk) that had no website. Delivered in two weeks in 2026: 13 pages covering six services, a four step process, a blog with six articles, a contact form and the engineers' direct number on every page, with titles, structured data, a sitemap, llms.txt and crawler rules that welcome Google, Bing and AI assistants. Scores 100 for SEO in Lighthouse.
 * [Get a quote](https://corefinity.tech/contact): project brief form, what the

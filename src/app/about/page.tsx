@@ -7,7 +7,7 @@ import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
 import { SocialIcon } from "@/components/SocialIcons";
 import { ArrowRight } from "@/components/icons";
 import { breadcrumbSchema, graph } from "@/lib/schema";
-import { services } from "@/lib/services";
+import { deviceServices } from "@/lib/devices";
 import {
   address,
   founders,
@@ -129,7 +129,7 @@ export default function AboutPage() {
                 href="/contact"
                 className="group mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-white transition hover:bg-ink/85"
               >
-                Get a quote
+                Talk to an engineer
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
@@ -166,33 +166,32 @@ export default function AboutPage() {
               ( Why we exist )
             </p>
             <h2 className="mt-4 max-w-md text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-              Most software problems start as{" "}
+              A working prototype is not{" "}
               <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                business problems.
+                a product yet.
               </span>
             </h2>
           </div>
 
           <div className="grid gap-5">
             <p className="text-[15px] leading-relaxed text-ink/70">
-              Almost every project we are asked about starts the same way.
-              Something that worked fine at the beginning has stopped fitting. A
-              spreadsheet runs a process nobody fully understands any more. Four
-              subscriptions hold four pieces of the same job, and somebody
-              retypes data between them every morning.
+              Almost every project we are asked about starts the same way. The
+              device works on the bench, and the hardware team has done the hard
+              part. What is missing is everything around it: the app people pair
+              it with, the cloud that stores what it sends, and the panel that
+              shows a whole fleet at once.
             </p>
             <p className="text-[15px] leading-relaxed text-ink/70">
-              Off the shelf tools are good at the common case and poor at the
-              one thing that makes a business different. That last part is
-              usually where the money is, and it is usually the part no product
-              will bend to fit. Custom software is worth it exactly there, and
-              rarely anywhere else. We will tell you when a cheaper tool would
-              do the job.
+              That software decides how the product feels. Connections that
+              drop, readings that go missing and a cloud bill nobody planned for
+              are what customers remember, long after the hardware is forgotten.
+              We build that side properly, beside your hardware team, and with
+              our own firmware engineers when you need them.
             </p>
             <p className="text-[15px] leading-relaxed text-ink/70">
-              So we keep the work narrow and the price fixed. You should be able
-              to see what you are buying before you commit to it, and own every
-              part of it afterwards.
+              So we keep the work focused and the price fixed. You should be
+              able to see what you are buying before you commit to it, and own
+              every part of it afterwards.
             </p>
           </div>
         </div>
@@ -380,13 +379,13 @@ export default function AboutPage() {
                 ( What we build )
               </p>
               <ul className="mt-6 grid gap-2 sm:grid-cols-2">
-                {services.map((s) => (
-                  <li key={s.slug}>
+                {deviceServices.map((s) => (
+                  <li key={s.name}>
                     <Link
-                      href={`/services/${s.slug}`}
+                      href={s.href}
                       className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-[13px] transition hover:border-white/30"
                     >
-                      {s.navLabel}
+                      {s.name}
                       <ArrowRight className="ml-auto size-3.5 shrink-0 text-white/50 transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
                   </li>
@@ -419,7 +418,7 @@ export default function AboutPage() {
               href="/contact"
               className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85 sm:w-auto sm:justify-self-start lg:justify-self-end"
             >
-              Get a quote
+              Talk to an engineer
               <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>

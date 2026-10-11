@@ -11,26 +11,36 @@ export const hero = {
   eyebrow: "Software for connected devices",
   lead: "From prototype",
   accent: "to product.",
-  sub: "Your device works on the bench. We build the firmware, companion app, cloud and admin panel that make it a product, over BLE, MQTT and LoRa on AWS IoT Core.",
+  sub: "Your device works on the bench. We build the companion app, cloud backend and admin panel that make it a product, plus the firmware when you need it.",
   primary: { label: "See how a build goes", href: "#how-it-works" },
-  secondary: { label: "Watch a device we shipped", href: "#fuelguard" },
+  secondary: { label: "Watch a device we shipped", href: "#fuelsec" },
   /** The animated line in the hero visual, left to right. */
   flow: ["Device", "Phone or gateway", "Cloud", "Admin panel"],
 };
 
 /** Protocols and tools an engineer pattern matches on. Shipped with only. */
+/** Only what CoreFinity Tech has itself shipped in client work. */
 export const stack = [
-  // Chip families the firmware team works with professionally.
+  "ESP32",
+  "Flutter",
+  "Python",
+  "FastAPI",
+  "Firebase",
+  "Next.js",
+  "React",
+  "TypeScript",
+];
+
+/** Chips, protocols and tools the team also works with. */
+export const alsoWorksWith = [
   "STM32",
   "Nordic nRF",
-  "ESP32",
   "RAKwireless",
   "BLE",
   "MQTT",
   "LoRa",
   "AWS IoT Core",
   "React Native",
-  "Go",
   "Node.js",
   "PostgreSQL",
 ];
@@ -76,17 +86,18 @@ export const systemMap: {
   columns: SystemColumn[];
   line: string;
 } = {
-  heading: "From firmware to fleet, in one picture",
+  heading: "From device to fleet, in one picture",
   columns: [
     {
       name: "Device",
-      owner: "Your hardware, our firmware",
+      owner: "Your hardware and firmware",
       items: [
-        "Firmware for your boards",
-        "Sensor and radio drivers",
+        "Your boards and firmware",
+        "Our firmware engineers, when you need them",
         "Message format we agree together",
       ],
       runsOn: "Your boards",
+      theirs: true,
     },
     {
       name: "App",
@@ -98,7 +109,7 @@ export const systemMap: {
       name: "Cloud",
       owner: "Built by us",
       items: ["Secure onboarding", "Ingestion and storage", "Alerts"],
-      runsOn: "AWS IoT Core, MQTT",
+      runsOn: "AWS, Firebase or your own",
     },
     {
       name: "Admin",
@@ -107,7 +118,7 @@ export const systemMap: {
       runsOn: "Web dashboard",
     },
   ],
-  line: "One team from the firmware to the fleet.",
+  line: "One team for the app, the cloud and the fleet.",
 };
 
 export const stages = {
@@ -147,7 +158,7 @@ export const buildSteps: BuildStep[] = [
   {
     title: "Data contract",
     happens:
-      "We define what the device sends, how often and over which protocol, and write the firmware that sends it.",
+      "We define what the device sends, how often and over which protocol, with your firmware team or ours.",
     receive: "A one page message specification both teams sign off.",
     sample: "spec",
   },
@@ -186,20 +197,20 @@ export const buildSteps: BuildStep[] = [
   },
 ];
 
-export const fuelguard = {
-  heading: "FuelGuard: catching fuel fraud at the dispenser.",
+export const fuelsec = {
+  heading: "FuelSec: catching fuel fraud at the dispenser.",
   problem:
     "Drivers, families and fleet owners paying for fuel see only the pump's own reading, with no way to check the tank received it. Stations had no record to prove honest fills or find repeated problems.",
   built:
     "An ESP32 device at the nozzle that measures every fill with its own flow meter and the dispenser's pulse signal at once, compared live every second. A Flutter app connects to it over the device's own WiFi, captures photo evidence and works without mobile signal. A FastAPI backend raises fraud alerts, and a Next.js admin panel gives stations a live view of every nozzle.",
   stack: ["ESP32", "Flutter", "FastAPI", "Firebase", "Next.js"],
   result:
-    "Every fill is checked litre by litre, any gap above 0.05 litres is flagged, tampering is reported instantly, and firmware updates reach every device over the air.",
+    "Running now as a pilot. Every fill is checked litre by litre, any gap above 0.05 litres is flagged, tampering is reported instantly, and firmware updates reach every device over the air.",
   confidential:
     "The client is not named here. Their identity is kept confidential under our agreement.",
   caseStudy: {
     label: "Read the full case study",
-    href: "/case-studies/fuelguard-iot-fuel-monitoring",
+    href: "/case-studies/fuelsec-iot-fuel-monitoring",
   },
 };
 
@@ -354,6 +365,12 @@ export const deviceServices = [
     name: "Admin panels",
     summary:
       "A web dashboard with a fleet view, alerts, users and roles, and reports.",
+    href: "/#what-we-build",
+  },
+  {
+    name: "Firmware, when you need it",
+    summary:
+      "Firmware for ESP32, STM32, Nordic nRF and RAKwireless boards, for teams without their own firmware engineers.",
     href: "/#what-we-build",
   },
   {

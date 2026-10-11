@@ -86,6 +86,17 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
 
+  async redirects() {
+    return [
+      {
+        // The fuel monitoring case study was renamed from FuelGuard to FuelSec.
+        source: "/case-studies/fuelguard-iot-fuel-monitoring",
+        destination: "/case-studies/fuelsec-iot-fuel-monitoring",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       {
