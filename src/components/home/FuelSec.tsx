@@ -1,4 +1,6 @@
 import Link from "next/link";
+
+import FilmPlayer from "./FilmPlayer";
 import { LockSimple } from "@phosphor-icons/react/dist/ssr";
 import TechIcon from "../TechIcon";
 import { ArrowRight } from "../icons";
@@ -13,7 +15,7 @@ import { fuelsec } from "@/lib/devices";
 export default function FuelSec() {
   return (
     <section id="fuelsec" className="px-4 pb-20 sm:px-6 sm:pb-24">
-      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-ink px-6 py-14 text-white sm:px-12 sm:py-16">
+      <div className="relative mx-auto max-w-7xl overflow-clip rounded-[32px] bg-ink px-6 py-14 text-white sm:px-12 sm:py-16">
         <GridOverlay />
         <div
           aria-hidden
@@ -21,26 +23,15 @@ export default function FuelSec() {
         />
 
         <div className="relative grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
-          {/* Video slot */}
-          <div>
-            <div className="relative grid aspect-video place-items-center overflow-hidden rounded-[24px] border border-white/15 bg-[radial-gradient(120%_120%_at_30%_20%,#1880d8_0%,#0f3a66_45%,#05070f_100%)]">
-              {/* Placeholder until the device demo video is added */}
-              <div className="grid place-items-center gap-4 text-center">
-                <span className="grid size-16 place-items-center rounded-full bg-white/10 backdrop-blur-sm">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="ml-1 size-6 text-white/70"
-                    fill="currentColor"
-                    aria-hidden
-                  >
-                    <path d="M7 4.5v15l12.5-7.5z" />
-                  </svg>
-                </span>
-                <span className="rounded-full border border-white/20 bg-black/30 px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-white/85 backdrop-blur-sm">
-                  Device demo coming soon
-                </span>
-              </div>
-            </div>
+          {/* Video slot. Stays pinned while the story beside it scrolls,
+              like the FAQ heading. */}
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <FilmPlayer
+              videoId={fuelsec.film.videoId}
+              poster={fuelsec.film.poster}
+              title={fuelsec.film.title}
+              duration={fuelsec.film.duration}
+            />
           </div>
 
           {/* The three lines */}

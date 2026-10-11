@@ -198,6 +198,16 @@ export const buildSteps: BuildStep[] = [
 ];
 
 export const fuelsec = {
+  film: {
+    videoId: "3-D39bIiJMo",
+    title: "FuelSec: Catching Fuel Fraud at the Nozzle | CoreFinity Tech",
+    description:
+      "A fuel pump shows 20 litres, but a hidden chip means the tank got less. FuelSec measures every fill twice at the nozzle and flags the gap. Running now as a pilot, built end to end by CoreFinity Tech.",
+    poster: "/video/fuelsec-film-poster.webp",
+    duration: "4 min",
+    iso: "PT4M10S",
+    uploaded: "2026-10-11",
+  },
   heading: "FuelSec: catching fuel fraud at the dispenser.",
   problem:
     "Drivers, families and fleet owners paying for fuel see only the pump's own reading, with no way to check the tank received it. Stations had no record to prove honest fills or find repeated problems.",

@@ -40,6 +40,9 @@ const csp = [
   `img-src 'self' data: blob: ${gaCollect}`,
   "font-src 'self' data:",
   `connect-src 'self' ${gaCollect}`,
+  // The FuelSec film plays from YouTube's privacy enhanced domain, and only
+  // after a visitor presses play.
+  "frame-src https://www.youtube-nocookie.com",
   "form-action 'self'",
   "frame-ancestors 'none'",
   "base-uri 'self'",
