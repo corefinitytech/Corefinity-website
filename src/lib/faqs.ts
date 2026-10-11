@@ -19,11 +19,11 @@ export const homeFaqs: HomeFaq[] = [
   },
   {
     q: "Does CoreFinity Tech write firmware?",
-    a: "Yes. CoreFinity Tech has its own firmware team, so the device code, the companion app, the cloud and the admin panel are built by one team working from one message format.",
+    a: "Yes, when you need it. Most projects pair CoreFinity Tech\'s app, cloud and admin work with the client\'s own firmware team, and CoreFinity Tech\'s firmware engineers step in on ESP32, STM32, Nordic nRF and RAKwireless boards when there is no team in place.",
   },
   {
     q: "Which protocols and chips has CoreFinity Tech worked with?",
-    a: "CoreFinity Tech's firmware team works professionally with STM32, Nordic nRF, Espressif ESP32 and RAKwireless modules, over BLE, MQTT and LoRa. The app and cloud are built to the same message format as the firmware.",
+    a: "CoreFinity Tech has shipped ESP32 devices with Flutter apps and Python backends, and its firmware engineers also work with STM32, Nordic nRF and RAKwireless modules. Projects connect over WiFi, BLE, MQTT or LoRa.",
   },
   {
     q: "Can CoreFinity Tech take over an app or backend another team started?",

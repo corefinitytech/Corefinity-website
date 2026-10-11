@@ -96,7 +96,7 @@ export default async function ServicePage({
                 href="/contact"
                 className="group mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-white transition hover:bg-ink/85"
               >
-                Get a quote
+                Talk to an engineer
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
@@ -369,7 +369,7 @@ export default async function ServicePage({
                 href="/contact"
                 className="group mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85"
               >
-                Get a quote
+                Talk to an engineer
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>

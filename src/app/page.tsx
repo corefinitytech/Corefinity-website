@@ -6,7 +6,7 @@ import TheGap from "@/components/home/TheGap";
 import SystemMap from "@/components/home/SystemMap";
 import HardwareStage from "@/components/home/HardwareStage";
 import BuildSteps from "@/components/home/BuildSteps";
-import FuelGuard from "@/components/home/FuelGuard";
+import FuelSec from "@/components/home/FuelSec";
 import HardParts from "@/components/home/HardParts";
 import TeamFit from "@/components/home/TeamFit";
 import HowToStart from "@/components/home/HowToStart";
@@ -42,7 +42,7 @@ export default function Home() {
       <SystemMap />
       <HardwareStage />
       <BuildSteps />
-      <FuelGuard />
+      <FuelSec />
       <HardParts />
       <TeamFit />
       <HowToStart />

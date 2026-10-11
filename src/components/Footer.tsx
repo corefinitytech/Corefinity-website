@@ -4,7 +4,7 @@ import Brand from "./Brand";
 import ConsentReset from "./ConsentReset";
 import { SocialIcon } from "./SocialIcons";
 import { hasCaseStudies } from "@/lib/caseStudies";
-import { services } from "@/lib/services";
+import { deviceServices } from "@/lib/devices";
 import { address, site, socialLinks } from "@/lib/site";
 
 /**
@@ -94,16 +94,24 @@ export default function Footer() {
                 Services
               </p>
               <ul className="mt-4 grid gap-2.5">
-                {services.map((s) => (
-                  <li key={s.slug}>
+                {deviceServices.map((s) => (
+                  <li key={s.name}>
                     <Link
-                      href={`/services/${s.slug}`}
+                      href={s.href}
                       className="text-sm text-ink/60 transition hover:text-ink"
                     >
-                      {s.navLabel}
+                      {s.name}
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <Link
+                    href="/services"
+                    className="text-sm text-ink/60 transition hover:text-ink"
+                  >
+                    Web and other work
+                  </Link>
+                </li>
               </ul>
             </div>
 

@@ -30,7 +30,7 @@ export const site = {
     "CoreFinity Tech builds companion apps, device to cloud pipelines, admin panels and DevOps for connected hardware, over BLE, MQTT and LoRa on AWS IoT Core.",
   /** Short form for cards and structured data where long copy gets clipped. */
   shortDescription:
-    "CoreFinity Tech builds the app, cloud and admin software for connected devices. Fixed scope, full code ownership.",
+    "CoreFinity Tech builds the app, cloud and admin software for connected devices, plus firmware when you need it. Fixed scope, full code ownership.",
   locale: "en_US",
   twitter: "@corefinity",
   /** Bump when page content changes; feeds sitemap lastModified. */

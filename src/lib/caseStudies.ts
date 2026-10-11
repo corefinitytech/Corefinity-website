@@ -34,6 +34,8 @@ export type CaseStudy = {
    * and lists the client as confidential, and nothing names them.
    */
   confidential?: boolean;
+  /** Shown in the facts box when the work is not yet in full production. */
+  status?: string;
   industry: string;
   /** Short line for cards and the index. */
   summary: string;
@@ -60,15 +62,16 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "fuelguard-iot-fuel-monitoring",
-    client: "FuelGuard",
+    slug: "fuelsec-iot-fuel-monitoring",
+    client: "FuelSec",
     confidential: true,
+    status: "Pilot",
     industry: "Fuel and energy",
     summary:
       "A fuel monitoring system that checks every fill at the nozzle, with ESP32 firmware, a Flutter app, a FastAPI backend and an admin panel for stations.",
-    title: "FuelGuard IoT Fuel Monitoring Case Study",
+    title: "FuelSec IoT Fuel Monitoring Case Study",
     description:
-      "How CoreFinity Tech built FuelGuard: ESP32 firmware that checks every fill at the nozzle, a Flutter app, fraud alerts and a live admin panel for stations.",
+      "How CoreFinity Tech built FuelSec: ESP32 firmware that checks every fill at the nozzle, a Flutter app, fraud alerts and a live admin panel for stations.",
     keywords: [
       "IoT fuel monitoring system",
       "fuel theft detection",
@@ -158,6 +161,7 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
     results: [
+      "FuelSec is running as a pilot, with the device, app, backend and admin panel working together end to end.",
       "Every fill is measured twice at the nozzle and compared live, with any gap above 0.05 litres flagged.",
       "Tampering with the nozzle is reported the moment the sensor trips.",
       "Each transaction carries photo evidence, kept for 90 days for review.",

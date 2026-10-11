@@ -390,7 +390,7 @@ function FuelScreen() {
   ];
   return (
     <div className={`${glass} w-full max-w-sm`}>
-      <PanelLabel>FuelGuard · Live fill</PanelLabel>
+      <PanelLabel>FuelSec · Live fill</PanelLabel>
       <div className="mt-4 grid grid-cols-2 gap-3">
         {readings.map(([l, v]) => (
           <div key={l} className="rounded-xl bg-white/[0.06] px-3 py-2.5">
