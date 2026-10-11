@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import FilmPlayer from "@/components/home/FilmPlayer";
+
 import CardNotch from "@/components/CardNotch";
 import {
   CaseStudyBackdrop,
@@ -167,9 +169,20 @@ export default async function CaseStudyPage({
             </div>
             <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/40 via-black/10 to-black/50" />
             <GridOverlay size={48} />
-            <div className="relative w-full max-w-sm">
-              <CaseStudyScreen theme={study.theme} />
-            </div>
+            {study.film ? (
+              <div className="relative w-full max-w-4xl">
+                <FilmPlayer
+                  videoId={study.film.videoId}
+                  poster={study.film.poster}
+                  title={study.film.title}
+                  duration={study.film.duration}
+                />
+              </div>
+            ) : (
+              <div className="relative w-full max-w-sm">
+                <CaseStudyScreen theme={study.theme} />
+              </div>
+            )}
           </div>
 
           <dl className="relative z-10 mx-3 -mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-[#e8e9ed] bg-[#e8e9ed] shadow-xl shadow-black/[0.06] sm:mx-8 lg:grid-cols-4">
@@ -508,6 +521,20 @@ export default async function CaseStudyPage({
             about: services.map((s) => ({
               "@id": `${siteUrl}/services/${s.slug}#service`,
             })),
+            ...(study.film
+              ? {
+                  video: {
+                    "@type": "VideoObject",
+                    name: study.film.title,
+                    description: study.film.description,
+                    thumbnailUrl: `${siteUrl}${study.film.poster}`,
+                    uploadDate: study.film.uploaded,
+                    duration: study.film.iso,
+                    embedUrl: `https://www.youtube-nocookie.com/embed/${study.film.videoId}`,
+                    contentUrl: `https://www.youtube.com/watch?v=${study.film.videoId}`,
+                  },
+                }
+              : {}),
             ...(study.clientUrl
               ? {
                   mentions: {

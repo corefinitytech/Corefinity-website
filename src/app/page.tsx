@@ -17,7 +17,8 @@ import BlogTeaser from "@/components/BlogTeaser";
 import Faq from "@/components/Faq";
 import JsonLd from "@/components/JsonLd";
 import { faqSchema, graph } from "@/lib/schema";
-import { openGraphDefaults, site } from "@/lib/site";
+import { fuelsec } from "@/lib/devices";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   // Absolute so the brand is not appended twice on the page that carries it.
@@ -51,7 +52,18 @@ export default function Home() {
       <BlogTeaser />
       <Faq />
       <ClosingCta />
-      <JsonLd schema={graph(faqSchema())} />
+      <JsonLd
+        schema={graph(faqSchema(), {
+          "@type": "VideoObject",
+          name: fuelsec.film.title,
+          description: fuelsec.film.description,
+          thumbnailUrl: `${siteUrl}${fuelsec.film.poster}`,
+          uploadDate: fuelsec.film.uploaded,
+          duration: fuelsec.film.iso,
+          embedUrl: `https://www.youtube-nocookie.com/embed/${fuelsec.film.videoId}`,
+          contentUrl: `https://www.youtube.com/watch?v=${fuelsec.film.videoId}`,
+        })}
+      />
     </main>
   );
 }

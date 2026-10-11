@@ -1,3 +1,5 @@
+import { fuelsec } from "./devices";
+
 /**
  * Case study content.
  *
@@ -36,6 +38,8 @@ export type CaseStudy = {
   confidential?: boolean;
   /** Shown in the facts box when the work is not yet in full production. */
   status?: string;
+  /** A YouTube film shown in place of the illustrated screen. */
+  film?: typeof fuelsec.film;
   industry: string;
   /** Short line for cards and the index. */
   summary: string;
@@ -66,6 +70,7 @@ export const caseStudies: CaseStudy[] = [
     client: "FuelSec",
     confidential: true,
     status: "Pilot",
+    film: fuelsec.film,
     industry: "Fuel and energy",
     summary:
       "A fuel monitoring system that checks every fill at the nozzle, with ESP32 firmware, a Flutter app, a FastAPI backend and an admin panel for stations.",
