@@ -283,44 +283,45 @@ function BookingScreen() {
 }
 
 function EducationScreen() {
-  // The IELTSCounsel platform as it was built: four parts, one system. It
-  // shows no scores, counts or screens of the product, only what the parts
-  // are and what they are built with, because that is all that is on record.
-  const parts: [string, string][] = [
-    ["Website", "React"],
-    ["Student learning platform", "React"],
-    ["Backend services", "FastAPI"],
-    ["Admin dashboard", "React"],
+  // One Writing Task 2 result as a student sees it: the overall band, then
+  // each official criterion. Bars are band out of 9.
+  const criteria: [string, number][] = [
+    ["Task Response", 7],
+    ["Coherence and Cohesion", 6.5],
+    ["Lexical Resource", 7],
+    ["Grammatical Range and Accuracy", 6.5],
   ];
   return (
     <div className={`${glass} w-full max-w-sm`}>
-      <PanelLabel>IELTSCounsel · Platform</PanelLabel>
+      <PanelLabel>IELTS Counsel · Writing Task 2</PanelLabel>
       <div className="mt-4 flex items-end justify-between gap-4">
         <div>
-          <p className="text-[10px] text-white/55">Built and launched in</p>
-          <p className="mt-0.5 text-3xl font-medium sm:text-4xl">2 months</p>
+          <p className="text-[10px] text-white/55">Overall band</p>
+          <p className="mt-0.5 text-3xl font-medium sm:text-4xl">7.0</p>
         </div>
         <span className="rounded-full bg-sky/20 px-2 py-0.5 text-[10px] text-sky">
-          4 parts, 1 system
+          Scored instantly
         </span>
       </div>
-      <ul className="mt-4 grid gap-2 border-t border-white/10 pt-3">
-        {parts.map(([name, tool], i) => (
-          <li
-            key={name}
-            className="flex items-center justify-between gap-3 rounded-lg bg-white/[0.05] px-3 py-2 text-[11px]"
-          >
-            <span className="flex min-w-0 items-center gap-2.5 text-white/85">
-              <span className="text-[10px] text-white/45">0{i + 1}</span>
+      <ul className="mt-4 grid gap-2.5 border-t border-white/10 pt-3">
+        {criteria.map(([name, band]) => (
+          <li key={name}>
+            <div className="flex items-center justify-between text-[11px] text-white/75">
               <span className="truncate">{name}</span>
-            </span>
-            <span className="shrink-0 text-white/55">{tool}</span>
+              <span className="text-white">{band.toFixed(1)}</span>
+            </div>
+            <div className="mt-1 h-1.5 rounded-full bg-white/10" aria-hidden>
+              <div
+                className="h-full rounded-full bg-sky/80"
+                style={{ width: `${(band / 9) * 100}%` }}
+              />
+            </div>
           </li>
         ))}
       </ul>
       <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-[10px] text-white/55">
-        <span>Hosted on a Namecheap VPS</span>
-        <span>ieltscounsel.com</span>
+        <span>Read 3 times, middle score used</span>
+        <span>Mentor review available</span>
       </div>
     </div>
   );

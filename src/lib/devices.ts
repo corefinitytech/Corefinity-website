@@ -351,9 +351,9 @@ export const otherWork = {
    */
   feature: {
     name: "IELTS Counsel",
-    href: "/case-studies/ieltscounsel",
+    href: "/case-studies/ielts-counsel-writing-checker-online-practice",
     result: "PKR 1M+ in revenue in the first two months after launch.",
-    note: "Reported by the founder, with no ad spend. We built the website, learning platform, backend and admin dashboard in 2 months.",
+    note: "Reported by the founder, with no ad spend. We built the practice platform, its AI writing checker and the admin panel in 2 months.",
     link: "Read the case study",
   },
   names: [

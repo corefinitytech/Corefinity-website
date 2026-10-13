@@ -98,11 +98,14 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        // The IELTSCounsel case study was rewritten around the whole platform
-        // and moved to a shorter address.
-        source: "/case-studies/ielts-counsel-writing-checker-online-practice",
-        destination: "/case-studies/ieltscounsel",
-        permanent: true,
+        // The IELTS Counsel case study lives at the address search engines
+        // already have. A second page briefly existed at the short address;
+        // it was merged into the first, so the short address points there.
+        // A plain 301, which is what was asked for and what crawlers expect.
+        source: "/case-studies/ieltscounsel",
+        destination:
+          "/case-studies/ielts-counsel-writing-checker-online-practice",
+        statusCode: 301,
       },
     ];
   },

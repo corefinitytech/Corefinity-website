@@ -8,7 +8,7 @@ import { fuelsec } from "./devices";
  * ones the client has confirmed or that describe the system itself (counts of
  * modes, samples, layers), never invented outcomes such as revenue or hours
  * saved. A business result appears only when the client reported it, and the
- * copy says who reported it (see IELTSCounsel). The rest of the site holds the
+ * copy says who reported it (see IELTS Counsel). The rest of the site holds the
  * same line (see services.ts, schema.ts and the notes in public/llms.txt).
  *
  * Structured data built from this file deliberately uses Article only. There
@@ -49,6 +49,8 @@ export type CaseStudy = {
   description: string;
   keywords: string[];
   headline: { lead: string; accent: string };
+  /** Describes the page's social card, for Open Graph and Twitter. */
+  ogAlt: string;
   timeline: string;
   /** Left out when it is not on record; the facts box then drops the row. */
   year?: string;
@@ -103,6 +105,8 @@ export const caseStudies: CaseStudy[] = [
       lead: "Every litre checked",
       accent: "at the nozzle.",
     },
+    ogAlt:
+      "FuelSec case study by CoreFinity Tech: an IoT fuel monitoring system that checks every litre at the nozzle.",
     timeline: "6 months",
     year: "2026",
     datePublished: "2026-10-10",
@@ -207,35 +211,37 @@ export const caseStudies: CaseStudy[] = [
     theme: "fuel",
   },
   {
-    // Proof of the backend and admin dashboard half of the work: no hardware
-    // here, only the platform a business runs on. Every line below is either
-    // something we built or something the founder reported. The result is the
-    // business's own, earned on the platform, and is always attributed.
-    slug: "ieltscounsel",
-    client: "IELTSCounsel",
+    // One page for IELTS Counsel, at the address search engines already know.
+    // The product detail is the platform as built. The business result is the
+    // founder's own figure: the business earned it on the platform, it stays
+    // in PKR, and every mention says who reported it.
+    slug: "ielts-counsel-writing-checker-online-practice",
+    client: "IELTS Counsel",
     clientUrl: "https://ieltscounsel.com/",
-    status: "Live",
     industry: "Education",
     summary:
-      "The website, student learning platform, backend services and admin dashboard for an IELTS preparation business, built in 2 months.",
-    title: "IELTSCounsel Learning Platform Case Study",
+      "The founder reported PKR 1M+ in revenue in the first two months after launch, with no ad spend. The platform: an AI writing checker, speaking scores, Easypaisa plans and an admin panel, built in 2 months.",
+    title: "IELTS Writing Checker Platform Case Study",
     description:
-      "How CoreFinity Tech built IELTSCounsel its website, student learning platform, backend services and admin dashboard in 2 months, with React and FastAPI.",
+      "How CoreFinity Tech built IELTS Counsel an IELTS practice platform with an AI writing checker in 2 months. The founder reported PKR 1M+ revenue in two months.",
     keywords: [
-      "learning platform development",
-      "admin dashboard development",
-      "FastAPI backend development",
-      "React web platform",
-      "IELTS preparation platform",
-      "education platform case study",
+      "IELTS writing checker",
+      "IELTS online practice",
+      "IELTS practice",
+      "IELTS online",
+      "IELTS speaking score",
+      "IELTS platform development",
     ],
     headline: {
-      lead: "A whole learning platform,",
-      accent: "built in two months.",
+      lead: "PKR 1M+ in its first two months,",
+      accent: "on a platform built in two.",
     },
+    ogAlt:
+      "IELTS Counsel case study by CoreFinity Tech: an IELTS practice platform built in 2 months, with PKR 1M+ in revenue reported by the founder in its first two months.",
     timeline: "2 months",
-    datePublished: "2026-10-13",
-    services: ["web-development"],
+    year: "2026",
+    datePublished: "2026-10-03",
+    services: ["ai-development", "web-development", "systems-integration"],
     metrics: [
       {
         value: 1,
@@ -244,44 +250,101 @@ export const caseStudies: CaseStudy[] = [
         suffix: "M+",
         label: "Revenue in the first two months, reported by the founder",
       },
-      { value: 2, suffix: " months", label: "From the brief to launch" },
-      { value: 4, label: "Parts built: site, platform, backend and dashboard" },
       { value: 0, label: "Ad spend behind that revenue, as reported" },
+      { value: 2, suffix: " months", label: "From start to launch" },
+      { value: 7, label: "Scoring modes for Writing and Speaking" },
     ],
-    brief: true,
     challenge: [
-      "IELTSCounsel is an IELTS preparation business run by Mubbashar Qayyum. The business needed its whole online platform built: a public website, student accounts and a learning platform for its students, plus an admin dashboard to run it.",
-      "That is four pieces of software that have to work as one. A student signs in on the same platform the business manages from its dashboard, and one set of backend services sits behind all of it.",
+      "IELTS Counsel is an IELTS institute in Islamabad, run by Mubbashar Qayyum. It prepares students for the Academic and General Training tests, in class and online. Writing and Speaking are where students need the most feedback, and they take the longest to mark. Every essay and recording went to an instructor, so students could only practise as often as a teacher had time to mark.",
+      "The rest of the business was split across different places. Online students, campus students and students paying in installments were tracked separately. Paid plans needed limits that students could not get around, and paid study material needed protecting. Most students also wanted to pay with Easypaisa, so a card checkout alone would not work.",
     ],
     approach: [
-      "We built all four parts as a single system: the website, the student learning platform, the backend services behind both, and the admin dashboard. The interfaces are built in React and the backend services in FastAPI, and the platform is hosted on a Namecheap VPS.",
-      "This is the backend and admin dashboard half of what we do. It is the same work that sits behind a connected device, done here for a business with no hardware at all.",
+      "We designed the IELTS writing checker so the AI model does the reading and the code does the marking. The model goes through each answer and reports what it finds: grammar and tense errors, vocabulary range, collocations, linking problems, and whether every part of the question was answered. The code then works out each criterion band from that evidence, using fixed thresholds, caps and IELTS style rounding.",
+      "Each essay is read three times and the middle result is used, which keeps scores steady from one attempt to the next. We tuned the engine against the institute's own expert marked scripts from Band 4 to Band 9. The first version pushed weak and strong essays towards Band 6, so we corrected that, then ran the new engine alongside the old one before moving students over.",
+      "The rest of the platform covers plans and limits, Easypaisa checkout, an admin panel for online and campus students, and mentor review for students who still want a teacher to look at their work.",
     ],
     built: [
       {
-        title: "The website",
-        body: "The public site for the business, built in React. It is the first thing a visitor sees and the way in to the platform.",
+        title: "AI writing checker",
+        body: "Marks Task 1 Academic, Task 1 General Training and Task 2 on all four IELTS criteria. Students see their strengths, what to improve and examples quoted from their own answer. Very short, off topic or memorised answers are capped.",
       },
       {
-        title: "Student learning platform",
-        body: "Where students sign in to their own accounts and do their learning.",
+        title: "AI speaking scores",
+        body: "Follows the real test across Parts 1, 2 and 3, with a microphone check, question audio and timers. Each recording is transcribed and checked for pace, pauses, hesitation, grammar, vocabulary and pronunciation, and the three parts are combined into one band.",
       },
       {
-        title: "Backend services",
-        body: "FastAPI services that sit behind the website, the student platform and the dashboard, so all three work from the same data.",
+        title: "Plans and limits",
+        body: "Free trial, Bronze, Silver and Golden plans control which mock tests, tracks, downloads and AI evaluations a student can use. The server keeps count, and if an evaluation fails the student gets the credit back.",
       },
       {
-        title: "Admin dashboard",
-        body: "Where the business runs the platform, in one place.",
+        title: "Easypaisa checkout",
+        body: "Students pay from their Easypaisa mobile account. The system checks the payment status and amount, emails a receipt and starts the plan once the payment is confirmed. An old order cannot be used to renew a plan.",
+      },
+      {
+        title: "Admin panel and analytics",
+        body: "One place for online and campus students, including CNIC or passport records, installments, due dates and balances. Admins also manage tests and blogs, see pending evaluations, and track revenue by source, plan mix and average bands.",
+      },
+      {
+        title: "Protected study resources",
+        body: "Each paid PDF is marked for the student who downloaded it, with visible and hidden trace marks, so a shared copy can be traced back.",
       },
     ],
-    phases: [],
+    phases: [
+      {
+        when: "Phase 1",
+        title: "Platform and plans",
+        detail:
+          "The student app with Academic and General Training routes, IELTS online practice tests for all four modules, accounts, and plan limits checked on the server.",
+      },
+      {
+        when: "Phase 2",
+        title: "Payments and operations",
+        detail:
+          "Easypaisa checkout, the admin panel, campus and installment students, protected resources and the analytics dashboard.",
+      },
+      {
+        when: "Phase 3",
+        title: "Writing and speaking scores",
+        detail:
+          "The writing checker and the speaking pipeline, from reading the answer or the recording through to criterion bands and feedback.",
+      },
+      {
+        when: "Phase 4",
+        title: "Tune and roll out",
+        detail:
+          "We tuned the scores against expert marked scripts from Band 4 to Band 9, then ran the new engine next to the old one before switching students over.",
+      },
+    ],
     results: [
       "The business earned PKR 1M+ in revenue on the platform in the first two months after launch, as reported by the founder.",
       "That revenue came with no ad spend, as reported by the founder.",
-      "The website, the student learning platform, the backend services and the admin dashboard were built and launched in 2 months.",
+      "The whole platform was built and launched in 2 months.",
+      "Students get a band score and feedback on each criterion as soon as they submit a Writing or Speaking task.",
+      "Mentor review is still available for students who want a teacher's view.",
+      "The institute sells its plans online through Easypaisa, and campus and installment students are managed in the same system.",
+      "Plan limits are checked on the server for every test, download and AI evaluation.",
+      "Admins see revenue, plan mix, pending evaluations and average bands on one dashboard.",
     ],
-    stack: ["React", "FastAPI", "OpenAI Whisper", "Namecheap VPS"],
+    // The four named in the brief for this page come first. Whisper is listed
+    // as a tool only: nothing on record says which feature it serves.
+    stack: [
+      "React",
+      "FastAPI",
+      "OpenAI Whisper",
+      "Namecheap VPS",
+      "Tailwind CSS",
+      "Next.js",
+      "TypeScript",
+      "Python",
+      "OpenAI API",
+      "spaCy",
+      "Firebase",
+      "Firestore",
+      "Redis",
+      "Easypaisa",
+      "Cloudinary",
+      "Docker",
+    ],
     theme: "education",
   },
   {
@@ -306,6 +369,8 @@ export const caseStudies: CaseStudy[] = [
       lead: "A first website for an industrial supplier,",
       accent: "built to be found.",
     },
+    ogAlt:
+      "Aeroflex case study by CoreFinity Tech: a first website for an industrial supplier, built to be found.",
     timeline: "2 weeks",
     year: "2026",
     datePublished: "2026-10-04",

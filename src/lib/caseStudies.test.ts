@@ -118,7 +118,10 @@ describe("claims", () => {
   it("attributes every revenue figure to whoever reported it", () => {
     for (const c of caseStudies) {
       const lines = [...c.results, ...c.metrics.map((m) => m.label)];
-      for (const line of lines.filter((l) => /revenue/i.test(l))) {
+      // A line that puts a number on money earned, as opposed to one that
+      // only says the dashboard shows revenue.
+      const figure = /PKR|earned|ad spend/i;
+      for (const line of lines.filter((l) => figure.test(l))) {
         expect(line, c.slug).toMatch(/reported/i);
       }
     }
@@ -130,6 +133,30 @@ describe("claims", () => {
       expect(c.quote.text.trim().length).toBeGreaterThan(0);
       expect(c.quote.name.trim().length).toBeGreaterThan(0);
     }
+  });
+});
+
+describe("the IELTS Counsel page", () => {
+  const study = getCaseStudy("ielts-counsel-writing-checker-online-practice");
+
+  it("is one page, at the address search engines already have", () => {
+    expect(study).toBeDefined();
+    expect(getCaseStudy("ieltscounsel")).toBeUndefined();
+    expect(caseStudies.filter((c) => /ielts/i.test(c.client))).toHaveLength(1);
+  });
+
+  it("leads with the result, in PKR and attributed", () => {
+    expect(study?.metrics[0].label).toMatch(/reported by the founder/i);
+    expect(study?.results[0]).toMatch(/PKR 1M\+.*reported by the founder/);
+    const all = JSON.stringify(study);
+    expect(all).not.toMatch(/USD|\$|made them earn/i);
+  });
+
+  it("gives every study a social card alt of its own", () => {
+    for (const c of caseStudies) expect(c.ogAlt).toContain(c.client);
+    expect(new Set(caseStudies.map((c) => c.ogAlt)).size).toBe(
+      caseStudies.length,
+    );
   });
 });
 
