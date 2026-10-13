@@ -3,13 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import FaqAccordion from "@/components/FaqAccordion";
 import JsonLd from "@/components/JsonLd";
 import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
 import { diagrams } from "@/components/blog/Diagrams";
-import { ArrowRight } from "@/components/icons";
+import { ArrowRight, Bolt, FileLines } from "@/components/icons";
 import {
   getPost,
-  nextPost,
   posts,
   readingMinutes,
   type BlogBlock,
@@ -58,25 +58,39 @@ export async function generateMetadata({
 
 const prose = "text-[17px] leading-[1.75] text-ink/75";
 
+/** Text stays at a readable line length even though the column is wider. */
+const measure = "max-w-3xl";
+
+/** Stable id for a heading, so the sidebar can jump to it. */
+function headingId(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 function Block({ block }: { block: BlogBlock }) {
   switch (block.type) {
     case "h2":
       return (
-        <h2 className="mt-14 text-[clamp(1.5rem,3vw,2.15rem)] font-medium leading-[1.15] tracking-[-0.03em] text-ink">
+        <h2
+          id={headingId(block.text)}
+          className={`mt-14 scroll-mt-28 text-[clamp(1.5rem,3vw,2.15rem)] font-medium leading-[1.15] tracking-[-0.03em] text-ink ${measure}`}
+        >
           {block.text}
         </h2>
       );
     case "h3":
       return (
-        <h3 className="mt-10 text-xl font-medium tracking-[-0.02em] text-ink">
+        <h3 className={`mt-10 text-xl font-medium tracking-[-0.02em] text-ink ${measure}`}>
           {block.text}
         </h3>
       );
     case "p":
-      return <p className={`mt-6 ${prose}`}>{block.text}</p>;
+      return <p className={`mt-6 ${prose} ${measure}`}>{block.text}</p>;
     case "quote":
       return (
-        <blockquote className="mt-10 border-l-2 border-accent pl-6 text-[clamp(1.25rem,2.4vw,1.6rem)] font-medium leading-snug tracking-[-0.02em] text-ink">
+        <blockquote className={`mt-10 border-l-2 border-accent pl-6 text-[clamp(1.25rem,2.4vw,1.6rem)] font-medium leading-snug tracking-[-0.02em] text-ink ${measure}`}>
           {block.text}
         </blockquote>
       );
@@ -95,14 +109,14 @@ function Block({ block }: { block: BlogBlock }) {
         </li>
       ));
       return block.ordered ? (
-        <ol className="mt-6 grid gap-4">{items}</ol>
+        <ol className={`mt-6 grid gap-4 ${measure}`}>{items}</ol>
       ) : (
-        <ul className="mt-6 grid gap-4">{items}</ul>
+        <ul className={`mt-6 grid gap-4 ${measure}`}>{items}</ul>
       );
     }
     case "callout":
       return (
-        <div className="mt-10 rounded-[24px] bg-mist p-7 sm:p-8">
+        <div className={`mt-10 rounded-[24px] bg-mist p-7 sm:p-8 ${measure}`}>
           <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
             {block.title}
           </p>
@@ -118,7 +132,7 @@ function Block({ block }: { block: BlogBlock }) {
       );
     case "image":
       return (
-        <figure className="mt-12 lg:-mx-16 xl:-mx-24">
+        <figure className="mt-12">
           <Image
             src={block.src}
             alt={block.alt}
@@ -136,7 +150,7 @@ function Block({ block }: { block: BlogBlock }) {
     case "figure": {
       const Diagram = diagrams[block.diagram];
       return (
-        <figure className="mt-12 lg:-mx-16 xl:-mx-24">
+        <figure className="mt-12">
           <div className="overflow-x-auto rounded-[24px] border border-black/[0.08] bg-white p-5 sm:p-8">
             <div className="min-w-[540px]">
               <Diagram />
@@ -166,7 +180,9 @@ export default async function BlogPostPage({
   const services = post.services
     .map(getService)
     .filter((s): s is ServicePage => Boolean(s));
-  const next = nextPost(post);
+  const sections = post.blocks
+    .filter((b) => b.type === "h2")
+    .map((b) => (b as { text: string }).text);
   const url = `${siteUrl}/blog/${post.slug}`;
   const published = new Date(post.datePublished).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -179,7 +195,7 @@ export default async function BlogPostPage({
     <main id="main">
       {/* Header */}
       <section className="px-4 pt-28 sm:px-6 sm:pt-36">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-7xl">
           <Breadcrumbs
             trail={[
               { name: "Home", href: "/" },
@@ -188,7 +204,7 @@ export default async function BlogPostPage({
             ]}
           />
 
-          <h1 className="mt-8 text-[clamp(2.1rem,5vw,3.6rem)] font-medium leading-[1.05] tracking-[-0.035em] text-ink">
+          <h1 className="mt-8 max-w-4xl text-[clamp(2.1rem,5vw,3.6rem)] font-medium leading-[1.05] tracking-[-0.035em] text-ink">
             <H1Eyebrow>{post.topic}</H1Eyebrow>
             {post.headline.lead}{" "}
             <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
@@ -196,11 +212,11 @@ export default async function BlogPostPage({
             </span>
           </h1>
 
-          <p className="mt-6 text-[19px] leading-relaxed text-ink/70">
+          <p className="mt-6 max-w-3xl text-[19px] leading-relaxed text-ink/70">
             {post.excerpt}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 border-y border-black/[0.07] py-4 text-[12px] text-ink/60">
+          <div className="mt-8 flex max-w-4xl flex-wrap items-center gap-x-3 gap-y-2 border-y border-black/[0.07] py-4 text-[12px] text-ink/60">
             <span className="font-medium text-ink">{site.name}</span>
             <span aria-hidden className="text-ink/25">
               /
@@ -214,18 +230,76 @@ export default async function BlogPostPage({
         </div>
       </section>
 
-      {/* Article */}
+      {/* Article, with the contents list filling the right hand column */}
       <section className="px-4 sm:px-6">
-        <article className="mx-auto max-w-3xl pb-4 pt-2">
-          {post.blocks.map((block, i) => (
-            <Block key={i} block={block} />
-          ))}
-        </article>
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-16">
+          <article className="min-w-0 pb-4 pt-2">
+            {post.blocks.map((block, i) => (
+              <Block key={i} block={block} />
+            ))}
+          </article>
+
+          <aside className="hidden lg:block">
+            <div className="sticky top-28 border-l border-black/[0.07] pl-7">
+              <div className="flex items-center gap-2.5">
+                <span className="grid size-7 shrink-0 place-items-center rounded-full bg-mist text-accent-ink">
+                  <FileLines className="size-3.5" />
+                </span>
+                <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-ink/55">
+                  In this article
+                </p>
+              </div>
+
+              {/* Numbered rail, so the list reads as a route through the piece */}
+              <ol className="mt-5 grid gap-0.5">
+                {sections.map((heading, i) => (
+                  <li key={heading}>
+                    <a
+                      href={`#${headingId(heading)}`}
+                      className="group -mx-3 flex gap-2.5 rounded-xl px-3 py-2 transition hover:bg-mist"
+                    >
+                      <span className="mt-[3px] w-[18px] shrink-0 text-[11px] font-medium tabular-nums text-ink/35 transition group-hover:text-accent-ink">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-[13px] leading-snug text-ink/60 transition group-hover:text-ink">
+                        {heading}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="relative mt-8 overflow-hidden rounded-[20px] bg-ink p-5 text-white">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -right-10 -top-12 size-32 rounded-full bg-accent/25 blur-2xl"
+                />
+                <span className="relative grid size-9 place-items-center rounded-full bg-white/10 text-sky">
+                  <Bolt className="size-4" />
+                </span>
+                <p className="relative mt-4 text-[13px] font-medium leading-snug">
+                  Wondering where your own system would give way?
+                </p>
+                <p className="relative mt-2 text-[12px] leading-relaxed text-white/60">
+                  Send what you have running today and we will tell you the
+                  limit.
+                </p>
+                <Link
+                  href="/contact"
+                  className="group relative mt-4 inline-flex items-center gap-2 text-[13px] font-medium text-white"
+                >
+                  Ask for a review
+                  <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              </div>
+            </div>
+          </aside>
+        </div>
       </section>
 
       {/* Questions this article gets asked */}
       <section className="px-4 py-16 sm:px-6 sm:py-20">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-7xl">
           <h2 className="text-[clamp(1.5rem,3vw,2.15rem)] font-medium leading-[1.15] tracking-[-0.03em] text-ink">
             Common questions about{" "}
             <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
@@ -233,50 +307,11 @@ export default async function BlogPostPage({
             </span>
           </h2>
 
-          <dl className="mt-8 divide-y divide-black/[0.07] border-y border-black/[0.07]">
-            {post.faqs.map((f) => (
-              <div key={f.q} className="py-6">
-                <dt className="text-base font-medium tracking-[-0.01em] text-ink">
-                  {f.q}
-                </dt>
-                <dd className="mt-3 text-[15px] leading-relaxed text-ink/70">
-                  {f.a}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <div className="mt-8 max-w-4xl">
+            <FaqAccordion items={post.faqs} />
+          </div>
         </div>
       </section>
-
-      {/* Read next */}
-      {next && (
-        <section className="px-4 pb-4 sm:px-6">
-          <div className="mx-auto max-w-3xl">
-            <Link
-              href={`/blog/${next.slug}`}
-              className="group flex flex-col gap-4 rounded-[24px] border border-black/[0.08] bg-mist p-7 transition hover:-translate-y-0.5 sm:flex-row sm:items-center sm:justify-between sm:p-8"
-            >
-              <span>
-                <span className="block text-[11px] uppercase tracking-[0.2em] text-ink/60">
-                  ( Read next / {next.topic} )
-                </span>
-                <span className="mt-3 block max-w-lg text-[clamp(1.15rem,2.2vw,1.5rem)] font-medium leading-snug tracking-[-0.02em] text-ink">
-                  {next.headline.lead}{" "}
-                  <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                    {next.headline.accent}
-                  </span>
-                </span>
-                <span className="mt-2 block max-w-md text-[13px] leading-relaxed text-ink/60">
-                  {next.excerpt}
-                </span>
-              </span>
-              <span className="grid size-11 shrink-0 place-items-center rounded-full bg-ink text-white transition duration-300 group-hover:scale-110">
-                <ArrowRight className="size-4" />
-              </span>
-            </Link>
-          </div>
-        </section>
-      )}
 
       {/* Where to go next */}
       <section className="px-4 pb-12 sm:px-6">
