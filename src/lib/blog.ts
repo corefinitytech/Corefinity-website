@@ -40,10 +40,24 @@ export type BlogPost = {
   excerpt: string;
   topic: string;
   /**
-   * Studio photograph shown on the cards and above the article. Lives in
-   * public/blog/covers, 1200 by 800, on a deep navy backdrop.
+   * The post's Hairline figure. The article and the cards draw it live. The
+   * stills are its rest pose, exported to public/blog/covers/hairline on a
+   * white plate (see corefinity-figures/blog-covers/export.mjs): the og one
+   * is the social image, and the other two are kept for anywhere a figure
+   * cannot run, such as a feed or an email.
    */
-  cover: { src: string; alt: string };
+  cover: {
+    /** The figure's file in public/hairline, drawn live above the article. */
+    figure: string;
+    /** 800 by 534, a still at card size. */
+    src: string;
+    /** 1280 by 854, a still at the blog index's panel size. */
+    wide: string;
+    /** 1200 by 630, for Open Graph and Twitter. */
+    og: string;
+    /** One sentence describing the figure. */
+    alt: string;
+  };
   datePublished: string;
   /** Service pages this article naturally leads to. */
   services: string[];
@@ -51,8 +65,17 @@ export type BlogPost = {
   faqs: { q: string; a: string }[];
 };
 
-/** Backdrop behind the covers, the darkest tone of the studio photographs. */
-export const COVER_PAPER = "#05070f";
+/** Backdrop behind the covers: the white plate the figures are drawn on. */
+export const COVER_PAPER = "#ffffff";
+
+/** The cover fields for one figure, from its name. */
+const cover = (figure: string, alt: string): BlogPost["cover"] => ({
+  figure,
+  src: `/blog/covers/hairline/${figure}-card.png`,
+  wide: `/blog/covers/hairline/${figure}-wide.png`,
+  og: `/blog/covers/hairline/${figure}-og.png`,
+  alt,
+});
 
 export const posts: BlogPost[] = [
   {
@@ -75,10 +98,10 @@ export const posts: BlogPost[] = [
     excerpt:
       "Most dropped Bluetooth connections come from the phone, not the firmware. Here is what iOS and Android do, and how to design around it.",
     topic: "Connected devices",
-    cover: {
-      src: "/blog/covers/ble-device-phone-asleep.webp",
-      alt: "A Bluetooth wearable sensor with its lid open and a blue status LED glowing, beside a smartphone whose screen is switched off",
-    },
+    cover: cover(
+      "standby",
+      "Line drawing of a phone sending signal arcs across to a small circuit board with an antenna and a status light.",
+    ),
     datePublished: "2026-10-10",
     services: [
       "mobile-app-development",
@@ -248,10 +271,10 @@ export const posts: BlogPost[] = [
     excerpt:
       "A dashboard can say 200 milliseconds while some alerts arrive a minute late. Here is how to see every hop, and every slow message.",
     topic: "Connected devices",
-    cover: {
-      src: "/blog/covers/gateway-stopwatch.webp",
-      alt: "An industrial IoT gateway with blue status LEDs passing data, a precision stopwatch standing beside it",
-    },
+    cover: cover(
+      "stragglers",
+      "Line drawing of a conveyor passing through four gates, with two crates arriving together and a third left far behind.",
+    ),
     datePublished: "2026-10-10",
     services: ["cloud-deployment", "systems-integration", "web-development"],
     blocks: [
@@ -408,10 +431,10 @@ export const posts: BlogPost[] = [
     excerpt:
       "Every proposal says experienced, fast and affordable. Here is how to tell which one means it.",
     topic: "Hiring a software team",
-    cover: {
-      src: "/blog/covers/board-contract-pen.webp",
-      alt: "A carefully assembled circuit board next to a blank contract and an uncapped fountain pen, before signing",
-    },
+    cover: cover(
+      "proposals",
+      "Line drawing of a balance weighing a stack of proposal papers against a small working app, with an unsigned contract and a pen in front.",
+    ),
     datePublished: "2026-10-04",
     services: ["web-development", "ui-ux-design", "mobile-app-development"],
     blocks: [
@@ -582,10 +605,10 @@ export const posts: BlogPost[] = [
     excerpt:
       "How big should we build this? Ask three developers and you get three confident answers. We would rather work it out on paper.",
     topic: "How we work",
-    cover: {
-      src: "/blog/covers/bare-board-calipers.webp",
-      alt: "An empty, unpopulated circuit board held in steel vernier calipers, measured before anything is built on it",
-    },
+    cover: cover(
+      "abacus",
+      "Line drawing of an abacus with four beads counted beside a rack holding exactly four blades.",
+    ),
     datePublished: "2026-09-25",
     services: ["web-development", "cloud-deployment", "systems-integration"],
     blocks: [
@@ -766,10 +789,10 @@ export const posts: BlogPost[] = [
     excerpt:
       "You planned for 50 users. 11,670 turned up. The good news and the bad news are the same sentence.",
     topic: "Growth and scalability",
-    cover: {
-      src: "/blog/covers/gateway-fleet.webp",
-      alt: "One IoT gateway in front of a vast grid of identical sensor devices, every one glowing blue and online",
-    },
+    cover: cover(
+      "surge",
+      "Line drawing of a wide tray of device studs, a few raised on a small platform, with one gateway in front.",
+    ),
     datePublished: "2026-09-24",
     services: ["web-development", "cloud-deployment", "systems-integration"],
     blocks: [

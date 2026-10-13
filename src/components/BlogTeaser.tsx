@@ -47,11 +47,10 @@ export default function BlogTeaser() {
               href={`/blog/${post.slug}`}
               className="group relative flex flex-col overflow-hidden rounded-[20px] border border-black/[0.08] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/[0.06]"
             >
-              {/* Cover: the post's engraved plate on matching paper */}
+              {/* Cover: the post's figure, which plays while the card is hovered */}
               <CoverPlate
-                src={post.cover.src}
+                figure={post.cover.figure}
                 alt={post.cover.alt}
-                sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
                 className="flex aspect-[3/2] items-end p-4"
                               >
                 <div className="relative flex w-full items-end justify-between gap-4">

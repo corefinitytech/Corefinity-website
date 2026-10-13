@@ -125,11 +125,10 @@ export default function BlogIndex() {
                   </div>
                 </div>
 
-                {/* Cover: the post's engraved plate on matching paper */}
+                {/* Cover: the post's figure, which plays while the card is hovered */}
                 <CoverPlate
-                  src={post.cover.src}
+                  figure={post.cover.figure}
                   alt={post.cover.alt}
-                  sizes="(min-width: 1024px) 640px, 100vw"
                   className={`min-h-[300px] ${flip ? "lg:order-1" : ""}`}
                 />
               </Link>
