@@ -1,15 +1,28 @@
 import { ImageResponse } from "next/og";
 
-import { caseStudies, getCaseStudy } from "@/lib/caseStudies";
+import { getCaseStudy } from "@/lib/caseStudies";
 import { site } from "@/lib/site";
 
-export const alt = `${site.name} case study`;
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+const size = { width: 1200, height: 630 };
 
-/** Rendered once per study at build time rather than on every share. */
-export function generateStaticParams() {
-  return caseStudies.map((c) => ({ slug: c.slug }));
+/**
+ * One card per study, described by that study's own alt text, so a shared
+ * link is announced as the case study it is and not as a generic card.
+ */
+export async function generateImageMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }> | { slug: string };
+}) {
+  const { slug } = await params;
+  return [
+    {
+      id: "card",
+      alt: getCaseStudy(slug)?.ogAlt ?? `${site.name} case study`,
+      size,
+      contentType: "image/png",
+    },
+  ];
 }
 
 /** Per study social card, in the same construction as the site card. */

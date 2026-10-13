@@ -15,9 +15,9 @@ import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
 import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
-const title = "Case Studies: Devices, Apps and Web";
+const title = "Case Studies: Connected Devices and Web";
 const description =
-  "CoreFinity Tech case studies: FuelSec, an IoT fuel monitoring system built from firmware to admin panel, and the platforms and dashboards behind other businesses.";
+  "Case studies from CoreFinity Tech. Connected devices first: FuelSec, built from firmware to admin panel. Then the web platforms we build, such as IELTS Counsel.";
 
 export const metadata: Metadata = {
   title,
@@ -57,7 +57,9 @@ export default function CaseStudiesIndex() {
 
           <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
-              <H1Eyebrow>Software development case studies</H1Eyebrow>
+              <H1Eyebrow>
+                Connected device and web platform case studies
+              </H1Eyebrow>
               Software that earns{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 its keep.
