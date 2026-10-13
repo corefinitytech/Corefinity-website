@@ -10,9 +10,9 @@ import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
 import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
-const title = "Blog: Building Software for Growth";
+const title = "Blog: Building for Connected Devices";
 const description =
-  "Plain English writing from the CoreFinity Tech team on scalability, custom software, automation and the decisions that decide whether growth helps or hurts a business.";
+  "Plain English notes from the CoreFinity Tech team on companion apps, Bluetooth, device to cloud pipelines, latency and sizing a backend before launch.";
 
 export const metadata: Metadata = {
   title,

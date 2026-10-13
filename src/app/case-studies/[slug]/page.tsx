@@ -101,7 +101,7 @@ export default async function CaseStudyPage({
       : ["Client", study.client, study.clientUrl],
     ["Industry", study.industry],
     ["Timeline", study.timeline],
-    study.status ? ["Status", study.status] : ["Year", study.year],
+    study.status ? ["Status", study.status] : ["Year", study.year ?? ""],
   ];
 
   return (
@@ -131,27 +131,29 @@ export default async function CaseStudyPage({
                 {study.summary}
               </p>
               <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-black/[0.08] bg-black/[0.08]">
-                {facts.map(([k, v, href]) => (
-                  <div key={k} className="bg-white px-4 py-3">
-                    <dt className="text-[10px] uppercase tracking-[0.14em] text-ink/65">
-                      {k}
-                    </dt>
-                    <dd className="mt-1 text-[13px] font-medium text-ink">
-                      {href ? (
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noopener"
-                          className="underline decoration-black/20 underline-offset-4 transition hover:text-accent-ink hover:decoration-current"
-                        >
-                          {v}
-                        </a>
-                      ) : (
-                        v
-                      )}
-                    </dd>
-                  </div>
-                ))}
+                {facts
+                  .filter(([, v]) => v)
+                  .map(([k, v, href]) => (
+                    <div key={k} className="bg-white px-4 py-3">
+                      <dt className="text-[10px] uppercase tracking-[0.14em] text-ink/65">
+                        {k}
+                      </dt>
+                      <dd className="mt-1 text-[13px] font-medium text-ink">
+                        {href ? (
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noopener"
+                            className="underline decoration-black/20 underline-offset-4 transition hover:text-accent-ink hover:decoration-current"
+                          >
+                            {v}
+                          </a>
+                        ) : (
+                          v
+                        )}
+                      </dd>
+                    </div>
+                  ))}
               </dl>
             </div>
           </div>
@@ -174,6 +176,7 @@ export default async function CaseStudyPage({
                 <FilmPlayer
                   videoId={study.film.videoId}
                   poster={study.film.poster}
+                  posterAlt={study.film.posterAlt}
                   title={study.film.title}
                   duration={study.film.duration}
                 />
@@ -209,9 +212,13 @@ export default async function CaseStudyPage({
       <section className="px-4 py-20 sm:px-6 sm:py-24">
         <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:gap-16">
           <div>
-            <p className={`${eyebrow} text-ink/60`}>( The challenge )</p>
+            <p className={`${eyebrow} text-ink/60`}>
+              {study.brief ? "( The brief )" : "( The challenge )"}
+            </p>
             <h2 className={`mt-4 max-w-md ${h2} text-ink`}>
-              What was getting in the way
+              {study.brief
+                ? "What we were asked to build"
+                : "What was getting in the way"}
             </h2>
             <div className="mt-6 grid gap-4">
               {study.challenge.map((p) => (
@@ -227,7 +234,7 @@ export default async function CaseStudyPage({
             <h2 className={`mt-4 max-w-md ${h2} text-ink`}>
               How we{" "}
               <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                solved it
+                {study.brief ? "built it" : "solved it"}
               </span>
             </h2>
             <div className="mt-6 grid gap-4">
@@ -250,8 +257,9 @@ export default async function CaseStudyPage({
               The pieces that make it work
             </h2>
             <p className="max-w-sm text-sm leading-relaxed text-ink/65">
-              Delivered in {study.timeline}, with the source code, accounts and
-              documentation handed over in full.
+              {study.brief
+                ? `Built and launched in ${study.timeline}.`
+                : `Delivered in ${study.timeline}, with the source code, accounts and documentation handed over in full.`}
             </p>
           </div>
 
@@ -293,7 +301,7 @@ export default async function CaseStudyPage({
             <div>
               <p className={`${eyebrow} text-white/50`}>( The outcome )</p>
               <h2 className={`mt-5 max-w-md ${h2}`}>
-                What changed for{" "}
+                {study.brief ? "What happened next for" : "What changed for"}{" "}
                 <span className="bg-gradient-to-r from-accent to-sky bg-clip-text text-transparent">
                   {study.client}.
                 </span>
@@ -311,6 +319,21 @@ export default async function CaseStudyPage({
                   </li>
                 ))}
               </ul>
+              {/* The client's own words. Rendered only when a study
+                  carries a quote, so there is never an empty block. */}
+              {study.quote && (
+                <figure className="mt-10 border-l-2 border-sky pl-5">
+                  <blockquote className="text-[17px] leading-relaxed text-white/90">
+                    {study.quote.text}
+                  </blockquote>
+                  <figcaption className="mt-4 text-[13px] text-white/60">
+                    <span className="font-medium text-white">
+                      {study.quote.name}
+                    </span>
+                    {study.quote.role && `, ${study.quote.role}`}
+                  </figcaption>
+                </figure>
+              )}
             </div>
 
             <dl className="grid grid-cols-2 gap-3 self-center">
@@ -352,49 +375,55 @@ export default async function CaseStudyPage({
       </section>
 
       {/* Timeline */}
-      <section className="px-4 py-20 sm:px-6 sm:py-24">
-        <div className="mx-auto max-w-7xl">
-          <p className={`${eyebrow} text-ink/60`}>( How it was delivered )</p>
-          <h2 className={`mt-4 ${h2} text-ink`}>
-            {study.timeline},{" "}
-            <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-              start to launch
-            </span>
-          </h2>
+      {study.phases.length > 0 && (
+        <section className="px-4 py-20 sm:px-6 sm:py-24">
+          <div className="mx-auto max-w-7xl">
+            <p className={`${eyebrow} text-ink/60`}>( How it was delivered )</p>
+            <h2 className={`mt-4 ${h2} text-ink`}>
+              {study.timeline},{" "}
+              <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
+                start to launch
+              </span>
+            </h2>
 
-          <ol
-            className={`mt-10 grid gap-3 md:grid-cols-2 ${
-              study.phases.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"
-            }`}
-          >
-            {study.phases.map((p, i) => (
-              <li
-                key={p.title}
-                className="relative flex flex-col overflow-hidden rounded-[20px] bg-mist p-6 transition duration-300 hover:-translate-y-0.5"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="grid size-8 place-items-center rounded-full bg-ink text-[11px] font-medium text-white">
-                    {i + 1}
-                  </span>
-                  <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-accent-ink">
-                    {p.when}
-                  </span>
-                </div>
-                <h3 className="mt-5 text-lg font-medium leading-snug tracking-[-0.02em] text-ink">
-                  {p.title}
-                </h3>
-                <p className="mt-3 text-[13px] leading-relaxed text-ink/65">
-                  {p.detail}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+            <ol
+              className={`mt-10 grid gap-3 md:grid-cols-2 ${
+                study.phases.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"
+              }`}
+            >
+              {study.phases.map((p, i) => (
+                <li
+                  key={p.title}
+                  className="relative flex flex-col overflow-hidden rounded-[20px] bg-mist p-6 transition duration-300 hover:-translate-y-0.5"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="grid size-8 place-items-center rounded-full bg-ink text-[11px] font-medium text-white">
+                      {i + 1}
+                    </span>
+                    <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-accent-ink">
+                      {p.when}
+                    </span>
+                  </div>
+                  <h3 className="mt-5 text-lg font-medium leading-snug tracking-[-0.02em] text-ink">
+                    {p.title}
+                  </h3>
+                  <p className="mt-3 text-[13px] leading-relaxed text-ink/65">
+                    {p.detail}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
 
       {/* Services and stack */}
-      <section className="px-4 pb-20 sm:px-6 sm:pb-24">
-        <div className="mx-auto grid max-w-7xl gap-10 border-t border-black/[0.07] pt-14 lg:grid-cols-2 lg:gap-16">
+      <section
+        className={`px-4 pb-20 sm:px-6 sm:pb-24 ${study.phases.length ? "" : "pt-20 sm:pt-24"}`}
+      >
+        <div
+          className={`mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:gap-16 ${study.phases.length ? "border-t border-black/[0.07] pt-14" : ""}`}
+        >
           <div>
             <p className={`${eyebrow} text-ink/60`}>( Services used )</p>
             <ul className="mt-6 grid gap-2">

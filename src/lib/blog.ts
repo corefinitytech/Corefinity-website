@@ -61,6 +61,17 @@ export type BlogPost = {
   datePublished: string;
   /** Service pages this article naturally leads to. */
   services: string[];
+  /**
+   * How the article ends: an offer that answers the problem it was about.
+   * The heading is split so the tail carries the brand gradient.
+   */
+  cta: {
+    eyebrow: string;
+    lead: string;
+    accent: string;
+    line: string;
+    button: string;
+  };
   blocks: BlogBlock[];
   faqs: { q: string; a: string }[];
 };
@@ -103,11 +114,14 @@ export const posts: BlogPost[] = [
       "Line drawing of a phone sending signal arcs across to a small circuit board with an antenna and a status light.",
     ),
     datePublished: "2026-10-10",
-    services: [
-      "mobile-app-development",
-      "systems-integration",
-      "cloud-deployment",
-    ],
+    services: ["mobile-app-development", "web-development"],
+    cta: {
+      eyebrow: "Before your users notice",
+      lead: "Stop losing readings when",
+      accent: "the phone closes the app.",
+      line: "Send a short description of your device and its app. We will tell you where the connection is likely dropping and what it takes to stop losing data, within 48 hours.",
+      button: "Ask about your dropped connections",
+    },
     blocks: [
       {
         type: "p",
@@ -276,7 +290,14 @@ export const posts: BlogPost[] = [
       "Line drawing of a conveyor passing through four gates, with two crates arriving together and a third left far behind.",
     ),
     datePublished: "2026-10-10",
-    services: ["cloud-deployment", "systems-integration", "web-development"],
+    services: ["cloud-deployment", "web-development"],
+    cta: {
+      eyebrow: "Before a customer tells you",
+      lead: "Find out how late your",
+      accent: "slowest alerts arrive.",
+      line: "Send a short description of your system, from the device to the alert. We will tell you what to timestamp first and where the delay is likely to be, within 48 hours.",
+      button: "Ask for a latency check",
+    },
     blocks: [
       {
         type: "p",
@@ -436,7 +457,14 @@ export const posts: BlogPost[] = [
       "Line drawing of a balance weighing a stack of proposal papers against a small working app, with an unsigned contract and a pen in front.",
     ),
     datePublished: "2026-10-04",
-    services: ["web-development", "ui-ux-design", "mobile-app-development"],
+    services: ["web-development", "mobile-app-development", "ui-ux-design"],
+    cta: {
+      eyebrow: "Before you sign",
+      lead: "Put these questions to us on",
+      accent: "a free technical call.",
+      line: "Thirty minutes with an engineer, at no cost. Bring your brief and ask us anything on this page before you sign with anyone.",
+      button: "Book a free technical call",
+    },
     blocks: [
       {
         type: "p",
@@ -610,7 +638,14 @@ export const posts: BlogPost[] = [
       "Line drawing of an abacus with four beads counted beside a rack holding exactly four blades.",
     ),
     datePublished: "2026-09-25",
-    services: ["web-development", "cloud-deployment", "systems-integration"],
+    services: ["web-development", "cloud-deployment"],
+    cta: {
+      eyebrow: "Before anything is built",
+      lead: "Get the arithmetic for",
+      accent: "your own launch.",
+      line: "Send us the visitors you expect, the busiest hour and what people will be doing. You get a sizing sheet back in writing within 48 hours: the peak, the headroom and what gives way first.",
+      button: "Ask for a sizing sheet",
+    },
     blocks: [
       {
         type: "p",
@@ -794,7 +829,14 @@ export const posts: BlogPost[] = [
       "Line drawing of a wide tray of device studs, a few raised on a small platform, with one gateway in front.",
     ),
     datePublished: "2026-09-24",
-    services: ["web-development", "cloud-deployment", "systems-integration"],
+    services: ["cloud-deployment", "web-development"],
+    cta: {
+      eyebrow: "Before the busy day",
+      lead: "Find out where your system",
+      accent: "gives way first.",
+      line: "Send a short brief about what you have running today. You get a written view of the current limits, the likely bottleneck and what it would take to raise the ceiling, within 48 hours.",
+      button: "Ask for a capacity review",
+    },
     blocks: [
       {
         type: "p",

@@ -11,11 +11,14 @@ import { useState } from "react";
 export default function FilmPlayer({
   videoId,
   poster,
+  posterAlt,
   title,
   duration,
 }: {
   videoId: string;
   poster: string;
+  /** Describes the still shown before the film plays. */
+  posterAlt: string;
   title: string;
   duration: string;
 }) {
@@ -40,7 +43,7 @@ export default function FilmPlayer({
         >
           <Image
             src={poster}
-            alt=""
+            alt={posterAlt}
             fill
             sizes="(min-width: 1024px) 640px, 100vw"
             className="object-cover transition duration-700 group-hover:scale-[1.02]"

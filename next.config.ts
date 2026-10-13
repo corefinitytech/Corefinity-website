@@ -97,6 +97,13 @@ const nextConfig: NextConfig = {
         destination: "/case-studies/fuelsec-iot-fuel-monitoring",
         permanent: true,
       },
+      {
+        // The IELTSCounsel case study was rewritten around the whole platform
+        // and moved to a shorter address.
+        source: "/case-studies/ielts-counsel-writing-checker-online-practice",
+        destination: "/case-studies/ieltscounsel",
+        permanent: true,
+      },
     ];
   },
 
