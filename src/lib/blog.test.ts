@@ -77,14 +77,24 @@ describe("blog data", () => {
     }
   });
 
-  it("gives every post an engraved cover that exists in public/", () => {
+  it("gives every post a figure and its stills, all present in public/", () => {
     for (const p of posts) {
       expect(p.cover.alt.length, p.slug).toBeGreaterThan(30);
-      expect(
-        existsSync(path.join(process.cwd(), "public", p.cover.src)),
+      const files = [
         p.cover.src,
-      ).toBe(true);
+        p.cover.wide,
+        p.cover.og,
+        `/hairline/${p.cover.figure}.js`,
+      ];
+      for (const f of files) {
+        expect(existsSync(path.join(process.cwd(), "public", f)), f).toBe(true);
+      }
     }
+  });
+
+  it("gives every post a figure of its own", () => {
+    const figures = posts.map((p) => p.cover.figure);
+    expect(new Set(figures).size).toBe(figures.length);
   });
 
   it("starts with a paragraph, so the page never opens on a heading", () => {

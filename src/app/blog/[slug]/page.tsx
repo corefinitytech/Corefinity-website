@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 
 import JsonLd from "@/components/JsonLd";
 import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
-import CoverPlate from "@/components/blog/CoverPlate";
+import HairlineFigure from "@/components/hairline/HairlineFigure";
 import { diagrams } from "@/components/blog/Diagrams";
 import { ArrowRight } from "@/components/icons";
 import {
@@ -49,11 +49,14 @@ export async function generateMetadata({
       url,
       publishedTime: post.datePublished,
       authors: [site.name],
+      // The post's figure at rest, exported as a still.
+      images: [{ url: post.cover.og, width: 1200, height: 630, alt: post.cover.alt }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${post.title} | ${site.name}`,
       description: post.description,
+      images: [post.cover.og],
     },
   };
 }
@@ -222,15 +225,16 @@ export default async function BlogPostPage({
         </div>
       </section>
 
-      {/* Cover plate */}
+      {/* The post's figure, drawn live: it answers the pointer, and plays
+          its own tour where there is no pointer to answer. */}
       <section className="px-4 pt-10 sm:px-6">
-        <CoverPlate
-          src={post.cover.src}
-          alt={post.cover.alt}
-          sizes="(min-width: 1024px) 1024px, 100vw"
-          priority
-          className="mx-auto aspect-[3/2] max-w-5xl rounded-[32px]"
-        />
+        <div className="mx-auto max-w-5xl rounded-[32px] border border-black/[0.08] bg-white px-2 py-4 sm:px-10 sm:py-6">
+          <HairlineFigure
+            name={post.cover.figure}
+            label={post.cover.alt}
+            className="mx-auto max-w-[720px]"
+          />
+        </div>
       </section>
 
       {/* Article */}
@@ -366,7 +370,7 @@ export default async function BlogPostPage({
             dateModified: post.datePublished,
             url,
             mainEntityOfPage: url,
-            image: `${url}/opengraph-image`,
+            image: `${siteUrl}${post.cover.og}`,
             inLanguage: "en",
             wordCount: readingMinutes(post) * 200,
             author: { "@id": `${siteUrl}/#organization` },
