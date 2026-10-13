@@ -5,7 +5,7 @@ import QuoteForm from "@/components/QuoteForm";
 import JsonLd from "@/components/JsonLd";
 import { H1Eyebrow } from "@/components/PageHeading";
 import { breadcrumbSchema, graph } from "@/lib/schema";
-import { site } from "@/lib/site";
+import { openGraphDefaults, site, whatsapp } from "@/lib/site";
 import {
   ArrowLeft,
   Bolt,
@@ -15,16 +15,17 @@ import {
   MapPin,
 } from "@/components/icons";
 
-const title = "Get a Quote for Your Software Project";
+const title = "Talk to an Engineer About Your Device";
 const description =
-  "Send Corefinity your project brief and get a written technical roadmap, a timeline and a fixed price back within 48 hours.";
+  "Send CoreFinity Tech your device and plan, with a spec sheet if you have one, and get a written plan, a timeline and a fixed price back within 48 hours.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/contact" },
   openGraph: {
-    title: `${title} | Corefinity`,
+    ...openGraphDefaults,
+    title: `${title} | CoreFinity Tech`,
     description,
     url: "/contact",
   },
@@ -74,10 +75,10 @@ export default function ContactPage() {
 
           <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
-              <H1Eyebrow>Get a quote</H1Eyebrow>
-              Tell us what you&apos;re{" "}
+              <H1Eyebrow>Talk to an engineer</H1Eyebrow>
+              Show us{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
-                building.
+                your device.
               </span>
             </h1>
 
@@ -165,6 +166,25 @@ export default function ContactPage() {
                     </span>
                     <span className="block break-words text-[13px] font-medium">
                       {site.email}
+                    </span>
+                  </span>
+                </a>
+
+                <a
+                  href={whatsapp.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 rounded-2xl border border-black/[0.08] bg-white px-5 py-4 transition hover:border-accent/40"
+                >
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent/10 text-accent-ink">
+                    <Comments className="size-3.5" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[10px] uppercase tracking-[0.14em] text-ink/60">
+                      Chat on WhatsApp
+                    </span>
+                    <span className="block text-[13px] font-medium text-ink">
+                      {whatsapp.display}
                     </span>
                   </span>
                 </a>

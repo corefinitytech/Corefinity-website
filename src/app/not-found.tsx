@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Page not found",
   description:
-    "That page does not exist. Head back to the Corefinity home page.",
+    "That page does not exist. Head back to the CoreFinity Tech home page.",
   robots: { index: false, follow: true },
 };
 
@@ -39,7 +39,7 @@ export default function NotFound() {
             href="/contact"
             className="inline-flex h-12 items-center justify-center rounded-full border border-black/10 px-6 text-[13px] font-medium text-ink/75 transition hover:border-ink hover:text-ink"
           >
-            Get a quote
+            Talk to an engineer
           </Link>
         </div>
       </div>

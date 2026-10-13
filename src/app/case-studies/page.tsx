@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import {
@@ -9,14 +10,14 @@ import {
 import JsonLd from "@/components/JsonLd";
 import { H1Eyebrow } from "@/components/PageHeading";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
-import { caseStudies } from "@/lib/caseStudies";
+import { caseStudies, hasCaseStudies } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
-import { site, siteUrl } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
-const title = "Case Studies: AI, Web and Automation Projects";
+const title = "Case Studies: Connected Devices and Web";
 const description =
-  "Corefinity case studies: an AI WhatsApp support assistant, a logistics operations dashboard with Python automation, and a commission free hotel booking engine.";
+  "Case studies from CoreFinity Tech. Connected devices first: FuelSec, built from firmware to admin panel. Then the web platforms we build, such as IELTS Counsel.";
 
 export const metadata: Metadata = {
   title,
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
   keywords: caseStudies.flatMap((c) => c.keywords.slice(0, 2)),
   alternates: { canonical: "/case-studies" },
   openGraph: {
+    ...openGraphDefaults,
     title: `${title} | ${site.name}`,
     description,
     url: "/case-studies",
@@ -37,6 +39,9 @@ export const metadata: Metadata = {
 };
 
 export default function CaseStudiesIndex() {
+  // No real case studies yet, so the index is a 404 rather than an empty page.
+  if (!hasCaseStudies) notFound();
+
   return (
     <main id="main">
       {/* Header */}
@@ -52,7 +57,9 @@ export default function CaseStudiesIndex() {
 
           <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
-              <H1Eyebrow>Software development case studies</H1Eyebrow>
+              <H1Eyebrow>
+                Connected device and web platform case studies
+              </H1Eyebrow>
               Software that earns{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 its keep.
@@ -61,7 +68,7 @@ export default function CaseStudiesIndex() {
 
             <p className="max-w-sm shrink-0 text-sm leading-relaxed text-ink/65 lg:pb-3">
               What we built, why it was built that way, and what changed for the
-              business afterwards. Each one started as a two minute brief.
+              business afterwards.
             </p>
           </div>
         </div>
@@ -182,7 +189,7 @@ export default function CaseStudiesIndex() {
               href="/contact"
               className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-6 text-[13px] font-medium text-ink transition hover:bg-white/90 sm:w-auto sm:justify-self-start lg:justify-self-end"
             >
-              Get a quote
+              Talk to an engineer
               <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>

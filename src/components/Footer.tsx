@@ -2,7 +2,9 @@ import Link from "next/link";
 
 import Brand from "./Brand";
 import ConsentReset from "./ConsentReset";
-import { services } from "@/lib/services";
+import { SocialIcon } from "./SocialIcons";
+import { hasCaseStudies } from "@/lib/caseStudies";
+import { deviceServices } from "@/lib/devices";
 import { address, site, socialLinks } from "@/lib/site";
 
 /**
@@ -13,10 +15,11 @@ import { address, site, socialLinks } from "@/lib/site";
 const sections = [
   { label: "About us", href: "/about" },
   { label: "All services", href: "/services" },
-  { label: "How we work", href: "/#process" },
-  { label: "Case studies", href: "/case-studies" },
+  { label: "How it works", href: "/#how-it-works" },
+  { label: "What we build", href: "/#what-we-build" },
+  ...(hasCaseStudies ? [{ label: "Case studies", href: "/case-studies" }] : []),
   { label: "Blog", href: "/blog" },
-  { label: "Engagements", href: "/#pricing" },
+  { label: "How to start", href: "/#start" },
   { label: "Questions", href: "/#faq" },
 ];
 
@@ -50,15 +53,16 @@ export default function Footer() {
               {address.addressLocality} {address.postalCode},{" "}
               {address.countryName}
             </address>
-            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+            <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-2">
               {socialLinks.map((l) => (
                 <li key={l.label}>
                   <a
                     href={l.href}
                     target="_blank"
                     rel="me noopener noreferrer"
-                    className="text-sm font-medium text-ink/70 transition hover:text-accent-ink"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-ink/70 transition hover:text-accent-ink"
                   >
+                    <SocialIcon network={l.label} className="size-3.5" />
                     {l.label}
                   </a>
                 </li>
@@ -90,16 +94,24 @@ export default function Footer() {
                 Services
               </p>
               <ul className="mt-4 grid gap-2.5">
-                {services.map((s) => (
-                  <li key={s.slug}>
+                {deviceServices.map((s) => (
+                  <li key={s.name}>
                     <Link
-                      href={`/services/${s.slug}`}
+                      href={s.href}
                       className="text-sm text-ink/60 transition hover:text-ink"
                     >
-                      {s.navLabel}
+                      {s.name}
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <Link
+                    href="/services"
+                    className="text-sm text-ink/60 transition hover:text-ink"
+                  >
+                    Web and other work
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -113,7 +125,7 @@ export default function Footer() {
                     href="/contact"
                     className="text-sm text-ink/60 transition hover:text-ink"
                   >
-                    Get a quote
+                    Talk to an engineer
                   </Link>
                 </li>
                 <li>

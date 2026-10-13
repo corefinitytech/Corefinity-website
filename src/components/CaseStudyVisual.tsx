@@ -19,6 +19,10 @@ export const caseSurface: Record<CaseStudyTheme, string> = {
   ops: "bg-[linear-gradient(140deg,#050b14_0%,#0d1a33_45%,#123a6b_100%)]",
   booking:
     "bg-[radial-gradient(110%_120%_at_75%_25%,#1880d8_0%,#123a6b_42%,#0a0f22_78%,#05070f_100%)]",
+  education: "bg-[linear-gradient(150deg,#05070f_0%,#0f2f5c_50%,#1868c8_100%)]",
+  fuel: "bg-[linear-gradient(150deg,#05070f_0%,#0d2a52_55%,#1868c8_100%)]",
+  industrial:
+    "bg-[linear-gradient(140deg,#0b0f17_0%,#14213d_55%,#123a6b_100%)]",
 };
 
 /** Animated layer, reusing the tuned settings from the Capabilities cards. */
@@ -36,6 +40,48 @@ export function CaseStudyBackdrop({ theme }: { theme: CaseStudyTheme }) {
         glowIntensity={1.3}
         brightness={1.7}
         vignette={0.7}
+      />
+    );
+  }
+  if (theme === "fuel") {
+    return (
+      <GradientWavesBackground
+        horizonColor={palette.baseNearBlack}
+        waveColor={palette.deepNavy}
+        crestColor={palette.cyan}
+        speed={0.18}
+        grain
+        grainIntensity={0.05}
+        mouseInteraction
+        parallaxStrength={0.3}
+      />
+    );
+  }
+  if (theme === "industrial") {
+    return (
+      <GradientWavesBackground
+        horizonColor={palette.baseNearBlack}
+        waveColor={palette.deepNavy}
+        crestColor={palette.cyan}
+        speed={0.16}
+        grain
+        grainIntensity={0.05}
+        mouseInteraction
+        parallaxStrength={0.3}
+      />
+    );
+  }
+  if (theme === "education") {
+    return (
+      <GradientWavesBackground
+        horizonColor={palette.baseNearBlack}
+        waveColor={palette.deepNavy}
+        crestColor={palette.electricBlue}
+        speed={0.18}
+        grain
+        grainIntensity={0.05}
+        mouseInteraction
+        parallaxStrength={0.3}
       />
     );
   }
@@ -194,7 +240,9 @@ function OpsScreen() {
 
 function BookingScreen() {
   // A month at a glance: booked nights in blue, today outlined.
-  const booked = new Set([2, 3, 4, 8, 9, 10, 11, 15, 16, 20, 21, 22, 23, 24, 29, 30]);
+  const booked = new Set([
+    2, 3, 4, 8, 9, 10, 11, 15, 16, 20, 21, 22, 23, 24, 29, 30,
+  ]);
   return (
     <div className={`${glass} w-full max-w-sm`}>
       <PanelLabel>Lodgex · Booking OS</PanelLabel>
@@ -234,7 +282,141 @@ function BookingScreen() {
   );
 }
 
+function EducationScreen() {
+  // One Writing Task 2 result as a student sees it: the overall band, then
+  // each official criterion. Bars are band out of 9.
+  const criteria: [string, number][] = [
+    ["Task Response", 7],
+    ["Coherence and Cohesion", 6.5],
+    ["Lexical Resource", 7],
+    ["Grammatical Range and Accuracy", 6.5],
+  ];
+  return (
+    <div className={`${glass} w-full max-w-sm`}>
+      <PanelLabel>IELTS Counsel · Writing Task 2</PanelLabel>
+      <div className="mt-4 flex items-end justify-between gap-4">
+        <div>
+          <p className="text-[10px] text-white/55">Overall band</p>
+          <p className="mt-0.5 text-3xl font-medium sm:text-4xl">7.0</p>
+        </div>
+        <span className="rounded-full bg-sky/20 px-2 py-0.5 text-[10px] text-sky">
+          Scored instantly
+        </span>
+      </div>
+      <ul className="mt-4 grid gap-2.5 border-t border-white/10 pt-3">
+        {criteria.map(([name, band]) => (
+          <li key={name}>
+            <div className="flex items-center justify-between text-[11px] text-white/75">
+              <span className="truncate">{name}</span>
+              <span className="text-white">{band.toFixed(1)}</span>
+            </div>
+            <div className="mt-1 h-1.5 rounded-full bg-white/10" aria-hidden>
+              <div
+                className="h-full rounded-full bg-sky/80"
+                style={{ width: `${(band / 9) * 100}%` }}
+              />
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-[10px] text-white/55">
+        <span>Read 3 times, middle score used</span>
+        <span>Mentor review available</span>
+      </div>
+    </div>
+  );
+}
+
+function IndustrialScreen() {
+  // Measured on the live site at launch, so every figure here is real.
+  const scores: [string, string][] = [
+    ["100", "SEO"],
+    ["100", "Best practices"],
+    ["13", "Pages"],
+  ];
+  const checks = [
+    "Unique title and description on every page",
+    "Structured data and sitemap",
+    "Google, Bing and AI crawlers welcomed",
+  ];
+  return (
+    <div className={`${glass} w-full max-w-sm`}>
+      <PanelLabel>aeroflex.pk · Site health</PanelLabel>
+      <div className="mt-4 grid grid-cols-3 gap-3">
+        {scores.map(([n, l]) => (
+          <div key={l}>
+            <p className="text-lg font-medium sm:text-xl">{n}</p>
+            <p className="mt-0.5 text-[10px] text-white/55">{l}</p>
+          </div>
+        ))}
+      </div>
+      <ul className="mt-4 grid gap-2 border-t border-white/10 pt-3">
+        {checks.map((c) => (
+          <li
+            key={c}
+            className="flex items-center gap-2 text-[11px] text-white/75"
+          >
+            <span className="grid size-4 shrink-0 place-items-center rounded-full bg-sky/20 text-sky">
+              <svg
+                viewBox="0 0 24 24"
+                className="size-2.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d="m5 12.5 4.5 4.5L19 7.5" />
+              </svg>
+            </span>
+            {c}
+          </li>
+        ))}
+      </ul>
+      <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-[10px] text-white/55">
+        <span>Built in 2 weeks</span>
+        <span>Live on Vercel</span>
+      </div>
+    </div>
+  );
+}
+
+function FuelScreen() {
+  // One live fill session as the app shows it. Example values, labelled.
+  const readings: [string, string][] = [
+    ["Flow meter", "24.80 L"],
+    ["Dispenser", "24.82 L"],
+  ];
+  return (
+    <div className={`${glass} w-full max-w-sm`}>
+      <PanelLabel>FuelSec · Live fill</PanelLabel>
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        {readings.map(([l, v]) => (
+          <div key={l} className="rounded-xl bg-white/[0.06] px-3 py-2.5">
+            <p className="text-[10px] text-white/55">{l}</p>
+            <p className="mt-0.5 text-xl font-medium tabular-nums">{v}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3 text-[11px]">
+        <span className="text-white/60">Difference 0.02 L</span>
+        <span className="rounded-full bg-sky/20 px-2 py-0.5 text-sky">
+          Within tolerance
+        </span>
+      </div>
+      <div className="mt-3 flex items-center justify-between text-[10px] text-white/55">
+        <span>Updated every second</span>
+        <span>Photo evidence saved</span>
+      </div>
+    </div>
+  );
+}
+
 export function CaseStudyScreen({ theme }: { theme: CaseStudyTheme }) {
+  if (theme === "fuel") return <FuelScreen />;
+  if (theme === "industrial") return <IndustrialScreen />;
+  if (theme === "education") return <EducationScreen />;
   if (theme === "ai") return <ChatScreen />;
   if (theme === "ops") return <OpsScreen />;
   return <BookingScreen />;

@@ -2,26 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import JsonLd from "@/components/JsonLd";
-import {
-  CoverBackground,
-  CoverScrim,
-} from "@/components/blog/CoverBackground";
+import CoverPlate from "@/components/blog/CoverPlate";
 import { H1Eyebrow } from "@/components/PageHeading";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
 import { postsByDate, readingMinutes } from "@/lib/blog";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
-import { site, siteUrl } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
-const title = "Blog: Building Software That Handles Growth";
+const title = "Blog: Building for Connected Devices";
 const description =
-  "Plain English writing from the Corefinity team on scalability, custom software, automation and the decisions that decide whether growth helps or hurts a business.";
+  "Plain English notes from the CoreFinity Tech team on companion apps, Bluetooth, device to cloud pipelines, latency and sizing a backend before launch.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/blog" },
   openGraph: {
+    ...openGraphDefaults,
     title: `${title} | ${site.name}`,
     description,
     url: "/blog",
@@ -35,11 +33,6 @@ export const metadata: Metadata = {
 };
 
 /** Surfaces cycle so a column of posts does not read as one flat block. */
-const surfaces = [
-  "bg-[radial-gradient(120%_120%_at_20%_15%,#1880d8_0%,#0f4c93_38%,#0d1a33_74%,#080b18_100%)]",
-  "bg-[linear-gradient(160deg,#061426_0%,#0f3a66_52%,#050b14_100%)]",
-  "bg-[linear-gradient(140deg,#14161a_0%,#1a1d23_60%,#123a6b_100%)]",
-];
 
 export default function BlogIndex() {
   const all = postsByDate();
@@ -59,7 +52,7 @@ export default function BlogIndex() {
 
           <div className="mt-8 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
-              <H1Eyebrow>Corefinity blog</H1Eyebrow>
+              <H1Eyebrow>CoreFinity Tech blog</H1Eyebrow>
               Notes on building software that{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 survives growth.
@@ -80,77 +73,65 @@ export default function BlogIndex() {
           {all.map((post, i) => {
             const flip = i % 2 === 1;
             return (
-            <Link
-              key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="group grid overflow-hidden rounded-[32px] bg-mist transition duration-300 hover:-translate-y-0.5 lg:grid-cols-2"
-            >
-              <div
-                className={`flex flex-col p-7 sm:p-10 lg:p-12 ${
-                  flip ? "lg:order-2" : ""
-                }`}
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group grid overflow-hidden rounded-[32px] bg-mist transition duration-300 hover:-translate-y-0.5 lg:grid-cols-2"
               >
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-ink">
-                    {post.topic}
-                  </span>
-                  <span aria-hidden className="text-ink/25">
-                    /
-                  </span>
-                  <span className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
-                    {readingMinutes(post)} minute read
-                  </span>
-                </div>
-
-                <h2 className="mt-5 max-w-lg text-[clamp(1.5rem,2.8vw,2.25rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-                  {post.headline.lead}{" "}
-                  <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                    {post.headline.accent}
-                  </span>
-                </h2>
-                <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
-                  {post.excerpt}
-                </p>
-
-                <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-10">
-                  <ul className="flex flex-wrap gap-1.5">
-                    {post.services.map((s) => (
-                      <li
-                        key={s}
-                        className="rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] text-ink/70"
-                      >
-                        {getService(s)?.navLabel}
-                      </li>
-                    ))}
-                  </ul>
-                  <span className="inline-flex items-center gap-2 text-[13px] font-medium text-ink">
-                    Read article
-                    <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition duration-300 group-hover:scale-110">
-                      <ArrowRight className="size-3.5" />
-                    </span>
-                  </span>
-                </div>
-              </div>
-
-              {/* Cover */}
-              <div
-                className={`relative isolate grid min-h-[260px] place-items-center overflow-hidden p-8 text-white ${
-                  surfaces[i % surfaces.length]
-                } ${flip ? "lg:order-1" : ""}`}
-              >
-                <div aria-hidden className="absolute inset-0">
-                  <CoverBackground index={i} />
-                </div>
                 <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:40px_40px]"
+                  className={`flex flex-col p-7 sm:p-10 lg:p-12 ${
+                    flip ? "lg:order-2" : ""
+                  }`}
+                >
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-ink">
+                      {post.topic}
+                    </span>
+                    <span aria-hidden className="text-ink/25">
+                      /
+                    </span>
+                    <span className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
+                      {readingMinutes(post)} minute read
+                    </span>
+                  </div>
+
+                  <h2 className="mt-5 max-w-lg text-[clamp(1.5rem,2.8vw,2.25rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
+                    {post.headline.lead}{" "}
+                    <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
+                      {post.headline.accent}
+                    </span>
+                  </h2>
+                  <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
+                    {post.excerpt}
+                  </p>
+
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-10">
+                    <ul className="flex flex-wrap gap-1.5">
+                      {post.services.map((s) => (
+                        <li
+                          key={s}
+                          className="rounded-full border border-black/10 bg-white px-3 py-1 text-[11px] text-ink/70"
+                        >
+                          {getService(s)?.navLabel}
+                        </li>
+                      ))}
+                    </ul>
+                    <span className="inline-flex items-center gap-2 text-[13px] font-medium text-ink">
+                      Read article
+                      <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition duration-300 group-hover:scale-110">
+                        <ArrowRight className="size-3.5" />
+                      </span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Cover: the post's figure, which plays while the card is hovered */}
+                <CoverPlate
+                  figure={post.cover.figure}
+                  alt={post.cover.alt}
+                  className={`min-h-[300px] ${flip ? "lg:order-1" : ""}`}
                 />
-                <CoverScrim />
-                <p className="relative max-w-[26ch] text-center text-[clamp(1.1rem,2vw,1.5rem)] font-medium leading-snug tracking-[-0.02em]">
-                  {post.description.split(".")[0]}.
-                </p>
-              </div>
-            </Link>
+              </Link>
             );
           })}
         </div>
@@ -178,7 +159,7 @@ export default function BlogIndex() {
               href="/contact"
               className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85 sm:w-auto sm:justify-self-start lg:justify-self-end"
             >
-              Get a quote
+              Talk to an engineer
               <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>

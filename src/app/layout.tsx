@@ -12,7 +12,8 @@ import {
   serviceSchema,
   websiteSchema,
 } from "@/lib/schema";
-import { site, siteUrl, verification } from "@/lib/site";
+import { hasCaseStudies } from "@/lib/caseStudies";
+import { openGraphDefaults, site, siteUrl, verification } from "@/lib/site";
 
 import "./globals.css";
 
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: site.title,
-    // Page titles read "Get a Quote | Corefinity" without repeating the brand.
+    // Page titles read "Get a Quote | CoreFinity Tech" without repeating the brand.
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -36,25 +37,23 @@ export const metadata: Metadata = {
   creator: site.name,
   publisher: site.name,
   keywords: [
-    "custom software development company",
-    "web development company",
-    "web application development",
-    "AI chatbot development",
-    "mobile app development company",
-    "Python automation services",
-    "SaaS dashboard development",
-    "Next.js development agency",
-    "software development outsourcing",
+    "IoT companion app development",
+    "connected device software",
+    "BLE app development",
+    "MQTT backend development",
+    "AWS IoT Core development",
+    "IoT admin dashboard",
+    "IoT fleet management software",
+    "device to cloud pipeline",
+    "hardware startup software partner",
   ],
   category: "technology",
   alternates: { canonical: "/" },
   openGraph: {
-    type: "website",
-    siteName: site.name,
+    ...openGraphDefaults,
     title: site.title,
     description: site.description,
     url: siteUrl,
-    locale: site.locale,
   },
   twitter: {
     card: "summary_large_image",
@@ -103,7 +102,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <Navbar />
+        <Navbar showCaseStudies={hasCaseStudies} />
         {children}
         <Footer />
         <CookieConsent />

@@ -51,7 +51,7 @@ export default function OpengraphImage() {
       <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
         <div
           style={{
-            fontSize: 76,
+            fontSize: 84,
             fontWeight: 600,
             lineHeight: 1.04,
             letterSpacing: "-0.04em",
@@ -59,7 +59,7 @@ export default function OpengraphImage() {
             display: "flex",
           }}
         >
-          Architecting high performance digital platforms
+          From prototype to product.
         </div>
         <div
           style={{
@@ -70,8 +70,8 @@ export default function OpengraphImage() {
             display: "flex",
           }}
         >
-          Custom web platforms, operations dashboards and direct booking
-          systems.
+          Firmware, companion apps, cloud and admin panels for connected
+          hardware.
         </div>
       </div>
 

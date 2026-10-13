@@ -1,11 +1,11 @@
 import { ArrowRight } from "./icons";
 
 const clients = [
-  { name: "Nordic Relocators", region: "Norway", url: "http://nordicrelocators.no/" },
-  { name: "Nordic Relocators", region: "Denmark", url: "http://nordicrelocators.dk/" },
+  { name: "Nordic Relocators", region: "Norway", url: "https://nordicrelocators.no/" },
+  { name: "Nordic Relocators", region: "Denmark", url: "https://nordicrelocators.dk/" },
   { name: "Sweden Relocators", region: "Sweden", url: "http://website.swedenrelocators.se/" },
   { name: "Relofy", region: "relofy.tech", url: "https://relofy.tech/" },
-  { name: "Future Concerns", region: "futureconcerns.eu", url: "http://futureconcerns.eu/" },
+  { name: "Future Concerns", region: "futureconcerns.eu", url: "https://futureconcerns.eu/" },
   { name: "IELTS Counsel", region: "ieltscounsel.com", url: "https://ieltscounsel.com/" },
 ];
 

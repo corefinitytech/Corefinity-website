@@ -2,17 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import LegalLayout, { type LegalSection } from "@/components/LegalLayout";
-import { legal, site } from "@/lib/site";
+import { legal, openGraphDefaults, site } from "@/lib/site";
 
 const title = "Terms of Service";
 const description =
-  "The terms that govern using the Corefinity website and engaging Corefinity for web, mobile, AI, automation and SEO work.";
+  "The terms that govern using the CoreFinity Tech website and engaging CoreFinity Tech for web, mobile, AI, automation and SEO work.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/terms" },
-  openGraph: { title: `${title} | ${site.name}`, description, url: "/terms" },
+  openGraph: {
+    ...openGraphDefaults,
+    title: `${title} | ${site.name}`,
+    description,
+    url: "/terms",
+  },
 };
 
 const sections: LegalSection[] = [

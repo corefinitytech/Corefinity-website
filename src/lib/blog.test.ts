@@ -25,6 +25,7 @@ function prose(): string[] {
       return [b.text];
     }),
     ...p.faqs.flatMap((f) => [f.q, f.a]),
+    ...Object.values(p.cta),
   ]);
 }
 
@@ -38,7 +39,8 @@ describe("blog data", () => {
   it("only points at diagrams and services that exist", () => {
     for (const p of posts) {
       for (const b of p.blocks) {
-        if (b.type === "figure") expect(diagrams[b.diagram], b.diagram).toBeDefined();
+        if (b.type === "figure")
+          expect(diagrams[b.diagram], b.diagram).toBeDefined();
         if (b.type === "image") {
           // A supplied image is useless to search engines without alt text,
           // and the file has to actually be in public/.
@@ -70,8 +72,41 @@ describe("blog data", () => {
       );
       expect(figures.length, p.slug).toBeGreaterThanOrEqual(2);
       // Headings break the article up rather than leaving a wall of text.
-      expect(p.blocks.filter((b) => b.type === "h2").length).toBeGreaterThanOrEqual(4);
+      expect(
+        p.blocks.filter((b) => b.type === "h2").length,
+      ).toBeGreaterThanOrEqual(4);
     }
+  });
+
+  it("gives every post a figure and its stills, all present in public/", () => {
+    for (const p of posts) {
+      expect(p.cover.alt.length, p.slug).toBeGreaterThan(30);
+      const files = [
+        p.cover.src,
+        p.cover.wide,
+        p.cover.og,
+        `/hairline/${p.cover.figure}.js`,
+      ];
+      for (const f of files) {
+        expect(existsSync(path.join(process.cwd(), "public", f)), f).toBe(true);
+      }
+    }
+  });
+
+  it("ends every post with its own call to action", () => {
+    for (const p of posts) {
+      for (const v of Object.values(p.cta))
+        expect(v.trim().length, p.slug).toBeGreaterThan(0);
+    }
+    expect(new Set(posts.map((p) => p.cta.button)).size).toBe(posts.length);
+    expect(new Set(posts.map((p) => p.cta.lead + p.cta.accent)).size).toBe(
+      posts.length,
+    );
+  });
+
+  it("gives every post a figure of its own", () => {
+    const figures = posts.map((p) => p.cover.figure);
+    expect(new Set(figures).size).toBe(figures.length);
   });
 
   it("starts with a paragraph, so the page never opens on a heading", () => {
@@ -81,8 +116,8 @@ describe("blog data", () => {
 
 describe("search metadata", () => {
   it("keeps titles short enough not to be truncated", () => {
-    // 60 characters in total once " | Corefinity" (13) is appended.
-    for (const p of posts) expect(p.title.length).toBeLessThanOrEqual(47);
+    // 60 characters in total once " | CoreFinity Tech" (18) is appended.
+    for (const p of posts) expect(p.title.length).toBeLessThanOrEqual(42);
   });
 
   it("keeps meta descriptions inside the length search engines display", () => {
@@ -106,7 +141,9 @@ describe("answer engine FAQs", () => {
         expect(f.q.endsWith("?"), f.q).toBe(true);
         const sentences = f.a.split(/(?<=[.!?])\s+/).filter(Boolean);
         expect(sentences.length, f.q).toBeLessThanOrEqual(3);
-        expect(/^(It|That|This|They|These|You do)\b/.test(f.a), f.q).toBe(false);
+        expect(/^(It|That|This|They|These|You do)\b/.test(f.a), f.q).toBe(
+          false,
+        );
       }
     }
   });
@@ -118,7 +155,9 @@ describe("copy rules", () => {
   });
 
   it("contains no hyphenated compounds", () => {
-    expect(prose().filter((t) => /[A-Za-z]{2,}-[A-Za-z]{2,}/.test(t))).toEqual([]);
+    expect(prose().filter((t) => /[A-Za-z]{2,}-[A-Za-z]{2,}/.test(t))).toEqual(
+      [],
+    );
   });
 });
 

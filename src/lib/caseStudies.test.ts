@@ -4,6 +4,7 @@ import {
   caseStudies,
   caseStudiesFor,
   getCaseStudy,
+  hasCaseStudies,
   nextCaseStudy,
 } from "./caseStudies";
 import { getService } from "./services";
@@ -32,7 +33,8 @@ describe("case study data", () => {
       expect(c.challenge.length).toBeGreaterThan(0);
       expect(c.approach.length).toBeGreaterThan(0);
       expect(c.built.length).toBeGreaterThanOrEqual(4);
-      expect(c.phases.length).toBeGreaterThanOrEqual(3);
+      // Stages are optional: a study without them on record drops the section.
+      if (c.phases.length) expect(c.phases.length).toBeGreaterThanOrEqual(3);
       expect(c.results.length).toBeGreaterThanOrEqual(3);
       expect(c.stack.length).toBeGreaterThanOrEqual(3);
     }
@@ -56,8 +58,8 @@ describe("search metadata", () => {
   it("keeps titles short enough not to be truncated", () => {
     for (const c of caseStudies) {
       // The brand is appended by the title template, so budget for it.
-      // 60 characters in total once " | Corefinity" (13) is appended.
-      expect(c.title.length).toBeLessThanOrEqual(47);
+      // 60 characters in total once " | CoreFinity Tech" (18) is appended.
+      expect(c.title.length).toBeLessThanOrEqual(42);
     }
   });
 
@@ -108,10 +110,70 @@ describe("copy rules", () => {
   });
 });
 
-describe("lookups", () => {
-  it("keeps the slug the home page section links to", () => {
-    // CaseStudy.tsx links here directly; renaming the slug breaks that link.
-    expect(getCaseStudy("hotel-direct-booking-engine")).toBeDefined();
+describe("claims", () => {
+  it("leads with FuelSec", () => {
+    expect(caseStudies[0]?.slug).toBe("fuelsec-iot-fuel-monitoring");
+  });
+
+  it("attributes every revenue figure to whoever reported it", () => {
+    for (const c of caseStudies) {
+      const lines = [...c.results, ...c.metrics.map((m) => m.label)];
+      // A line that puts a number on money earned, as opposed to one that
+      // only says the dashboard shows revenue.
+      const figure = /PKR|earned|ad spend/i;
+      for (const line of lines.filter((l) => figure.test(l))) {
+        expect(line, c.slug).toMatch(/reported/i);
+      }
+    }
+  });
+
+  it("never shows a quote without words and a name behind it", () => {
+    for (const c of caseStudies) {
+      if (!c.quote) continue;
+      expect(c.quote.text.trim().length).toBeGreaterThan(0);
+      expect(c.quote.name.trim().length).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe("the IELTS Counsel page", () => {
+  const study = getCaseStudy("ielts-counsel-writing-checker-online-practice");
+
+  it("is one page, at the address search engines already have", () => {
+    expect(study).toBeDefined();
+    expect(getCaseStudy("ieltscounsel")).toBeUndefined();
+    expect(caseStudies.filter((c) => /ielts/i.test(c.client))).toHaveLength(1);
+  });
+
+  it("leads with the result, in PKR and attributed", () => {
+    expect(study?.metrics[0].label).toMatch(/reported by the founder/i);
+    expect(study?.results[0]).toMatch(/PKR 1M\+.*reported by the founder/);
+    const all = JSON.stringify(study);
+    expect(all).not.toMatch(/USD|\$|made them earn/i);
+  });
+
+  it("gives every study a social card alt of its own", () => {
+    for (const c of caseStudies) expect(c.ogAlt).toContain(c.client);
+    expect(new Set(caseStudies.map((c) => c.ogAlt)).size).toBe(
+      caseStudies.length,
+    );
+  });
+});
+
+describe("with no case studies published", () => {
+  it("reports none, so links, nav, sitemap and pages stay hidden", () => {
+    expect(hasCaseStudies).toBe(caseStudies.length > 0);
+    expect(getCaseStudy("not-a-case-study")).toBeUndefined();
+    expect(caseStudiesFor("not-a-service")).toEqual([]);
+  });
+});
+
+// These need at least one real study to look up.
+describe.skipIf(!hasCaseStudies)("lookups", () => {
+  it("links every study with a client site to an absolute https URL", () => {
+    for (const c of caseStudies) {
+      if (c.clientUrl) expect(c.clientUrl).toMatch(/^https:\/\//);
+    }
   });
 
   it("finds a study by slug and 404s an unknown one", () => {
@@ -121,10 +183,16 @@ describe("lookups", () => {
     expect(getCaseStudy("not-a-case-study")).toBeUndefined();
   });
 
-  it("wraps the read next link round to the first study", () => {
+  it("never recommends a study as its own read next", () => {
+    if (caseStudies.length < 2) {
+      for (const c of caseStudies) expect(nextCaseStudy(c)).toBeUndefined();
+      return;
+    }
     const last = caseStudies[caseStudies.length - 1];
-    expect(nextCaseStudy(last).slug).toBe(caseStudies[0].slug);
-    for (const c of caseStudies) expect(nextCaseStudy(c).slug).not.toBe(c.slug);
+    expect(nextCaseStudy(last)?.slug).toBe(caseStudies[0].slug);
+    for (const c of caseStudies) {
+      expect(nextCaseStudy(c)?.slug).not.toBe(c.slug);
+    }
   });
 
   it("lists the studies that used a service", () => {

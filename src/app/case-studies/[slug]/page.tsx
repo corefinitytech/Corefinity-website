@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import FilmPlayer from "@/components/home/FilmPlayer";
+
 import CardNotch from "@/components/CardNotch";
 import {
   CaseStudyBackdrop,
@@ -12,13 +14,15 @@ import {
 import Check from "@/components/Check";
 import JsonLd from "@/components/JsonLd";
 import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
+import StepKeycaps from "@/components/StepKeycaps";
+import TechIcon from "@/components/TechIcon";
 import { CountUpOutline } from "@/components/backgrounds/LazyBackgrounds";
 import { ArrowRight } from "@/components/icons";
 import { getCaseStudy, caseStudies, nextCaseStudy } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService } from "@/lib/services";
 import type { ServicePage } from "@/lib/services";
-import { site, siteUrl } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 /** Every case study is known at build time, so all of them prerender. */
 export function generateStaticParams() {
@@ -46,6 +50,7 @@ export async function generateMetadata({
     keywords: study.keywords,
     alternates: { canonical: url },
     openGraph: {
+      ...openGraphDefaults,
       type: "article",
       title: `${study.title} | ${site.name}`,
       description: study.description,
@@ -90,11 +95,13 @@ export default async function CaseStudyPage({
   const next = nextCaseStudy(study);
   const url = `${siteUrl}/case-studies/${study.slug}`;
 
-  const facts: [string, string][] = [
-    ["Client", study.client],
+  const facts: [string, string, string?][] = [
+    study.confidential
+      ? ["Client", "Confidential"]
+      : ["Client", study.client, study.clientUrl],
     ["Industry", study.industry],
     ["Timeline", study.timeline],
-    ["Year", study.year],
+    study.status ? ["Status", study.status] : ["Year", study.year ?? ""],
   ];
 
   return (
@@ -124,16 +131,29 @@ export default async function CaseStudyPage({
                 {study.summary}
               </p>
               <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-black/[0.08] bg-black/[0.08]">
-                {facts.map(([k, v]) => (
-                  <div key={k} className="bg-white px-4 py-3">
-                    <dt className="text-[10px] uppercase tracking-[0.14em] text-ink/55">
-                      {k}
-                    </dt>
-                    <dd className="mt-1 text-[13px] font-medium text-ink">
-                      {v}
-                    </dd>
-                  </div>
-                ))}
+                {facts
+                  .filter(([, v]) => v)
+                  .map(([k, v, href]) => (
+                    <div key={k} className="bg-white px-4 py-3">
+                      <dt className="text-[10px] uppercase tracking-[0.14em] text-ink/65">
+                        {k}
+                      </dt>
+                      <dd className="mt-1 text-[13px] font-medium text-ink">
+                        {href ? (
+                          <a
+                            href={href}
+                            target="_blank"
+                            rel="noopener"
+                            className="underline decoration-black/20 underline-offset-4 transition hover:text-accent-ink hover:decoration-current"
+                          >
+                            {v}
+                          </a>
+                        ) : (
+                          v
+                        )}
+                      </dd>
+                    </div>
+                  ))}
               </dl>
             </div>
           </div>
@@ -151,9 +171,21 @@ export default async function CaseStudyPage({
             </div>
             <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/40 via-black/10 to-black/50" />
             <GridOverlay size={48} />
-            <div className="relative w-full max-w-sm">
-              <CaseStudyScreen theme={study.theme} />
-            </div>
+            {study.film ? (
+              <div className="relative w-full max-w-4xl">
+                <FilmPlayer
+                  videoId={study.film.videoId}
+                  poster={study.film.poster}
+                  posterAlt={study.film.posterAlt}
+                  title={study.film.title}
+                  duration={study.film.duration}
+                />
+              </div>
+            ) : (
+              <div className="relative w-full max-w-sm">
+                <CaseStudyScreen theme={study.theme} />
+              </div>
+            )}
           </div>
 
           <dl className="relative z-10 mx-3 -mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-[#e8e9ed] bg-[#e8e9ed] shadow-xl shadow-black/[0.06] sm:mx-8 lg:grid-cols-4">
@@ -180,9 +212,13 @@ export default async function CaseStudyPage({
       <section className="px-4 py-20 sm:px-6 sm:py-24">
         <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:gap-16">
           <div>
-            <p className={`${eyebrow} text-ink/60`}>( The challenge )</p>
+            <p className={`${eyebrow} text-ink/60`}>
+              {study.brief ? "( The brief )" : "( The challenge )"}
+            </p>
             <h2 className={`mt-4 max-w-md ${h2} text-ink`}>
-              What was getting in the way
+              {study.brief
+                ? "What we were asked to build"
+                : "What was getting in the way"}
             </h2>
             <div className="mt-6 grid gap-4">
               {study.challenge.map((p) => (
@@ -198,7 +234,7 @@ export default async function CaseStudyPage({
             <h2 className={`mt-4 max-w-md ${h2} text-ink`}>
               How we{" "}
               <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                solved it
+                {study.brief ? "built it" : "solved it"}
               </span>
             </h2>
             <div className="mt-6 grid gap-4">
@@ -221,8 +257,9 @@ export default async function CaseStudyPage({
               The pieces that make it work
             </h2>
             <p className="max-w-sm text-sm leading-relaxed text-ink/65">
-              Delivered in {study.timeline}, with the source code, accounts and
-              documentation handed over in full.
+              {study.brief
+                ? `Built and launched in ${study.timeline}.`
+                : `Delivered in ${study.timeline}, with the source code, accounts and documentation handed over in full.`}
             </p>
           </div>
 
@@ -230,7 +267,7 @@ export default async function CaseStudyPage({
             {study.built.map((b, i) => (
               <article
                 key={b.title}
-                className={`group relative isolate flex flex-col overflow-hidden rounded-[20px] p-6 pb-16 text-white transition duration-300 hover:-translate-y-0.5 ${
+                className={`relative isolate flex flex-col overflow-hidden rounded-[20px] p-6 text-white ${
                   surfaces[i % surfaces.length]
                 }`}
               >
@@ -243,7 +280,6 @@ export default async function CaseStudyPage({
                 <p className="mt-3 text-[13px] leading-relaxed text-white/75">
                   {b.body}
                 </p>
-                <CardNotch />
               </article>
             ))}
           </div>
@@ -255,16 +291,17 @@ export default async function CaseStudyPage({
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-ink px-6 py-16 text-white sm:px-12 sm:py-20">
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 select-none text-center text-[clamp(4rem,13vw,11rem)] font-semibold leading-[0.8] tracking-tighter text-white/[0.04]"
-          >
-            Results
-          </span>
+            // Drawn from a pseudo element: it is decoration meant to be faint,
+            // and real text that faint fails the contrast audit.
+            data-text="Results"
+            className="pointer-events-none absolute inset-x-0 bottom-0 select-none text-center text-[clamp(4rem,13vw,11rem)] font-semibold leading-[0.8] tracking-tighter text-white/[0.04] before:content-[attr(data-text)]"
+          />
 
           <div className="relative grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
             <div>
               <p className={`${eyebrow} text-white/50`}>( The outcome )</p>
               <h2 className={`mt-5 max-w-md ${h2}`}>
-                What changed for{" "}
+                {study.brief ? "What happened next for" : "What changed for"}{" "}
                 <span className="bg-gradient-to-r from-accent to-sky bg-clip-text text-transparent">
                   {study.client}.
                 </span>
@@ -282,6 +319,21 @@ export default async function CaseStudyPage({
                   </li>
                 ))}
               </ul>
+              {/* The client's own words. Rendered only when a study
+                  carries a quote, so there is never an empty block. */}
+              {study.quote && (
+                <figure className="mt-10 border-l-2 border-sky pl-5">
+                  <blockquote className="text-[17px] leading-relaxed text-white/90">
+                    {study.quote.text}
+                  </blockquote>
+                  <figcaption className="mt-4 text-[13px] text-white/60">
+                    <span className="font-medium text-white">
+                      {study.quote.name}
+                    </span>
+                    {study.quote.role && `, ${study.quote.role}`}
+                  </figcaption>
+                </figure>
+              )}
             </div>
 
             <dl className="grid grid-cols-2 gap-3 self-center">
@@ -323,49 +375,55 @@ export default async function CaseStudyPage({
       </section>
 
       {/* Timeline */}
-      <section className="px-4 py-20 sm:px-6 sm:py-24">
-        <div className="mx-auto max-w-7xl">
-          <p className={`${eyebrow} text-ink/60`}>( How it was delivered )</p>
-          <h2 className={`mt-4 ${h2} text-ink`}>
-            {study.timeline},{" "}
-            <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-              start to launch
-            </span>
-          </h2>
+      {study.phases.length > 0 && (
+        <section className="px-4 py-20 sm:px-6 sm:py-24">
+          <div className="mx-auto max-w-7xl">
+            <p className={`${eyebrow} text-ink/60`}>( How it was delivered )</p>
+            <h2 className={`mt-4 ${h2} text-ink`}>
+              {study.timeline},{" "}
+              <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
+                start to launch
+              </span>
+            </h2>
 
-          <ol
-            className={`mt-10 grid gap-3 md:grid-cols-2 ${
-              study.phases.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"
-            }`}
-          >
-            {study.phases.map((p, i) => (
-              <li
-                key={p.title}
-                className="relative flex flex-col overflow-hidden rounded-[20px] bg-mist p-6 transition duration-300 hover:-translate-y-0.5"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="grid size-8 place-items-center rounded-full bg-ink text-[11px] font-medium text-white">
-                    {i + 1}
-                  </span>
-                  <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-accent-ink">
-                    {p.when}
-                  </span>
-                </div>
-                <h3 className="mt-5 text-lg font-medium leading-snug tracking-[-0.02em] text-ink">
-                  {p.title}
-                </h3>
-                <p className="mt-3 text-[13px] leading-relaxed text-ink/65">
-                  {p.detail}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+            <ol
+              className={`mt-10 grid gap-3 md:grid-cols-2 ${
+                study.phases.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"
+              }`}
+            >
+              {study.phases.map((p, i) => (
+                <li
+                  key={p.title}
+                  className="relative flex flex-col overflow-hidden rounded-[20px] bg-mist p-6 transition duration-300 hover:-translate-y-0.5"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="grid size-8 place-items-center rounded-full bg-ink text-[11px] font-medium text-white">
+                      {i + 1}
+                    </span>
+                    <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-accent-ink">
+                      {p.when}
+                    </span>
+                  </div>
+                  <h3 className="mt-5 text-lg font-medium leading-snug tracking-[-0.02em] text-ink">
+                    {p.title}
+                  </h3>
+                  <p className="mt-3 text-[13px] leading-relaxed text-ink/65">
+                    {p.detail}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
 
       {/* Services and stack */}
-      <section className="px-4 pb-20 sm:px-6 sm:pb-24">
-        <div className="mx-auto grid max-w-7xl gap-10 border-t border-black/[0.07] pt-14 lg:grid-cols-2 lg:gap-16">
+      <section
+        className={`px-4 pb-20 sm:px-6 sm:pb-24 ${study.phases.length ? "" : "pt-20 sm:pt-24"}`}
+      >
+        <div
+          className={`mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:gap-16 ${study.phases.length ? "border-t border-black/[0.07] pt-14" : ""}`}
+        >
           <div>
             <p className={`${eyebrow} text-ink/60`}>( Services used )</p>
             <ul className="mt-6 grid gap-2">
@@ -396,8 +454,9 @@ export default async function CaseStudyPage({
               {study.stack.map((t) => (
                 <li
                   key={t}
-                  className="rounded-full border border-black/10 bg-mist px-4 py-2 text-[13px] text-ink/75"
+                  className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-mist px-4 py-2 text-[13px] text-ink/75"
                 >
+                  <TechIcon name={t} className="size-3.5 shrink-0" />
                   {t}
                 </li>
               ))}
@@ -412,45 +471,60 @@ export default async function CaseStudyPage({
 
       {/* Read next and CTA */}
       <section className="px-4 pb-12 sm:px-6">
-        <div className="mx-auto grid max-w-7xl gap-3 lg:grid-cols-[1.1fr_1fr]">
-          <Link
-            href={`/case-studies/${next.slug}`}
-            className={`group relative isolate flex min-h-[320px] flex-col overflow-hidden rounded-[32px] p-8 text-white transition duration-300 hover:-translate-y-0.5 sm:p-10 ${caseSurface[next.theme]}`}
-          >
-            <GridOverlay />
-            <p className={`relative ${eyebrow} text-white/60`}>
-              ( Read next / {next.industry} )
-            </p>
-            <h2 className="relative mt-5 max-w-md text-[clamp(1.5rem,2.8vw,2.25rem)] font-medium leading-[1.1] tracking-[-0.03em]">
-              {next.headline.lead} {next.headline.accent}
-            </h2>
-            <p className="relative mt-4 max-w-sm text-[13px] leading-relaxed text-white/70">
-              {next.summary}
-            </p>
-            <CardNotch />
-          </Link>
-
-          <div className="flex flex-col justify-between rounded-[32px] bg-mist p-8 sm:p-10">
-            <div>
-              <h2 className="max-w-md text-[clamp(1.75rem,3.6vw,2.5rem)] font-medium leading-[1.05] tracking-[-0.03em] text-ink">
-                Want results{" "}
-                <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                  like these?
-                </span>
-              </h2>
-              <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
-                Send a brief and you get a written scope, a timeline and a fixed
-                price back within 48 hours. It costs nothing and commits you to
-                nothing.
-              </p>
-            </div>
+        <div
+          className={`mx-auto grid max-w-7xl gap-3 ${next ? "lg:grid-cols-[1.1fr_1fr]" : ""}`}
+        >
+          {next && (
             <Link
-              href="/contact"
-              className="group mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85 sm:w-auto sm:self-start"
+              href={`/case-studies/${next.slug}`}
+              className={`group relative isolate flex min-h-[320px] flex-col overflow-hidden rounded-[32px] p-8 text-white transition duration-300 hover:-translate-y-0.5 sm:p-10 ${caseSurface[next.theme]}`}
             >
-              Get a quote
-              <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              <GridOverlay />
+              <p className={`relative ${eyebrow} text-white/60`}>
+                ( Read next / {next.industry} )
+              </p>
+              <h2 className="relative mt-5 max-w-md text-[clamp(1.5rem,2.8vw,2.25rem)] font-medium leading-[1.1] tracking-[-0.03em]">
+                {next.headline.lead} {next.headline.accent}
+              </h2>
+              <p className="relative mt-4 max-w-sm text-[13px] leading-relaxed text-white/70">
+                {next.summary}
+              </p>
+              <CardNotch />
             </Link>
+          )}
+
+          <div
+            className={`rounded-[32px] bg-mist p-8 sm:p-10 ${
+              next
+                ? "flex flex-col justify-between"
+                : "grid items-center gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16"
+            }`}
+          >
+            <div className="flex flex-col justify-between">
+              <div>
+                <h2 className="max-w-md text-[clamp(1.75rem,3.6vw,2.5rem)] font-medium leading-[1.05] tracking-[-0.03em] text-ink">
+                  Want results{" "}
+                  <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
+                    like these?
+                  </span>
+                </h2>
+                <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/65">
+                  Send a brief and you get a written scope, a timeline and a
+                  fixed price back within 48 hours. It costs nothing and commits
+                  you to nothing.
+                </p>
+              </div>
+              <Link
+                href="/contact"
+                className="group mt-8 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85 sm:w-auto sm:self-start"
+              >
+                Talk to an engineer
+                <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
+            {/* With no "read next" card beside it, the CTA spans the row, so
+                the steps fill the space the card would have taken. */}
+            {!next && <StepKeycaps />}
           </div>
         </div>
       </section>
@@ -476,6 +550,29 @@ export default async function CaseStudyPage({
             about: services.map((s) => ({
               "@id": `${siteUrl}/services/${s.slug}#service`,
             })),
+            ...(study.film
+              ? {
+                  video: {
+                    "@type": "VideoObject",
+                    name: study.film.title,
+                    description: study.film.description,
+                    thumbnailUrl: `${siteUrl}${study.film.poster}`,
+                    uploadDate: study.film.uploaded,
+                    duration: study.film.iso,
+                    embedUrl: `https://www.youtube-nocookie.com/embed/${study.film.videoId}`,
+                    contentUrl: `https://www.youtube.com/watch?v=${study.film.videoId}`,
+                  },
+                }
+              : {}),
+            ...(study.clientUrl
+              ? {
+                  mentions: {
+                    "@type": "Organization",
+                    name: study.client,
+                    url: study.clientUrl,
+                  },
+                }
+              : {}),
           },
           breadcrumbSchema([
             { name: "Home", path: "/" },

@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The Hairline test workspace, and the kernel and figure the site serves
+    // exactly as the hairline-create skill wrote them.
+    "corefinity-figures/**",
+    "public/hairline/**",
   ]),
 ]);
 

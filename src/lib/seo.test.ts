@@ -27,8 +27,10 @@ describe("homepage metadata", () => {
 });
 
 describe("brand entity", () => {
-  it("lists the Google Business Profile name as an alternate name", () => {
-    expect(organizationSchema().alternateName).toContain("CoreFinity Tech");
+  it("uses the Google Business Profile name, with other spellings as alternates", () => {
+    const org = organizationSchema();
+    expect(org.name).toBe("CoreFinity Tech");
+    expect(org.alternateName).toContain("Corefinity Tech");
   });
 
   it("publishes the office address the Business Profile shows", () => {

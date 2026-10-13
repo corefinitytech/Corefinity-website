@@ -6,7 +6,7 @@ import type { DiagramKey } from "@/components/blog/Diagrams";
  * Articles are structured blocks rather than raw HTML, so the rendering stays
  * consistent with the rest of the site and every diagram is a real component
  * instead of an image. Same rules as the service pages: no invented client
- * names, no numbers Corefinity cannot stand behind, no long dashes.
+ * names, no numbers CoreFinity Tech cannot stand behind, no long dashes.
  */
 
 export type BlogBlock =
@@ -39,14 +39,580 @@ export type BlogPost = {
   /** Shown on the index card and beside the heading. */
   excerpt: string;
   topic: string;
+  /**
+   * The post's Hairline figure. The article and the cards draw it live. The
+   * stills are its rest pose, exported to public/blog/covers/hairline on a
+   * white plate (see corefinity-figures/blog-covers/export.mjs): the og one
+   * is the social image, and the other two are kept for anywhere a figure
+   * cannot run, such as a feed or an email.
+   */
+  cover: {
+    /** The figure's file in public/hairline, drawn live above the article. */
+    figure: string;
+    /** 800 by 534, a still at card size. */
+    src: string;
+    /** 1280 by 854, a still at the blog index's panel size. */
+    wide: string;
+    /** 1200 by 630, for Open Graph and Twitter. */
+    og: string;
+    /** One sentence describing the figure. */
+    alt: string;
+  };
   datePublished: string;
   /** Service pages this article naturally leads to. */
   services: string[];
+  /**
+   * How the article ends: an offer that answers the problem it was about.
+   * The heading is split so the tail carries the brand gradient.
+   */
+  cta: {
+    eyebrow: string;
+    lead: string;
+    accent: string;
+    line: string;
+    button: string;
+  };
   blocks: BlogBlock[];
   faqs: { q: string; a: string }[];
 };
 
+/** Backdrop behind the covers: the white plate the figures are drawn on. */
+export const COVER_PAPER = "#ffffff";
+
+/** The cover fields for one figure, from its name. */
+const cover = (figure: string, alt: string): BlogPost["cover"] => ({
+  figure,
+  src: `/blog/covers/hairline/${figure}-card.png`,
+  wide: `/blog/covers/hairline/${figure}-wide.png`,
+  og: `/blog/covers/hairline/${figure}-og.png`,
+  alt,
+});
+
 export const posts: BlogPost[] = [
+  {
+    slug: "why-ble-apps-disconnect-in-the-background",
+    title: "Why BLE Apps Disconnect in the Background",
+    description:
+      "Why phones drop Bluetooth connections in the background, how iOS state restoration and Android foreground services keep them alive, and how to stop data loss.",
+    keywords: [
+      "BLE app disconnects in background",
+      "Android BLE foreground service",
+      "iOS Core Bluetooth state restoration",
+      "Companion Device Manager",
+      "BLE reconnect",
+      "companion app development",
+    ],
+    headline: {
+      lead: "Your device did not break.",
+      accent: "The phone closed the app.",
+    },
+    excerpt:
+      "Most dropped Bluetooth connections come from the phone, not the firmware. Here is what iOS and Android do, and how to design around it.",
+    topic: "Connected devices",
+    cover: cover(
+      "standby",
+      "Line drawing of a phone sending signal arcs across to a small circuit board with an antenna and a status light.",
+    ),
+    datePublished: "2026-10-10",
+    services: ["mobile-app-development", "web-development"],
+    cta: {
+      eyebrow: "Before your users notice",
+      lead: "Stop losing readings when",
+      accent: "the phone closes the app.",
+      line: "Send a short description of your device and its app. We will tell you where the connection is likely dropping and what it takes to stop losing data, within 48 hours.",
+      button: "Ask about your dropped connections",
+    },
+    blocks: [
+      {
+        type: "p",
+        text: "A connected device is only as good as its connection to the phone. When that connection drops, the user does not blame the operating system. They blame the device, and often they return it.",
+      },
+      {
+        type: "p",
+        text: "Most dropped Bluetooth connections are not bugs in the firmware. They come from the phone itself, which closes background work to save battery. This guide covers what iOS and Android actually do, the tools each one gives you, and how to design a device and its app so a lost connection never loses data.",
+      },
+      {
+        type: "h2",
+        text: "Why phones close Bluetooth connections",
+      },
+      {
+        type: "p",
+        text: "Phones have small batteries and dozens of apps that would all like to run in the background. Apple and Google handle this the same way: once an app leaves the screen, the system limits what it can do, and after a while it stops the app entirely. A companion app holding a Bluetooth connection is exactly the kind of background work the system wants to stop.",
+      },
+      {
+        type: "figure",
+        diagram: "ble-app-states",
+        caption:
+          "Each step to the right gives the operating system more control over your app.",
+      },
+      {
+        type: "p",
+        text: "The four states matter because each one needs a different answer. Code that works perfectly while the app is on screen can fail the moment the screen locks, and testing on a desk with the app open will never show it.",
+      },
+      {
+        type: "h2",
+        text: "iOS: Core Bluetooth state restoration",
+      },
+      {
+        type: "p",
+        text: "On iOS, an app that declares the Bluetooth background mode keeps its connections while it is in the background. When memory runs low, the system may still suspend the app and then end it. State preservation and restoration is how Apple lets a Bluetooth app survive that. The app opts in when it creates its Bluetooth manager, and the system keeps track of its connections and pending requests on its behalf.",
+      },
+      {
+        type: "p",
+        text: "When the device reconnects, sends a notification or completes a pending request, iOS relaunches the app in the background and hands back the state it saved. The app has a short window to restore its Bluetooth manager and handle the event, so that code has to be fast and has to run before anything else at launch.",
+      },
+      {
+        type: "callout",
+        title: "What state restoration will not do",
+        items: [
+          "Relaunch an app the user swiped away in the app switcher.",
+          "Relaunch an app after Bluetooth was turned off and on again in settings.",
+          "Keep a connection the app never asked the system to restore.",
+        ],
+      },
+      {
+        type: "p",
+        text: "The first point catches most teams out. When a user closes the app by swiping it away, iOS treats that as a clear instruction, and nothing in Core Bluetooth will bring the app back until the user opens it again.",
+      },
+      {
+        type: "h2",
+        text: "Android: a foreground service and the Companion Device Manager",
+      },
+      {
+        type: "p",
+        text: "Android gives an app more freedom in the background, and takes it away more suddenly. Without a foreground service, a backgrounded app usually loses its Bluetooth connection within minutes. A foreground service tells the system the app is doing work the user cares about, and shows a notification so the user knows it is running. On recent Android versions the service has to declare the connected device type and request the matching permission.",
+      },
+      {
+        type: "p",
+        text: "The Companion Device Manager goes a step further. When the user pairs the device through it, Android treats the app as the companion of that device and grants exemptions ordinary apps do not get, including permission to start its foreground service from the background when the device comes back into range. For a product that needs to stay connected all day, this is the most reliable route Android offers.",
+      },
+      {
+        type: "h3",
+        text: "Phone makers add their own battery rules",
+      },
+      {
+        type: "p",
+        text: "Some manufacturers ship battery savers that go further than stock Android and close apps even while a foreground service is running, sometimes within twenty minutes. The dependable answer is to detect these phones and walk the user through allowing the app to run unrestricted, at the moment it matters, with clear steps for their exact phone.",
+      },
+      {
+        type: "h2",
+        text: "Design the device for a missing app",
+      },
+      {
+        type: "p",
+        text: "Every technique above makes disconnections rarer. None of them makes disconnections impossible, so the device and the app have to treat a lost link as normal. The pattern that works is simple: the device stores readings it could not send, numbers each one, and sends them in order when the link returns.",
+      },
+      {
+        type: "figure",
+        diagram: "ble-sync",
+        caption:
+          "With sequence numbers, a reconnect is a short catch up instead of a guess.",
+      },
+      {
+        type: "list",
+        items: [
+          "The device keeps readings in a buffer sized for the longest gap you expect, with a clear rule for what to drop if it fills.",
+          "Each reading carries a sequence number and the time it was taken, so its place in the history is fixed whenever it arrives.",
+          "On reconnect, the app asks for everything after the last number it confirmed, and the cloud ignores any number it has already stored.",
+          "The app shows the user when data last synced, so a gap looks like a gap and the device does not look broken.",
+        ],
+      },
+      {
+        type: "h2",
+        text: "How to test it before your users do",
+      },
+      {
+        type: "p",
+        text: "Background behaviour only shows up in testing that copies real life. Every companion app should go through the same set of situations on real phones, including at least one phone from each manufacturer known for aggressive battery saving.",
+      },
+      {
+        type: "list",
+        items: [
+          "Lock the screen for an hour, then check every reading arrived.",
+          "Leave the phone still overnight so it reaches its deepest power saving state.",
+          "Walk out of range and back again.",
+          "Swipe the app away, take readings, then open the app and check the sync.",
+          "Turn Bluetooth off and on, and restart the phone.",
+          "Update the app while the device is connected.",
+        ],
+        ordered: true,
+      },
+      {
+        type: "p",
+        text: "A test passes only when every reading taken during it reaches the cloud once, in the right order.",
+      },
+      {
+        type: "p",
+        text: "That is how we build companion apps at CoreFinity Tech. The firmware, the app and the cloud are designed together around one message format, so a dropped connection becomes a short delay the user barely notices. If your device is losing data in the background, send us a short description and we will tell you where it is likely breaking.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Why does my BLE device disconnect when the phone screen is off?",
+        a: "Phones limit what apps can do in the background to save battery, and a companion app holding a Bluetooth connection is one of the first things they stop. iOS needs the Bluetooth background mode and state restoration, and Android needs a foreground service or the Companion Device Manager to keep the link alive.",
+      },
+      {
+        q: "Can an iOS app reconnect to a BLE device after the user closes it?",
+        a: "No. When a user swipes an iOS app away, Core Bluetooth will not relaunch it, even with state restoration enabled. The device should keep its readings and sync them the next time the app opens.",
+      },
+      {
+        q: "What is the Companion Device Manager on Android?",
+        a: "The Companion Device Manager is an Android system service for pairing an app with a specific device. Apps paired through it get exemptions ordinary apps do not, including starting a foreground service from the background, which makes all day connections far more reliable.",
+      },
+      {
+        q: "How do you stop data loss when a Bluetooth connection drops?",
+        a: "Store readings on the device while the link is down, give each one a sequence number, and sync everything after the last confirmed number when the connection returns. The cloud ignores numbers it has already stored, so nothing is lost and nothing is counted twice.",
+      },
+    ],
+  },
+  {
+    slug: "measuring-iot-latency-end-to-end",
+    title: "Measuring IoT Latency End to End",
+    description:
+      "How to measure IoT latency from the device to the alert: a timestamp at every hop, synced clocks, and percentiles that show the slow messages users notice.",
+    keywords: [
+      "IoT latency measurement",
+      "end to end latency",
+      "MQTT latency",
+      "latency percentiles p95 p99",
+      "NTP device clock sync",
+      "IoT alert latency",
+    ],
+    headline: {
+      lead: "Measure latency where",
+      accent: "your users feel it.",
+    },
+    excerpt:
+      "A dashboard can say 200 milliseconds while some alerts arrive a minute late. Here is how to see every hop, and every slow message.",
+    topic: "Connected devices",
+    cover: cover(
+      "stragglers",
+      "Line drawing of a conveyor passing through four gates, with two crates arriving together and a third left far behind.",
+    ),
+    datePublished: "2026-10-10",
+    services: ["cloud-deployment", "web-development"],
+    cta: {
+      eyebrow: "Before a customer tells you",
+      lead: "Find out how late your",
+      accent: "slowest alerts arrive.",
+      line: "Send a short description of your system, from the device to the alert. We will tell you what to timestamp first and where the delay is likely to be, within 48 hours.",
+      button: "Ask for a latency check",
+    },
+    blocks: [
+      {
+        type: "p",
+        text: "When a device raises an alert, someone is waiting for it. A fuel pump reporting a fault, a freezer warming up, a door left open. The question that matters is simple: how long did it take from the moment it happened to the moment a person knew?",
+      },
+      {
+        type: "p",
+        text: "Most teams cannot answer that with confidence. They have one number from one place, usually an average, and it describes the system on a good day. This guide covers how to measure latency end to end, so you know where the time goes and how slow your slowest alerts really are.",
+      },
+      {
+        type: "h2",
+        text: "Where the time goes",
+      },
+      {
+        type: "p",
+        text: "A message from a connected device passes through several systems before it reaches anyone. Each one adds a little time, and each one can be the place where a delay starts.",
+      },
+      {
+        type: "figure",
+        diagram: "latency-hops",
+        caption:
+          "Five timestamps turn one total into five separate measurements.",
+      },
+      {
+        type: "list",
+        items: [
+          "The device takes the reading and may wait to batch it with others.",
+          "A phone or gateway receives it and forwards it, sometimes after reconnecting first.",
+          "The broker, often MQTT on a service such as AWS IoT Core, accepts it and routes it.",
+          "Rules and backend code decide whether it needs an alert.",
+          "The alert goes out by push notification, SMS or email, each with its own delivery time.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Measure only the total, and a slow gateway looks exactly like a slow notification service. Measure hop by hop, and the slow one is obvious.",
+      },
+      {
+        type: "h2",
+        text: "Put a timestamp on every hop",
+      },
+      {
+        type: "p",
+        text: "The method is straightforward. The device writes the time it took the reading into the message itself. Every system the message passes through adds its own time as it handles it: when the broker received it, when the backend made its decision, when the alert was handed to the delivery service. Store those times with the message, and the delay of every hop becomes a subtraction.",
+      },
+      {
+        type: "p",
+        text: "Two rules keep this honest. Start from the time the event happened on the device, never the time the message arrived. And keep every timestamp in one fixed format, in UTC, with milliseconds, so times from different systems compare without conversion errors.",
+      },
+      {
+        type: "h2",
+        text: "Keep the clocks honest",
+      },
+      {
+        type: "p",
+        text: "Comparing a device time with a cloud time only works if both clocks agree. Device clocks drift, and a device that has been offline or restarted may not know the time at all.",
+      },
+      {
+        type: "list",
+        items: [
+          "Sync the device clock over NTP when it connects, and record whether each reading was taken with a synced clock.",
+          "Measure durations inside one system with a monotonic clock, which never jumps when the time is corrected.",
+          "Flag messages whose device time is in the future or far in the past, and fall back to the time they were received.",
+          "Keep cloud services on one time source, which managed cloud services already do.",
+        ],
+      },
+      {
+        type: "p",
+        text: "With synced clocks, the gap between device and cloud is accurate to a few milliseconds, far finer than any delay a person would notice.",
+      },
+      {
+        type: "h2",
+        text: "Report percentiles, not averages",
+      },
+      {
+        type: "p",
+        text: "Latency is never spread evenly. Most messages are quick and a small share are slow, sometimes very slow, because of a weak signal, a reconnect or a busy service. An average blends them together and lands on a figure that describes almost no real message.",
+      },
+      {
+        type: "figure",
+        diagram: "latency-percentiles",
+        caption:
+          "The median describes a typical message. The 95th and 99th percentiles describe the alerts people complain about.",
+      },
+      {
+        type: "p",
+        text: "Percentiles answer better questions. The median is the time half your messages beat. The 95th percentile is the time all but one in twenty beat, and the 99th percentile all but one in a hundred. A fleet that sends ten thousand alerts a month has a hundred above its 99th percentile, and those are the ones users remember.",
+      },
+      {
+        type: "h2",
+        text: "Set a budget and alert on it",
+      },
+      {
+        type: "p",
+        text: "Once the hops are measured, give each one a share of the total delay you can accept. That split is a latency budget. A fault alert that must reach someone within ten seconds might allow two seconds on the device and gateway, one in the broker, two in the backend and five for delivery. The numbers differ for every product. Writing them down is what matters.",
+      },
+      {
+        type: "callout",
+        title: "What to watch once the fleet is live",
+        items: [
+          "The 95th and 99th percentile of total latency, every day.",
+          "Each hop against its share of the budget.",
+          "How many messages arrive without a synced device time.",
+          "Every alert that took longer than the budget, listed one by one so each can be traced.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Treat latency like any other health signal. When a percentile moves past its budget, someone should hear about it before a customer does.",
+      },
+      {
+        type: "p",
+        text: "This is how we measure the systems we build at CoreFinity Tech. Every message is timestamped from the device to the alert, and the slow ones are tracked as closely as the typical ones. If you want to know how quickly your own alerts really arrive, send us a short description of the system and we will tell you what to measure first.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is end to end latency in an IoT system?",
+        a: "End to end latency is the time from an event happening on the device to the result reaching its destination, usually an alert or a dashboard. Measuring it means timestamping the message on the device and at every system it passes through.",
+      },
+      {
+        q: "How do you measure IoT latency accurately?",
+        a: "Write the device time into each message, have every system add its own timestamp as it handles the message, and keep device clocks synced over NTP. The difference between neighbouring timestamps is the time spent in each hop.",
+      },
+      {
+        q: "Why use percentiles instead of the average for latency?",
+        a: "Latency is uneven, with most messages fast and a few very slow, so an average hides the slow ones. The 95th and 99th percentiles show how long the slowest messages take, which is what users notice.",
+      },
+      {
+        q: "What is a latency budget?",
+        a: "A latency budget is the total delay a system can accept, split into a share for each hop between the device and the user. Watching each hop against its share shows exactly where a slowdown starts.",
+      },
+    ],
+  },
+  {
+    slug: "how-to-evaluate-a-software-agency",
+    title: "How to Evaluate a Software Agency",
+    description:
+      "A practical guide to choosing a software development company: what to check, what to ask on the first call, and the warning signs to walk away from.",
+    keywords: [
+      "how to choose a software development company",
+      "hire a software agency",
+      "questions to ask a software development company",
+      "software agency red flags",
+      "fixed price software development",
+      "who owns the code software development",
+    ],
+    headline: {
+      lead: "How to judge a software agency",
+      accent: "before you sign anything.",
+    },
+    excerpt:
+      "Every proposal says experienced, fast and affordable. Here is how to tell which one means it.",
+    topic: "Hiring a software team",
+    cover: cover(
+      "proposals",
+      "Line drawing of a balance weighing a stack of proposal papers against a small working app, with an unsigned contract and a pen in front.",
+    ),
+    datePublished: "2026-10-04",
+    services: ["web-development", "mobile-app-development", "ui-ux-design"],
+    cta: {
+      eyebrow: "Before you sign",
+      lead: "Put these questions to us on",
+      accent: "a free technical call.",
+      line: "Thirty minutes with an engineer, at no cost. Bring your brief and ask us anything on this page before you sign with anyone.",
+      button: "Book a free technical call",
+    },
+    blocks: [
+      {
+        type: "p",
+        text: "Hiring a software agency is a decision most business owners make once or twice, with real money and very little to compare. The proposals arrive looking alike. Everyone is experienced, everyone is fast, everyone cares about quality. By the third call it is hard to remember who said what.",
+      },
+      {
+        type: "p",
+        text: "You do not need to be technical to choose well. You need to know what to look at, what to ask, and which answers should make you pause. This guide covers all three, from the point of view of the person paying for the work.",
+      },
+      { type: "h2", text: "Write down the problem before you talk to anyone" },
+      {
+        type: "p",
+        text: "Most poor agency choices start before the first call. Without a clear brief, every proposal answers a slightly different question, and you end up comparing prices for different projects. Half an hour spent on a short note saves weeks of confusion later.",
+      },
+      {
+        type: "callout",
+        title: "What your brief should cover",
+        items: [
+          "The problem you want solved, in one or two sentences.",
+          "Who will use the software, and roughly how many people.",
+          "What success looks like three months after launch.",
+          "The budget range you are comfortable with.",
+          "Any date that cannot move, such as a launch or a busy season.",
+        ],
+      },
+      {
+        type: "p",
+        text: "You do not need technical detail. A good agency will turn your note into a technical plan. How they respond to it is your first piece of evidence: the best ones ask questions about it before they talk about price.",
+      },
+      { type: "h2", text: "Five things worth weighing" },
+      {
+        type: "figure",
+        diagram: "agency-scorecard",
+        caption:
+          "Five checks that separate a capable agency from a confident pitch.",
+      },
+      { type: "h3", text: "Proof" },
+      {
+        type: "p",
+        text: "Ask to see software that is live and in use, not only designs or screenshots. A named client, a working link and a case study that explains what changed for the business tell you far more than a page of logos. If you can, ask to speak to one of those clients for ten minutes.",
+      },
+      { type: "h3", text: "Process" },
+      {
+        type: "p",
+        text: "Ask what happens between signing and launch. You want to hear about a short discovery stage where the requirements are tested, a written scope, regular demos you can click through yourself, and a clear point where you approve the work. An agency that cannot describe its process will improvise one on your project.",
+      },
+      { type: "h3", text: "Price" },
+      {
+        type: "p",
+        text: "There are two common ways to charge. Hourly billing is flexible but leaves the final cost open. A fixed price for an agreed scope gives you a number you can plan around, as long as the scope is written down properly. Whichever you choose, ask how changes are priced, because changes are where most budgets grow.",
+      },
+      { type: "h3", text: "Ownership" },
+      {
+        type: "p",
+        text: "At the end of the project you should own the source code, the design files, the hosting account, the domain and the database. Ask for this in the contract, and ask for access to the code repository from the first week. Software you cannot take elsewhere keeps you tied to one supplier for as long as it runs.",
+      },
+      { type: "h3", text: "People" },
+      {
+        type: "p",
+        text: "Find out who will actually build your product and whether you can talk to them directly. Some agencies sell with a senior team and deliver with a different one. Short lines of communication mean fewer misunderstandings and faster answers when something needs a decision.",
+      },
+      { type: "h2", text: "Questions to ask on the first call" },
+      {
+        type: "p",
+        text: "These questions are simple, and the answers are revealing. Write down what each agency says so you can compare them side by side afterwards.",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "What would you need to know before giving us a price?",
+          "Can you show us something similar you built that is live today?",
+          "Who will work on our project, and will we speak to them directly?",
+          "What does the first month look like, week by week?",
+          "How do you handle a change to the scope halfway through?",
+          "Who owns the code, the hosting and the accounts when you finish?",
+          "What happens after launch if something breaks?",
+          "What would you advise us not to build?",
+        ],
+      },
+      {
+        type: "p",
+        text: "The last question is the most useful. An agency that can tell you what to leave out is thinking about your budget and your users.",
+      },
+      { type: "h2", text: "Good signs and warning signs" },
+      {
+        type: "figure",
+        diagram: "agency-signals",
+        caption:
+          "None of these settles the decision alone, but a pattern usually does.",
+      },
+      {
+        type: "p",
+        text: "One warning sign is not a reason to walk away. A small agency may not have many named clients yet, and a new one may still be refining how it works. What matters is the pattern. If several of the signs on the right appear together, take that seriously.",
+      },
+      { type: "h2", text: "Comparing quotes that look nothing alike" },
+      {
+        type: "p",
+        text: "Quotes are hard to compare because each agency includes different things. One price covers design, testing and the first month of support. Another covers development only and adds the rest later. Before comparing numbers, check every quote against the same list.",
+      },
+      {
+        type: "list",
+        items: [
+          "Is design included, or only development?",
+          "Is testing on real phones and browsers included?",
+          "Who sets up the hosting, and who pays for it?",
+          "How many rounds of changes are included?",
+          "What support is included after launch, and for how long?",
+          "When are payments due, and what is each one tied to?",
+        ],
+      },
+      {
+        type: "p",
+        text: "Once the quotes cover the same work, the real differences become clear. The cheapest quote is often the one that left the most out.",
+      },
+      { type: "h2", text: "What a good first month looks like" },
+      {
+        type: "p",
+        text: "The first few weeks show you whether you chose well. By the end of the first month with a capable agency you should have a written scope you have approved, a working link where you can see progress, a short demo every week or two, and access to the code from day one. If any of those are missing, raise it early, while changing direction is still cheap.",
+      },
+      {
+        type: "p",
+        text: "This is how we run projects at CoreFinity Tech. Every engagement starts with a written scope and a fixed price, the client owns the code and the accounts from the start, and progress is shown on a live link you can open at any time. Our IELTS Counsel case study shows what that looks like on a real project.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How do I choose a software development company?",
+        a: "Start with a short written brief so every agency answers the same question. Then compare them on proof of live work, a clear process, how the price is set, who owns the result, and who you will actually work with.",
+      },
+      {
+        q: "What questions should I ask a software agency before hiring?",
+        a: "Ask what they need to know before pricing, to see similar live work, who will build it, how scope changes are handled and who owns the code at the end. Also ask what they would advise you not to build, since the answer shows whether they are thinking about your budget.",
+      },
+      {
+        q: "Is a fixed price or an hourly rate better for software development?",
+        a: "A fixed price for a written scope gives a cost you can plan around, while hourly billing stays flexible but leaves the total open. Either works when changes are priced clearly in advance.",
+      },
+      {
+        q: "Who owns the code when an agency builds my software?",
+        a: "Ownership depends on the contract, so agree it in writing before work starts. The client should own the source code, design files, hosting, domain and database, with access to the code repository from the first week.",
+      },
+      {
+        q: "What are the warning signs of a bad software agency?",
+        a: "Common warning signs are a price given before any real questions, no live work to show, a vague scope, code or hosting kept in the agency's name, and agreement with every request. One sign alone is not decisive, but several together are worth taking seriously.",
+      },
+    ],
+  },
   {
     slug: "how-we-size-a-system-before-building-it",
     title: "How We Size a System Before We Build It",
@@ -60,12 +626,26 @@ export const posts: BlogPost[] = [
       "peak traffic calculation",
       "scalable architecture planning",
     ],
-    headline: { lead: "Before we build anything,", accent: "we do the arithmetic." },
+    headline: {
+      lead: "Before we build anything,",
+      accent: "we do the arithmetic.",
+    },
     excerpt:
       "How big should we build this? Ask three developers and you get three confident answers. We would rather work it out on paper.",
     topic: "How we work",
+    cover: cover(
+      "abacus",
+      "Line drawing of an abacus with four beads counted beside a rack holding exactly four blades.",
+    ),
     datePublished: "2026-09-25",
-    services: ["web-development", "cloud-deployment", "systems-integration"],
+    services: ["web-development", "cloud-deployment"],
+    cta: {
+      eyebrow: "Before anything is built",
+      lead: "Get the arithmetic for",
+      accent: "your own launch.",
+      line: "Send us the visitors you expect, the busiest hour and what people will be doing. You get a sizing sheet back in writing within 48 hours: the peak, the headroom and what gives way first.",
+      button: "Ask for a sizing sheet",
+    },
     blocks: [
       {
         type: "p",
@@ -244,8 +824,19 @@ export const posts: BlogPost[] = [
     excerpt:
       "You planned for 50 users. 11,670 turned up. The good news and the bad news are the same sentence.",
     topic: "Growth and scalability",
+    cover: cover(
+      "surge",
+      "Line drawing of a wide tray of device studs, a few raised on a small platform, with one gateway in front.",
+    ),
     datePublished: "2026-09-24",
-    services: ["web-development", "cloud-deployment", "systems-integration"],
+    services: ["cloud-deployment", "web-development"],
+    cta: {
+      eyebrow: "Before the busy day",
+      lead: "Find out where your system",
+      accent: "gives way first.",
+      line: "Send a short brief about what you have running today. You get a written view of the current limits, the likely bottleneck and what it would take to raise the ceiling, within 48 hours.",
+      button: "Ask for a capacity review",
+    },
     blocks: [
       {
         type: "p",
@@ -477,7 +1068,7 @@ export const posts: BlogPost[] = [
       },
       {
         type: "p",
-        text: "That is usually the work we are asked for at Corefinity: understanding what is really happening behind a product, finding the step that gives way first, and planning a path that grows with the business rather than against it. Sometimes that means building something new. Often it just means knowing where you stand before the busy day arrives.",
+        text: "That is usually the work we are asked for at CoreFinity Tech: understanding what is really happening behind a product, finding the step that gives way first, and planning a path that grows with the business rather than against it. Sometimes that means building something new. Often it just means knowing where you stand before the busy day arrives.",
       },
     ],
     faqs: [
@@ -533,5 +1124,7 @@ export function nextPost(post: BlogPost) {
 
 /** Newest first, for the index. */
 export function postsByDate() {
-  return [...posts].sort((a, b) => b.datePublished.localeCompare(a.datePublished));
+  return [...posts].sort((a, b) =>
+    b.datePublished.localeCompare(a.datePublished),
+  );
 }

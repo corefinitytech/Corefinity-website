@@ -8,22 +8,41 @@ import bundleAnalyzer from "@next/bundle-analyzer";
  * bootstrap into every statically prerendered page. The stricter option is a
  * per request nonce set from middleware, but that forces every page to render
  * dynamically and gives up the static prerendering this site depends on.
- * Given the site renders no user supplied HTML and embeds no third party
- * scripts, the trade is worth making. Revisit if either of those changes.
+ * Given the site renders no user supplied HTML and its only third party script
+ * is the opt-in Google Analytics tag, the trade is worth making. Revisit if
+ * either of those changes.
  */
 // React uses eval() in development to rebuild server error stacks in the
 // browser. It never does in production, so the allowance is dev only.
 const isDev = process.env.NODE_ENV === "development";
 
+// Google Analytics 4 loads gtag.js from googletagmanager.com, then sends hits
+// (fetch, with an image beacon as fallback) to whichever collector it picks:
+// analytics.google.com, www.google.com, the regional google-analytics.com
+// hosts, or stats.g.doubleclick.net when Google signals is on. This is
+// Google's documented GA4 list. Note *.analytics.google.com does not cover
+// analytics.google.com itself, which is why *.google.com is listed. The hosts
+// let it run for visitors who opt in. It is inert for everyone else, because
+// the tag is never rendered.
+const gaScript = "https://*.googletagmanager.com";
+const gaCollect = [
+  "https://*.google-analytics.com",
+  "https://*.analytics.google.com",
+  "https://*.googletagmanager.com",
+  "https://*.g.doubleclick.net",
+  "https://*.google.com",
+].join(" ");
+
 const csp = [
   "default-src 'self'",
-  // plausible.io is listed so the analytics script can load for visitors who
-  // opt in. It is inert for everyone else, because the tag is never rendered.
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://plausible.io`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} ${gaScript}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  `img-src 'self' data: blob: ${gaCollect}`,
   "font-src 'self' data:",
-  "connect-src 'self' https://plausible.io",
+  `connect-src 'self' ${gaCollect}`,
+  // The FuelSec film plays from YouTube's privacy enhanced domain, and only
+  // after a visitor presses play.
+  "frame-src https://www.youtube-nocookie.com",
   "form-action 'self'",
   "frame-ancestors 'none'",
   "base-uri 'self'",
@@ -68,6 +87,27 @@ const nextConfig: NextConfig = {
 
   images: {
     formats: ["image/avif", "image/webp"],
+  },
+
+  async redirects() {
+    return [
+      {
+        // The fuel monitoring case study was renamed from FuelGuard to FuelSec.
+        source: "/case-studies/fuelguard-iot-fuel-monitoring",
+        destination: "/case-studies/fuelsec-iot-fuel-monitoring",
+        permanent: true,
+      },
+      {
+        // The IELTS Counsel case study lives at the address search engines
+        // already have. A second page briefly existed at the short address;
+        // it was merged into the first, so the short address points there.
+        // A plain 301, which is what was asked for and what crawlers expect.
+        source: "/case-studies/ieltscounsel",
+        destination:
+          "/case-studies/ielts-counsel-writing-checker-online-practice",
+        statusCode: 301,
+      },
+    ];
   },
 
   async headers() {

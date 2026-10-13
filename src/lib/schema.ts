@@ -3,10 +3,12 @@ import {
   address,
   disambiguation,
   founders,
+  foundersPublic,
   sameAs,
   services,
   site,
   siteUrl,
+  whatsapp,
 } from "./site";
 
 /**
@@ -41,6 +43,7 @@ export function organizationSchema() {
     legalName: site.legalName,
     url: siteUrl,
     email: site.email,
+    telephone: whatsapp.e164,
     description: site.description,
     disambiguatingDescription: disambiguation,
     slogan: site.tagline,
@@ -54,13 +57,16 @@ export function organizationSchema() {
       height: 512,
       caption: site.name,
     },
-    founder: founders.map((f) => ({ "@type": "Person", name: f.name })),
+    ...(foundersPublic
+      ? { founder: founders.map((f) => ({ "@type": "Person", name: f.name })) }
+      : {}),
     ...(sameAs.length ? { sameAs } : {}),
     contactPoint: [
       {
         "@type": "ContactPoint",
         contactType: "sales",
         email: site.email,
+        telephone: whatsapp.e164,
         availableLanguage: ["English"],
         url: `${siteUrl}/contact`,
       },
@@ -85,8 +91,11 @@ export function websiteSchema() {
   return {
     "@type": "WebSite",
     "@id": websiteId,
-    url: siteUrl,
+    // Google reads name and alternateName here for the site name it shows
+    // above each result, in place of the bare domain.
+    url: `${siteUrl}/`,
     name: site.name,
+    alternateName: site.alternateNames,
     description: site.description,
     inLanguage: "en",
     publisher: { "@id": organizationId },
@@ -100,6 +109,7 @@ export function serviceSchema() {
     name: site.name,
     url: siteUrl,
     email: site.email,
+    telephone: whatsapp.e164,
     description: site.description,
     address: postalAddress(),
     provider: { "@id": organizationId },

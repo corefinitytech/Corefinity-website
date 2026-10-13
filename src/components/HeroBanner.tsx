@@ -114,17 +114,25 @@ export default function HeroBanner() {
             <span className="text-ink/60"> / </span>
             {String(slides.length).padStart(2, "0")}
           </span>
-          <span className="flex items-center gap-1.5">
+          {/* The dots stay small, but each button is a 24px tap target so a
+              thumb can hit them. */}
+          <span className="flex items-center">
             {slides.map((s, i) => (
               <button
                 key={s.label}
                 onClick={() => setIndex(i)}
                 aria-label={`Show ${s.label}`}
                 aria-current={i === index}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === index ? "w-5 bg-ink" : "w-1.5 bg-ink/20 hover:bg-ink/40"
-                }`}
-              />
+                className="group grid h-6 min-w-6 place-items-center"
+              >
+                <span
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === index
+                      ? "w-5 bg-ink"
+                      : "w-1.5 bg-ink/20 group-hover:bg-ink/40"
+                  }`}
+                />
+              </button>
             ))}
           </span>
         </div>

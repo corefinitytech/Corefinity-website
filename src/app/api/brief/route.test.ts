@@ -1,4 +1,12 @@
+// @vitest-environment node
+// The route runs in Node, and multipart parsing needs Node's own FormData and
+// File rather than the jsdom versions.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+const sendMail = vi.fn();
+vi.mock("nodemailer", () => ({
+  default: { createTransport: vi.fn(() => ({ sendMail })) },
+}));
 
 import { POST } from "./route";
 
@@ -25,10 +33,19 @@ const valid = {
   overview: "A booking portal for a chain of clinics.",
 };
 
+function configureMailbox() {
+  process.env.SMTP_HOST = "mail.privateemail.com";
+  process.env.SMTP_USER = "hello@corefinity.tech";
+  process.env.SMTP_PASS = "test-password";
+}
+
 beforeEach(() => {
   vi.spyOn(console, "error").mockImplementation(() => {});
-  delete process.env.RESEND_API_KEY;
-  delete process.env.BRIEF_FROM_EMAIL;
+  sendMail.mockReset();
+  delete process.env.SMTP_HOST;
+  delete process.env.SMTP_USER;
+  delete process.env.SMTP_PASS;
+  delete process.env.BRIEF_TO_EMAIL;
 });
 
 afterEach(() => {
@@ -69,58 +86,109 @@ describe("validation", () => {
 
 describe("honeypot", () => {
   it("answers ok without sending when the hidden field is filled", async () => {
-    const fetchSpy = vi.spyOn(globalThis, "fetch");
+    configureMailbox();
     const res = await post({ ...valid, company_website: "spam.example" });
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ ok: true });
-    // Nothing must reach the provider, and the bot must not learn it failed.
-    expect(fetchSpy).not.toHaveBeenCalled();
+    // Nothing must reach the mailbox, and the bot must not learn it failed.
+    expect(sendMail).not.toHaveBeenCalled();
   });
 });
 
 describe("delivery", () => {
-  it("returns 503 rather than pretending, when no provider is configured", async () => {
+  it("returns 503 rather than pretending, when no mailbox is configured", async () => {
     const res = await post(valid);
     expect(res.status).toBe(503);
+    expect(sendMail).not.toHaveBeenCalled();
   });
 
-  it("sends through the provider and sets reply to the enquirer", async () => {
-    process.env.RESEND_API_KEY = "test-key";
-    process.env.BRIEF_FROM_EMAIL = "briefs@corefinity.tech";
-    const fetchSpy = vi
-      .spyOn(globalThis, "fetch")
-      .mockResolvedValue(new Response("{}", { status: 200 }));
+  it("mails the brief from the mailbox to itself, replying to the enquirer", async () => {
+    configureMailbox();
+    sendMail.mockResolvedValue({});
 
     const res = await post(valid);
     expect(res.status).toBe(200);
 
-    const [, init] = fetchSpy.mock.calls[0];
-    const sent = JSON.parse(String(init?.body));
-    expect(sent.reply_to).toBe(valid.email);
+    const sent = sendMail.mock.calls[0][0];
+    expect(sent.from.address).toBe("hello@corefinity.tech");
+    expect(sent.to).toBe("hello@corefinity.tech");
+    expect(sent.replyTo.address).toBe(valid.email);
     expect(sent.subject).toContain(valid.projectType);
   });
 
+  it("starts every subject with the prefix inbox rules filter on", async () => {
+    configureMailbox();
+    sendMail.mockResolvedValue({});
+    await post(valid);
+    expect(sendMail.mock.calls[0][0].subject).toMatch(/^\[Website Brief\] /);
+  });
+
   it("escapes HTML so a brief cannot inject markup into the email", async () => {
-    process.env.RESEND_API_KEY = "test-key";
-    process.env.BRIEF_FROM_EMAIL = "briefs@corefinity.tech";
-    const fetchSpy = vi
-      .spyOn(globalThis, "fetch")
-      .mockResolvedValue(new Response("{}", { status: 200 }));
+    configureMailbox();
+    sendMail.mockResolvedValue({});
 
     await post({ ...valid, name: '<img src=x onerror="alert(1)">' });
-    const sent = JSON.parse(String(fetchSpy.mock.calls[0][1]?.body));
+    const sent = sendMail.mock.calls[0][0];
     expect(sent.html).not.toContain("<img");
     expect(sent.html).toContain("&lt;img");
   });
 
-  it("reports a provider failure instead of claiming success", async () => {
-    process.env.RESEND_API_KEY = "test-key";
-    process.env.BRIEF_FROM_EMAIL = "briefs@corefinity.tech";
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(
-      new Response("nope", { status: 500 }),
-    );
+  it("reports a mail server failure instead of claiming success", async () => {
+    configureMailbox();
+    sendMail.mockRejectedValue(new Error("535 Authentication failed"));
     const res = await post(valid);
     expect(res.status).toBe(502);
+  });
+});
+
+describe("spec sheet upload", () => {
+  let n = 0;
+  function postForm(fields: Record<string, string>, file?: File) {
+    n += 1;
+    const form = new FormData();
+    for (const [k, v] of Object.entries(fields)) form.set(k, v);
+    if (file) form.set("spec", file);
+    return POST(
+      new Request("http://localhost/api/brief", {
+        method: "POST",
+        headers: { "x-forwarded-for": `10.9.0.${n}` },
+        body: form,
+      }),
+    );
+  }
+
+  it("attaches a spec sheet and includes the device answer", async () => {
+    configureMailbox();
+    sendMail.mockResolvedValue({});
+    const pdf = new File(["%PDF-1.4 test"], "wristband spec.pdf", {
+      type: "application/pdf",
+    });
+    const res = await postForm({ ...valid, device: "BLE wristband" }, pdf);
+    expect(res.status).toBe(200);
+    const sent = sendMail.mock.calls[0][0];
+    expect(sent.attachments).toHaveLength(1);
+    expect(sent.attachments[0].filename).toBe("wristband spec.pdf");
+    expect(sent.text).toContain("BLE wristband");
+  });
+
+  it("rejects a file over 4 MB", async () => {
+    configureMailbox();
+    const big = new File([new Uint8Array(4 * 1024 * 1024 + 1)], "big.pdf", {
+      type: "application/pdf",
+    });
+    const res = await postForm(valid, big);
+    expect(res.status).toBe(400);
+    expect(sendMail).not.toHaveBeenCalled();
+  });
+
+  it("rejects a file type that is not a document or image", async () => {
+    configureMailbox();
+    const exe = new File(["MZ"], "setup.exe", {
+      type: "application/x-msdownload",
+    });
+    const res = await postForm(valid, exe);
+    expect(res.status).toBe(400);
+    expect(sendMail).not.toHaveBeenCalled();
   });
 });
 

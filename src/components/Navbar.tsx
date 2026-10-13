@@ -21,16 +21,28 @@ import Brand from "./Brand";
 type NavLink = { label: string; id: string; href?: string };
 
 const links: NavLink[] = [
-  { label: "Services", id: "solutions", href: "/services" },
-  { label: "About", id: "process" },
-  { label: "Why us", id: "expertise" },
-  { label: "Case studies", id: "case-studies", href: "/case-studies" },
-  // No href: this one scrolls to the blog section on the home page. The full
-  // blog lives behind the "View more articles" link inside that section.
-  { label: "Blogs", id: "blog" },
+  // Two home page sections first, as the redesign brief orders them, then the
+  // two links with pages of their own. The ids drive the scroll-spy pill.
+  { label: "How it works", id: "how-it-works", href: "/#how-it-works" },
+  { label: "What we build", id: "what-we-build", href: "/#what-we-build" },
+  { label: "Work", id: "fuelsec", href: "/case-studies" },
+  { label: "About", id: "about", href: "/about" },
 ];
 
-export default function Navbar() {
+// Without real case studies the page is a 404, so the nav leaves it out.
+// Both arrays are module constants, so the effects below see a stable value.
+const linksWithoutCaseStudies = links.filter((l) => l.href !== "/case-studies");
+
+/**
+ * showCaseStudies comes from the server layout, which can read the case study
+ * list without shipping that content to the browser in this client bundle.
+ */
+export default function Navbar({
+  showCaseStudies,
+}: {
+  showCaseStudies: boolean;
+}) {
+  const navLinks = showCaseStudies ? links : linksWithoutCaseStudies;
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -59,7 +71,7 @@ export default function Navbar() {
   useEffect(() => {
     if (!isHome) return;
 
-    const sections = links
+    const sections = navLinks
       .map((l, i) => {
         const el = document.getElementById(l.id);
         return el ? { el, i } : null;
@@ -90,7 +102,7 @@ export default function Navbar() {
 
     sections.forEach((s) => observer.observe(s.el));
     return () => observer.disconnect();
-  }, [isHome]);
+  }, [isHome, navLinks]);
 
   const measure = useCallback(() => {
     const el = target === null ? null : itemRefs.current[target];
@@ -161,7 +173,7 @@ export default function Navbar() {
         <Link
           href="/"
           className="flex shrink-0 items-center"
-          aria-label="CoreFinity home"
+          aria-label="CoreFinity Tech home"
         >
           <Brand className="h-7 w-auto" priority />
         </Link>
@@ -187,7 +199,7 @@ export default function Navbar() {
           />
 
           <ul ref={listRef} className="relative z-10 flex items-center gap-1">
-            {links.map((l, i) => (
+            {navLinks.map((l, i) => (
               <li key={l.label}>
                 <Link
                   ref={(el) => {
@@ -213,7 +225,7 @@ export default function Navbar() {
             href="/contact"
             className="rounded-full bg-ink px-5 py-2.5 text-[13px] font-medium text-white transition hover:bg-ink/85"
           >
-            Get a Quote
+            Talk to an engineer
           </Link>
           <button
             ref={menuButtonRef}
@@ -237,7 +249,7 @@ export default function Navbar() {
           className="mx-auto mt-2 max-w-7xl rounded-3xl border border-black/5 bg-white p-3 shadow-xl lg:hidden"
         >
           <ul className="grid gap-1">
-            {links.map((l) => (
+            {navLinks.map((l) => (
               <li key={l.label}>
                 <Link
                   href={l.href ?? `/#${l.id}`}
@@ -254,7 +266,7 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 className="mt-1 block rounded-2xl bg-ink px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-ink/85"
               >
-                Get a Quote
+                Talk to an engineer
               </Link>
             </li>
           </ul>

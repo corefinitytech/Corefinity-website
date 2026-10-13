@@ -45,3 +45,6 @@ analyze/
 
 # ad-hoc local visual QA scripts and their screenshots
 .qa-scripts/
+
+# Hairline figure test workspace. The site ships its own copies in public/hairline.
+/corefinity-figures/

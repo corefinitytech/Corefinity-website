@@ -4,33 +4,36 @@ import Link from "next/link";
 import Check from "@/components/Check";
 import JsonLd from "@/components/JsonLd";
 import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
+import { SocialIcon } from "@/components/SocialIcons";
 import { ArrowRight } from "@/components/icons";
 import { breadcrumbSchema, graph } from "@/lib/schema";
-import { services } from "@/lib/services";
+import { deviceServices } from "@/lib/devices";
 import {
   address,
   founders,
+  foundersPublic,
+  openGraphDefaults,
   site,
   siteUrl,
   socialLinks,
 } from "@/lib/site";
 
-const title = "About Corefinity: Who We Are and How We Work";
+const title = "About Us: Who We Are and How We Work";
 const description =
-  "Corefinity is a custom software company in Islamabad, founded by Maarij Bukhari, Muhammad Sohaib and Syed M Taha, working remotely with clients worldwide.";
+  "CoreFinity Tech is a software company in Islamabad building the app, cloud and admin software for connected devices, working with hardware teams worldwide.";
 
 export const metadata: Metadata = {
   title,
   description,
   keywords: [
-    "about Corefinity",
+    "about CoreFinity Tech",
     "CoreFinity Tech",
     "software development company Islamabad",
     "custom software team Pakistan",
-    "Corefinity founders",
   ],
   alternates: { canonical: "/about" },
   openGraph: {
+    ...openGraphDefaults,
     title: `${title} | ${site.name}`,
     description,
     url: "/about",
@@ -109,8 +112,7 @@ export default function AboutPage() {
 
           <div className="mt-8 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="max-w-3xl text-[clamp(2.25rem,5.6vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.035em] text-ink">
-              <H1Eyebrow>About Corefinity</H1Eyebrow>
-              A small team building{" "}
+              <H1Eyebrow>About CoreFinity Tech</H1Eyebrow>A small team building{" "}
               <span className="bg-gradient-to-r from-deep via-accent to-sky bg-clip-text text-transparent">
                 software worth owning.
               </span>
@@ -118,16 +120,16 @@ export default function AboutPage() {
 
             <div className="w-full max-w-sm shrink-0 lg:pb-3">
               <p className="text-sm leading-relaxed text-ink/65">
-                Corefinity builds custom web platforms, AI assistants, mobile
-                apps and automation for businesses that have outgrown the tools
-                they started with. We are based in Islamabad and work remotely
-                with clients across the world.
+                CoreFinity Tech builds the app, cloud and admin software for
+                connected devices, and the web platforms and dashboards around
+                them. We are based in Islamabad and work remotely with hardware
+                teams across the world.
               </p>
               <Link
                 href="/contact"
                 className="group mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-white transition hover:bg-ink/85"
               >
-                Get a quote
+                Talk to an engineer
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
@@ -164,31 +166,30 @@ export default function AboutPage() {
               ( Why we exist )
             </p>
             <h2 className="mt-4 max-w-md text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-              Most software problems start as{" "}
+              A working prototype is not{" "}
               <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                business problems.
+                a product yet.
               </span>
             </h2>
           </div>
 
           <div className="grid gap-5">
             <p className="text-[15px] leading-relaxed text-ink/70">
-              Almost every project we are asked about starts the same way.
-              Something that worked fine at the beginning has stopped fitting.
-              A spreadsheet runs a process nobody fully understands any more.
-              Four subscriptions hold four pieces of the same job, and somebody
-              retypes data between them every morning.
+              Almost every project we are asked about starts the same way. The
+              device works on the bench, and the hardware team has done the hard
+              part. What is missing is everything around it: the app people pair
+              it with, the cloud that stores what it sends, and the panel that
+              shows a whole fleet at once.
             </p>
             <p className="text-[15px] leading-relaxed text-ink/70">
-              Off the shelf tools are good at the common case and poor at the
-              one thing that makes a business different. That last part is
-              usually where the money is, and it is usually the part no product
-              will bend to fit. Custom software is worth it exactly there, and
-              rarely anywhere else. We will tell you when a cheaper tool would
-              do the job.
+              That software decides how the product feels. Connections that
+              drop, readings that go missing and a cloud bill nobody planned for
+              are what customers remember, long after the hardware is forgotten.
+              We build that side properly, beside your hardware team, and with
+              our own firmware engineers when you need them.
             </p>
             <p className="text-[15px] leading-relaxed text-ink/70">
-              So we keep the work narrow and the price fixed. You should be
+              So we keep the work focused and the price fixed. You should be
               able to see what you are buying before you commit to it, and own
               every part of it afterwards.
             </p>
@@ -196,62 +197,65 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* The founders */}
-      <section className="px-4 pb-20 sm:px-6 sm:pb-24">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
-            ( The team )
-          </p>
-          <div className="mt-4 flex flex-wrap items-end justify-between gap-6">
-            <h2 className="max-w-2xl text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
-              Founded and run by{" "}
-              <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
-                three people
-              </span>
-            </h2>
-            <p className="max-w-sm text-sm leading-relaxed text-ink/65">
-              You deal with the people who build the work. There is no account
-              manager relaying messages between you and a developer.
+      {/* The founders. Hidden while the company is in stealth; see
+          foundersPublic in lib/site.ts. */}
+      {foundersPublic && (
+        <section className="px-4 pb-20 sm:px-6 sm:pb-24">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-ink/60">
+              ( The team )
             </p>
-          </div>
+            <div className="mt-4 flex flex-wrap items-end justify-between gap-6">
+              <h2 className="max-w-2xl text-[clamp(1.75rem,3.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.03em] text-ink">
+                Founded and run by{" "}
+                <span className="bg-gradient-to-r from-deep to-sky bg-clip-text text-transparent">
+                  three people
+                </span>
+              </h2>
+              <p className="max-w-sm text-sm leading-relaxed text-ink/65">
+                You deal with the people who build the work. There is no account
+                manager relaying messages between you and a developer.
+              </p>
+            </div>
 
-          <ul className="mt-10 grid gap-3 md:grid-cols-3">
-            {founders.map((person, i) => (
-              <li
-                key={person.name}
-                className="group overflow-hidden rounded-[24px] border border-black/[0.08] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/[0.06]"
-              >
-                <div
-                  className={`relative grid h-48 place-items-center overflow-hidden ${
-                    monograms[i % monograms.length]
-                  }`}
+            <ul className="mt-10 grid gap-3 md:grid-cols-3">
+              {founders.map((person, i) => (
+                <li
+                  key={person.name}
+                  className="group overflow-hidden rounded-[24px] border border-black/[0.08] bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/[0.06]"
                 >
                   <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 opacity-[0.14] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:36px_36px]"
-                  />
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute -right-14 -top-16 size-52 rounded-full bg-sky/25 blur-3xl transition duration-500 group-hover:bg-sky/40"
-                  />
-                  <span
-                    aria-hidden
-                    className="relative text-[clamp(2.5rem,5vw,3.25rem)] font-medium tracking-tight text-white"
+                    className={`relative grid h-48 place-items-center overflow-hidden ${
+                      monograms[i % monograms.length]
+                    }`}
                   >
-                    {initials(person.name)}
-                  </span>
-                </div>
-                <div className="p-6">
-                  <p className="text-lg font-medium tracking-[-0.02em] text-ink">
-                    {person.name}
-                  </p>
-                  <p className="mt-1 text-[13px] text-ink/60">Co founder</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 opacity-[0.14] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:36px_36px]"
+                    />
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute -right-14 -top-16 size-52 rounded-full bg-sky/25 blur-3xl transition duration-500 group-hover:bg-sky/40"
+                    />
+                    <span
+                      aria-hidden
+                      className="relative text-[clamp(2.5rem,5vw,3.25rem)] font-medium tracking-tight text-white"
+                    >
+                      {initials(person.name)}
+                    </span>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-lg font-medium tracking-[-0.02em] text-ink">
+                      {person.name}
+                    </p>
+                    <p className="mt-1 text-[13px] text-ink/60">Co founder</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       {/* How we work */}
       <section className="px-4 pb-12 sm:px-6">
@@ -360,8 +364,9 @@ export default function AboutPage() {
                       href={l.href}
                       target="_blank"
                       rel="me noopener noreferrer"
-                      className="text-sm font-medium text-white/70 transition hover:text-white"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-white/70 transition hover:text-white"
                     >
+                      <SocialIcon network={l.label} className="size-3.5" />
                       {l.label}
                     </a>
                   </li>
@@ -374,13 +379,13 @@ export default function AboutPage() {
                 ( What we build )
               </p>
               <ul className="mt-6 grid gap-2 sm:grid-cols-2">
-                {services.map((s) => (
-                  <li key={s.slug}>
+                {deviceServices.map((s) => (
+                  <li key={s.name}>
                     <Link
-                      href={`/services/${s.slug}`}
+                      href={s.href}
                       className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-[13px] transition hover:border-white/30"
                     >
-                      {s.navLabel}
+                      {s.name}
                       <ArrowRight className="ml-auto size-3.5 shrink-0 text-white/50 transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
                   </li>
@@ -413,7 +418,7 @@ export default function AboutPage() {
               href="/contact"
               className="group inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85 sm:w-auto sm:justify-self-start lg:justify-self-end"
             >
-              Get a quote
+              Talk to an engineer
               <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>

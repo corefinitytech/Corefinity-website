@@ -17,6 +17,15 @@
 
   --animate-marquee: marquee 26s linear infinite;
   --animate-marquee-reverse: marquee-reverse 26s linear infinite;
+  /* A data packet travelling along one hop of the hero's device line. */
+  --animate-packet: packet 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+
+  @keyframes packet {
+    0% { left: 0%; opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+  }
 
   @keyframes marquee {
     from { transform: translateX(0); }

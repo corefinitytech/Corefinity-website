@@ -40,15 +40,7 @@ function whenNearViewport<P extends object>(Effect: ComponentType<P>) {
   return Deferred;
 }
 
-// ShaderCanvas and ContourDome gate themselves on visibility already.
-export const LiquidSilkBackground = dynamic(() => import("./LiquidSilk"), {
-  ssr: false,
-});
-
-export const GlowingRingBackground = dynamic(() => import("./GlowingRing"), {
-  ssr: false,
-});
-
+// ContourDome gates itself on visibility already.
 export const ContourDomeBackground = dynamic(() => import("./ContourDome"), {
   ssr: false,
 });
@@ -63,10 +55,6 @@ export const MoltenMetalBackground = whenNearViewport(
 
 export const GradientWavesBackground = whenNearViewport(
   dynamic(() => import("./GradientWaves"), { ssr: false }),
-);
-
-export const OrbParticlesBackground = whenNearViewport(
-  dynamic(() => import("./OrbParticles"), { ssr: false }),
 );
 
 export const GradientBlindsBackground = whenNearViewport(

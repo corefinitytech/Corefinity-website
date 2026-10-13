@@ -39,7 +39,7 @@ export default function Marquee() {
       aria-hidden
       className="relative isolate my-12 grid grid-cols-1 gap-14 overflow-hidden py-10 sm:my-20"
     >
-      <div className="w-[120%] min-w-0 -translate-x-[10%] -rotate-[1.8deg] bg-accent py-5 text-white">
+      <div className="w-[120%] min-w-0 -translate-x-[10%] -rotate-[1.8deg] bg-accent-ink py-5 text-white">
         <div className="flex min-w-0 overflow-hidden">
           <Track />
         </div>

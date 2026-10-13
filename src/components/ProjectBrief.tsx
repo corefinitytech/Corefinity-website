@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import Check from "./Check";
 import { ArrowRight } from "./icons";
-import { site } from "@/lib/site";
+import { site, whatsapp } from "@/lib/site";
 
 /**
  * Closing CTA band. The brief form itself lives on /contact, so this section
@@ -76,6 +76,15 @@ export default function ProjectBrief() {
                   className="font-medium text-ink/70 underline underline-offset-4 transition hover:text-accent-ink"
                 >
                   {site.email}
+                </a>{" "}
+                or{" "}
+                <a
+                  href={whatsapp.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-ink/70 underline underline-offset-4 transition hover:text-accent-ink"
+                >
+                  WhatsApp
                 </a>
               </p>
             </div>

@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import FaqAccordion from "@/components/FaqAccordion";
 import JsonLd from "@/components/JsonLd";
 import { Breadcrumbs, H1Eyebrow } from "@/components/PageHeading";
+import HairlineFigure from "@/components/hairline/HairlineFigure";
 import { diagrams } from "@/components/blog/Diagrams";
 import { ArrowRight, Bolt, FileLines } from "@/components/icons";
 import {
@@ -16,7 +17,7 @@ import {
 } from "@/lib/blog";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService, type ServicePage } from "@/lib/services";
-import { site, siteUrl } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -41,17 +42,23 @@ export async function generateMetadata({
     keywords: post.keywords,
     alternates: { canonical: url },
     openGraph: {
+      ...openGraphDefaults,
       type: "article",
       title: `${post.title} | ${site.name}`,
       description: post.description,
       url,
       publishedTime: post.datePublished,
       authors: [site.name],
+      // The post's figure at rest, exported as a still.
+      images: [
+        { url: post.cover.og, width: 1200, height: 630, alt: post.cover.alt },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${post.title} | ${site.name}`,
       description: post.description,
+      images: [post.cover.og],
     },
   };
 }
@@ -122,8 +129,14 @@ function Block({ block }: { block: BlogBlock }) {
           </p>
           <ul className="mt-5 grid gap-3">
             {block.items.map((item) => (
-              <li key={item} className="flex gap-3 text-[15px] leading-relaxed text-ink/75">
-                <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+              <li
+                key={item}
+                className="flex gap-3 text-[15px] leading-relaxed text-ink/75"
+              >
+                <span
+                  aria-hidden
+                  className="mt-2 size-1.5 shrink-0 rounded-full bg-accent"
+                />
                 {item}
               </li>
             ))}
@@ -158,7 +171,7 @@ function Block({ block }: { block: BlogBlock }) {
           </div>
           <figcaption className="mt-3 text-[13px] leading-relaxed text-ink/60">
             {block.caption}
-            <span className="mt-1 block text-ink/45 sm:hidden">
+            <span className="mt-1 block text-ink/60 sm:hidden">
               Scroll sideways to see the whole diagram.
             </span>
           </figcaption>
@@ -319,24 +332,22 @@ export default async function BlogPostPage({
           <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
             <div>
               <p className="text-[11px] uppercase tracking-[0.2em] text-white/50">
-                ( Before the busy day )
+                ( {post.cta.eyebrow} )
               </p>
               <h2 className="mt-5 max-w-md text-[clamp(1.75rem,3.6vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.03em]">
-                Find out where your system{" "}
+                {post.cta.lead}{" "}
                 <span className="bg-gradient-to-r from-accent to-sky bg-clip-text text-transparent">
-                  gives way first.
+                  {post.cta.accent}
                 </span>
               </h2>
               <p className="mt-5 max-w-md text-sm leading-relaxed text-white/65">
-                Send a short brief about what you have running today. You get a
-                written view of the current limits, the likely bottleneck and
-                what it would take to raise the ceiling, within 48 hours.
+                {post.cta.line}
               </p>
               <Link
                 href="/contact"
                 className="group mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-[13px] font-medium text-ink transition hover:bg-white/90"
               >
-                Ask for a capacity review
+                {post.cta.button}
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
@@ -382,7 +393,7 @@ export default async function BlogPostPage({
             dateModified: post.datePublished,
             url,
             mainEntityOfPage: url,
-            image: `${url}/opengraph-image`,
+            image: `${siteUrl}${post.cover.og}`,
             inLanguage: "en",
             wordCount: readingMinutes(post) * 200,
             author: { "@id": `${siteUrl}/#organization` },

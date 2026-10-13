@@ -10,7 +10,7 @@ import { ArrowRight } from "@/components/icons";
 import { caseStudiesFor } from "@/lib/caseStudies";
 import { breadcrumbSchema, graph } from "@/lib/schema";
 import { getService, relatedTo, services } from "@/lib/services";
-import { site, siteUrl } from "@/lib/site";
+import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 /** Every service page is known at build time, so all of them prerender. */
 export function generateStaticParams() {
@@ -36,6 +36,7 @@ export async function generateMetadata({
     description: service.description,
     alternates: { canonical: `/services/${service.slug}` },
     openGraph: {
+      ...openGraphDefaults,
       title: `${service.title} | ${site.name}`,
       description: service.description,
       url: `/services/${service.slug}`,
@@ -95,7 +96,7 @@ export default async function ServicePage({
                 href="/contact"
                 className="group mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-ink px-5 text-[13px] font-medium text-white transition hover:bg-ink/85"
               >
-                Get a quote
+                Talk to an engineer
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
@@ -130,7 +131,7 @@ export default async function ServicePage({
             {service.covers.map((c, i) => (
               <article
                 key={c.title}
-                className={`group relative isolate flex flex-col overflow-hidden rounded-[20px] p-6 pb-16 text-white transition duration-300 hover:-translate-y-0.5 ${
+                className={`relative isolate flex flex-col overflow-hidden rounded-[20px] p-6 text-white ${
                   surfaces[i % surfaces.length]
                 }`}
               >
@@ -140,7 +141,6 @@ export default async function ServicePage({
                 <p className="mt-3 text-[13px] leading-relaxed text-white/75">
                   {c.body}
                 </p>
-                <CardNotch />
               </article>
             ))}
           </div>
@@ -369,7 +369,7 @@ export default async function ServicePage({
                 href="/contact"
                 className="group mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-[13px] font-medium text-white transition hover:bg-ink/85"
               >
-                Get a quote
+                Talk to an engineer
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
