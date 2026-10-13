@@ -33,7 +33,8 @@ describe("case study data", () => {
       expect(c.challenge.length).toBeGreaterThan(0);
       expect(c.approach.length).toBeGreaterThan(0);
       expect(c.built.length).toBeGreaterThanOrEqual(4);
-      expect(c.phases.length).toBeGreaterThanOrEqual(3);
+      // Stages are optional: a study without them on record drops the section.
+      if (c.phases.length) expect(c.phases.length).toBeGreaterThanOrEqual(3);
       expect(c.results.length).toBeGreaterThanOrEqual(3);
       expect(c.stack.length).toBeGreaterThanOrEqual(3);
     }
@@ -106,6 +107,29 @@ describe("copy rules", () => {
     expect(prose.filter((p) => /[A-Za-z]{2,}-[A-Za-z]{2,}/.test(p))).toEqual(
       [],
     );
+  });
+});
+
+describe("claims", () => {
+  it("leads with FuelSec", () => {
+    expect(caseStudies[0]?.slug).toBe("fuelsec-iot-fuel-monitoring");
+  });
+
+  it("attributes every revenue figure to whoever reported it", () => {
+    for (const c of caseStudies) {
+      const lines = [...c.results, ...c.metrics.map((m) => m.label)];
+      for (const line of lines.filter((l) => /revenue/i.test(l))) {
+        expect(line, c.slug).toMatch(/reported/i);
+      }
+    }
+  });
+
+  it("never shows a quote without words and a name behind it", () => {
+    for (const c of caseStudies) {
+      if (!c.quote) continue;
+      expect(c.quote.text.trim().length).toBeGreaterThan(0);
+      expect(c.quote.name.trim().length).toBeGreaterThan(0);
+    }
   });
 });
 

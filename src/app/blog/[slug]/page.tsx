@@ -50,7 +50,9 @@ export async function generateMetadata({
       publishedTime: post.datePublished,
       authors: [site.name],
       // The post's figure at rest, exported as a still.
-      images: [{ url: post.cover.og, width: 1200, height: 630, alt: post.cover.alt }],
+      images: [
+        { url: post.cover.og, width: 1200, height: 630, alt: post.cover.alt },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -301,30 +303,28 @@ export default async function BlogPostPage({
         </section>
       )}
 
-      {/* Where to go next */}
+      {/* Where to go next: an offer and services that match this article */}
       <section className="px-4 pb-12 sm:px-6">
         <div className="mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-ink px-6 py-16 text-white sm:px-12 sm:py-20">
           <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
             <div>
               <p className="text-[11px] uppercase tracking-[0.2em] text-white/50">
-                ( Before the busy day )
+                ( {post.cta.eyebrow} )
               </p>
               <h2 className="mt-5 max-w-md text-[clamp(1.75rem,3.6vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.03em]">
-                Find out where your system{" "}
+                {post.cta.lead}{" "}
                 <span className="bg-gradient-to-r from-accent to-sky bg-clip-text text-transparent">
-                  gives way first.
+                  {post.cta.accent}
                 </span>
               </h2>
               <p className="mt-5 max-w-md text-sm leading-relaxed text-white/65">
-                Send a short brief about what you have running today. You get a
-                written view of the current limits, the likely bottleneck and
-                what it would take to raise the ceiling, within 48 hours.
+                {post.cta.line}
               </p>
               <Link
                 href="/contact"
                 className="group mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-[13px] font-medium text-ink transition hover:bg-white/90"
               >
-                Ask for a capacity review
+                {post.cta.button}
                 <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>

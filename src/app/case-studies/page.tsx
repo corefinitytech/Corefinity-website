@@ -17,7 +17,7 @@ import { openGraphDefaults, site, siteUrl } from "@/lib/site";
 
 const title = "Case Studies: Devices, Apps and Web";
 const description =
-  "CoreFinity Tech case studies, starting with IELTS Counsel: an IELTS online practice platform with an AI writing checker and Easypaisa checkout.";
+  "CoreFinity Tech case studies: FuelSec, an IoT fuel monitoring system built from firmware to admin panel, and the platforms and dashboards behind other businesses.";
 
 export const metadata: Metadata = {
   title,

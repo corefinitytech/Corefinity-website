@@ -4,17 +4,22 @@ import CardNotch, { CardAction } from "./CardNotch";
 import CoverPlate from "./blog/CoverPlate";
 import { ArrowRight } from "./icons";
 import { postsByDate, readingMinutes } from "@/lib/blog";
+import { hardParts } from "@/lib/devices";
 import { getService } from "@/lib/services";
 
 /**
- * The three most recent articles, on the home page.
+ * The most recent articles, on the home page, leaving out the ones "The hard
+ * parts" already links to higher up, so every article appears on the page once.
  *
- * One card per article, all the same shape. With a single article published
- * the row simply holds one card rather than padding the space out.
+ * One card per article, all the same shape. With a single article left the
+ * row simply holds one card rather than padding the space out.
  */
 
 export default function BlogTeaser() {
-  const latest = postsByDate().slice(0, 3);
+  const shown = new Set(hardParts.notes.map((n) => n.link.href));
+  const latest = postsByDate()
+    .filter((p) => !shown.has(`/blog/${p.slug}`))
+    .slice(0, 3);
   if (!latest.length) return null;
 
   return (
@@ -52,7 +57,7 @@ export default function BlogTeaser() {
                 figure={post.cover.figure}
                 alt={post.cover.alt}
                 className="flex aspect-[3/2] items-end p-4"
-                              >
+              >
                 <div className="relative flex w-full items-end justify-between gap-4">
                   <span className="rounded-full border border-black/10 bg-white/80 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-ink/75 backdrop-blur-sm">
                     {post.topic}

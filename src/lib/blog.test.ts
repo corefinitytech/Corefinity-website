@@ -25,6 +25,7 @@ function prose(): string[] {
       return [b.text];
     }),
     ...p.faqs.flatMap((f) => [f.q, f.a]),
+    ...Object.values(p.cta),
   ]);
 }
 
@@ -90,6 +91,17 @@ describe("blog data", () => {
         expect(existsSync(path.join(process.cwd(), "public", f)), f).toBe(true);
       }
     }
+  });
+
+  it("ends every post with its own call to action", () => {
+    for (const p of posts) {
+      for (const v of Object.values(p.cta))
+        expect(v.trim().length, p.slug).toBeGreaterThan(0);
+    }
+    expect(new Set(posts.map((p) => p.cta.button)).size).toBe(posts.length);
+    expect(new Set(posts.map((p) => p.cta.lead + p.cta.accent)).size).toBe(
+      posts.length,
+    );
   });
 
   it("gives every post a figure of its own", () => {

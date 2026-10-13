@@ -29,6 +29,7 @@ export default function FuelSec() {
             <FilmPlayer
               videoId={fuelsec.film.videoId}
               poster={fuelsec.film.poster}
+              posterAlt={fuelsec.film.posterAlt}
               title={fuelsec.film.title}
               duration={fuelsec.film.duration}
             />

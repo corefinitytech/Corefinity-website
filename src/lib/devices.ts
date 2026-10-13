@@ -204,6 +204,8 @@ export const fuelsec = {
     description:
       "A fuel pump shows 20 litres, but a hidden chip means the tank got less. FuelSec measures every fill twice at the nozzle and flags the gap. Running now as a pilot, built end to end by CoreFinity Tech.",
     poster: "/video/fuelsec-film-poster.webp",
+    posterAlt:
+      "A fuel nozzle in its pump holster at a station at night, fitted with a small black FuelSec device showing a blue status light.",
     duration: "4 min",
     iso: "PT4M10S",
     uploaded: "2026-10-11",
@@ -342,13 +344,24 @@ export const partnership = {
 
 export const otherWork = {
   line: "The same team builds web platforms and dashboards. A few that are live.",
+  /**
+   * The one with a case study behind it. The result is the business's own,
+   * earned on the platform we built, and it is the founder's figure: keep it
+   * in PKR and keep the attribution.
+   */
+  feature: {
+    name: "IELTS Counsel",
+    href: "/case-studies/ieltscounsel",
+    result: "PKR 1M+ in revenue in the first two months after launch.",
+    note: "Reported by the founder, with no ad spend. We built the website, learning platform, backend and admin dashboard in 2 months.",
+    link: "Read the case study",
+  },
   names: [
-    { name: "IELTS Counsel", url: "https://ieltscounsel.com/" },
     { name: "Aeroflex", url: "https://www.aeroflex.pk/" },
-    { name: "Nordic Relocators", url: "http://nordicrelocators.no/" },
+    { name: "Nordic Relocators", url: "https://nordicrelocators.no/" },
     { name: "Sweden Relocators", url: "http://website.swedenrelocators.se/" },
     { name: "Relofy", url: "https://relofy.tech/" },
-    { name: "Future Concerns", url: "http://futureconcerns.eu/" },
+    { name: "Future Concerns", url: "https://futureconcerns.eu/" },
   ],
 };
 
